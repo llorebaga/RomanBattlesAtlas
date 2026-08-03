@@ -1,5 +1,8 @@
-allowBuilds:
-  esbuild: set this to true or false
-  sharp: set this to true or false
-  unrs-resolver: set this to true or false
-  workerd: set this to true or false
+# Dependencies explicitly approved to run install/build scripts. pnpm blocks
+# these by default as a supply-chain safeguard; listing them here acknowledges
+# them so `pnpm install` does not fail with ERR_PNPM_IGNORED_BUILDS.
+onlyBuiltDependencies:
+  - esbuild
+  - sharp
+  - unrs-resolver
+  - workerd
