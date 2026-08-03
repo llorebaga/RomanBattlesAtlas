@@ -59,8 +59,17 @@ const secondPunicEvents: HistoricalEvent[] = [
   { id: "e201", year: -201, title: "Carthage accepts terms", summary: "Carthage surrenders its fleet and Iberia, pays a large indemnity, and is barred from war without Roman consent.", certainty: "attested", war: "second-punic" },
 ];
 
+const macedonianEvents: HistoricalEvent[] = [
+  { id: "e200", year: -200, title: "Rome turns east", summary: "Barely out of the war with Carthage, Rome declares war on Philip V of Macedon.", certainty: "attested", war: "macedonian-second" },
+  { id: "e199", year: -199, title: "War in the passes", summary: "Roman forces probe Macedonia’s western frontier with little decisive result.", certainty: "probable", war: "macedonian-second" },
+  { id: "e198", year: -198, title: "Breakthrough at the Aous", summary: "Flamininus forces the Aoös gorge and pushes Philip back into Thessaly.", certainty: "attested", battleSlug: "aous", war: "macedonian-second" },
+  { id: "e197", year: -197, title: "Decision at Cynoscephalae", summary: "The legion defeats the phalanx; Philip sues for peace.", certainty: "attested", battleSlug: "cynoscephalae", war: "macedonian-second" },
+  { id: "e196", year: -196, title: "Freedom of the Greeks", summary: "At the Isthmian Games, Flamininus proclaims the Greek cities free — under Roman oversight.", certainty: "attested", war: "macedonian-second" },
+];
+
 export const historicalEvents: HistoricalEvent[] = [
   ...firstPunicEvents.map((event) => ({ ...event, war: "first-punic" })),
   ...interbellumEvents,
   ...secondPunicEvents,
+  ...macedonianEvents,
 ];

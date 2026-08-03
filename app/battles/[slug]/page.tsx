@@ -8,6 +8,7 @@ import { BattleTimeline } from "@/components/battles/BattleTimeline";
 import { SourceList } from "@/components/battles/SourceList";
 import { battles, getBattle } from "@/data/battles";
 import { getEra } from "@/data/wars";
+import { factionColor } from "@/data/factions";
 
 export function generateStaticParams() { return battles.map((battle) => ({ slug: battle.slug })); }
 
@@ -40,7 +41,7 @@ export default async function BattlePage({ params }: { params: Promise<{ slug: s
       </header>
       <div className="battle-content">
         <aside className="battle-rail">
-          <div className="rail-block"><span className="eyebrow">BELLIGERENTS</span>{battle.belligerents.map((name, index) => <p key={name}><i className={index === 0 ? "rome" : "carthage"} />{name}</p>)}</div>
+          <div className="rail-block"><span className="eyebrow">BELLIGERENTS</span>{battle.belligerents.map((name, index) => { const enemy = battle.commanders.find((group) => group.faction !== "rome")?.faction ?? "carthage"; const dotColor = factionColor(index === 0 ? "rome" : enemy); return <p key={name}><i style={{ background: dotColor }} />{name}</p>; })}</div>
           <div className="rail-block"><span className="eyebrow">COMMANDERS</span>{battle.commanders.map((group) => <div key={group.faction}><strong>{group.names.join(", ")}</strong><EvidenceBadge certainty={group.certainty} /></div>)}</div>
           <div className="rail-block"><span className="eyebrow">OUTCOME</span><strong>{battle.result}</strong><p>{battle.significance}</p></div>
         </aside>

@@ -12,6 +12,10 @@ export const sources: HistoricalSource[] = [
   { id: "appian-hann", kind: "ancient", citation: "Appian, Roman History: The Hannibalic War & The Punic Wars", note: "Later compilation preserving otherwise lost material." },
   { id: "lazenby-1978", kind: "modern", citation: "J. F. Lazenby, Hannibal’s War (1978)" },
   { id: "goldsworthy-2000", kind: "modern", citation: "Adrian Goldsworthy, The Fall of Carthage (2000)" },
+  { id: "polybius-18", kind: "ancient", citation: "Polybius, Histories, Book 18", note: "Principal account of Cynoscephalae and the settlement with Macedon." },
+  { id: "livy-31-33", kind: "ancient", citation: "Livy, Ab Urbe Condita, Books 31–33", note: "The fullest surviving narrative of the Second Macedonian War; pro-Roman." },
+  { id: "walbank-1940", kind: "modern", citation: "F. W. Walbank, Philip V of Macedon (1940)" },
+  { id: "eckstein-2008", kind: "modern", citation: "Arthur M. Eckstein, Rome Enters the Greek East (2008)" },
 ];
 
 export function sourcesByIds(ids: string[]): HistoricalSource[] {

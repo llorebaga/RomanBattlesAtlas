@@ -6,6 +6,9 @@ const commonModern = ["lazenby-1996", "hoyos-2015"];
 const secondAncient = ["polybius-3", "livy-21-30"];
 const secondModern = ["lazenby-1978", "goldsworthy-2000"];
 
+const macedonAncient = ["polybius-18", "livy-31-33"];
+const macedonModern = ["walbank-1940", "eckstein-2008"];
+
 const firstPunicWar: Battle[] = [
   {
     id: "messana", slug: "messana", name: "Battle of Messana", kind: "land", startYear: -264, endYear: -264, displayDate: "264 BCE", location: "Messana, north-eastern Sicily", coordinates: [15.55, 38.19], uncertainty: { radiusKm: 8, certainty: "probable", note: "The city is secure; the exact battlefield footprint is not." }, major: true,
@@ -164,9 +167,37 @@ const secondPunicWar: Battle[] = [
   },
 ];
 
+const macedonianWar: Battle[] = [
+  {
+    id: "aous", slug: "aous", name: "Battle of the Aous", kind: "land", startYear: -198, endYear: -198, displayDate: "198 BCE", location: "The Aoös (Vjosa) gorge, Epirus", coordinates: [20.2, 40.1], uncertainty: { radiusKm: 20, certainty: "disputed", note: "The river gorge is known; the precise point of the forced passage is debated." }, major: false,
+    belligerents: ["Roman Republic", "Macedon"], commanders: [{ faction: "rome", names: ["Titus Quinctius Flamininus"], certainty: "attested" }, { faction: "macedon", names: ["Philip V"], certainty: "attested" }], result: "Roman victory", summary: "Flamininus forced Philip’s fortified position blocking the Aoös gorge, compelling a Macedonian retreat into Thessaly.", significance: "The breakthrough opened Macedonia’s southern approaches and shifted the war’s momentum to Rome.", ancientSourceIds: macedonAncient, modernSourceIds: macedonModern, uncertaintyNotes: ["The precise point of the forced passage is debated.", "The role of a local guide is reported but hard to verify."], nextSlug: "cynoscephalae"
+  },
+  {
+    id: "cynoscephalae", slug: "cynoscephalae", name: "Battle of Cynoscephalae", kind: "land", startYear: -197, endYear: -197, displayDate: "197 BCE", location: "The Cynoscephalae (‘Dog’s Heads’) ridges, Thessaly", coordinates: [22.55, 39.42], uncertainty: { radiusKm: 15, certainty: "disputed", note: "The hill line is placed between Pherae and Scotussa, but not securely fixed." }, major: true,
+    belligerents: ["Roman Republic and allies", "Macedon"], commanders: [{ faction: "rome", names: ["Titus Quinctius Flamininus"], certainty: "attested" }, { faction: "macedon", names: ["Philip V"], certainty: "attested" }], result: "Decisive Roman victory", summary: "The Roman legions, exploiting broken ground and their flexibility, shattered Philip V’s phalanx and ended the war.", significance: "Cynoscephalae showed the manipular legion’s advantage over the phalanx on rough terrain and made Rome the arbiter of the Greek world.",
+    context: "Rome and Macedon had manoeuvred inconclusively until the two armies blundered into each other in fog on the ridges called the Dog’s Heads. The battle became the classic test of the Macedonian pike phalanx against the Roman manipular legion on ground that suited the legion.",
+    forces: [
+      { side: "Rome", estimate: "About 26,000, with Aetolian and allied cavalry and a few war elephants", certainty: "probable", note: "Totals follow Polybius and Livy." },
+      { side: "Macedon", estimate: "A comparable force built around the pike phalanx", certainty: "probable", note: "Exact numbers are uncertain." },
+    ],
+    casualties: [
+      { side: "Macedon", estimate: "Ancient sources report about 8,000 killed and 5,000 captured", certainty: "disputed", note: "Figures come through the literary tradition." },
+      { side: "Rome", estimate: "Reported as relatively light", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Meeting in the fog", description: "Advance guards collided unexpectedly on the wet heights; both sides fed in troops piecemeal.", certainty: "attested" },
+      { title: "The right phalanx charges", description: "Philip’s right, well formed on the high ground, drove the Roman left back.", certainty: "probable" },
+      { title: "Broken ground opens gaps", description: "Advancing downhill, the phalanx lost cohesion and its dense front fragmented.", certainty: "probable" },
+      { title: "A tribune turns the flank", description: "An unnamed tribune wheeled maniples from the victorious Roman right into the phalanx’s exposed rear.", certainty: "attested" },
+    ],
+    ancientSourceIds: macedonAncient, modernSourceIds: macedonModern, uncertaintyNotes: ["The exact hills of the ‘Dog’s Heads’ are not securely located.", "Casualty and strength figures are literary.", "The decisive flanking manoeuvre is credited to an unnamed tribune."], previousSlug: "aous"
+  },
+];
+
 export const battles: Battle[] = [
   ...firstPunicWar.map((battle) => ({ ...battle, war: "first-punic" })),
   ...secondPunicWar.map((battle) => ({ ...battle, war: "second-punic" })),
+  ...macedonianWar.map((battle) => ({ ...battle, war: "macedonian-second" })),
 ];
 
 export function getBattle(slug: string): Battle | undefined {

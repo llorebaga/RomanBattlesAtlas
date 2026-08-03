@@ -218,7 +218,58 @@ const secondPunicRoutes: CampaignRoute[] = [
   },
 ];
 
+const macedonianRoutes: CampaignRoute[] = [
+  {
+    id: "roman-illyria-advance",
+    name: "Roman advance from Illyria into Thessaly",
+    faction: "rome",
+    forceType: "army",
+    startYear: -200,
+    endYear: -197,
+    certainty: "probable",
+    description: "Flamininus’ line of operations from the Illyrian coast, through the forced passage of the Aoös gorge, into Thessaly and the decisive field at Cynoscephalae.",
+    points: [
+      { year: -200, label: "Apollonia", coordinates: [19.47, 40.72], certainty: "probable", sourceIds: ["livy-31-33"] },
+      { year: -198, label: "Aoös gorge", coordinates: [20.2, 40.1], certainty: "probable", sourceIds: ["livy-31-33"] },
+      { year: -197, month: 5, label: "Into Thessaly", coordinates: [22.0, 39.55], certainty: "probable", sourceIds: ["polybius-18"] },
+      { year: -197, month: 6, label: "Cynoscephalae", coordinates: [22.55, 39.42], certainty: "attested", sourceIds: ["polybius-18"] },
+    ],
+  },
+  {
+    id: "macedon-defense",
+    name: "Philip V’s defense of Macedon",
+    faction: "macedon",
+    forceType: "army",
+    startYear: -200,
+    endYear: -197,
+    certainty: "probable",
+    description: "Philip’s movements from the Macedonian heartland to hold the western passes and then to give battle in Thessaly.",
+    points: [
+      { year: -200, label: "Pella", coordinates: [22.52, 40.76], certainty: "attested", sourceIds: ["livy-31-33"] },
+      { year: -198, label: "Aoös line", coordinates: [20.32, 40.12], certainty: "probable", sourceIds: ["livy-31-33"] },
+      { year: -197, month: 5, label: "Thessalian plain", coordinates: [22.3, 39.62], certainty: "probable", sourceIds: ["polybius-18"] },
+      { year: -197, month: 6, label: "Cynoscephalae", coordinates: [22.56, 39.43], certainty: "attested", sourceIds: ["polybius-18"] },
+    ],
+  },
+  {
+    id: "roman-aegean-fleet",
+    name: "Roman and allied fleet in the Aegean",
+    faction: "rome",
+    forceType: "fleet",
+    startYear: -200,
+    endYear: -197,
+    certainty: "disputed",
+    description: "A schematic summary of combined Roman, Pergamene, and Rhodian naval operations that pressured Philip’s coasts and secured Euboea.",
+    points: [
+      { year: -200, label: "Corcyra base", coordinates: [19.92, 39.62], certainty: "probable", sourceIds: ["livy-31-33"] },
+      { year: -199, label: "Aegean operations", coordinates: [24.0, 38.2], certainty: "speculative", sourceIds: ["livy-31-33"] },
+      { year: -198, label: "Euboea (Chalcis)", coordinates: [23.6, 38.46], certainty: "probable", sourceIds: ["livy-31-33"] },
+    ],
+  },
+];
+
 export const campaignRoutes: CampaignRoute[] = [
   ...firstPunicRoutes.map((route) => ({ ...route, war: "first-punic" })),
   ...secondPunicRoutes.map((route) => ({ ...route, war: "second-punic" })),
+  ...macedonianRoutes.map((route) => ({ ...route, war: "macedonian-second" })),
 ];

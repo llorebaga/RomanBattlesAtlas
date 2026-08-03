@@ -1,4 +1,11 @@
-export type Faction = "rome" | "carthage";
+export type Faction =
+  | "rome"
+  | "carthage"
+  | "macedon"
+  | "seleucid"
+  | "ptolemaic"
+  | "numidia"
+  | "gaul";
 export type ForceType = "army" | "fleet";
 export type Certainty = "attested" | "probable" | "disputed" | "speculative";
 export type BattleKind = "land" | "naval" | "siege" | "campaign";
@@ -49,6 +56,23 @@ export interface Era {
   endYear: number;
   blurb: string;
   mapView: { center: Coordinates; zoom: number };
+  // Belligerent powers whose army/fleet routes appear in the sidebar for this
+  // era, Rome first. Drives the dynamic faction toggles.
+  factions: Faction[];
+}
+
+// A schematic control zone for one polity, valid across a year range. Territory
+// changes hands by ending one period and beginning another; several periods can
+// be active at once (e.g. Rome holding Italy, Sicily, and Iberia).
+export interface TerritoryPeriod {
+  id: string;
+  polity: Faction;
+  name: string;
+  fromYear: number;
+  toYear: number;
+  certainty: Certainty;
+  ring: Coordinates[];
+  labelAt?: Coordinates;
 }
 
 export interface BattleMoment {

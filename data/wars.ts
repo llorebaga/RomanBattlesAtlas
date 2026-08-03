@@ -14,6 +14,7 @@ export const eras: Era[] = [
     blurb:
       "Rome and Carthage fight for Sicily and, unexpectedly, for command of the sea. Rome becomes a naval power for the first time.",
     mapView: { center: [12.4, 37.9], zoom: 4.7 },
+    factions: ["rome", "carthage"],
   },
   {
     id: "interbellum",
@@ -25,6 +26,7 @@ export const eras: Era[] = [
     blurb:
       "Carthage suppresses a mercenary revolt, loses Sardinia and Corsica to Rome, and rebuilds power through the Barcid conquest of Iberia.",
     mapView: { center: [7.5, 39.5], zoom: 4.1 },
+    factions: ["rome", "carthage"],
   },
   {
     id: "second-punic",
@@ -36,6 +38,19 @@ export const eras: Era[] = [
     blurb:
       "Hannibal carries the war across the Alps into Italy. After years of Roman defeats, Scipio takes the fight to Iberia and Africa and wins at Zama.",
     mapView: { center: [6.5, 41], zoom: 3.9 },
+    factions: ["rome", "carthage"],
+  },
+  {
+    id: "macedonian-second",
+    name: "Second Macedonian War",
+    shortName: "Second Macedonian War",
+    kind: "war",
+    startYear: -200,
+    endYear: -196,
+    blurb:
+      "Freed from Carthage, Rome turns east against Philip V of Macedon. The legion defeats the phalanx at Cynoscephalae, and Rome proclaims the 'freedom of the Greeks'.",
+    mapView: { center: [21, 39.6], zoom: 5.1 },
+    factions: ["rome", "macedon"],
   },
 ];
 
