@@ -1,0 +1,28 @@
+import type { HistoricalEvent } from "@/types/history";
+
+export const historicalEvents: HistoricalEvent[] = [
+  { id: "e264", year: -264, title: "Rome crosses to Sicily", summary: "Roman intervention at Messana expands into open war with Carthage.", certainty: "attested", battleSlug: "messana" },
+  { id: "e263", year: -263, title: "Syracuse changes sides", summary: "Hiero II reaches terms with Rome, strengthening Roman logistics in Sicily.", certainty: "attested" },
+  { id: "e262", year: -262, title: "Agrigentum invested", summary: "Roman armies begin the war’s first great siege.", certainty: "attested", battleSlug: "agrigentum" },
+  { id: "e261", year: -261, title: "Agrigentum falls", summary: "Rome captures Akragas after defeating a Carthaginian relief force.", certainty: "attested", battleSlug: "agrigentum" },
+  { id: "e260", year: -260, title: "A naval power emerges", summary: "Duilius wins Rome’s first major sea victory at Mylae.", certainty: "attested", battleSlug: "mylae" },
+  { id: "e259", year: -259, title: "War widens", summary: "Operations extend toward Sardinia and Corsica; surviving accounts are fragmentary.", certainty: "probable" },
+  { id: "e258", year: -258, title: "Fighting near Sulci", summary: "A Roman fleet wins a poorly documented encounter off Sardinia.", certainty: "disputed", battleSlug: "sulci" },
+  { id: "e257", year: -257, title: "Clash at Tyndaris", summary: "A sudden engagement off northern Sicily ends without decisive strategic change.", certainty: "probable", battleSlug: "tyndaris" },
+  { id: "e256", year: -256, title: "The war crosses to Africa", summary: "Victory at Ecnomus enables a Roman landing near Aspis.", certainty: "attested", battleSlug: "cape-ecnomus" },
+  { id: "e255", year: -255, title: "Regulus defeated", summary: "After success at Adys, the Roman expedition is destroyed on the Bagradas plain.", certainty: "attested", battleSlug: "bagradas" },
+  { id: "e254", year: -254, title: "Panormus captured", summary: "Roman forces take the major north-Sicilian port.", certainty: "attested" },
+  { id: "e253", year: -253, title: "Costly maritime campaigning", summary: "Roman operations on the African coast are followed by another destructive storm.", certainty: "probable" },
+  { id: "e252", year: -252, title: "Pressure on western Sicily", summary: "Roman advances narrow the Carthaginian position in Sicily.", certainty: "probable" },
+  { id: "e251", year: -251, title: "War of positions", summary: "Both sides maneuver around the remaining Carthaginian strongholds.", certainty: "probable" },
+  { id: "e250", year: -250, title: "Panormus and Lilybaeum", summary: "Rome wins at Panormus and begins the long siege of Lilybaeum.", certainty: "attested", battleSlug: "panormus" },
+  { id: "e249", year: -249, title: "Disaster at Drepana", summary: "Adherbal defeats a Roman fleet attempting a surprise attack.", certainty: "attested", battleSlug: "drepana" },
+  { id: "e248", year: -248, title: "The siege continues", summary: "Lilybaeum remains supplied by sea despite Roman pressure.", certainty: "attested", battleSlug: "lilybaeum" },
+  { id: "e247", year: -247, title: "Hamilcar takes command", summary: "Hamilcar Barca begins operations from the heights near Panormus.", certainty: "attested" },
+  { id: "e246", year: -246, title: "Stalemate in western Sicily", summary: "Raids and positional warfare replace large set-piece battles.", certainty: "probable" },
+  { id: "e245", year: -245, title: "Mount Eryx contested", summary: "Carthaginian and Roman forces struggle over positions commanding Drepana.", certainty: "probable" },
+  { id: "e244", year: -244, title: "A war of endurance", summary: "Neither side can force a decision around the western ports.", certainty: "probable" },
+  { id: "e243", year: -243, title: "Rome finances a new fleet", summary: "Private contributions support construction of a renewed Roman navy.", certainty: "attested" },
+  { id: "e242", year: -242, title: "Blockade tightens", summary: "The new Roman fleet drills and restricts Carthaginian access to western Sicily.", certainty: "probable" },
+  { id: "e241", year: -241, title: "Victory at the Aegates", summary: "Rome defeats the relief fleet; peace ends the First Punic War.", certainty: "attested", battleSlug: "aegates" },
+];

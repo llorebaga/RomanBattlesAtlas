@@ -1,0 +1,28 @@
+# dependencies
+/node_modules
+/.pnpm-store
+
+# build output
+/.next
+/dist
+/.vinext
+/.wrangler
+
+# local starter backups and unused template examples
+/.starter-backup
+/db
+/drizzle
+/examples
+
+# local environment files
+.env*
+!.env.example
+
+# logs and operating-system files
+*.log
+.DS_Store
+Thumbs.db
+
+# TypeScript cache
+*.tsbuildinfo
+next-env.d.ts
