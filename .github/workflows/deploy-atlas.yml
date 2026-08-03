@@ -1,0 +1,54 @@
+name: Build and deploy to RomanBattlesAtlas
+
+# Builds the static site from this private source repo and publishes the
+# generated `out/` folder to the public llorebaga/RomanBattlesAtlas repo,
+# which GitHub Pages serves at https://llorebaga.github.io/RomanBattlesAtlas/.
+#
+# Requires one repository secret in this repo (Settings → Secrets and
+# variables → Actions):
+#   ATLAS_DEPLOY_TOKEN — a GitHub token with write (contents) access to the
+#   llorebaga/RomanBattlesAtlas repository.
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run logic tests
+        run: pnpm test
+
+      - name: Build static site
+        run: pnpm run build:pages
+        env:
+          GITHUB_PAGES: "true"
+          GITHUB_PAGES_REPOSITORY: RomanBattlesAtlas
+
+      - name: Publish to the public Atlas repository
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          personal_token: ${{ secrets.ATLAS_DEPLOY_TOKEN }}
+          external_repository: llorebaga/RomanBattlesAtlas
+          publish_branch: main
+          publish_dir: ./out
+          commit_message: "Deploy from RomanBattles@${{ github.sha }}"

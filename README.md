@@ -91,11 +91,15 @@ Coordinates describe representative event areas, not exact unit positions. The i
 
 ## Deployment
 
-### Public preview
+### Public site
 
-The current atlas is published at <https://llorebaga.github.io/RomanBattlesAtlas/>. The editable source remains in the private `RomanBattles` repository; the public `RomanBattlesAtlas` repository contains only the generated static website.
+The atlas is published at <https://llorebaga.github.io/RomanBattlesAtlas/>. This private `RomanBattles` repository holds the editable source; the public `RomanBattlesAtlas` repository holds only the generated static website that GitHub Pages serves.
 
-For a new preview, build with `GITHUB_PAGES=true` and `GITHUB_PAGES_REPOSITORY=RomanBattlesAtlas`, then publish the generated `out` directory to the deployment repository.
+**Automated deploy.** Pushing to `main` triggers `.github/workflows/deploy-atlas.yml`, which runs the tests, builds the static export, and pushes `out/` to the public Atlas repository. This requires one repository secret in this repo (Settings → Secrets and variables → Actions):
+
+- `ATLAS_DEPLOY_TOKEN` — a GitHub token (classic with `repo` scope, or a fine-grained token with contents read/write on `llorebaga/RomanBattlesAtlas`).
+
+**Manual deploy** (fallback): build with `GITHUB_PAGES=true` and `GITHUB_PAGES_REPOSITORY=RomanBattlesAtlas`, add an empty `out/.nojekyll`, then publish the generated `out` directory to the deployment repository.
 
 ### Vercel
 
