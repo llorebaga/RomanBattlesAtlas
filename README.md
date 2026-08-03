@@ -87,6 +87,12 @@ Coordinates describe representative event areas, not exact unit positions. The i
 
 ## Deployment
 
+### Public preview
+
+The current atlas is published at <https://llorebaga.github.io/RomanBattlesAtlas/>. The editable source remains in the private `RomanBattles` repository; the public `RomanBattlesAtlas` repository contains only the generated static website.
+
+For a new preview, build with `GITHUB_PAGES=true` and `GITHUB_PAGES_REPOSITORY=RomanBattlesAtlas`, then publish the generated `out` directory to the deployment repository.
+
 ### Vercel
 
 Import the GitHub repository into Vercel, accept the detected Next.js settings, and deploy. The MVP has no required secrets or proprietary map token.
