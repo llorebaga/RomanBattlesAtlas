@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
+    "build:pages": "next build",
     "start": "vinext start",
     "test": "node --experimental-strip-types --test --test-isolation=none tests/history.test.mjs",
     "test:render": "node --test --test-isolation=none tests/rendered-html.test.mjs",
