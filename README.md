@@ -1,19 +1,19 @@
 # Roman Campaign Atlas
 
-Roman Campaign Atlas is an evidence-led interactive historical map. The first MVP follows the First Punic War from 264 to 241 BCE, showing representative campaign routes, changing force positions, battles, sieges, and the uncertainty behind each reconstruction.
+Roman Campaign Atlas is an evidence-led interactive historical map of Rome's wars. A single continuous timeline runs from 264 BCE onward, currently spanning the **First Punic War** (264–241), the interwar decades, and the **Second Punic War** (218–201), showing representative campaign routes, changing force positions, battles, sieges, and the uncertainty behind each reconstruction. The interactive map is the site's home page.
 
 > Historical caution: the atlas is a research interface, not a claim to exact reconstruction. Routes and several coordinates are provisional and are explicitly classified as attested, probable, disputed, or speculative.
 
-## MVP scope
+## Scope
 
-- Interactive MapLibre map of the western Mediterranean at `/map`
-- BCE timeline with play, pause, previous/next year, and three playback speeds
-- Roman and Carthaginian army and fleet routes with elapsed and future segments
+- Interactive MapLibre map of the western Mediterranean as the home page (`/`, also served at `/map`)
+- A single continuous BCE timeline across every era, with play, pause, previous/next year, and three playback speeds
+- The map header and view follow the active era as you scrub; the theatre re-centres between wars
+- Roman and Carthaginian army and fleet routes with elapsed and future segments — including Hannibal's march over the Alps and Scipio's campaigns in Iberia and Africa
 - Filters, map key, year summary, accessible event list, and responsive battle panel
-- Thirteen principal First Punic War event records
-- Data-driven dynamic routes at `/battles/[slug]`
-- A complete Battle of Mylae account at `/battles/mylae`
-- Unit tests for historical dates, route interpolation, year filtering, and data validation
+- Principal event records for both Punic Wars, plus interwar context events
+- Data-driven dynamic detail pages at `/battles/[slug]`, with a richer layout for events that carry force, sequence, and casualty data (e.g. Mylae, Cannae, Zama)
+- Unit tests for historical dates, era assignment, route interpolation, year filtering, and data validation
 - Server-render integration checks for the map and Mylae routes
 
 ## Technology
@@ -53,7 +53,7 @@ npm run test:render  # server-render checks; run after build
 app/                    Routes, layout, and global visual system
 components/map/         Map, timeline, legend, and event panel
 components/battles/     Battle-area map, sequence, sources
-data/                   Editable battles, routes, events, and sources
+data/                   Editable wars/eras, battles, routes, events, and sources
 lib/                    BCE dates, route interpolation, selectors, validation
 types/                  Strict historical data contracts
 tests/                  Unit and rendered-route integration tests
@@ -68,7 +68,11 @@ tests/                  Unit and rendered-route integration tests
 5. Link neighboring slugs if the event belongs in the sequential detail navigation.
 6. Run `npm test` and visit `/battles/<slug>`.
 
-The reusable template gives every record a concise detail page. Rich sections are currently enabled for Mylae and can be generalized as more event records are reviewed.
+The reusable template gives every record a concise detail page. Any battle that carries `context`, `forces`, `moments`, or `casualties` automatically renders the richer multi-section layout (Mylae, Cannae, and Zama already do); Mylae additionally keeps a bespoke illustrated treatment.
+
+## Adding a war or era
+
+Timeline segments live in `data/wars.ts` as an `eras` list (wars and the interbellum periods between them). Each era sets its year span, a header label, and a `mapView` the map eases to when the timeline enters it. The overall scrubber bounds are derived from this list; if you add an era outside 264–201 BCE, also update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` — a unit test asserts the two stay in sync. Tag each battle, route, and event with the matching `war` id.
 
 ## Adding a campaign route
 
@@ -105,7 +109,8 @@ The repository includes `.openai/hosting.json` and the Vinext/Sites build config
 
 - Route geometry is deliberately simplified and several legs remain provisional.
 - Basemap labels and boundaries are modern; they provide geographic orientation, not an ancient political map.
-- Only Mylae currently has the full editorial treatment.
+- Only Mylae currently has the fully illustrated bespoke treatment; other major battles use the shared rich layout.
+- Second Punic War coordinates for the Alpine crossing, Baecula, the Great Plains, and Zama are provisional and await scholarly review.
 - Monthly dating is sparse, so marker interpolation communicates campaign sequence rather than continuous measured travel.
 - The CARTO basemap requires an internet connection.
 - Scholarly review is still required for Sulci, Adys, Bagradas, Ecnomus, and Aegates coordinates and for fleet-strength estimates.

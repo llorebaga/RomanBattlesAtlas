@@ -1,5 +1,15 @@
-export const WAR_START_YEAR = -264;
-export const WAR_END_YEAR = -241;
+// The scrubber spans the full sequence of eras defined in data/wars.ts.
+// These bounds are kept as literals so this module stays free of runtime
+// imports (the type-stripping test runner cannot resolve the "@/" alias in a
+// value import). data/wars.ts derives the same values from the era list, and
+// tests/history.test.mjs asserts the two stay in sync — update both together
+// when adding an era outside 264–201 BCE.
+export const TIMELINE_START_YEAR = -264;
+export const TIMELINE_END_YEAR = -201;
+
+// Retained aliases so existing imports keep working.
+export const WAR_START_YEAR = TIMELINE_START_YEAR;
+export const WAR_END_YEAR = TIMELINE_END_YEAR;
 
 export function formatHistoricalYear(year: number): string {
   if (year < 0) return `${Math.abs(year)} BCE`;
@@ -8,9 +18,9 @@ export function formatHistoricalYear(year: number): string {
 }
 
 export function clampTimelineYear(year: number): number {
-  return Math.min(WAR_END_YEAR, Math.max(WAR_START_YEAR, Math.round(year)));
+  return Math.min(TIMELINE_END_YEAR, Math.max(TIMELINE_START_YEAR, Math.round(year)));
 }
 
 export function yearProgress(year: number): number {
-  return (clampTimelineYear(year) - WAR_START_YEAR) / (WAR_END_YEAR - WAR_START_YEAR);
+  return (clampTimelineYear(year) - TIMELINE_START_YEAR) / (TIMELINE_END_YEAR - TIMELINE_START_YEAR);
 }

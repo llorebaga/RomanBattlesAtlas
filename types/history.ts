@@ -37,6 +37,18 @@ export interface CampaignRoute {
   points: CampaignRoutePoint[];
   description: string;
   certainty: Certainty;
+  war?: string;
+}
+
+export interface Era {
+  id: string;
+  name: string;
+  shortName: string;
+  kind: "war" | "interbellum";
+  startYear: number;
+  endYear: number;
+  blurb: string;
+  mapView: { center: Coordinates; zoom: number };
 }
 
 export interface BattleMoment {
@@ -71,6 +83,7 @@ export interface Battle {
   uncertaintyNotes: string[];
   previousSlug?: string;
   nextSlug?: string;
+  war?: string;
 }
 
 export interface HistoricalEvent {
@@ -80,4 +93,5 @@ export interface HistoricalEvent {
   summary: string;
   certainty: Certainty;
   battleSlug?: string;
+  war?: string;
 }

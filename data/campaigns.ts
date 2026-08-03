@@ -1,6 +1,6 @@
 import type { CampaignRoute } from "@/types/history";
 
-export const campaignRoutes: CampaignRoute[] = [
+const firstPunicRoutes: CampaignRoute[] = [
   {
     id: "roman-sicily-opening",
     name: "Roman intervention in north-eastern Sicily",
@@ -128,4 +128,97 @@ export const campaignRoutes: CampaignRoute[] = [
       { year: -241, month: 3, label: "Battle area", coordinates: [11.93, 37.97], certainty: "disputed", sourceIds: ["polybius-1", "hoyos-2015"] },
     ],
   },
+];
+
+const secondPunicRoutes: CampaignRoute[] = [
+  {
+    id: "hannibal-march-to-italy",
+    name: "Hannibal’s march from Iberia to Italy",
+    faction: "carthage",
+    forceType: "army",
+    startYear: -218,
+    endYear: -216,
+    certainty: "probable",
+    description: "The iconic overland march from New Carthage across the Ebro, the Pyrenees, the Rhône, and the Alps into Italy. Waypoints are stages, not a surveyed track, and the Alpine leg in particular is disputed.",
+    points: [
+      { year: -218, label: "New Carthage", coordinates: [-0.983, 37.6], certainty: "attested", sourceIds: ["polybius-3"] },
+      { year: -218, month: 5, label: "Crossing the Ebro", coordinates: [0.55, 40.72], certainty: "probable", sourceIds: ["polybius-3", "livy-21-30"] },
+      { year: -218, month: 6, label: "Over the Pyrenees", coordinates: [2.95, 42.44], certainty: "probable", sourceIds: ["polybius-3"] },
+      { year: -218, month: 8, label: "Crossing the Rhône", coordinates: [4.62, 44.05], certainty: "probable", sourceIds: ["polybius-3", "livy-21-30"] },
+      { year: -218, month: 10, label: "Alpine passes", coordinates: [6.95, 45.08], certainty: "disputed", sourceIds: ["polybius-3", "goldsworthy-2000"] },
+      { year: -218, month: 11, label: "Into the Po plain", coordinates: [8.6, 45.15], certainty: "probable", sourceIds: ["polybius-3"] },
+      { year: -217, label: "Through Etruria", coordinates: [11.2, 43.5], certainty: "probable", sourceIds: ["polybius-3"] },
+      { year: -216, label: "Into Apulia (Cannae)", coordinates: [16.132, 41.306], certainty: "attested", sourceIds: ["polybius-3"] },
+    ],
+  },
+  {
+    id: "hannibal-in-southern-italy",
+    name: "Hannibal in southern Italy",
+    faction: "carthage",
+    forceType: "army",
+    startYear: -216,
+    endYear: -203,
+    certainty: "probable",
+    description: "A schematic summary of Hannibal’s long war of movement in the Italian south—around Capua, Tarentum, and finally Bruttium—before his recall to Africa. It compresses many years and marches into a few representative stages.",
+    points: [
+      { year: -216, label: "Cannae", coordinates: [16.132, 41.306], certainty: "attested", sourceIds: ["polybius-3"] },
+      { year: -215, label: "Campania and Capua", coordinates: [14.25, 41.08], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -212, label: "Tarentum", coordinates: [17.24, 40.47], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -207, label: "Bruttium", coordinates: [16.52, 39.08], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -203, label: "Recalled to Africa", coordinates: [17.13, 38.91], certainty: "attested", sourceIds: ["livy-21-30", "goldsworthy-2000"] },
+    ],
+  },
+  {
+    id: "hasdrubal-march-to-italy",
+    name: "Hasdrubal’s march to the Metaurus",
+    faction: "carthage",
+    forceType: "army",
+    startYear: -208,
+    endYear: -207,
+    certainty: "disputed",
+    description: "The attempted reinforcement: after Baecula, Hasdrubal Barca marched from Iberia over the Alps to bring a second army to Hannibal, only to be intercepted and destroyed at the Metaurus.",
+    points: [
+      { year: -208, label: "Northern Iberia", coordinates: [0.5, 41.6], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -207, month: 4, label: "Over the Alps", coordinates: [6.9, 45.05], certainty: "speculative", sourceIds: ["livy-21-30"] },
+      { year: -207, month: 6, label: "Into the Po plain", coordinates: [9.7, 45.05], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -207, month: 7, label: "The Metaurus", coordinates: [12.9, 43.7], certainty: "attested", sourceIds: ["polybius-3", "livy-21-30"] },
+    ],
+  },
+  {
+    id: "scipio-in-iberia",
+    name: "Scipio’s campaign in Iberia",
+    faction: "rome",
+    forceType: "army",
+    startYear: -209,
+    endYear: -206,
+    certainty: "probable",
+    description: "Scipio’s offensive in Spain: from the base at Tarraco to the storming of New Carthage, then south to Baecula and the decisive field at Ilipa.",
+    points: [
+      { year: -209, label: "Tarraco", coordinates: [1.25, 41.12], certainty: "probable", sourceIds: ["polybius-3"] },
+      { year: -209, month: 4, label: "New Carthage", coordinates: [-0.983, 37.6], certainty: "attested", sourceIds: ["polybius-3", "livy-21-30"] },
+      { year: -208, label: "Baecula", coordinates: [-3.1, 38.03], certainty: "disputed", sourceIds: ["polybius-3"] },
+      { year: -206, label: "Ilipa", coordinates: [-5.98, 37.52], certainty: "probable", sourceIds: ["polybius-3"] },
+    ],
+  },
+  {
+    id: "scipio-african-expedition",
+    name: "Scipio’s invasion of Africa",
+    faction: "rome",
+    forceType: "army",
+    startYear: -204,
+    endYear: -202,
+    certainty: "probable",
+    description: "The crossing from Sicily to Africa and the campaign that ended the war: a landing near Utica, victory in the Bagradas valley, and the decisive battle at Zama. The sea crossing is naval; the inland stages are army movements.",
+    points: [
+      { year: -204, label: "Lilybaeum embarkation", coordinates: [12.43, 37.8], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -204, month: 6, label: "Landing near Utica", coordinates: [10.06, 37.06], certainty: "probable", sourceIds: ["polybius-3", "livy-21-30"] },
+      { year: -203, label: "Great Plains", coordinates: [9.0, 36.4], certainty: "disputed", sourceIds: ["polybius-3"] },
+      { year: -202, label: "Zama", coordinates: [9.55, 36.05], certainty: "disputed", sourceIds: ["polybius-3", "goldsworthy-2000"] },
+    ],
+  },
+];
+
+export const campaignRoutes: CampaignRoute[] = [
+  ...firstPunicRoutes.map((route) => ({ ...route, war: "first-punic" })),
+  ...secondPunicRoutes.map((route) => ({ ...route, war: "second-punic" })),
 ];

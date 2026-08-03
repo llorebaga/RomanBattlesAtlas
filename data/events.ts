@@ -1,6 +1,6 @@
 import type { HistoricalEvent } from "@/types/history";
 
-export const historicalEvents: HistoricalEvent[] = [
+const firstPunicEvents: HistoricalEvent[] = [
   { id: "e264", year: -264, title: "Rome crosses to Sicily", summary: "Roman intervention at Messana expands into open war with Carthage.", certainty: "attested", battleSlug: "messana" },
   { id: "e263", year: -263, title: "Syracuse changes sides", summary: "Hiero II reaches terms with Rome, strengthening Roman logistics in Sicily.", certainty: "attested" },
   { id: "e262", year: -262, title: "Agrigentum invested", summary: "Roman armies begin the war’s first great siege.", certainty: "attested", battleSlug: "agrigentum" },
@@ -25,4 +25,42 @@ export const historicalEvents: HistoricalEvent[] = [
   { id: "e243", year: -243, title: "Rome finances a new fleet", summary: "Private contributions support construction of a renewed Roman navy.", certainty: "attested" },
   { id: "e242", year: -242, title: "Blockade tightens", summary: "The new Roman fleet drills and restricts Carthaginian access to western Sicily.", certainty: "probable" },
   { id: "e241", year: -241, title: "Victory at the Aegates", summary: "Rome defeats the relief fleet; peace ends the First Punic War.", certainty: "attested", battleSlug: "aegates" },
+];
+
+const interbellumEvents: HistoricalEvent[] = [
+  { id: "e240", year: -240, title: "The Mercenary War", summary: "Carthage’s unpaid mercenaries and Libyan subjects revolt in a brutal war for survival at home.", certainty: "attested", war: "interbellum" },
+  { id: "e238", year: -238, title: "Rome seizes Sardinia", summary: "Exploiting Carthage’s weakness, Rome annexes Sardinia and Corsica and raises the indemnity.", certainty: "attested", war: "interbellum" },
+  { id: "e237", year: -237, title: "The Barcids enter Iberia", summary: "Hamilcar Barca begins building a Carthaginian power base and army in Spain.", certainty: "attested", war: "interbellum" },
+  { id: "e229", year: -229, title: "Hasdrubal succeeds Hamilcar", summary: "After Hamilcar’s death, his son-in-law Hasdrubal consolidates the Iberian province and founds New Carthage.", certainty: "probable", war: "interbellum" },
+  { id: "e226", year: -226, title: "The Ebro agreement", summary: "Rome and Hasdrubal reportedly fix the Ebro as a limit of Carthaginian expansion.", certainty: "probable", war: "interbellum" },
+  { id: "e221", year: -221, title: "Hannibal takes command", summary: "At about 26, Hannibal assumes command of Carthaginian forces in Iberia.", certainty: "attested", war: "interbellum" },
+  { id: "e220", year: -220, title: "Tension over Saguntum", summary: "Roman diplomacy and Carthaginian ambition collide over the allied city of Saguntum.", certainty: "probable", war: "interbellum" },
+];
+
+const secondPunicEvents: HistoricalEvent[] = [
+  { id: "e219", year: -219, title: "Saguntum falls", summary: "Hannibal storms Saguntum; Rome demands his surrender and, refused, declares war.", certainty: "attested", battleSlug: "saguntum", war: "second-punic" },
+  { id: "e218", year: -218, title: "Hannibal crosses the Alps", summary: "After Ticinus and Trebia, Hannibal is established in northern Italy.", certainty: "attested", battleSlug: "alps-crossing", war: "second-punic" },
+  { id: "e217", year: -217, title: "Ambush at Lake Trasimene", summary: "Hannibal destroys Flaminius’ army; Rome appoints Fabius Maximus dictator.", certainty: "attested", battleSlug: "trasimene", war: "second-punic" },
+  { id: "e216", year: -216, title: "Catastrophe at Cannae", summary: "A vast Roman army is encircled and destroyed; several Italian communities defect.", certainty: "attested", battleSlug: "cannae", war: "second-punic" },
+  { id: "e215", year: -215, title: "The war widens", summary: "Capua defects, and Carthage allies with Macedon; the conflict spreads beyond Italy.", certainty: "probable", war: "second-punic" },
+  { id: "e214", year: -214, title: "Sicily and Syracuse", summary: "Syracuse turns against Rome; a long siege under Marcellus begins.", certainty: "probable", war: "second-punic" },
+  { id: "e213", year: -213, title: "War of sieges", summary: "Fighting settles into sieges and raids across Italy and Sicily.", certainty: "probable", war: "second-punic" },
+  { id: "e212", year: -212, title: "Rome invests Capua", summary: "Roman armies besiege Capua; Syracuse is stormed and Tarentum is lost to Hannibal.", certainty: "attested", war: "second-punic" },
+  { id: "e211", year: -211, title: "Capua retaken", summary: "Hannibal’s march on Rome fails to save Capua, which surrenders and is punished.", certainty: "attested", battleSlug: "capua", war: "second-punic" },
+  { id: "e210", year: -210, title: "Scipio to Spain", summary: "The young Publius Cornelius Scipio takes command of the Roman effort in Iberia.", certainty: "probable", war: "second-punic" },
+  { id: "e209", year: -209, title: "New Carthage stormed", summary: "Scipio captures the Barcid capital in a single assault, seizing its resources.", certainty: "attested", battleSlug: "new-carthage", war: "second-punic" },
+  { id: "e208", year: -208, title: "Baecula", summary: "Scipio defeats Hasdrubal Barca, who nonetheless escapes toward Italy.", certainty: "probable", battleSlug: "baecula", war: "second-punic" },
+  { id: "e207", year: -207, title: "Decision at the Metaurus", summary: "Hasdrubal’s relieving army is destroyed before it can reach Hannibal.", certainty: "attested", battleSlug: "metaurus", war: "second-punic" },
+  { id: "e206", year: -206, title: "Ilipa clears Iberia", summary: "Scipio’s victory ends Carthaginian power in Spain.", certainty: "attested", battleSlug: "ilipa", war: "second-punic" },
+  { id: "e205", year: -205, title: "Preparing for Africa", summary: "Elected consul, Scipio assembles an army in Sicily for an invasion of Africa.", certainty: "probable", war: "second-punic" },
+  { id: "e204", year: -204, title: "Landing in Africa", summary: "Scipio crosses to Africa and, with Masinissa, campaigns near Utica.", certainty: "probable", war: "second-punic" },
+  { id: "e203", year: -203, title: "The Great Plains", summary: "Scipio wins in the Bagradas valley; Carthage recalls Hannibal from Italy.", certainty: "attested", battleSlug: "great-plains", war: "second-punic" },
+  { id: "e202", year: -202, title: "Zama decides the war", summary: "Scipio defeats Hannibal in Africa in the war’s final pitched battle.", certainty: "attested", battleSlug: "zama", war: "second-punic" },
+  { id: "e201", year: -201, title: "Carthage accepts terms", summary: "Carthage surrenders its fleet and Iberia, pays a large indemnity, and is barred from war without Roman consent.", certainty: "attested", war: "second-punic" },
+];
+
+export const historicalEvents: HistoricalEvent[] = [
+  ...firstPunicEvents.map((event) => ({ ...event, war: "first-punic" })),
+  ...interbellumEvents,
+  ...secondPunicEvents,
 ];

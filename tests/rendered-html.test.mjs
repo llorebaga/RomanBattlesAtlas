@@ -15,8 +15,8 @@ test("map route renders the timeline and Mylae state", async () => {
   const html = await response.text();
   assert.match(html, /ROMAN CAMPAIGN ATLAS/);
   assert.match(html, /Campaign year/);
-  assert.match(html, /260 BCE/);
-  assert.match(html, /Battle of Mylae/);
+  assert.match(html, /264 BCE/);
+  assert.match(html, /Battle of Messana/);
   const panelSource = await readFile(new URL("../components/map/BattlePanel.tsx", import.meta.url), "utf8");
   assert.match(panelSource, /href=\{`\/battles\/\$\{battle\.slug\}`\}/);
 });
