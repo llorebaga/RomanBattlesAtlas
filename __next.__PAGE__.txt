@@ -1,6 +1,6 @@
 1:"$Sreact.fragment"
-2:I[21381,["/RomanBattlesAtlas/_next/static/chunks/11q-3mtsn6em~.js","/RomanBattlesAtlas/_next/static/chunks/00dwf3xlex0q5.js","/RomanBattlesAtlas/_next/static/chunks/0vcwoo9xjw59..js","/RomanBattlesAtlas/_next/static/chunks/04y3h7soterlg.js"],"HistoricalMap"]
+2:I[21381,["/RomanBattlesAtlas/_next/static/chunks/11q-3mtsn6em~.js","/RomanBattlesAtlas/_next/static/chunks/00dwf3xlex0q5.js","/RomanBattlesAtlas/_next/static/chunks/0vcwoo9xjw59..js","/RomanBattlesAtlas/_next/static/chunks/0-4z_cn8crynl.js"],"HistoricalMap"]
 3:I[25326,["/RomanBattlesAtlas/_next/static/chunks/11q-3mtsn6em~.js","/RomanBattlesAtlas/_next/static/chunks/00dwf3xlex0q5.js"],"OutletBoundary"]
 4:"$Sreact.suspense"
-0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/RomanBattlesAtlas/_next/static/chunks/0vcwoo9xjw59..js","async":true}],["$","script","script-1",{"src":"/RomanBattlesAtlas/_next/static/chunks/04y3h7soterlg.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"pwiLw_tcQheEjEAQHBazo"}
+0:{"rsc":["$","$1","c",{"children":[["$","$L2",null,{}],[["$","script","script-0",{"src":"/RomanBattlesAtlas/_next/static/chunks/0vcwoo9xjw59..js","async":true}],["$","script","script-1",{"src":"/RomanBattlesAtlas/_next/static/chunks/0-4z_cn8crynl.js","async":true}]],["$","$L3",null,{"children":["$","$4",null,{"name":"Next.MetadataOutlet","children":"$@5"}]}]]}],"isPartial":false,"staleTime":300,"varyParams":null,"buildId":"VToM2oQfZ7F_qzmdK957E"}
 5:null
