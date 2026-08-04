@@ -4,6 +4,8 @@ import { landPolygons } from "../data/geo/mediterranean-land.ts";
 import { territoriesForYear } from "../data/territories.ts";
 import { campaignRoutes } from "../data/campaigns.ts";
 import { splitRouteAtYear, isRouteActive } from "../lib/routeInterpolation.ts";
+import { clampView, EXTENT_BOX, EXTENT_WIDTH, EXTENT_HEIGHT } from "../lib/mapGeometry.ts";
+import { eras } from "../data/wars.ts";
 
 // Mirrors AtlasMap's projection exactly. If these drift, the map is wrong.
 const SCALE = 24;
@@ -76,6 +78,67 @@ test("campaign routes produce drawable polylines", () => {
   for (const point of [...opening.future, ...later.completed, ...later.future]) {
     const [x, y] = project(point);
     assert.ok(Number.isFinite(x) && Number.isFinite(y), "route points project to finite coordinates");
+  }
+});
+
+test("the view can never leave the atlas extent", () => {
+  const aspects = [0.4, 0.58, 0.75, 1.2];
+  const attempts = [
+    { name: "far outside to the west", x: -100000, y: 0, width: 600 },
+    { name: "far outside to the east", x: 100000, y: 0, width: 600 },
+    { name: "far above", x: 0, y: -100000, width: 600 },
+    { name: "far below", x: 0, y: 100000, width: 600 },
+    { name: "zoomed out far past the whole map", x: 0, y: 0, width: 1e6 },
+    { name: "zoomed in past any sane limit", x: 0, y: 0, width: 0.0001 },
+    { name: "negative width", x: 0, y: 0, width: -500 },
+  ];
+  for (const aspect of aspects) {
+    for (const attempt of attempts) {
+      const view = clampView(attempt, aspect, 120);
+      const height = view.width * aspect;
+      assert.ok(Number.isFinite(view.x) && Number.isFinite(view.y) && Number.isFinite(view.width), `${attempt.name} produced a non-finite view`);
+      assert.ok(view.width > 0, `${attempt.name}: width must stay positive`);
+      // Never wider or taller than the atlas itself.
+      assert.ok(view.width <= EXTENT_WIDTH + 0.01, `${attempt.name} at aspect ${aspect}: wider than the atlas`);
+      assert.ok(height <= EXTENT_HEIGHT + 0.01, `${attempt.name} at aspect ${aspect}: taller than the atlas`);
+      // And always inside it.
+      assert.ok(view.x >= EXTENT_BOX.minX - 0.01 && view.x + view.width <= EXTENT_BOX.maxX + 0.01, `${attempt.name} at aspect ${aspect}: escaped horizontally`);
+      assert.ok(view.y >= EXTENT_BOX.minY - 0.01 && view.y + height <= EXTENT_BOX.maxY + 0.01, `${attempt.name} at aspect ${aspect}: escaped vertically`);
+    }
+  }
+});
+
+test("fully zoomed out shows the whole atlas and nothing beyond", () => {
+  const aspect = EXTENT_HEIGHT / EXTENT_WIDTH; // a pane shaped like the atlas
+  const view = clampView({ x: 0, y: 0, width: 1e6 }, aspect, 120);
+  assert.ok(Math.abs(view.width - EXTENT_WIDTH) < 0.01, "should fit the atlas exactly");
+  assert.ok(Math.abs(view.x - EXTENT_BOX.minX) < 0.01, "should sit flush with the western edge");
+  assert.ok(Math.abs(view.y - EXTENT_BOX.minY) < 0.01, "should sit flush with the northern edge");
+});
+
+test("panning at the closest zoom still cannot leave the atlas", () => {
+  const aspect = 0.58;
+  let view = clampView({ x: 0, y: 0, width: 120 }, aspect, 120);
+  // Drag hard toward every corner in turn.
+  for (const [dx, dy] of [[-9999, -9999], [9999, -9999], [9999, 9999], [-9999, 9999]]) {
+    view = clampView({ x: view.x + dx, y: view.y + dy, width: view.width }, aspect, 120);
+    const height = view.width * aspect;
+    assert.ok(view.x >= EXTENT_BOX.minX - 0.01 && view.x + view.width <= EXTENT_BOX.maxX + 0.01, "escaped horizontally while panning");
+    assert.ok(view.y >= EXTENT_BOX.minY - 0.01 && view.y + height <= EXTENT_BOX.maxY + 0.01, "escaped vertically while panning");
+  }
+});
+
+test("every era's framing stays inside the atlas", () => {
+  for (const era of eras) {
+    for (const aspect of [0.4, 0.58, 0.9]) {
+      const spanDegrees = 360 / Math.pow(2, era.mapView.zoom);
+      const width = spanDegrees * SCALE * 1.6;
+      const [cx, cy] = project(era.mapView.center);
+      const view = clampView({ x: cx - width / 2, y: cy - (width * aspect) / 2, width }, aspect, 120);
+      const height = view.width * aspect;
+      assert.ok(view.x >= EXTENT_BOX.minX - 0.01 && view.x + view.width <= EXTENT_BOX.maxX + 0.01, `${era.id} framing escapes horizontally at aspect ${aspect}`);
+      assert.ok(view.y >= EXTENT_BOX.minY - 0.01 && view.y + height <= EXTENT_BOX.maxY + 0.01, `${era.id} framing escapes vertically at aspect ${aspect}`);
+    }
   }
 });
 

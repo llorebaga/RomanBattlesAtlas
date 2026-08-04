@@ -10,6 +10,36 @@ export function projectPoint(point: number[] | readonly number[], scale = MAP_SC
   return [point[0] * scale, -point[1] * scale];
 }
 
+// The atlas's world, in degrees. The view is confined to this box: you cannot
+// zoom out past it or pan beyond it. Chosen a little inside the bundled land
+// data so the straight edges where that data was clipped never come into frame.
+export const ATLAS_EXTENT = { west: -12, east: 41, south: 25, north: 50 };
+export const EXTENT_BOX = {
+  minX: ATLAS_EXTENT.west * MAP_SCALE,
+  maxX: ATLAS_EXTENT.east * MAP_SCALE,
+  minY: -ATLAS_EXTENT.north * MAP_SCALE,
+  maxY: -ATLAS_EXTENT.south * MAP_SCALE,
+};
+export const EXTENT_WIDTH = EXTENT_BOX.maxX - EXTENT_BOX.minX;
+export const EXTENT_HEIGHT = EXTENT_BOX.maxY - EXTENT_BOX.minY;
+
+// Confine a view to the extent. `aspect` is the container's height/width, so the
+// viewBox always matches the viewport and the fit is exact rather than letterboxed.
+export function clampView(view: { x: number; y: number; width: number }, aspect: number, minWidth: number) {
+  // Never wider than the whole atlas, and never so wide that its height would
+  // exceed the atlas either.
+  const maxWidth = Math.min(EXTENT_WIDTH, EXTENT_HEIGHT / Math.max(aspect, 0.0001));
+  const width = Math.min(Math.max(view.width, Math.min(minWidth, maxWidth)), maxWidth);
+  const height = width * aspect;
+  const x = width >= EXTENT_WIDTH
+    ? EXTENT_BOX.minX + (EXTENT_WIDTH - width) / 2
+    : Math.min(Math.max(view.x, EXTENT_BOX.minX), EXTENT_BOX.maxX - width);
+  const y = height >= EXTENT_HEIGHT
+    ? EXTENT_BOX.minY + (EXTENT_HEIGHT - height) / 2
+    : Math.min(Math.max(view.y, EXTENT_BOX.minY), EXTENT_BOX.maxY - height);
+  return { x, y, width };
+}
+
 // Territory rings are coarse envelopes drawn by hand. Straight chords between
 // their few vertices read as ruled borders, which is both ugly and a false
 // precision claim — ancient frontiers were not surveyed lines. Drawing them as a

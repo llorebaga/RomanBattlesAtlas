@@ -9,7 +9,7 @@ import { territoriesForYear } from "@/data/territories";
 import { factionColor, factionAdjective, isContextPower } from "@/data/factions";
 import { landPolygons } from "@/data/geo/mediterranean-land";
 import { interpolateRoutePosition, isRouteActive, splitRouteAtYear } from "@/lib/routeInterpolation";
-import { MAP_SCALE as SCALE, projectPoint, smoothClosedPath, smoothOpenPath } from "@/lib/mapGeometry";
+import { MAP_SCALE as SCALE, projectPoint, smoothClosedPath, smoothOpenPath, clampView, EXTENT_WIDTH, EXTENT_HEIGHT } from "@/lib/mapGeometry";
 import { campaignRoutes } from "@/data/campaigns";
 import type { Battle, Coordinates, Era } from "@/types/history";
 
@@ -17,24 +17,22 @@ export type MapLayers = { army: boolean; fleet: boolean; battles: boolean; siege
 
 const project = (point: Coordinates | number[]): [number, number] => projectPoint(point);
 const pathFor = (rings: number[][][]) => rings.map((ring) => `M${ring.map((p) => { const [x, y] = project(p); return `${x.toFixed(1)} ${y.toFixed(1)}`; }).join("L")}Z`).join("");
-const MIN_VIEW_WIDTH = 90;
-const MAX_VIEW_WIDTH = 3000;
-const clampWidth = (width: number) => Math.min(Math.max(width, MIN_VIEW_WIDTH), MAX_VIEW_WIDTH);
+const MIN_VIEW_WIDTH = 120; // closest zoom, in projected units (about 5° across)
+const DEFAULT_ASPECT = 0.58; // used for the server render, before the pane is measured
 
 // Each land polygon keeps its own path so holes (inland seas) render correctly.
 const LAND_PATHS = landPolygons.map((rings) => pathFor(rings));
 
-function viewBoxFor(era: Era | undefined, fallbackCenter: Coordinates = [12.2, 38]) {
+// A view is {x, y, width}; height always follows the container's aspect, so the
+// viewBox matches the viewport exactly and clamping to the atlas extent holds.
+function viewBoxFor(era: Era | undefined, aspect: number, fallbackCenter: Coordinates = [12.2, 38]) {
   const center = era?.mapView.center ?? fallbackCenter;
   const zoom = era?.mapView.zoom ?? 4.4;
-  // Degrees visible shrinks as zoom grows, matching the previous map's framing.
   const spanDegrees = 360 / Math.pow(2, zoom);
-  const width = clampWidth(spanDegrees * SCALE * 1.6);
-  const height = width * 0.62;
+  const width = spanDegrees * SCALE * 1.6;
   const [cx, cy] = project(center);
-  return { x: cx - width / 2, y: cy - height / 2, width, height };
+  return clampView({ x: cx - width / 2, y: cy - (width * aspect) / 2, width }, aspect, MIN_VIEW_WIDTH);
 }
-const DEFAULT_VIEW_WIDTH = viewBoxFor(undefined).width;
 
 interface Props {
   year: number;
@@ -47,15 +45,38 @@ interface Props {
 }
 
 export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, selectedBattle, onSelectBattle }: Props) {
-  const [view, setView] = useState(() => viewBoxFor(era));
+  const [aspect, setAspect] = useState(DEFAULT_ASPECT);
+  const [view, setView] = useState(() => viewBoxFor(era, DEFAULT_ASPECT));
   const dragState = useRef<{ clientX: number; clientY: number; view: typeof view } | null>(null);
   const svgRef = useRef<SVGSVGElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
   const animationRef = useRef<number | null>(null);
-  // Handlers read the live view from a ref so a drag or wheel gesture is never
-  // computed against a stale render.
+  // Handlers read the live view and aspect from refs so a drag or wheel gesture
+  // is never computed against a stale render.
   const viewRef = useRef(view);
   viewRef.current = view;
+  const aspectRef = useRef(aspect);
+  aspectRef.current = aspect;
+  const height = view.width * aspect;
   useEffect(() => () => { if (animationRef.current) cancelAnimationFrame(animationRef.current); }, []);
+
+  // Track the pane's shape so the viewBox never letterboxes: with a matching
+  // aspect, "fit the whole atlas" really is the whole atlas and nothing outside
+  // the extent can come into frame.
+  useEffect(() => {
+    const element = wrapRef.current;
+    if (!element || typeof ResizeObserver === "undefined") return;
+    const observer = new ResizeObserver((entries) => {
+      const box = entries[0]?.contentRect;
+      if (!box || box.width <= 0) return;
+      const next = box.height / box.width;
+      if (Math.abs(next - aspectRef.current) < 0.001) return;
+      setAspect(next);
+      setView((current) => clampView(current, next, MIN_VIEW_WIDTH));
+    });
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, []);
 
   // Follow the timeline: when the era changes, fly to its theatre. The "last
   // seen" markers are refs, not state — an effect may write a ref, and this
@@ -68,7 +89,7 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
     if (eraId === lastEraRef.current) return;
     lastEraRef.current = eraId;
     if (selectedId) return;
-    flyTo(viewBoxFor(era), 700);
+    flyTo(viewBoxFor(era, aspectRef.current), 700);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eraId]);
   useEffect(() => {
@@ -77,7 +98,7 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
     if (!selectedBattle) return;
     const [cx, cy] = project(selectedBattle.coordinates);
     const current = viewRef.current;
-    flyTo({ ...current, x: cx - current.width / 2, y: cy - current.height / 2 }, 500);
+    flyTo({ x: cx - current.width / 2, y: cy - (current.width * aspectRef.current) / 2, width: current.width }, 500);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId]);
 
@@ -91,33 +112,35 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
   const routes = useMemo(() => campaignRoutes.filter((route) => !hiddenFactions[route.faction] && layers[route.forceType] && isRouteActive(route, year)), [hiddenFactions, layers, year]);
   const forces = useMemo(() => campaignRoutes.filter((route) => !hiddenFactions[route.faction] && layers[route.forceType]).flatMap((route) => { const position = interpolateRoutePosition(route, year); return position ? [{ route, position }] : []; }), [hiddenFactions, layers, year]);
 
-  // Zoom about a focus point so the spot under the cursor stays put.
+  // Every view change goes through clampView, so no gesture can leave the atlas.
   function zoomAbout(factor: number, focusX?: number, focusY?: number) {
     setView((current) => {
-      const width = clampWidth(current.width * factor);
-      const ratio = width / current.width;
-      const height = current.height * ratio;
+      const currentAspect = aspectRef.current;
+      const currentHeight = current.width * currentAspect;
+      const wanted = clampView({ ...current, width: current.width * factor }, currentAspect, MIN_VIEW_WIDTH);
+      const ratio = wanted.width / current.width;
       const fx = focusX ?? current.x + current.width / 2;
-      const fy = focusY ?? current.y + current.height / 2;
-      return { x: fx - (fx - current.x) * ratio, y: fy - (fy - current.y) * ratio, width, height };
+      const fy = focusY ?? current.y + currentHeight / 2;
+      return clampView({ x: fx - (fx - current.x) * ratio, y: fy - (fy - current.y) * ratio, width: wanted.width }, currentAspect, MIN_VIEW_WIDTH);
     });
   }
 
   // Eased flight for button zooms and era changes, so the view moves the way a
   // map should rather than jumping.
-  function flyTo(target: { x: number; y: number; width: number; height: number }, duration = 420) {
+  function flyTo(target: { x: number; y: number; width: number }, duration = 420) {
     if (animationRef.current) cancelAnimationFrame(animationRef.current);
     const start = viewRef.current;
+    const currentAspect = aspectRef.current;
+    const end = clampView(target, currentAspect, MIN_VIEW_WIDTH);
     const startedAt = performance.now();
     const step = (now: number) => {
       const t = Math.min(1, (now - startedAt) / duration);
       const eased = t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-      setView({
-        x: start.x + (target.x - start.x) * eased,
-        y: start.y + (target.y - start.y) * eased,
-        width: start.width + (target.width - start.width) * eased,
-        height: start.height + (target.height - start.height) * eased,
-      });
+      setView(clampView({
+        x: start.x + (end.x - start.x) * eased,
+        y: start.y + (end.y - start.y) * eased,
+        width: start.width + (end.width - start.width) * eased,
+      }, currentAspect, MIN_VIEW_WIDTH));
       if (t < 1) animationRef.current = requestAnimationFrame(step);
     };
     animationRef.current = requestAnimationFrame(step);
@@ -125,12 +148,11 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
 
   function zoomFromCentre(factor: number) {
     const current = viewRef.current;
-    const width = clampWidth(current.width * factor);
-    const ratio = width / current.width;
-    const height = current.height * ratio;
+    const currentAspect = aspectRef.current;
     const cx = current.x + current.width / 2;
-    const cy = current.y + current.height / 2;
-    flyTo({ x: cx - width / 2, y: cy - height / 2, width, height }, 300);
+    const cy = current.y + (current.width * currentAspect) / 2;
+    const width = current.width * factor;
+    flyTo({ x: cx - width / 2, y: cy - (width * currentAspect) / 2, width }, 300);
   }
 
   function clientToVirtual(clientX: number, clientY: number) {
@@ -138,18 +160,19 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
     if (!svg) return null;
     const rect = svg.getBoundingClientRect();
     const current = viewRef.current;
-    return { x: current.x + ((clientX - rect.left) / rect.width) * current.width, y: current.y + ((clientY - rect.top) / rect.height) * current.height };
+    return { x: current.x + ((clientX - rect.left) / rect.width) * current.width, y: current.y + ((clientY - rect.top) / rect.height) * (current.width * aspectRef.current) };
   }
 
   const strokeScale = view.width / 1000; // keep line weights visually stable while zooming
-  const zoomFactor = DEFAULT_VIEW_WIDTH / view.width;
+  const fullWidth = Math.min(EXTENT_WIDTH, EXTENT_HEIGHT / Math.max(aspect, 0.0001));
+  const zoomFactor = fullWidth / view.width;
 
   return (
-    <div className="atlas-svg-wrap">
+    <div className="atlas-svg-wrap" ref={wrapRef}>
       <svg
         ref={svgRef}
         className="atlas-svg"
-        viewBox={`${view.x} ${view.y} ${view.width} ${view.height}`}
+        viewBox={`${view.x} ${view.y} ${view.width} ${height}`}
         role="img"
         aria-label={`Map of the Mediterranean in ${Math.abs(year)} BCE`}
         onPointerDown={(event) => {
@@ -163,12 +186,12 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
           const rect = svg.getBoundingClientRect();
           // Drag the map with the pointer: one screen pixel moves one screen pixel.
           const dx = ((event.clientX - start.clientX) / rect.width) * start.view.width;
-          const dy = ((event.clientY - start.clientY) / rect.height) * start.view.height;
-          setView({ ...start.view, x: start.view.x - dx, y: start.view.y - dy });
+          const dy = ((event.clientY - start.clientY) / rect.height) * (start.view.width * aspectRef.current);
+          setView(clampView({ ...start.view, x: start.view.x - dx, y: start.view.y - dy }, aspectRef.current, MIN_VIEW_WIDTH));
         }}
         onPointerUp={(event) => { dragState.current = null; event.currentTarget.releasePointerCapture?.(event.pointerId); }}
         onPointerCancel={() => { dragState.current = null; }}
-        onDoubleClick={(event) => { const point = clientToVirtual(event.clientX, event.clientY); if (!point) return; const current = viewRef.current; const width = clampWidth(current.width * 0.55); const ratio = width / current.width; flyTo({ x: point.x - (point.x - current.x) * ratio, y: point.y - (point.y - current.y) * ratio, width, height: current.height * ratio }, 350); }}
+        onDoubleClick={(event) => { const point = clientToVirtual(event.clientX, event.clientY); if (!point) return; const current = viewRef.current; const width = current.width * 0.55; const ratio = width / current.width; flyTo({ x: point.x - (point.x - current.x) * ratio, y: point.y - (point.y - current.y) * ratio, width }, 350); }}
         onWheel={(event) => {
           event.preventDefault();
           if (animationRef.current) cancelAnimationFrame(animationRef.current);
@@ -186,7 +209,7 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
             {LAND_PATHS.map((d, index) => <path key={index} d={d} clipRule="evenodd" />)}
           </clipPath>
         </defs>
-        <rect x={view.x - 10} y={view.y - 10} width={view.width + 20} height={view.height + 20} fill="var(--map-sea, #d7e5e9)" />
+        <rect x={view.x - 10} y={view.y - 10} width={view.width + 20} height={height + 20} fill="var(--map-sea, #d7e5e9)" />
         <g className="atlas-land">
           {LAND_PATHS.map((d, index) => <path key={index} d={d} fillRule="evenodd" fill="var(--map-land, #f3eee1)" stroke="var(--map-coast, #b9ae96)" strokeWidth={0.9 * strokeScale} />)}
         </g>
@@ -260,7 +283,7 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
       <div className="atlas-zoom" role="group" aria-label="Zoom">
         <button type="button" onClick={() => zoomFromCentre(0.66)} aria-label="Zoom in">+</button>
         <button type="button" onClick={() => zoomFromCentre(1.5)} aria-label="Zoom out">−</button>
-        <button type="button" onClick={() => flyTo(viewBoxFor(era), 450)} aria-label="Reset view">⌖</button>
+        <button type="button" onClick={() => flyTo(viewBoxFor(era, aspectRef.current), 450)} aria-label="Reset view">⌖</button>
       </div>
       <span className="atlas-scale-note">{zoomFactor.toFixed(1)}× · land: Natural Earth (public domain)</span>
     </div>
