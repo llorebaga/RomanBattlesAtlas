@@ -1,3 +1,3 @@
 :HL["/RomanBattlesAtlas/_next/static/chunks/0.zspf4ux_d86.css","style"]
 :HL["/RomanBattlesAtlas/_next/static/chunks/0qer0rbn2_mi9.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"VO9QalTaeSdKwhJUy3zlK"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"rNKES_SwFmyKnvPmYMI_D"}
