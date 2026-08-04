@@ -4,7 +4,10 @@ import * as maplibregl from "maplibre-gl";
 import type { Map as MapLibreMap } from "maplibre-gl";
 import type { Battle } from "@/types/history";
 
-const rasterStyle = { version: 8 as const, sources: { carto: { type: "raster" as const, tiles: ["https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"], tileSize: 256, attribution: "© OpenStreetMap contributors © CARTO" } }, layers: [{ id: "carto-base", type: "raster" as const, source: "carto" }] };
+// This locator keeps modern labels on purpose — unlike the campaign atlas, its
+// job is to answer "where is this place today", so the place names are the
+// point. Desaturated to sit with the rest of the visual system.
+const rasterStyle = { version: 8 as const, sources: { carto: { type: "raster" as const, tiles: ["https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"], tileSize: 256, attribution: "© OpenStreetMap contributors © CARTO" } }, layers: [{ id: "carto-base", type: "raster" as const, source: "carto", paint: { "raster-saturation": -0.55, "raster-contrast": -0.05 } }] };
 
 export function BattleAreaMap({ battle }: { battle: Battle }) {
   const container = useRef<HTMLDivElement>(null); const mapRef = useRef<MapLibreMap | null>(null);
