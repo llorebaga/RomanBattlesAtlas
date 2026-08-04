@@ -47,7 +47,7 @@ function territoryLabelCollection(year: number, show: boolean) {
 
 export function HistoricalMap() {
   const mapContainer = useRef<HTMLDivElement>(null); const mapRef = useRef<MapLibreMap | null>(null); const forceMarkers = useRef<Marker[]>([]); const battleMarkers = useRef<Marker[]>([]); const territoryLabels = useRef<Marker[]>([]); const previousEraRef = useRef<string | undefined>(undefined);
-  const [mapReady, setMapReady] = useState(false); const [year, setYear] = useState(TIMELINE_START_YEAR); const [playing, setPlaying] = useState(false); const [speed, setSpeed] = useState(1200); const [layers, setLayers] = useState(initialLayers); const [hiddenFactions, setHiddenFactions] = useState<Record<string, boolean>>({}); const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null); const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mapReady, setMapReady] = useState(false); const [mapFailed, setMapFailed] = useState(false); const [year, setYear] = useState(TIMELINE_START_YEAR); const [playing, setPlaying] = useState(false); const [speed, setSpeed] = useState(1200); const [layers, setLayers] = useState(initialLayers); const [hiddenFactions, setHiddenFactions] = useState<Record<string, boolean>>({}); const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null); const [sidebarOpen, setSidebarOpen] = useState(false);
   const activeBattles = useMemo(() => battlesForYear(battles, year).filter((battle) => battle.kind === "siege" ? layers.sieges : layers.battles), [year, layers.battles, layers.sieges]); const selectedEvent = historicalEvents.find((event) => event.year === year);
   const currentEra = eraForYear(year);
   const eraFactions: Faction[] = currentEra?.factions ?? ["rome"];
@@ -59,6 +59,9 @@ export function HistoricalMap() {
     // atlas and would look coarse if zoomed further.
     const map = new maplibregl.Map({ container: mapContainer.current, style: atlasStyle, center: [12.2, 38], zoom: 4.4, minZoom: 3.2, maxZoom: 7, attributionControl: false });
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right"); map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
+    // Surface map failures instead of sitting on a loading message forever: a
+    // broken worker or source used to leave the atlas blank and silent.
+    map.on("error", (event) => { console.error("[atlas] map error", event?.error ?? event); setMapFailed(true); });
     map.on("load", () => {
       map.addSource("territories", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
       // Split into belligerent and context layers with CONSTANT paint values.
@@ -120,7 +123,7 @@ export function HistoricalMap() {
       {layers.territories && powers.length > 0 && <div className="powers-list"><div className="active-list-title"><span>Powers on the map</span><span>{powers.length}</span></div><div className="powers-grid">{powers.map((info) => <span key={info.id} className="power-chip"><span className="faction-swatch" style={{ background: info.color }} />{info.name}</span>)}</div></div>}
       <div className="active-list"><div className="active-list-title"><span>Visible events</span><span>{activeBattles.length}</span></div>{activeBattles.length ? activeBattles.map((battle) => <button key={battle.id} onClick={() => { selectBattle(battle); setSidebarOpen(false); }}><span className={`mini-kind ${battle.kind}`}>{battle.kind === "naval" ? "≋" : battle.kind === "siege" ? "◎" : "⚔"}</span><span><strong>{battle.name}</strong><small>{battle.location}</small></span><ChevronLeft size={15} className="event-arrow" /></button>) : <p className="empty-state">No battle marker is active. Campaign routes may still be visible.</p>}</div>
       <p className="reconstruction-disclaimer">Ancient evidence is incomplete. Territory zones, positions, and routes are schematic reconstructions, not surveyed borders or exact tracks.</p></aside>
-      <section className="map-stage" aria-label={`Interactive map — ${currentEra ? currentEra.name : "Roman military campaigns"}`}><div ref={mapContainer} className="map-canvas" />{!mapReady && <div className="map-loading" role="status"><span />Loading the Mediterranean…</div>}<div className="map-caption"><span>THE MEDITERRANEAN WORLD</span><small>Schematic territories &amp; routes · no modern borders</small></div><MapLegend powers={powers} />{selectedBattle && <BattlePanel battle={selectedBattle} onClose={() => setSelectedBattle(null)} />}</section></div>
+      <section className="map-stage" aria-label={`Interactive map — ${currentEra ? currentEra.name : "Roman military campaigns"}`}><div ref={mapContainer} className="map-canvas" />{!mapReady && !mapFailed && <div className="map-loading" role="status"><span />Loading the Mediterranean…</div>}{!mapReady && mapFailed && <div className="map-loading" role="alert">The map could not be drawn. The event list and timeline still work; see the browser console for details.</div>}<div className="map-caption"><span>THE MEDITERRANEAN WORLD</span><small>Schematic territories &amp; routes · no modern borders</small></div><MapLegend powers={powers} />{selectedBattle && <BattlePanel battle={selectedBattle} onClose={() => setSelectedBattle(null)} />}</section></div>
     <TimelineControls year={year} playing={playing} speed={speed} onYearChange={updateYear} onPlayingChange={(value) => { if (value && year === TIMELINE_END_YEAR) setYear(TIMELINE_START_YEAR); setPlaying(value); }} onSpeedChange={setSpeed} />
   </main>;
 }

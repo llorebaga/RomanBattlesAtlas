@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vinext dev",
     "build": "vinext build",
-    "build:pages": "next build",
+    "build:pages": "next build && node build/fix-worker-imports.mjs out",
     "start": "vinext start",
     "test": "node --experimental-strip-types --test tests/history.test.mjs tests/territory-render.test.mjs",
     "test:render": "node --test tests/rendered-html.test.mjs",
