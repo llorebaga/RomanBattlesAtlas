@@ -15,24 +15,25 @@ import { BattlePanel } from "./BattlePanel"; import { MapLegend } from "./MapLeg
 
 type LayerFilters = { army: boolean; fleet: boolean; battles: boolean; sieges: boolean; territories: boolean };
 const initialLayers: LayerFilters = { army: true, fleet: true, battles: true, sieges: true, territories: true };
-const rasterStyle = { version: 8 as const, sources: { carto: { type: "raster" as const, tiles: ["https://a.basemaps.cartocdn.com/light_all/{z}/{x}/{y}@2x.png"], tileSize: 256, attribution: "© OpenStreetMap contributors © CARTO" } }, layers: [{ id: "carto-base", type: "raster" as const, source: "carto", paint: { "raster-saturation": -0.28, "raster-contrast": -0.04 } }] };
+// A label-free, near-grayscale basemap: this is a historical atlas, so modern
+// place names and state labels would be both clutter and anachronism. The
+// physical geography (coastlines, land, sea) provides orientation; all political
+// information on the map comes from the territory layer above it.
+const rasterStyle = { version: 8 as const, sources: { carto: { type: "raster" as const, tiles: ["https://a.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}@2x.png"], tileSize: 256, attribution: "© OpenStreetMap contributors © CARTO" } }, layers: [{ id: "carto-base", type: "raster" as const, source: "carto", paint: { "raster-saturation": -1, "raster-contrast": -0.12, "raster-brightness-max": 0.97 } }] };
 
 function routeVisible(route: CampaignRoute, layers: LayerFilters, hidden: Record<string, boolean>) { return !hidden[route.faction] && layers[route.forceType]; }
 function lineCollection(routes: CampaignRoute[], year: number, layers: LayerFilters, hidden: Record<string, boolean>, part: "completed" | "future") { return { type: "FeatureCollection" as const, features: routes.filter((route) => routeVisible(route, layers, hidden) && isRouteActive(route, year)).flatMap((route) => { const coordinates = splitRouteAtYear(route, year)[part]; return coordinates.length < 2 ? [] : [{ type: "Feature" as const, properties: { id: route.id, color: factionColor(route.faction), certainty: route.certainty }, geometry: { type: "LineString" as const, coordinates } }]; }) }; }
 const emptyCollection = { type: "FeatureCollection" as const, features: [] };
 function territoryCollection(year: number, show: boolean) {
   if (!show) return emptyCollection;
-  return { type: "FeatureCollection" as const, features: territoriesForYear(year).map((territory) => {
-    const context = isContextPower(territory.polity);
-    return { type: "Feature" as const, properties: { polity: territory.polity, name: territory.name, color: factionColor(territory.polity), fillOpacity: context ? 0.12 : 0.3, lineOpacity: context ? 0.4 : 0.9, lineWidth: context ? 1 : 1.8 }, geometry: { type: "Polygon" as const, coordinates: [[...territory.ring, territory.ring[0]].map((point) => [point[0], point[1]])] } };
-  }) };
+  return { type: "FeatureCollection" as const, features: territoriesForYear(year).map((territory) => ({ type: "Feature" as const, properties: { polity: territory.polity, name: territory.name, color: factionColor(territory.polity), context: isContextPower(territory.polity) }, geometry: { type: "Polygon" as const, coordinates: [[...territory.ring, territory.ring[0]].map((point) => [point[0], point[1]])] } })) };
 }
 // Direct name labels are the secondary encoding that lets the territory palette
 // stay readable: two hue pairs sit in the 6–8 CVD band, so color alone is never
 // the only cue for who holds an area.
 function territoryLabelCollection(year: number, show: boolean) {
   if (!show) return emptyCollection;
-  return { type: "FeatureCollection" as const, features: territoriesForYear(year).filter((territory) => territory.labelAt).map((territory) => ({ type: "Feature" as const, properties: { name: territory.name.toUpperCase(), color: factionColor(territory.polity), context: isContextPower(territory.polity) ? 1 : 0 }, geometry: { type: "Point" as const, coordinates: territory.labelAt as [number, number] } })) };
+  return { type: "FeatureCollection" as const, features: territoriesForYear(year).filter((territory) => territory.labelAt).map((territory) => ({ type: "Feature" as const, properties: { name: territory.name.toUpperCase(), color: factionColor(territory.polity), context: isContextPower(territory.polity) }, geometry: { type: "Point" as const, coordinates: territory.labelAt as [number, number] } })) };
 }
 
 export function HistoricalMap() {
@@ -49,8 +50,13 @@ export function HistoricalMap() {
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right"); map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
     map.on("load", () => {
       map.addSource("territories", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-      map.addLayer({ id: "territory-fill", type: "fill", source: "territories", paint: { "fill-color": ["get", "color"], "fill-opacity": ["get", "fillOpacity"] } });
-      map.addLayer({ id: "territory-outline", type: "line", source: "territories", layout: { "line-join": "round" }, paint: { "line-color": ["get", "color"], "line-width": ["get", "lineWidth"], "line-opacity": ["get", "lineOpacity"] } });
+      // Split into belligerent and context layers with CONSTANT paint values.
+      // Data-driven fill-opacity/line-width are not dependably supported, and a
+      // silently ignored expression leaves the zones invisible.
+      map.addLayer({ id: "territory-fill", type: "fill", source: "territories", filter: ["!=", ["get", "context"], true], paint: { "fill-color": ["get", "color"], "fill-opacity": 0.42 } });
+      map.addLayer({ id: "territory-fill-context", type: "fill", source: "territories", filter: ["==", ["get", "context"], true], paint: { "fill-color": ["get", "color"], "fill-opacity": 0.16 } });
+      map.addLayer({ id: "territory-outline", type: "line", source: "territories", filter: ["!=", ["get", "context"], true], layout: { "line-join": "round" }, paint: { "line-color": ["get", "color"], "line-width": 2, "line-opacity": 0.95 } });
+      map.addLayer({ id: "territory-outline-context", type: "line", source: "territories", filter: ["==", ["get", "context"], true], layout: { "line-join": "round" }, paint: { "line-color": ["get", "color"], "line-width": 1, "line-opacity": 0.45 } });
       map.addSource("routes-future", { type: "geojson", data: { type: "FeatureCollection", features: [] } }); map.addSource("routes-completed", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
       map.addLayer({ id: "routes-future", type: "line", source: "routes-future", paint: { "line-color": ["get", "color"], "line-width": 2.2, "line-opacity": 0.3, "line-dasharray": [1.5, 2.2] } });
       map.addLayer({ id: "routes-completed", type: "line", source: "routes-completed", paint: { "line-color": ["get", "color"], "line-width": 3.2, "line-opacity": 0.88 } });

@@ -29,3 +29,6 @@ next-env.d.ts
 
 # static export output
 /out
+
+# generated review artifact
+/territory-preview.html
