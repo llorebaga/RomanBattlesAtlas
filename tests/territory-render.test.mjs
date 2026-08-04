@@ -1,7 +1,38 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import { territories, territoriesForYear } from "../data/territories.ts";
 import { factionColor, factionList, isContextPower } from "../data/factions.ts";
+
+const land = JSON.parse(readFileSync(new URL("../data/geo/mediterranean-land.json", import.meta.url), "utf8"));
+
+function pointInRing(point, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if (yi > point[1] !== yj > point[1] && point[0] < ((xj - xi) * (point[1] - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+const isLand = (point) => land.features[0].geometry.coordinates.some((rings) => pointInRing(point, rings[0]) && !rings.slice(1).some((hole) => pointInRing(point, hole)));
+
+test("the bundled basemap puts land and sea in the right places", () => {
+  for (const [name, point] of Object.entries({ Rome: [12.5, 41.9], Carthage: [10.3, 36.85], Sicily: [14.0, 37.5], Sardinia: [9.0, 40.1], Greece: [23.7, 38.0], Iberia: [-1.0, 37.6], Alps: [7.0, 45.5] })) {
+    assert.ok(isLand(point), `${name} should be on land`);
+  }
+  for (const [name, point] of Object.entries({ "Tyrrhenian Sea": [12.0, 39.5], Aegean: [25.0, 37.0], Atlantic: [-15, 40] })) {
+    assert.ok(!isLand(point), `${name} should be sea`);
+  }
+});
+
+test("the basemap carries no political data", () => {
+  const serialized = JSON.stringify(land);
+  for (const banned of ["ADMIN", "iso_a2", "sovereignt", "NAME", "country"]) {
+    assert.ok(!serialized.includes(banned), `basemap should not carry the ${banned} property`);
+  }
+  assert.deepEqual(land.features[0].properties, {}, "land features should carry no properties at all");
+});
 
 test("every territory ring is valid, closed-able Mediterranean geometry", () => {
   for (const period of territories) {

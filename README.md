@@ -112,9 +112,10 @@ The repository includes `.openai/hosting.json` and the Vinext/Sites build config
 ## Current limitations
 
 - Route geometry is deliberately simplified and several legs remain provisional.
-- Basemap labels and boundaries are modern; they provide geographic orientation, not an ancient political map.
+- The campaign map's basemap is deliberately apolitical: sea, land, and coastline only, drawn from bundled Natural Earth data (public domain, `data/geo/mediterranean-land.json`, regenerate with `build/make-basemap.mjs`). It carries no modern borders or place names, so every political statement on the map comes from the territory layer. Coastlines are simplified for a regional view, which is why the map caps at zoom 7.
+- Battle detail pages keep a labeled modern basemap on purpose: that locator answers "where is this place today", so modern names are the point.
 - Only Mylae currently has the fully illustrated bespoke treatment; other major battles use the shared rich layout.
 - Second Punic War coordinates for the Alpine crossing, Baecula, the Great Plains, and Zama are provisional and await scholarly review.
 - Monthly dating is sparse, so marker interpolation communicates campaign sequence rather than continuous measured travel.
-- The CARTO basemap requires an internet connection.
+- The campaign map needs no tile service; battle detail pages still load CARTO tiles and so require an internet connection.
 - Scholarly review is still required for Sulci, Adys, Bagradas, Ecnomus, and Aegates coordinates and for fleet-strength estimates.
