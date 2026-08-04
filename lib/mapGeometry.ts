@@ -34,6 +34,29 @@ export function smoothClosedPath(ring: number[][], scale = MAP_SCALE, tension = 
   return `${path}Z`;
 }
 
+// Campaign routes as a smooth open curve. A march was not a sequence of ruled
+// straight lines between waypoints, and drawing it that way looks mechanical;
+// this eases through every attested waypoint without inventing detours.
+export function smoothOpenPath(points: number[][], scale = MAP_SCALE, tension = 0.85): string {
+  const projected = points.map((point) => projectPoint(point, scale));
+  if (projected.length < 2) return "";
+  const format = (point: Point) => `${point[0].toFixed(1)} ${point[1].toFixed(1)}`;
+  if (projected.length === 2) return `M${format(projected[0])}L${format(projected[1])}`;
+  // Clamp at the ends so the curve starts and finishes exactly on the route.
+  const at = (index: number) => projected[Math.max(0, Math.min(projected.length - 1, index))];
+  let path = `M${format(projected[0])}`;
+  for (let i = 0; i < projected.length - 1; i += 1) {
+    const previous = at(i - 1);
+    const start = at(i);
+    const end = at(i + 1);
+    const next = at(i + 2);
+    const c1: Point = [start[0] + ((end[0] - previous[0]) / 6) * tension, start[1] + ((end[1] - previous[1]) / 6) * tension];
+    const c2: Point = [end[0] - ((next[0] - start[0]) / 6) * tension, end[1] - ((next[1] - start[1]) / 6) * tension];
+    path += `C${format(c1)},${format(c2)},${format(end)}`;
+  }
+  return path;
+}
+
 // The same curve as a dense ring of lng/lat points, for geometric checks such as
 // "do two powers overlap" that must reason about what is actually drawn.
 export function densifyClosedRing(ring: number[][], samplesPerSegment = 8, tension = 1): Point[] {

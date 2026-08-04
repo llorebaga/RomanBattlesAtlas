@@ -9,7 +9,7 @@ import { eraForYear } from "../data/wars.ts";
 import { landPolygons } from "../data/geo/mediterranean-land.ts";
 import { campaignRoutes } from "../data/campaigns.ts";
 import { splitRouteAtYear, isRouteActive } from "../lib/routeInterpolation.ts";
-import { MAP_SCALE, projectPoint, smoothClosedPath } from "../lib/mapGeometry.ts";
+import { MAP_SCALE, projectPoint, smoothClosedPath, smoothOpenPath } from "../lib/mapGeometry.ts";
 
 const YEARS = [-264, -241, -218, -201, -197];
 // Window in degrees, converted to the map's projected units.
@@ -36,15 +36,17 @@ const panels = YEARS.map((year) => {
   const zones = territoriesForYear(year)
     .slice()
     .sort((a, b) => Number(isContextPower(b.polity)) - Number(isContextPower(a.polity)));
-  const shapes = zones.map((zone) => {
-    const context = isContextPower(zone.polity);
-    const color = factionColor(zone.polity);
-    return `    <path d="${smoothClosedPath(zone.ring)}" fill="${color}" fill-opacity="${context ? 0.22 : 0.52}" stroke="${color}" stroke-opacity="${context ? 0.25 : 0.4}" stroke-width="${((context ? 0.8 : 1.2) * strokeScale).toFixed(2)}" stroke-linejoin="round" />`;
-  }).join("\n");
+  // Opacity per layer, exactly as the map does it, so overlaps do not darken.
+  const layerFor = (wantContext, opacity) => {
+    const paths = zones.filter((zone) => isContextPower(zone.polity) === wantContext)
+      .map((zone) => `      <path d="${smoothClosedPath(zone.ring)}" fill="${factionColor(zone.polity)}" />`).join("\n");
+    return paths ? `    <g opacity="${opacity}">\n${paths}\n    </g>` : "";
+  };
+  const shapes = `${layerFor(true, 0.22)}\n${layerFor(false, 0.52)}`;
   const routes = campaignRoutes.filter((route) => isRouteActive(route, year)).map((route) => {
     const split = splitRouteAtYear(route, year);
     const color = factionColor(route.faction);
-    const line = (points, opacity, width, dash) => points.length < 2 ? "" : `    <polyline points="${points.map((p) => { const [x, y] = projectPoint(p); return `${x.toFixed(1)},${y.toFixed(1)}`; }).join(" ")}" fill="none" stroke="${color}" stroke-opacity="${opacity}" stroke-width="${(width * strokeScale).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"${dash ? ` stroke-dasharray="${(3.4 * strokeScale).toFixed(2)} ${(4.8 * strokeScale).toFixed(2)}"` : ""} />`;
+    const line = (points, opacity, width, dash) => points.length < 2 ? "" : `    <path d="${smoothOpenPath(points)}" fill="none" stroke="${color}" stroke-opacity="${opacity}" stroke-width="${(width * strokeScale).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"${dash ? ` stroke-dasharray="${(3.4 * strokeScale).toFixed(2)} ${(4.8 * strokeScale).toFixed(2)}"` : ""} />`;
     return `${line(split.future, 0.32, 2.2, true)}\n${line(split.completed, 0.9, 3.2, false)}`;
   }).join("\n");
   const labels = zones.filter((zone) => zone.labelAt).map((zone) => {

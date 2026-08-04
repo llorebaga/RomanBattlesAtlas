@@ -52,28 +52,35 @@ test("every territory zone is mostly land and labelled on land", () => {
   }
 });
 
-test("no two zones paint the same land in the same year", () => {
-  // Overlapping translucent fills blend: between two powers that invents a third
-  // colour, and between two zones of the same power it shows as a darker patch
-  // that means nothing. Checked against the densified smoothing curve, because
-  // that — not the authored polygon — is what actually gets painted.
-  for (const year of [-264, -241, -218, -206, -201, -197]) {
-    const zones = territoriesForYear(year).filter((zone) => !isContextPower(zone.polity)).map((zone) => ({ zone, curve: densifyClosedRing(zone.ring) }));
-    for (let i = 0; i < zones.length; i += 1) {
-      for (let j = i + 1; j < zones.length; j += 1) {
-        const a = zones[i];
-        const b = zones[j];
-        let shared = 0;
-        const lngs = a.curve.map((p) => p[0]);
-        const lats = a.curve.map((p) => p[1]);
-        for (let x = Math.min(...lngs); x <= Math.max(...lngs); x += 0.25) {
-          for (let y = Math.min(...lats); y <= Math.max(...lats); y += 0.25) {
-            if (!isLand([x, y])) continue; // only land is ever painted
-            if (pointInRing([x, y], a.curve) && pointInRing([x, y], b.curve)) shared += 1;
-          }
-        }
-        assert.ok(shared <= 2, `${a.zone.name} and ${b.zone.name} overlap on land in ${Math.abs(year)} BCE (${shared} samples)`);
-      }
+// Which power the map should show holding a given place in a given year. This is
+// the check that catches unclaimed white gaps as well as wrong ownership, and it
+// reasons about the densified smoothing curve — what is actually painted — and
+// about draw order, since a later zone wins overlapping ground.
+const OWNERSHIP = [
+  { year: -264, places: { "Rome (city)": [12.48, 41.9], Capua: [14.25, 41.08], Tarentum: [17.24, 40.47], Rhegium: [15.65, 38.11], Etruria: [11.3, 43.2], Ariminum: [12.57, 44.06], Pisa: [10.4, 43.7] }, polity: "rome" },
+  { year: -264, places: { "Po plain": [9.19, 45.46], Massilia: [5.37, 43.3] }, polity: "gaul" },
+  { year: -264, places: { "Carthage hinterland": [10.17, 36.8], Utica: [10.06, 37.06], Hadrumetum: [10.63, 35.5] }, polity: "carthage" },
+  { year: -264, places: { "western Sicily": [12.9, 37.8], Panormus: [13.36, 38.12] }, polity: "carthage" },
+  { year: -264, places: { "Numidian interior": [4.0, 35.6], "Numidian coast": [2.9, 36.6] }, polity: "numidia" },
+  { year: -264, places: { Pella: [22.52, 40.76], Thessaly: [22.3, 39.6] }, polity: "macedon" },
+  { year: -240, places: { "western Sicily": [12.9, 37.8], Syracuse: [15.29, 37.07] }, polity: "rome" },
+  { year: -230, places: { "Sardinia interior": [9.1, 40.1] }, polity: "rome" },
+  { year: -218, places: { "New Carthage": [-0.98, 37.6], Saguntum: [-0.27, 39.68] }, polity: "carthage" },
+  { year: -197, places: { "New Carthage": [-0.98, 37.6] }, polity: "rome" },
+  { year: -197, places: { Pella: [22.52, 40.76] }, polity: "macedon" },
+  { year: -197, places: { "Carthage hinterland": [10.17, 36.8] }, polity: "carthage" },
+];
+
+test("the map shows the expected power holding each known place", () => {
+  for (const { year, places, polity } of OWNERSHIP) {
+    // Later zones win overlapping ground, so resolve in draw order.
+    const drawn = territoriesForYear(year).map((zone) => ({ zone, curve: densifyClosedRing(zone.ring) }));
+    for (const [place, point] of Object.entries(places)) {
+      assert.ok(isLand(point), `${place} should be on land`);
+      const holders = drawn.filter(({ curve }) => pointInRing(point, curve));
+      assert.ok(holders.length > 0, `${place} is unclaimed in ${Math.abs(year)} BCE — that renders as a white gap`);
+      const winner = holders[holders.length - 1].zone.polity;
+      assert.equal(winner, polity, `${place} in ${Math.abs(year)} BCE should read as ${polity}, not ${winner}`);
     }
   }
 });

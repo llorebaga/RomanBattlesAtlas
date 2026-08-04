@@ -9,7 +9,7 @@ import { territoriesForYear } from "@/data/territories";
 import { factionColor, factionAdjective, isContextPower } from "@/data/factions";
 import { landPolygons } from "@/data/geo/mediterranean-land";
 import { interpolateRoutePosition, isRouteActive, splitRouteAtYear } from "@/lib/routeInterpolation";
-import { MAP_SCALE as SCALE, projectPoint, smoothClosedPath } from "@/lib/mapGeometry";
+import { MAP_SCALE as SCALE, projectPoint, smoothClosedPath, smoothOpenPath } from "@/lib/mapGeometry";
 import { campaignRoutes } from "@/data/campaigns";
 import type { Battle, Coordinates, Era } from "@/types/history";
 
@@ -17,7 +17,6 @@ export type MapLayers = { army: boolean; fleet: boolean; battles: boolean; siege
 
 const project = (point: Coordinates | number[]): [number, number] => projectPoint(point);
 const pathFor = (rings: number[][][]) => rings.map((ring) => `M${ring.map((p) => { const [x, y] = project(p); return `${x.toFixed(1)} ${y.toFixed(1)}`; }).join("L")}Z`).join("");
-const polylineFor = (points: number[][]) => points.map((p) => { const [x, y] = project(p); return `${x.toFixed(1)},${y.toFixed(1)}`; }).join(" ");
 const MIN_VIEW_WIDTH = 90;
 const MAX_VIEW_WIDTH = 3000;
 const clampWidth = (width: number) => Math.min(Math.max(width, MIN_VIEW_WIDTH), MAX_VIEW_WIDTH);
@@ -191,23 +190,27 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
         <g className="atlas-land">
           {LAND_PATHS.map((d, index) => <path key={index} d={d} fillRule="evenodd" fill="var(--map-land, #f3eee1)" stroke="var(--map-coast, #b9ae96)" strokeWidth={0.9 * strokeScale} />)}
         </g>
+        {/* Opacity is applied once per layer, not per shape. Zones therefore
+            overlap without darkening: the one drawn later simply wins the
+            contested ground, which lets the envelopes overshoot coasts and each
+            other so no unclaimed white sliver is left between powers. */}
         <g className="atlas-territories" clipPath="url(#atlas-land-clip)">
-          {zones.map((zone) => {
-            const context = isContextPower(zone.polity);
-            const color = factionColor(zone.polity);
-            // Fill carries the meaning; the outline is only a faint inland hint
-            // so the coastline stays the crisp edge and the crude envelope edges
-            // do not read as borders.
-            return <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={color} fillOpacity={context ? 0.22 : 0.52} stroke={color} strokeOpacity={context ? 0.25 : 0.4} strokeWidth={(context ? 0.8 : 1.2) * strokeScale} strokeLinejoin="round" />;
-          })}
+          <g opacity={0.22}>
+            {zones.filter((zone) => isContextPower(zone.polity)).map((zone) => <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={factionColor(zone.polity)} />)}
+          </g>
+          <g opacity={0.52}>
+            {zones.filter((zone) => !isContextPower(zone.polity)).map((zone) => <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={factionColor(zone.polity)} />)}
+          </g>
         </g>
         <g className="atlas-routes">
           {routes.map((route) => {
             const split = splitRouteAtYear(route, year);
             const color = factionColor(route.faction);
+            // Marches curve through their waypoints rather than running as ruled
+            // straight legs, which looked mechanical and implied surveyed roads.
             return <g key={route.id}>
-              {split.future.length >= 2 && <polyline points={polylineFor(split.future)} fill="none" stroke={color} strokeOpacity={0.32} strokeWidth={2.2 * strokeScale} strokeDasharray={`${3.4 * strokeScale} ${4.8 * strokeScale}`} strokeLinecap="round" />}
-              {split.completed.length >= 2 && <polyline points={polylineFor(split.completed)} fill="none" stroke={color} strokeOpacity={0.9} strokeWidth={3.2 * strokeScale} strokeLinejoin="round" strokeLinecap="round" />}
+              {split.future.length >= 2 && <path d={smoothOpenPath(split.future)} fill="none" stroke={color} strokeOpacity={0.32} strokeWidth={2.2 * strokeScale} strokeDasharray={`${3.4 * strokeScale} ${4.8 * strokeScale}`} strokeLinecap="round" />}
+              {split.completed.length >= 2 && <path d={smoothOpenPath(split.completed)} fill="none" stroke={color} strokeOpacity={0.9} strokeWidth={3.2 * strokeScale} strokeLinejoin="round" strokeLinecap="round" />}
             </g>;
           })}
         </g>
