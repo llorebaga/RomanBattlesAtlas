@@ -15,12 +15,15 @@ const W = 720;
 const H = Math.round((W * (BOUNDS.north - BOUNDS.south)) / (BOUNDS.east - BOUNDS.west));
 const x = (lng) => ((lng - BOUNDS.west) / (BOUNDS.east - BOUNDS.west)) * W;
 const y = (lat) => ((BOUNDS.north - lat) / (BOUNDS.north - BOUNDS.south)) * H;
+// Names such as "Sardinia & Corsica" must be escaped: the output is real SVG,
+// which is XML, so a bare ampersand is a parse error.
+const xmlText = (value) => value.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 // The same bundled land the map draws, as SVG paths (sea is the backdrop).
-const landPaths = landPolygons.map((rings) => {
-  const d = rings.map((ring) => `M${ring.map((p) => `${x(p[0]).toFixed(1)} ${y(p[1]).toFixed(1)}`).join("L")}Z`).join("");
-  return `<path d="${d}" fill="#f3eee1" stroke="#b9ae96" stroke-width="0.9" fill-rule="evenodd" />`;
-}).join("");
+const landPathData = landPolygons.map((rings) => rings.map((ring) => `M${ring.map((p) => `${x(p[0]).toFixed(1)} ${y(p[1]).toFixed(1)}`).join("L")}Z`).join(""));
+const landPaths = landPathData.map((d) => `<path d="${d}" fill="#f3eee1" stroke="#b9ae96" stroke-width="0.9" fill-rule="evenodd" />`).join("");
+// Same clip the map applies: territory colour stops at the coastline.
+const landClip = landPathData.map((d) => `<path d="${d}" clip-rule="evenodd" />`).join("");
 
 const panels = YEARS.map((year) => {
   const era = eraForYear(year);
@@ -31,19 +34,22 @@ const panels = YEARS.map((year) => {
     const context = isContextPower(zone.polity);
     const color = factionColor(zone.polity);
     const points = zone.ring.map((p) => `${x(p[0]).toFixed(1)},${y(p[1]).toFixed(1)}`).join(" ");
-    return `    <polygon points="${points}" fill="${color}" fill-opacity="${context ? 0.16 : 0.42}" stroke="${color}" stroke-opacity="${context ? 0.45 : 0.95}" stroke-width="${context ? 1 : 2}" stroke-linejoin="round" />`;
+    return `    <polygon points="${points}" fill="${color}" fill-opacity="${context ? 0.22 : 0.52}" stroke="${color}" stroke-opacity="${context ? 0.25 : 0.4}" stroke-width="${context ? 0.5 : 0.8}" stroke-linejoin="round" />`;
   }).join("\n");
   const labels = zones.filter((zone) => zone.labelAt).map((zone) => {
     const color = factionColor(zone.polity);
     const context = isContextPower(zone.polity);
-    return `    <text x="${x(zone.labelAt[0]).toFixed(1)}" y="${y(zone.labelAt[1]).toFixed(1)}" fill="${color}" fill-opacity="${context ? 0.72 : 1}" font-family="system-ui,sans-serif" font-size="9" font-weight="700" letter-spacing="1.2" text-anchor="middle" paint-order="stroke" stroke="#f8f5ed" stroke-width="3">${zone.name.toUpperCase()}</text>`;
+    return `    <text x="${x(zone.labelAt[0]).toFixed(1)}" y="${y(zone.labelAt[1]).toFixed(1)}" fill="${color}" fill-opacity="${context ? 0.72 : 1}" font-family="system-ui,sans-serif" font-size="3.4" font-weight="700" letter-spacing="0.4" text-anchor="middle" paint-order="stroke" stroke="#f8f5ed" stroke-width="1.2">${xmlText((zone.mapLabel ?? zone.name).toUpperCase())}</text>`;
   }).join("\n");
   return `<section>
   <h2>${Math.abs(year)} BCE — ${era ? era.name : "—"}</h2>
   <svg viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="Territory zones in ${Math.abs(year)} BCE">
+    <defs><clipPath id="land-clip-${Math.abs(year)}">${landClip}</clipPath></defs>
     <rect width="${W}" height="${H}" fill="#d7e5e9" />
     <g>${landPaths}</g>
+    <g clip-path="url(#land-clip-${Math.abs(year)})">
 ${shapes}
+    </g>
 ${labels}
   </svg>
 </section>`;

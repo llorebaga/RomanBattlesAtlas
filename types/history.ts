@@ -73,6 +73,8 @@ export interface TerritoryPeriod {
   certainty: Certainty;
   ring: Coordinates[];
   labelAt?: Coordinates;
+  /** Short name for the map itself; colour and legend carry the polity. */
+  mapLabel?: string;
 }
 
 export interface BattleMoment {

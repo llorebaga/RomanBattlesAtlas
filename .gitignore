@@ -32,3 +32,6 @@ next-env.d.ts
 
 # generated review artifact
 /territory-preview.html
+
+# scratch renders for reviewing the map
+/build/tmp

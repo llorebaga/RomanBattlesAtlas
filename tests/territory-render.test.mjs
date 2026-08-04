@@ -26,6 +26,56 @@ test("the bundled basemap puts land and sea in the right places", () => {
   }
 });
 
+test("every territory zone is mostly land and labelled on land", () => {
+  for (const territory of territories) {
+    // Fills are clipped to the coastline on the map, so a zone that barely
+    // overlaps land would render as a sliver or vanish entirely.
+    const lngs = territory.ring.map((p) => p[0]);
+    const lats = territory.ring.map((p) => p[1]);
+    let tested = 0;
+    let onLand = 0;
+    for (let x = Math.min(...lngs); x <= Math.max(...lngs); x += 0.3) {
+      for (let y = Math.min(...lats); y <= Math.max(...lats); y += 0.3) {
+        if (!pointInRing([x, y], territory.ring)) continue;
+        tested += 1;
+        if (isLand([x, y])) onLand += 1;
+      }
+    }
+    assert.ok(tested > 0, `${territory.name} should enclose sample points`);
+    // Rings are deliberately generous envelopes — the map clips them to the
+    // coastline — so a lot of enclosed sea is expected and fine. What must hold
+    // is that the envelope actually contains land to colour.
+    assert.ok(onLand >= 3, `${territory.name} should enclose real land (found ${onLand} land samples)`);
+    assert.ok(onLand / tested > 0.15, `${territory.name} should not be almost entirely sea (was ${Math.round((100 * onLand) / tested)}% land)`);
+    if (territory.labelAt) assert.ok(isLand(territory.labelAt), `${territory.name}'s label should sit on land`);
+  }
+});
+
+test("no two active powers claim the same land in the same year", () => {
+  // Overlapping translucent fills blend into a colour that belongs to neither
+  // power, which reads as a third faction that never existed.
+  for (const year of [-264, -241, -218, -206, -201, -197]) {
+    const zones = territoriesForYear(year).filter((zone) => !isContextPower(zone.polity));
+    for (let i = 0; i < zones.length; i += 1) {
+      for (let j = i + 1; j < zones.length; j += 1) {
+        const a = zones[i];
+        const b = zones[j];
+        if (a.polity === b.polity) continue;
+        let shared = 0;
+        const lngs = a.ring.map((p) => p[0]);
+        const lats = a.ring.map((p) => p[1]);
+        for (let x = Math.min(...lngs); x <= Math.max(...lngs); x += 0.25) {
+          for (let y = Math.min(...lats); y <= Math.max(...lats); y += 0.25) {
+            if (!isLand([x, y])) continue; // only land is ever painted
+            if (pointInRing([x, y], a.ring) && pointInRing([x, y], b.ring)) shared += 1;
+          }
+        }
+        assert.ok(shared <= 2, `${a.name} and ${b.name} overlap on land in ${Math.abs(year)} BCE (${shared} samples)`);
+      }
+    }
+  }
+});
+
 test("the basemap is pure geometry with no political data", () => {
   // landPolygons is coordinates only: there is nowhere for a modern country
   // name, ISO code, or sovereignty attribute to hide.

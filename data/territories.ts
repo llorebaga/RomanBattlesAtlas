@@ -8,76 +8,81 @@ import type { TerritoryPeriod } from "@/types/history";
 // period and starting the successor's the next year.
 export const territories: TerritoryPeriod[] = [
   // --- Rome: peninsular Italy, then Sicily, Sardinia/Corsica, Iberia ---
+  // Rings are generous envelopes traced around the intended landmass; the map
+  // clips every fill to the coastline, so the coast supplies the fine outline
+  // and these only need to enclose the right land.
   {
-    id: "rome-italy", polity: "rome", name: "Rome", fromYear: -264, toYear: -196, certainty: "attested", labelAt: [13.2, 42.0],
-    ring: [[10.2, 44.0], [12.5, 44.1], [13.8, 42.8], [16.1, 41.9], [18.5, 40.1], [16.0, 38.9], [15.6, 38.0], [12.9, 40.2], [11.0, 42.6], [10.0, 43.5]],
+    id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -264, toYear: -196, certainty: "attested", labelAt: [13.0, 42.2],
+    ring: [[10.1, 44.3], [12.6, 44.4], [14.1, 42.7], [15.5, 42.1], [16.3, 41.4], [18.6, 40.4], [18.0, 39.7], [16.4, 38.6], [15.9, 37.8], [15.4, 38.3], [16.2, 39.7], [14.2, 40.7], [12.2, 41.5], [10.9, 42.7], [10.0, 43.6]],
   },
   {
-    id: "rome-sicily", polity: "rome", name: "Roman Sicily", fromYear: -241, toYear: -196, certainty: "attested", labelAt: [14.1, 37.5],
-    ring: [[12.4, 38.0], [13.7, 38.2], [15.2, 38.3], [15.6, 38.1], [15.1, 36.9], [13.9, 37.1], [12.5, 37.6]],
+    id: "rome-sicily", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -241, toYear: -196, certainty: "attested", labelAt: [14.2, 37.6],
+    ring: [[12.3, 38.4], [15.7, 38.5], [15.9, 36.5], [12.3, 37.2]],
   },
   {
-    id: "rome-sardinia", polity: "rome", name: "Sardinia & Corsica", fromYear: -238, toYear: -196, certainty: "attested", labelAt: [9.0, 40.4],
-    ring: [[8.5, 43.0], [9.5, 42.6], [9.6, 41.0], [9.6, 39.0], [8.6, 38.9], [8.2, 40.5], [8.3, 42.2]],
+    id: "rome-sardinia", polity: "rome", name: "Sardinia & Corsica", mapLabel: "SARDINIA", fromYear: -238, toYear: -196, certainty: "attested", labelAt: [9.1, 40.1],
+    ring: [[8.4, 43.1], [9.6, 43.1], [9.9, 40.9], [9.9, 38.7], [8.2, 38.7], [8.0, 41.0]],
   },
   {
-    id: "rome-iberia", polity: "rome", name: "Roman Iberia", fromYear: -206, toYear: -196, certainty: "probable", labelAt: [-3.5, 38.2],
-    ring: [[-7.0, 37.0], [-2.0, 36.7], [0.7, 40.6], [-1.5, 40.2], [-4.5, 38.5], [-6.8, 37.8]],
+    id: "rome-iberia", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -206, toYear: -196, certainty: "probable", labelAt: [-3.8, 38.1],
+    ring: [[-7.4, 37.1], [-4.6, 36.6], [-2.0, 36.7], [0.9, 41.0], [-1.2, 41.4], [-4.0, 39.4], [-6.6, 38.4], [-7.6, 38.0]],
   },
 
   // --- Carthage: Africa core, plus the possessions it loses one by one ---
   {
-    id: "carthage-africa", polity: "carthage", name: "Carthage", fromYear: -264, toYear: -196, certainty: "attested", labelAt: [9.6, 36.1],
-    ring: [[7.5, 37.2], [10.4, 37.3], [11.4, 36.9], [11.0, 35.6], [10.0, 34.0], [8.0, 34.5], [6.5, 35.8]],
+    id: "carthage-africa", polity: "carthage", name: "Carthage", mapLabel: "CARTHAGE", fromYear: -264, toYear: -196, certainty: "attested", labelAt: [9.8, 36.2],
+    ring: [[8.0, 37.4], [10.4, 37.5], [11.3, 36.9], [11.2, 35.4], [10.5, 33.8], [8.6, 34.2], [7.6, 35.6], [7.4, 36.9]],
   },
   {
-    id: "carthage-sicily", polity: "carthage", name: "Carthaginian Sicily", fromYear: -264, toYear: -242, certainty: "attested", labelAt: [13.2, 37.7],
-    ring: [[12.4, 38.0], [14.3, 38.1], [14.0, 37.0], [12.5, 37.6]],
+    id: "carthage-sicily", polity: "carthage", name: "Carthaginian Sicily", mapLabel: "SICILY", fromYear: -264, toYear: -242, certainty: "attested", labelAt: [13.1, 37.8],
+    ring: [[12.3, 38.4], [14.4, 38.4], [14.4, 36.7], [12.3, 37.2]],
   },
   {
-    id: "carthage-sardinia", polity: "carthage", name: "Carthaginian Sardinia", fromYear: -264, toYear: -239, certainty: "probable", labelAt: [8.9, 40.2],
-    ring: [[8.5, 41.3], [9.6, 41.0], [9.6, 39.0], [8.6, 38.9], [8.2, 40.5]],
+    id: "carthage-sardinia", polity: "carthage", name: "Carthaginian Sardinia", mapLabel: "SARDINIA", fromYear: -264, toYear: -239, certainty: "probable", labelAt: [9.1, 40.1],
+    ring: [[8.0, 41.4], [9.9, 41.4], [9.9, 38.7], [8.2, 38.7]],
   },
   {
-    id: "carthage-iberia", polity: "carthage", name: "Barcid Iberia", fromYear: -237, toYear: -207, certainty: "probable", labelAt: [-3.5, 38.2],
-    ring: [[-7.0, 37.0], [-2.0, 36.7], [0.7, 40.6], [-1.5, 40.2], [-4.5, 38.5], [-6.8, 37.8]],
+    id: "carthage-iberia", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -237, toYear: -207, certainty: "probable", labelAt: [-3.8, 38.1],
+    ring: [[-7.4, 37.1], [-4.6, 36.6], [-2.0, 36.7], [0.9, 41.0], [-1.2, 41.4], [-4.0, 39.4], [-6.6, 38.4], [-7.6, 38.0]],
   },
 
   // --- Gauls: Cisalpine (Po valley) and Transalpine (schematic, static) ---
   {
-    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [9.4, 45.2],
-    ring: [[7.0, 45.6], [11.5, 45.9], [12.5, 45.2], [10.5, 44.6], [8.0, 44.5], [7.0, 45.0]],
+    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [9.6, 45.1],
+    ring: [[7.0, 45.9], [11.8, 46.1], [12.8, 45.4], [10.6, 44.5], [8.2, 44.4], [6.9, 45.1]],
   },
   {
-    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", fromYear: -264, toYear: -196, certainty: "speculative", labelAt: [2.4, 44.4],
-    ring: [[-1.0, 43.3], [4.8, 43.4], [7.5, 44.0], [7.0, 45.6], [2.0, 45.5], [-1.0, 44.5]],
+    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -264, toYear: -196, certainty: "speculative", labelAt: [2.2, 44.6],
+    ring: [[-1.6, 43.3], [3.2, 42.4], [4.9, 43.3], [7.6, 43.9], [7.2, 45.8], [2.0, 46.2], [-1.4, 45.4]],
   },
 
   // --- Numidia: interior kingdom behind Carthage, enlarged after Zama ---
   {
-    id: "numidia-early", polity: "numidia", name: "Numidian kingdoms", fromYear: -264, toYear: -202, certainty: "probable", labelAt: [4.3, 35.2],
-    ring: [[2.0, 36.0], [6.5, 36.2], [7.5, 35.0], [6.0, 34.0], [2.5, 34.5], [1.0, 35.2]],
+    // Numidia stops short of the Carthaginian ring: overlapping fills would
+    // blend into a colour that belongs to neither power.
+    id: "numidia-early", polity: "numidia", name: "Numidian kingdoms", mapLabel: "NUMIDIA", fromYear: -264, toYear: -202, certainty: "probable", labelAt: [4.6, 35.4],
+    ring: [[1.6, 36.6], [6.3, 36.8], [6.9, 35.2], [5.8, 33.8], [2.4, 34.2], [0.4, 35.2]],
   },
   {
-    id: "numidia-masinissa", polity: "numidia", name: "Numidia (Masinissa)", fromYear: -201, toYear: -196, certainty: "probable", labelAt: [5.0, 35.4],
-    ring: [[1.0, 36.2], [7.5, 36.6], [9.0, 35.3], [7.0, 33.8], [2.0, 34.2], [0.5, 35.4]],
+    id: "numidia-masinissa", polity: "numidia", name: "Numidia (Masinissa)", mapLabel: "NUMIDIA", fromYear: -201, toYear: -196, certainty: "probable", labelAt: [4.4, 35.4],
+    ring: [[0.4, 36.4], [7.0, 36.9], [7.3, 35.0], [6.4, 33.6], [2.0, 34.0], [-0.6, 35.2]],
   },
 
   // --- Eastern Hellenistic powers (coarse; mostly at the map's east edge) ---
   {
-    id: "macedon-greece", polity: "macedon", name: "Macedon & allies", fromYear: -264, toYear: -198, certainty: "probable", labelAt: [22.0, 40.1],
-    ring: [[19.3, 41.9], [23.5, 41.4], [24.2, 40.0], [23.0, 37.5], [21.5, 37.0], [20.5, 38.6], [19.6, 40.2]],
+    id: "macedon-greece", polity: "macedon", name: "Macedon & allies", mapLabel: "MACEDON", fromYear: -264, toYear: -198, certainty: "probable", labelAt: [22.0, 40.4],
+    ring: [[19.3, 42.2], [23.9, 41.5], [24.7, 40.2], [24.2, 38.3], [23.6, 36.4], [21.6, 36.6], [20.4, 38.4], [19.2, 40.3]],
   },
   {
-    id: "macedon-reduced", polity: "macedon", name: "Macedon", fromYear: -197, toYear: -196, certainty: "probable", labelAt: [21.8, 40.9],
-    ring: [[19.5, 41.9], [23.5, 41.3], [24.0, 40.4], [22.2, 39.9], [20.4, 40.2]],
+    id: "macedon-reduced", polity: "macedon", name: "Macedon", mapLabel: "MACEDON", fromYear: -197, toYear: -196, certainty: "probable", labelAt: [21.9, 41.0],
+    ring: [[19.6, 42.2], [23.8, 41.5], [24.4, 40.4], [22.4, 39.7], [20.4, 40.3]],
   },
   {
-    id: "seleucid", polity: "seleucid", name: "Seleucid Empire", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [34.0, 36.0],
+    id: "seleucid", polity: "seleucid", name: "Seleucid Empire", mapLabel: "SELEUCIDS", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [37.4, 36.4],
     ring: [[26.0, 40.0], [30.0, 38.0], [36.0, 37.0], [40.0, 35.0], [38.0, 32.0], [35.0, 31.0], [30.0, 36.0], [27.0, 38.0]],
   },
   {
-    id: "ptolemaic", polity: "ptolemaic", name: "Ptolemaic Egypt", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [29.0, 28.5],
+    id: "ptolemaic", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [29.0, 28.5],
     ring: [[20.0, 32.2], [27.0, 31.4], [32.0, 31.3], [34.0, 31.0], [33.0, 24.0], [27.0, 24.0], [22.0, 26.0], [19.0, 31.0]],
   },
 ];

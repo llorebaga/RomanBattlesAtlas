@@ -122,15 +122,26 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
         onPointerLeave={() => { dragState.current = null; }}
         onWheel={(event) => { event.preventDefault(); const point = clientToVirtual(event.clientX, event.clientY); applyZoom(event.deltaY > 0 ? 1.15 : 0.87, point?.x, point?.y); }}
       >
+        <defs>
+          {/* Territory colour is clipped to the land so a polity's fill stops at
+              the coastline instead of bleeding across open sea. The zones stay
+              coarse schematic claims; the coast does the precise drawing. */}
+          <clipPath id="atlas-land-clip">
+            {LAND_PATHS.map((d, index) => <path key={index} d={d} clipRule="evenodd" />)}
+          </clipPath>
+        </defs>
         <rect x={view.x - 10} y={view.y - 10} width={view.width + 20} height={view.height + 20} fill="var(--map-sea, #d7e5e9)" />
         <g className="atlas-land">
           {LAND_PATHS.map((d, index) => <path key={index} d={d} fillRule="evenodd" fill="var(--map-land, #f3eee1)" stroke="var(--map-coast, #b9ae96)" strokeWidth={0.9 * strokeScale} />)}
         </g>
-        <g className="atlas-territories">
+        <g className="atlas-territories" clipPath="url(#atlas-land-clip)">
           {zones.map((zone) => {
             const context = isContextPower(zone.polity);
             const color = factionColor(zone.polity);
-            return <path key={zone.id} d={pathFor([[...zone.ring, zone.ring[0]]])} fill={color} fillOpacity={context ? 0.16 : 0.42} stroke={color} strokeOpacity={context ? 0.45 : 0.95} strokeWidth={(context ? 1 : 2) * strokeScale} strokeLinejoin="round" />;
+            // Fill carries the meaning; the outline is only a faint inland hint
+            // so the coastline stays the crisp edge and the crude envelope edges
+            // do not read as borders.
+            return <path key={zone.id} d={pathFor([[...zone.ring, zone.ring[0]]])} fill={color} fillOpacity={context ? 0.22 : 0.52} stroke={color} strokeOpacity={context ? 0.25 : 0.4} strokeWidth={(context ? 0.8 : 1.2) * strokeScale} strokeLinejoin="round" />;
           })}
         </g>
         <g className="atlas-routes">
@@ -147,7 +158,7 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
           {zones.filter((zone) => zone.labelAt).map((zone) => {
             const [x, y] = project(zone.labelAt as Coordinates);
             const context = isContextPower(zone.polity);
-            return <text key={`${zone.id}-label`} x={x} y={y} fill={factionColor(zone.polity)} fillOpacity={context ? 0.7 : 1} fontSize={9 * strokeScale} fontWeight={700} letterSpacing={1.1 * strokeScale} textAnchor="middle" paintOrder="stroke" stroke="var(--map-label-halo, #f8f5ed)" strokeWidth={3 * strokeScale}>{zone.name.toUpperCase()}</text>;
+            return <text key={`${zone.id}-label`} x={x} y={y} fill={factionColor(zone.polity)} fillOpacity={context ? 0.75 : 1} fontSize={7.4 * strokeScale} fontWeight={700} letterSpacing={0.9 * strokeScale} textAnchor="middle" paintOrder="stroke" stroke="var(--map-label-halo, #f8f5ed)" strokeWidth={2.6 * strokeScale}>{(zone.mapLabel ?? zone.name).toUpperCase()}</text>;
           })}
         </g>
         <g className="atlas-forces">
