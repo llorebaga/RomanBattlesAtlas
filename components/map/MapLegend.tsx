@@ -8,7 +8,7 @@ export function MapLegend({ powers }: { powers: FactionInfo[] }) {
       {powers.length > 0 && (
         <div className="legend-powers" aria-label="Powers on the map">
           {powers.map((info) => (
-            <span key={info.id}><i className="legend-territory" style={{ background: info.color }} /> {info.name}</span>
+            <span key={info.id} className={info.role === "context" ? "context" : undefined}><i className="legend-territory" style={{ background: info.color }} /> {info.name}</span>
           ))}
         </div>
       )}
@@ -18,7 +18,7 @@ export function MapLegend({ powers }: { powers: FactionInfo[] }) {
         <span><i className="legend-battle siege">◎</i> Siege</span><span><i className="legend-battle" style={{ color: "#6b5940" }}>↟</i> Campaign</span>
       </div>
       <div className="legend-evidence" aria-label="Historical certainty key"><EvidenceBadge certainty="attested" /><EvidenceBadge certainty="probable" /><EvidenceBadge certainty="disputed" /><EvidenceBadge certainty="speculative" /></div>
-      <p>Shaded areas are schematic zones of control, not surveyed borders. Marker color shows the power; solid routes are elapsed stages, dashed routes later stages.</p>
+      <p>Shaded areas are schematic zones of control, not surveyed borders; each is labeled on the map. Faded powers took no part in these wars. Solid routes are elapsed stages, dashed routes later stages.</p>
     </details>
   );
 }

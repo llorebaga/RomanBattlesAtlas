@@ -47,6 +47,10 @@ export default defineConfig(async () => {
     server: isCodexSeatbeltSandbox
       ? { watch: { useFsEvents: false, usePolling: true } }
       : undefined,
+    // maplibre-gl ships a web worker that the dev-time dependency optimizer
+    // cannot pre-bundle; exclude it so the worker loads directly. Dev-only —
+    // the production build does not use this optimizer.
+    optimizeDeps: { exclude: ["maplibre-gl"] },
     plugins: [
       vinext(),
       sites(),

@@ -7,7 +7,7 @@ import { Anchor, ChevronLeft, Info, LandPlot, ListFilter, Menu, X } from "lucide
 import { EvidenceBadge } from "@/components/EvidenceBadge";
 import { battles } from "@/data/battles"; import { campaignRoutes } from "@/data/campaigns"; import { historicalEvents } from "@/data/events";
 import { territoriesForYear } from "@/data/territories";
-import { factionColor, factionAdjective, getFactionInfo, factionList } from "@/data/factions";
+import { factionColor, factionAdjective, getFactionInfo, factionList, isContextPower } from "@/data/factions";
 import { battlesForYear } from "@/lib/historySelectors"; import { clampTimelineYear, TIMELINE_END_YEAR, TIMELINE_START_YEAR } from "@/lib/historicalDates"; import { interpolateRoutePosition, isRouteActive, splitRouteAtYear } from "@/lib/routeInterpolation";
 import { eraForYear } from "@/data/wars";
 import type { Battle, CampaignRoute, Faction } from "@/types/history";
@@ -19,10 +19,24 @@ const rasterStyle = { version: 8 as const, sources: { carto: { type: "raster" as
 
 function routeVisible(route: CampaignRoute, layers: LayerFilters, hidden: Record<string, boolean>) { return !hidden[route.faction] && layers[route.forceType]; }
 function lineCollection(routes: CampaignRoute[], year: number, layers: LayerFilters, hidden: Record<string, boolean>, part: "completed" | "future") { return { type: "FeatureCollection" as const, features: routes.filter((route) => routeVisible(route, layers, hidden) && isRouteActive(route, year)).flatMap((route) => { const coordinates = splitRouteAtYear(route, year)[part]; return coordinates.length < 2 ? [] : [{ type: "Feature" as const, properties: { id: route.id, color: factionColor(route.faction), certainty: route.certainty }, geometry: { type: "LineString" as const, coordinates } }]; }) }; }
-function territoryCollection(year: number, show: boolean) { if (!show) return { type: "FeatureCollection" as const, features: [] }; return { type: "FeatureCollection" as const, features: territoriesForYear(year).map((territory) => ({ type: "Feature" as const, properties: { polity: territory.polity, name: territory.name, color: factionColor(territory.polity) }, geometry: { type: "Polygon" as const, coordinates: [[...territory.ring, territory.ring[0]].map((point) => [point[0], point[1]])] } })) }; }
+const emptyCollection = { type: "FeatureCollection" as const, features: [] };
+function territoryCollection(year: number, show: boolean) {
+  if (!show) return emptyCollection;
+  return { type: "FeatureCollection" as const, features: territoriesForYear(year).map((territory) => {
+    const context = isContextPower(territory.polity);
+    return { type: "Feature" as const, properties: { polity: territory.polity, name: territory.name, color: factionColor(territory.polity), fillOpacity: context ? 0.12 : 0.3, lineOpacity: context ? 0.4 : 0.9, lineWidth: context ? 1 : 1.8 }, geometry: { type: "Polygon" as const, coordinates: [[...territory.ring, territory.ring[0]].map((point) => [point[0], point[1]])] } };
+  }) };
+}
+// Direct name labels are the secondary encoding that lets the territory palette
+// stay readable: two hue pairs sit in the 6–8 CVD band, so color alone is never
+// the only cue for who holds an area.
+function territoryLabelCollection(year: number, show: boolean) {
+  if (!show) return emptyCollection;
+  return { type: "FeatureCollection" as const, features: territoriesForYear(year).filter((territory) => territory.labelAt).map((territory) => ({ type: "Feature" as const, properties: { name: territory.name.toUpperCase(), color: factionColor(territory.polity), context: isContextPower(territory.polity) ? 1 : 0 }, geometry: { type: "Point" as const, coordinates: territory.labelAt as [number, number] } })) };
+}
 
 export function HistoricalMap() {
-  const mapContainer = useRef<HTMLDivElement>(null); const mapRef = useRef<MapLibreMap | null>(null); const forceMarkers = useRef<Marker[]>([]); const battleMarkers = useRef<Marker[]>([]); const previousEraRef = useRef<string | undefined>(undefined);
+  const mapContainer = useRef<HTMLDivElement>(null); const mapRef = useRef<MapLibreMap | null>(null); const forceMarkers = useRef<Marker[]>([]); const battleMarkers = useRef<Marker[]>([]); const territoryLabels = useRef<Marker[]>([]); const previousEraRef = useRef<string | undefined>(undefined);
   const [mapReady, setMapReady] = useState(false); const [year, setYear] = useState(TIMELINE_START_YEAR); const [playing, setPlaying] = useState(false); const [speed, setSpeed] = useState(1200); const [layers, setLayers] = useState(initialLayers); const [hiddenFactions, setHiddenFactions] = useState<Record<string, boolean>>({}); const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null); const [sidebarOpen, setSidebarOpen] = useState(false);
   const activeBattles = useMemo(() => battlesForYear(battles, year).filter((battle) => battle.kind === "siege" ? layers.sieges : layers.battles), [year, layers.battles, layers.sieges]); const selectedEvent = historicalEvents.find((event) => event.year === year);
   const currentEra = eraForYear(year);
@@ -35,8 +49,8 @@ export function HistoricalMap() {
     map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), "top-right"); map.addControl(new maplibregl.AttributionControl({ compact: true }), "bottom-right");
     map.on("load", () => {
       map.addSource("territories", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
-      map.addLayer({ id: "territory-fill", type: "fill", source: "territories", paint: { "fill-color": ["get", "color"], "fill-opacity": 0.17 } });
-      map.addLayer({ id: "territory-outline", type: "line", source: "territories", paint: { "line-color": ["get", "color"], "line-width": 1.1, "line-opacity": 0.5 } });
+      map.addLayer({ id: "territory-fill", type: "fill", source: "territories", paint: { "fill-color": ["get", "color"], "fill-opacity": ["get", "fillOpacity"] } });
+      map.addLayer({ id: "territory-outline", type: "line", source: "territories", layout: { "line-join": "round" }, paint: { "line-color": ["get", "color"], "line-width": ["get", "lineWidth"], "line-opacity": ["get", "lineOpacity"] } });
       map.addSource("routes-future", { type: "geojson", data: { type: "FeatureCollection", features: [] } }); map.addSource("routes-completed", { type: "geojson", data: { type: "FeatureCollection", features: [] } });
       map.addLayer({ id: "routes-future", type: "line", source: "routes-future", paint: { "line-color": ["get", "color"], "line-width": 2.2, "line-opacity": 0.3, "line-dasharray": [1.5, 2.2] } });
       map.addLayer({ id: "routes-completed", type: "line", source: "routes-completed", paint: { "line-color": ["get", "color"], "line-width": 3.2, "line-opacity": 0.88 } });
@@ -50,6 +64,8 @@ export function HistoricalMap() {
   useEffect(() => {
     const map = mapRef.current; if (!mapReady || !map) return;
     (map.getSource("territories") as GeoJSONSource)?.setData(territoryCollection(year, layers.territories));
+    territoryLabels.current.forEach((marker) => marker.remove());
+    territoryLabels.current = territoryLabelCollection(year, layers.territories).features.map((feature) => { const element = document.createElement("span"); element.className = `territory-label${feature.properties.context ? " context" : ""}`; element.textContent = feature.properties.name as string; element.style.color = feature.properties.color as string; return new maplibregl.Marker({ element, anchor: "center" }).setLngLat(feature.geometry.coordinates as [number, number]).addTo(map); });
     (map.getSource("routes-completed") as GeoJSONSource)?.setData(lineCollection(campaignRoutes, year, layers, hiddenFactions, "completed")); (map.getSource("routes-future") as GeoJSONSource)?.setData(lineCollection(campaignRoutes, year, layers, hiddenFactions, "future"));
     forceMarkers.current.forEach((marker) => marker.remove()); forceMarkers.current = campaignRoutes.filter((route) => routeVisible(route, layers, hiddenFactions)).flatMap((route) => { const position = interpolateRoutePosition(route, year); if (!position) return []; const element = document.createElement("button"); element.className = `force-marker ${route.forceType}`; element.style.background = factionColor(route.faction); element.textContent = route.forceType === "army" ? "▲" : "◆"; element.setAttribute("aria-label", `${factionAdjective(route.faction)} ${route.forceType}: ${route.name}`); element.title = `${route.name} — ${route.certainty} reconstruction`; return [new maplibregl.Marker({ element, anchor: "center" }).setLngLat(position).addTo(map)]; });
     battleMarkers.current.forEach((marker) => marker.remove()); battleMarkers.current = activeBattles.map((battle) => { const element = document.createElement("button"); element.className = `battle-marker ${battle.kind} ${battle.major ? "major" : "secondary"}`; element.textContent = battle.kind === "naval" ? "≋" : battle.kind === "siege" ? "◎" : battle.kind === "campaign" ? "↟" : "⚔"; element.setAttribute("aria-label", `${battle.name}, ${battle.displayDate}. Open summary.`); element.title = `${battle.name} · ${battle.displayDate}`; element.addEventListener("click", () => selectBattleRef.current(battle)); return new maplibregl.Marker({ element, anchor: "center" }).setLngLat(battle.coordinates).addTo(map); });
