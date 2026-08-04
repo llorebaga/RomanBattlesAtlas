@@ -17,8 +17,13 @@ export function MapLegend({ powers }: { powers: FactionInfo[] }) {
         <span><i className="legend-battle" style={{ color: "#3a3f39" }}>⚔</i> Land battle</span><span><i className="legend-battle naval">≋</i> Naval battle</span>
         <span><i className="legend-battle siege">◎</i> Siege</span><span><i className="legend-battle" style={{ color: "#6b5940" }}>↟</i> Campaign</span>
       </div>
+      <div className="legend-routes" aria-label="Route key">
+        <span><svg viewBox="0 0 34 6" aria-hidden="true"><line x1="1" y1="3" x2="33" y2="3" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" /></svg> Marched</span>
+        <span><svg viewBox="0 0 34 6" aria-hidden="true"><line x1="1" y1="3" x2="33" y2="3" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeDasharray="0.9 2.4" /></svg> Shipped</span>
+        <span><svg viewBox="0 0 34 6" aria-hidden="true"><line x1="1" y1="3" x2="33" y2="3" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeDasharray="3.4 4.8" opacity="0.5" /></svg> Still ahead</span>
+      </div>
       <div className="legend-evidence" aria-label="Historical certainty key"><EvidenceBadge certainty="attested" /><EvidenceBadge certainty="probable" /><EvidenceBadge certainty="disputed" /><EvidenceBadge certainty="speculative" /></div>
-      <p>Shaded areas are schematic zones of control, not surveyed borders; each is labeled on the map. Faded powers took no part in these wars. Solid routes are elapsed stages, dashed routes later stages.</p>
+      <p>Shaded areas are schematic zones of control clipped to the coastline, not surveyed borders; each is labeled on the map. Faded powers took no part in these wars. Marching routes follow land; dotted stretches are legs the troops crossed by ship.</p>
     </details>
   );
 }

@@ -93,6 +93,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .territory-label { pointer-events: none; white-space: nowrap; font: 700 .58rem/1 var(--font-body); letter-spacing: .15em; text-transform: uppercase; text-shadow: 0 0 3px #f8f5edcc, 0 0 2px #f8f5ed, 1px 1px 0 #f8f5ed, -1px -1px 0 #f8f5ed, 1px -1px 0 #f8f5ed, -1px 1px 0 #f8f5ed; }
 .territory-label.context { font-weight: 600; opacity: .72; letter-spacing: .12em; }
 .powers-list { padding: 14px 0 4px; border-top: 1px solid var(--line); }.powers-grid { display: flex; flex-wrap: wrap; gap: 6px 10px; margin-top: 9px; }.power-chip { display: flex; align-items: center; gap: 6px; font-size: .68rem; color: #4c4d47; }
+.legend-routes { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 10px; color: #4c4d47; font-size: .58rem; }.legend-routes span { display: flex; align-items: center; gap: 6px; }.legend-routes svg { width: 26px; height: 6px; overflow: visible; }
 .legend-powers { display: flex; flex-wrap: wrap; gap: 5px 11px; margin-top: 11px; font-size: .58rem; }.legend-powers span { display: flex; align-items: center; gap: 6px; }.legend-powers span.context { opacity: .62; }.legend-territory { display: inline-block; width: 12px; height: 9px; border-radius: 2px; opacity: .9; }
 .year-events { padding: 21px 19px; border-bottom: 1px solid var(--line); background: #eae4d7; }
 .year-events h2 { margin: 9px 0 7px; font: 400 1.18rem/1.2 var(--font-display); }.year-events > p:not(.eyebrow) { margin: 0 0 13px; color: #5e6059; font: 400 .78rem/1.48 Georgia, serif; }

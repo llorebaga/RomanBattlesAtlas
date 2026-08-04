@@ -1,7 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import { territories, territoriesForYear } from "../data/territories.ts";
-import { factionColor, factionList, isContextPower } from "../data/factions.ts";
+import { factionColor, factionList, isContextPower, factionRole, roleRank, TERRITORY_LAYERS } from "../data/factions.ts";
 import { landPolygons } from "../data/geo/mediterranean-land.ts";
 import { densifyClosedRing } from "../lib/mapGeometry.ts";
 
@@ -63,7 +63,12 @@ const OWNERSHIP = [
   { year: -264, places: { "western Sicily": [12.9, 37.8], Panormus: [13.36, 38.12] }, polity: "carthage" },
   { year: -264, places: { "Numidian interior": [4.0, 35.6], "Numidian coast": [2.9, 36.6] }, polity: "numidia" },
   { year: -264, places: { Pella: [22.52, 40.76], Thessaly: [22.3, 39.6] }, polity: "macedon" },
-  { year: -240, places: { "western Sicily": [12.9, 37.8], Syracuse: [15.29, 37.07] }, polity: "rome" },
+  // Rome took the Carthaginian west in 241, but Hiero's Syracuse kept the
+  // south-east as an independent ally until the city fell in 212.
+  { year: -240, places: { "western Sicily": [12.9, 37.8], Panormus: [13.36, 38.12] }, polity: "rome" },
+  { year: -240, places: { Syracuse: [15.29, 37.07] }, polity: "syracuse" },
+  { year: -211, places: { Syracuse: [15.29, 37.07], "western Sicily": [12.9, 37.8] }, polity: "rome" },
+  { year: -196, places: { Corinth: [22.9, 37.94] }, polity: "greek" },
   { year: -230, places: { "Sardinia interior": [9.1, 40.1] }, polity: "rome" },
   { year: -218, places: { "New Carthage": [-0.98, 37.6], Saguntum: [-0.27, 39.68] }, polity: "carthage" },
   { year: -197, places: { "New Carthage": [-0.98, 37.6] }, polity: "rome" },
@@ -73,8 +78,13 @@ const OWNERSHIP = [
 
 test("the map shows the expected power holding each known place", () => {
   for (const { year, places, polity } of OWNERSHIP) {
-    // Later zones win overlapping ground, so resolve in draw order.
-    const drawn = territoriesForYear(year).map((zone) => ({ zone, curve: densifyClosedRing(zone.ring) }));
+    // Resolve exactly as the map paints: context beneath, then minor powers, then
+    // the principals, and within a layer a later zone wins.
+    const layerRank = (polity) => TERRITORY_LAYERS.findIndex((layer) => layer.roles.includes(factionRole(polity)));
+    const drawn = territoriesForYear(year)
+      .map((zone, index) => ({ zone, index }))
+      .sort((a, b) => layerRank(a.zone.polity) - layerRank(b.zone.polity) || roleRank(a.zone.polity) - roleRank(b.zone.polity) || a.index - b.index)
+      .map(({ zone }) => ({ zone, curve: densifyClosedRing(zone.ring) }));
     for (const [place, point] of Object.entries(places)) {
       assert.ok(isLand(point), `${place} should be on land`);
       const holders = drawn.filter(({ curve }) => pointInRing(point, curve));

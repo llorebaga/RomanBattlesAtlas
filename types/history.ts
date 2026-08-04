@@ -5,7 +5,9 @@ export type Faction =
   | "seleucid"
   | "ptolemaic"
   | "numidia"
-  | "gaul";
+  | "gaul"
+  | "syracuse"
+  | "greek";
 export type ForceType = "army" | "fleet";
 export type Certainty = "attested" | "probable" | "disputed" | "speculative";
 export type BattleKind = "land" | "naval" | "siege" | "campaign";
@@ -32,6 +34,12 @@ export interface CampaignRoutePoint {
   coordinates: Coordinates;
   certainty: Certainty;
   sourceIds: string[];
+  /**
+   * True when the leg ARRIVING at this point was made by sea — an army ferried
+   * across a strait or shipped to another shore. The map draws those legs as a
+   * fine dotted line, so a march is never shown walking over open water.
+   */
+  viaSea?: boolean;
 }
 
 export interface CampaignRoute {

@@ -4,7 +4,7 @@ import { landPolygons } from "../data/geo/mediterranean-land.ts";
 import { territoriesForYear } from "../data/territories.ts";
 import { campaignRoutes } from "../data/campaigns.ts";
 import { splitRouteAtYear, isRouteActive } from "../lib/routeInterpolation.ts";
-import { clampView, EXTENT_BOX, EXTENT_WIDTH, EXTENT_HEIGHT } from "../lib/mapGeometry.ts";
+import { clampView, EXTENT_BOX, EXTENT_WIDTH, EXTENT_HEIGHT, sampleOpenCurve } from "../lib/mapGeometry.ts";
 import { eras } from "../data/wars.ts";
 
 // Mirrors AtlasMap's projection exactly. If these drift, the map is wrong.
@@ -78,6 +78,55 @@ test("campaign routes produce drawable polylines", () => {
   for (const point of [...opening.future, ...later.completed, ...later.future]) {
     const [x, y] = project(point);
     assert.ok(Number.isFinite(x) && Number.isFinite(y), "route points project to finite coordinates");
+  }
+});
+
+function pointInRingT(point, ring) {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if (yi > point[1] !== yj > point[1] && point[0] < ((xj - xi) * (point[1] - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+const onLand = (point) => landPolygons.some((rings) => pointInRingT(point, rings[0]) && !rings.slice(1).some((hole) => pointInRingT(point, hole)));
+
+test("marching legs follow land and fleets stay at sea", () => {
+  // Judged on the drawn curve, not the waypoints: a smoothed line can bow off
+  // the coast even when every waypoint is ashore. Legs explicitly marked viaSea
+  // are army movements made by ship and are expected to be over water.
+  for (const route of campaignRoutes) {
+    const samples = sampleOpenCurve(route.points.map((point) => point.coordinates), 16);
+    const stats = new Map();
+    for (const { point, leg } of samples) {
+      const stat = stats.get(leg) ?? { land: 0, total: 0 };
+      stat.total += 1;
+      if (onLand(point)) stat.land += 1;
+      stats.set(leg, stat);
+    }
+    for (const [leg, stat] of stats) {
+      const pct = (100 * stat.land) / stat.total;
+      const where = `${route.id}: ${route.points[leg].label} -> ${route.points[leg + 1].label}`;
+      if (route.forceType === "fleet") {
+        assert.ok(pct <= 35, `${where} — a fleet should not sail overland (${Math.round(pct)}% on land)`);
+      } else if (route.points[leg + 1]?.viaSea) {
+        assert.ok(pct <= 60, `${where} — marked as a sea crossing but ${Math.round(pct)}% on land`);
+      } else {
+        assert.ok(pct >= 80, `${where} — a march should not cross open water (${Math.round(100 - pct)}% at sea)`);
+      }
+    }
+  }
+});
+
+test("only genuine crossings are marked as sea legs", () => {
+  // A sea leg is a claim about history (the troops were shipped), so each one
+  // should really be over water and belong to an army, not a fleet.
+  const seaLegs = campaignRoutes.flatMap((route) => route.points.filter((point) => point.viaSea).map((point) => ({ route, point })));
+  assert.ok(seaLegs.length >= 3, "expected the known troop crossings to be marked");
+  for (const { route, point } of seaLegs) {
+    assert.equal(route.forceType, "army", `${route.id}: only marching routes need a sea-crossing marker`);
+    assert.ok(!onLand(point.coordinates) || point.label.includes("Messana") || point.label.includes("Lilybaeum") || point.label.includes("Utica"), `${route.id}: ${point.label} should arrive on a shore or at sea`);
   }
 });
 

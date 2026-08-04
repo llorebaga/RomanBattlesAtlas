@@ -6,10 +6,10 @@
 // inspected, so the rendering is verifiable instead of hopeful.
 import { useEffect, useMemo, useRef, useState } from "react";
 import { territoriesForYear } from "@/data/territories";
-import { factionColor, factionAdjective, isContextPower } from "@/data/factions";
+import { factionColor, factionAdjective, factionRole, roleRank, TERRITORY_LAYERS } from "@/data/factions";
 import { landPolygons } from "@/data/geo/mediterranean-land";
-import { interpolateRoutePosition, isRouteActive, splitRouteAtYear } from "@/lib/routeInterpolation";
-import { MAP_SCALE as SCALE, projectPoint, smoothClosedPath, smoothOpenPath, clampView, EXTENT_WIDTH, EXTENT_HEIGHT } from "@/lib/mapGeometry";
+import { interpolateRoutePosition, isRouteActive } from "@/lib/routeInterpolation";
+import { MAP_SCALE as SCALE, projectPoint, smoothClosedPath, sampleOpenCurve, clampView, EXTENT_WIDTH, EXTENT_HEIGHT } from "@/lib/mapGeometry";
 import { campaignRoutes } from "@/data/campaigns";
 import type { Battle, Coordinates, Era } from "@/types/history";
 
@@ -22,6 +22,30 @@ const DEFAULT_ASPECT = 0.58; // used for the server render, before the pane is m
 
 // Each land polygon keeps its own path so holes (inland seas) render correctly.
 const LAND_PATHS = landPolygons.map((rings) => pathFor(rings));
+
+// Split a route's drawn curve into consecutive runs that share a style, so a
+// leg made by ship is never drawn as though the army walked across the water,
+// and the elapsed part of the march is distinguishable from what is still ahead.
+const legTime = (point: { year: number; month?: number }) => point.year + ((point.month ?? 1) - 1) / 12;
+function routeRuns(route: { points: { year: number; month?: number; coordinates: Coordinates; viaSea?: boolean }[] }, year: number) {
+  const ordered = [...route.points].sort((a, b) => legTime(a) - legTime(b));
+  const samples = sampleOpenCurve(ordered.map((point) => point.coordinates));
+  const runs: { points: [number, number][]; sea: boolean; elapsed: boolean }[] = [];
+  for (const { point, leg, t } of samples) {
+    const sea = Boolean(ordered[leg + 1]?.viaSea);
+    const start = legTime(ordered[leg]);
+    const end = legTime(ordered[leg + 1] ?? ordered[leg]);
+    const elapsed = start + (end - start) * t <= year;
+    const last = runs[runs.length - 1];
+    if (last && last.sea === sea && last.elapsed === elapsed) last.points.push(point);
+    else {
+      // Repeat the previous sample so consecutive runs join without a visible gap.
+      const seed = last ? [last.points[last.points.length - 1], point] : [point];
+      runs.push({ points: seed as [number, number][], sea, elapsed });
+    }
+  }
+  return runs.filter((run) => run.points.length >= 2);
+}
 
 // A view is {x, y, width}; height always follows the container's aspect, so the
 // viewBox matches the viewport exactly and clamping to the atlas extent holds.
@@ -104,9 +128,8 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
 
   const zones = useMemo(() => {
     if (!layers.territories) return [];
-    return territoriesForYear(year)
-      .slice()
-      .sort((a, b) => Number(isContextPower(b.polity)) - Number(isContextPower(a.polity)));
+    // Layer order is handled at render time; keep authored order within a layer.
+    return territoriesForYear(year);
   }, [year, layers.territories]);
 
   const routes = useMemo(() => campaignRoutes.filter((route) => !hiddenFactions[route.faction] && layers[route.forceType] && isRouteActive(route, year)), [hiddenFactions, layers, year]);
@@ -218,29 +241,49 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
             contested ground, which lets the envelopes overshoot coasts and each
             other so no unclaimed white sliver is left between powers. */}
         <g className="atlas-territories" clipPath="url(#atlas-land-clip)">
-          <g opacity={0.22}>
-            {zones.filter((zone) => isContextPower(zone.polity)).map((zone) => <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={factionColor(zone.polity)} />)}
-          </g>
-          <g opacity={0.52}>
-            {zones.filter((zone) => !isContextPower(zone.polity)).map((zone) => <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={factionColor(zone.polity)} />)}
-          </g>
+          {TERRITORY_LAYERS.map(({ roles, opacity }) => (
+            <g key={roles.join("-")} opacity={opacity}>
+              {zones
+                .filter((zone) => roles.includes(factionRole(zone.polity)))
+                .slice()
+                .sort((a, b) => roleRank(a.polity) - roleRank(b.polity))
+                .map((zone) => <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={factionColor(zone.polity)} />)}
+            </g>
+          ))}
         </g>
+        {/* Routes curve through their waypoints rather than running as ruled
+            straight legs. Each run of the curve is drawn with the style its own
+            leg deserves: elapsed or still ahead, marched or shipped. */}
         <g className="atlas-routes">
           {routes.map((route) => {
-            const split = splitRouteAtYear(route, year);
             const color = factionColor(route.faction);
-            // Marches curve through their waypoints rather than running as ruled
-            // straight legs, which looked mechanical and implied surveyed roads.
             return <g key={route.id}>
-              {split.future.length >= 2 && <path d={smoothOpenPath(split.future)} fill="none" stroke={color} strokeOpacity={0.32} strokeWidth={2.2 * strokeScale} strokeDasharray={`${3.4 * strokeScale} ${4.8 * strokeScale}`} strokeLinecap="round" />}
-              {split.completed.length >= 2 && <path d={smoothOpenPath(split.completed)} fill="none" stroke={color} strokeOpacity={0.9} strokeWidth={3.2 * strokeScale} strokeLinejoin="round" strokeLinecap="round" />}
+              {routeRuns(route, year).map((run, index) => (
+                <path
+                  key={index}
+                  d={`M${run.points.map((p) => { const [x, y] = project(p); return `${x.toFixed(1)} ${y.toFixed(1)}`; }).join("L")}`}
+                  fill="none"
+                  stroke={color}
+                  strokeOpacity={run.elapsed ? (run.sea ? 0.75 : 0.9) : 0.3}
+                  strokeWidth={(run.sea ? 1.9 : 3.2) * strokeScale}
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeDasharray={
+                    run.sea
+                      ? `${0.9 * strokeScale} ${2.4 * strokeScale}` // shipped: fine dots
+                      : run.elapsed
+                        ? undefined
+                        : `${3.4 * strokeScale} ${4.8 * strokeScale}` // still ahead
+                  }
+                />
+              ))}
             </g>;
           })}
         </g>
         <g className="atlas-labels" aria-hidden="true">
           {zones.filter((zone) => zone.labelAt).map((zone) => {
             const [x, y] = project(zone.labelAt as Coordinates);
-            const context = isContextPower(zone.polity);
+            const context = factionRole(zone.polity) === "context";
             return <text key={`${zone.id}-label`} x={x} y={y} fill={factionColor(zone.polity)} fillOpacity={context ? 0.75 : 1} fontSize={7.4 * strokeScale} fontWeight={700} letterSpacing={0.9 * strokeScale} textAnchor="middle" paintOrder="stroke" stroke="var(--map-label-halo, #f8f5ed)" strokeWidth={2.6 * strokeScale}>{(zone.mapLabel ?? zone.name).toUpperCase()}</text>;
           })}
         </g>

@@ -24,8 +24,18 @@ export const territories: TerritoryPeriod[] = [
     ring: [[9.5, 44.5], [13.2, 45.0], [14.8, 42.8], [16.4, 42.0], [17.6, 41.2], [19.0, 40.4], [18.2, 39.6], [17.2, 38.6], [15.4, 37.5], [14.6, 39.6], [13.2, 40.6], [11.6, 41.8], [10.0, 42.8], [9.3, 43.8]],
   },
   {
-    id: "rome-sicily", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -241, toYear: -196, certainty: "attested", labelAt: [14.2, 37.6],
-    ring: [[12.1, 38.7], [15.9, 38.7], [16.1, 36.4], [12.1, 36.9]],
+    // 241–212: Rome takes the former Carthaginian west and centre, while Hiero's
+    // Syracuse keeps the south-east as an independent ally. 211 onwards: the
+    // whole island, after Syracuse falls.
+    // Intermediate vertices along the long edges on purpose: a spline drawn
+    // through only four corners balloons outward, which both looks imprecise and
+    // would swallow neighbouring ground such as Syracuse.
+    id: "rome-sicily", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -241, toYear: -213, certainty: "attested", labelAt: [13.5, 37.6],
+    ring: [[12.1, 38.7], [13.2, 38.65], [14.6, 38.55], [14.7, 37.5], [14.6, 36.6], [13.2, 36.6], [12.1, 36.9]],
+  },
+  {
+    id: "rome-sicily-whole", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -212, toYear: -196, certainty: "attested", labelAt: [14.0, 37.6],
+    ring: [[12.1, 38.75], [13.6, 38.7], [15.3, 38.45], [15.5, 37.4], [15.2, 36.5], [13.4, 36.6], [12.1, 36.9]],
   },
   {
     id: "rome-sardinia", polity: "rome", name: "Sardinia & Corsica", mapLabel: "SARDINIA", fromYear: -238, toYear: -196, certainty: "attested", labelAt: [9.1, 40.1],
@@ -65,7 +75,7 @@ export const territories: TerritoryPeriod[] = [
   },
   {
     id: "carthage-sicily", polity: "carthage", name: "Carthaginian Sicily", mapLabel: "SICILY", fromYear: -264, toYear: -242, certainty: "attested", labelAt: [13.0, 37.9],
-    ring: [[12.1, 38.7], [14.8, 38.7], [14.6, 36.5], [12.1, 36.9]],
+    ring: [[12.1, 38.7], [13.2, 38.65], [14.5, 38.55], [14.6, 37.5], [14.5, 36.6], [13.2, 36.6], [12.1, 36.9]],
   },
   {
     id: "carthage-sardinia", polity: "carthage", name: "Carthaginian Sardinia", mapLabel: "SARDINIA", fromYear: -264, toYear: -239, certainty: "probable", labelAt: [9.1, 40.0],
@@ -75,6 +85,23 @@ export const territories: TerritoryPeriod[] = [
   {
     id: "carthage-iberia", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -237, toYear: -207, certainty: "probable", labelAt: [-3.8, 38.1],
     ring: [[-7.8, 36.6], [-1.4, 36.3], [1.6, 41.4], [-1.6, 41.8], [-4.4, 39.6], [-7.0, 38.6], [-8.0, 37.6]],
+  },
+
+  // --- Third parties: not principals, but they hold ground that would otherwise
+  // read as an unclaimed hole in the map ---
+  {
+    // Hiero II's kingdom: Carthage's ally in 264, Rome's from 263, taken in 212.
+    id: "syracuse", polity: "syracuse", name: "Syracuse", mapLabel: "SYRACUSE", fromYear: -264, toYear: -213, certainty: "attested", labelAt: [14.95, 37.2],
+    // Confined to Sicily's south-east: it must not reach across the strait into
+    // Italy, nor west into the Roman province.
+    ring: [[14.5, 38.15], [15.2, 38.2], [15.45, 37.6], [15.4, 36.9], [15.1, 36.55], [14.6, 36.6], [14.4, 37.4]],
+  },
+  {
+    // After Cynoscephalae Rome proclaimed the Greek cities free — nominally
+    // independent, under Roman oversight.
+    id: "greek-states", polity: "greek", name: "Greek states", mapLabel: "GREEK STATES", fromYear: -197, toYear: -196, certainty: "probable", labelAt: [22.2, 38.4],
+    // Reaches the Epirote coast so no unclaimed strip is left below Macedon.
+    ring: [[19.2, 40.3], [22.4, 39.7], [24.4, 40.0], [24.6, 38.3], [23.8, 36.2], [21.4, 36.4], [19.6, 38.6]],
   },
 
   // --- Eastern Hellenistic powers ---

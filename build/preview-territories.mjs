@@ -4,12 +4,12 @@
 // at it. Run: node --experimental-strip-types build/preview-territories.mjs
 import { writeFileSync } from "node:fs";
 import { territoriesForYear } from "../data/territories.ts";
-import { factionColor, isContextPower } from "../data/factions.ts";
+import { factionColor, factionRole, roleRank, TERRITORY_LAYERS } from "../data/factions.ts";
 import { eraForYear } from "../data/wars.ts";
 import { landPolygons } from "../data/geo/mediterranean-land.ts";
 import { campaignRoutes } from "../data/campaigns.ts";
-import { splitRouteAtYear, isRouteActive } from "../lib/routeInterpolation.ts";
-import { MAP_SCALE, projectPoint, smoothClosedPath, smoothOpenPath } from "../lib/mapGeometry.ts";
+import { isRouteActive } from "../lib/routeInterpolation.ts";
+import { MAP_SCALE, projectPoint, smoothClosedPath, sampleOpenCurve } from "../lib/mapGeometry.ts";
 
 const YEARS = [-264, -241, -218, -201, -197];
 // Window in degrees, converted to the map's projected units.
@@ -33,25 +33,42 @@ const landClip = landPathData.map((d) => `<path d="${d}" clip-rule="evenodd" />`
 
 const panels = YEARS.map((year) => {
   const era = eraForYear(year);
-  const zones = territoriesForYear(year)
-    .slice()
-    .sort((a, b) => Number(isContextPower(b.polity)) - Number(isContextPower(a.polity)));
+  const zones = territoriesForYear(year);
   // Opacity per layer, exactly as the map does it, so overlaps do not darken.
-  const layerFor = (wantContext, opacity) => {
-    const paths = zones.filter((zone) => isContextPower(zone.polity) === wantContext)
+  const shapes = TERRITORY_LAYERS.map(({ roles, opacity }) => {
+    const paths = zones.filter((zone) => roles.includes(factionRole(zone.polity)))
+      .slice().sort((a, b) => roleRank(a.polity) - roleRank(b.polity))
       .map((zone) => `      <path d="${smoothClosedPath(zone.ring)}" fill="${factionColor(zone.polity)}" />`).join("\n");
     return paths ? `    <g opacity="${opacity}">\n${paths}\n    </g>` : "";
-  };
-  const shapes = `${layerFor(true, 0.22)}\n${layerFor(false, 0.52)}`;
+  }).filter(Boolean).join("\n");
+  // Same per-leg styling the map uses: marched vs shipped, elapsed vs ahead.
+  const legTime = (p) => p.year + ((p.month ?? 1) - 1) / 12;
   const routes = campaignRoutes.filter((route) => isRouteActive(route, year)).map((route) => {
-    const split = splitRouteAtYear(route, year);
     const color = factionColor(route.faction);
-    const line = (points, opacity, width, dash) => points.length < 2 ? "" : `    <path d="${smoothOpenPath(points)}" fill="none" stroke="${color}" stroke-opacity="${opacity}" stroke-width="${(width * strokeScale).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"${dash ? ` stroke-dasharray="${(3.4 * strokeScale).toFixed(2)} ${(4.8 * strokeScale).toFixed(2)}"` : ""} />`;
-    return `${line(split.future, 0.32, 2.2, true)}\n${line(split.completed, 0.9, 3.2, false)}`;
+    const ordered = [...route.points].sort((a, b) => legTime(a) - legTime(b));
+    const samples = sampleOpenCurve(ordered.map((p) => p.coordinates));
+    const runs = [];
+    for (const { point, leg, t } of samples) {
+      const sea = Boolean(ordered[leg + 1]?.viaSea);
+      const start = legTime(ordered[leg]);
+      const end = legTime(ordered[leg + 1] ?? ordered[leg]);
+      const elapsed = start + (end - start) * t <= year;
+      const last = runs[runs.length - 1];
+      if (last && last.sea === sea && last.elapsed === elapsed) last.points.push(point);
+      else runs.push({ points: last ? [last.points[last.points.length - 1], point] : [point], sea, elapsed });
+    }
+    return runs.filter((run) => run.points.length >= 2).map((run) => {
+      const d = `M${run.points.map((p) => { const [x, y] = projectPoint(p); return `${x.toFixed(1)} ${y.toFixed(1)}`; }).join("L")}`;
+      const dash = run.sea
+        ? ` stroke-dasharray="${(0.9 * strokeScale).toFixed(2)} ${(2.4 * strokeScale).toFixed(2)}"`
+        : run.elapsed ? "" : ` stroke-dasharray="${(3.4 * strokeScale).toFixed(2)} ${(4.8 * strokeScale).toFixed(2)}"`;
+      const opacity = run.elapsed ? (run.sea ? 0.75 : 0.9) : 0.3;
+      return `    <path d="${d}" fill="none" stroke="${color}" stroke-opacity="${opacity}" stroke-width="${((run.sea ? 1.9 : 3.2) * strokeScale).toFixed(2)}" stroke-linecap="round" stroke-linejoin="round"${dash} />`;
+    }).join("\n");
   }).join("\n");
   const labels = zones.filter((zone) => zone.labelAt).map((zone) => {
     const color = factionColor(zone.polity);
-    const context = isContextPower(zone.polity);
+    const context = factionRole(zone.polity) === "context";
     const [x, y] = projectPoint(zone.labelAt);
     return `    <text x="${x.toFixed(1)}" y="${y.toFixed(1)}" fill="${color}" fill-opacity="${context ? 0.75 : 1}" font-family="system-ui,sans-serif" font-size="${(7.4 * strokeScale).toFixed(2)}" font-weight="700" letter-spacing="${(0.9 * strokeScale).toFixed(2)}" text-anchor="middle" paint-order="stroke" stroke="#f8f5ed" stroke-width="${(2.6 * strokeScale).toFixed(2)}">${xmlText((zone.mapLabel ?? zone.name).toUpperCase())}</text>`;
   }).join("\n");

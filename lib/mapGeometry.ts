@@ -87,6 +87,37 @@ export function smoothOpenPath(points: number[][], scale = MAP_SCALE, tension = 
   return path;
 }
 
+// The open route curve sampled in lng/lat, each sample tagged with the leg it
+// belongs to and how far along that leg it sits. This is what both the renderer
+// and the tests reason about: the line as actually drawn, not the waypoints.
+export function sampleOpenCurve(points: number[][], samplesPerSegment = 14, tension = 0.85): { point: Point; leg: number; t: number }[] {
+  if (points.length < 2) return points.map((point) => ({ point: [point[0], point[1]] as Point, leg: 0, t: 0 }));
+  const at = (index: number) => points[Math.max(0, Math.min(points.length - 1, index))];
+  const out: { point: Point; leg: number; t: number }[] = [];
+  for (let i = 0; i < points.length - 1; i += 1) {
+    const previous = at(i - 1);
+    const start = at(i);
+    const end = at(i + 1);
+    const next = at(i + 2);
+    const c1: Point = [start[0] + ((end[0] - previous[0]) / 6) * tension, start[1] + ((end[1] - previous[1]) / 6) * tension];
+    const c2: Point = [end[0] - ((next[0] - start[0]) / 6) * tension, end[1] - ((next[1] - start[1]) / 6) * tension];
+    const steps = i === points.length - 2 ? samplesPerSegment : samplesPerSegment - 1;
+    for (let step = 0; step <= steps; step += 1) {
+      const t = step / samplesPerSegment;
+      const mt = 1 - t;
+      out.push({
+        point: [
+          mt * mt * mt * start[0] + 3 * mt * mt * t * c1[0] + 3 * mt * t * t * c2[0] + t * t * t * end[0],
+          mt * mt * mt * start[1] + 3 * mt * mt * t * c1[1] + 3 * mt * t * t * c2[1] + t * t * t * end[1],
+        ],
+        leg: i,
+        t,
+      });
+    }
+  }
+  return out;
+}
+
 // The same curve as a dense ring of lng/lat points, for geometric checks such as
 // "do two powers overlap" that must reason about what is actually drawn.
 export function densifyClosedRing(ring: number[][], samplesPerSegment = 8, tension = 1): Point[] {
