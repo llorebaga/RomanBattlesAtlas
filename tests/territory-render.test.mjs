@@ -74,7 +74,31 @@ const OWNERSHIP = [
   { year: -197, places: { "New Carthage": [-0.98, 37.6] }, polity: "rome" },
   { year: -197, places: { Pella: [22.52, 40.76] }, polity: "macedon" },
   { year: -197, places: { "Carthage hinterland": [10.17, 36.8] }, polity: "carthage" },
+  // Frontiers that follow real features, checked on both sides of the line.
+  { year: -218, places: { "Ebro south bank": [-0.9, 41.4], "Tortosa reach": [0.45, 40.7], Saguntum: [-0.3, 39.7] }, polity: "carthage" },
+  { year: -264, places: { "Tripolitanian emporia": [13.2, 32.7], Byzacena: [9.8, 35.2] }, polity: "carthage" },
+  { year: -264, places: { "Nile delta": [31.0, 31.2], "Cyrenaica": [21.8, 32.7] }, polity: "ptolemaic" },
+  { year: -264, places: { "Po valley": [10.4, 45.0], "Alpine foot": [8.0, 45.6] }, polity: "gaul" },
+  { year: -264, places: { "Apennine south slope": [11.5, 43.9] }, polity: "rome" },
 ];
+
+// Ground that is blank on purpose. These peoples were independent, so colouring
+// them would be the error; the test records the intent so a later "fill the gap"
+// change has to argue with history first.
+const UNCLAIMED_BY_DESIGN = [
+  { year: -218, places: { "north of the Ebro": [0.9, 41.7], "Celtiberian interior": [-3.5, 41.2], "Cantabrian coast": [-4.0, 43.2] } },
+  { year: -264, places: { Liguria: [8.4, 44.3], "free Iberia": [-4.0, 40.0] } },
+];
+
+test("land held by independent peoples stays unclaimed", () => {
+  for (const { year, places } of UNCLAIMED_BY_DESIGN) {
+    const drawn = territoriesForYear(year).map((zone) => ({ zone, curve: densifyClosedRing(zone.ring) }));
+    for (const [place, point] of Object.entries(places)) {
+      const holders = drawn.filter(({ curve }) => pointInRing(point, curve)).map(({ zone }) => zone.polity);
+      assert.deepEqual(holders, [], `${place} was independent in ${Math.abs(year)} BCE but reads as ${holders.join("+")}`);
+    }
+  }
+});
 
 test("the map shows the expected power holding each known place", () => {
   for (const { year, places, polity } of OWNERSHIP) {

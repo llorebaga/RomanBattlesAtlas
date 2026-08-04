@@ -46,8 +46,12 @@ export function clampView(view: { x: number; y: number; width: number }, aspect:
 // closed Catmull-Rom spline (expressed as cubic Béziers) gives an organic edge
 // that still passes through every authored point.
 //
-// tension 0 is a straight polygon; 1 is the standard uniform Catmull-Rom.
-export function smoothClosedPath(ring: number[][], scale = MAP_SCALE, tension = 1): string {
+// tension 0 is a straight polygon; 1 is the standard uniform Catmull-Rom. Zone
+// frontiers use a low tension on purpose: they are authored along real features
+// (a river, a mountain crest, a coast), so the curve should soften the joints
+// between points, not bow away from the line they describe.
+export const TERRITORY_TENSION = 0.45;
+export function smoothClosedPath(ring: number[][], scale = MAP_SCALE, tension = TERRITORY_TENSION): string {
   const points = ring.map((point) => projectPoint(point, scale));
   if (points.length < 3) return points.length ? `M${points.map((p) => `${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join("L")}Z` : "";
   const at = (index: number) => points[(index + points.length) % points.length];
@@ -120,7 +124,7 @@ export function sampleOpenCurve(points: number[][], samplesPerSegment = 14, tens
 
 // The same curve as a dense ring of lng/lat points, for geometric checks such as
 // "do two powers overlap" that must reason about what is actually drawn.
-export function densifyClosedRing(ring: number[][], samplesPerSegment = 8, tension = 1): Point[] {
+export function densifyClosedRing(ring: number[][], samplesPerSegment = 8, tension = TERRITORY_TENSION): Point[] {
   if (ring.length < 3) return ring.map((p) => [p[0], p[1]] as Point);
   const at = (index: number) => ring[(index + ring.length) % ring.length];
   const output: Point[] = [];
