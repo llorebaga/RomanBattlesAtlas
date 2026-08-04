@@ -10,7 +10,7 @@ import { territoriesForYear } from "@/data/territories";
 import { factionColor, factionAdjective, getFactionInfo, factionList, isContextPower } from "@/data/factions";
 import { battlesForYear } from "@/lib/historySelectors"; import { clampTimelineYear, TIMELINE_END_YEAR, TIMELINE_START_YEAR } from "@/lib/historicalDates"; import { interpolateRoutePosition, isRouteActive, splitRouteAtYear } from "@/lib/routeInterpolation";
 import { eraForYear } from "@/data/wars";
-import landGeoJson from "@/data/geo/mediterranean-land.json";
+import { landPolygons } from "@/data/geo/mediterranean-land";
 import type { Battle, CampaignRoute, Faction } from "@/types/history";
 import { BattlePanel } from "./BattlePanel"; import { MapLegend } from "./MapLegend"; import { TimelineControls } from "./TimelineControls";
 
@@ -20,9 +20,10 @@ const initialLayers: LayerFilters = { army: true, fleet: true, battles: true, si
 // bundled Natural Earth data (public domain). No modern borders, no modern place
 // names, and no external tile service — every political statement on the map
 // comes from the territory layer above. Regenerate with build/make-basemap.mjs.
+const landData = { type: "FeatureCollection" as const, features: [{ type: "Feature" as const, properties: {}, geometry: { type: "MultiPolygon" as const, coordinates: landPolygons } }] };
 const atlasStyle = {
   version: 8 as const,
-  sources: { land: { type: "geojson" as const, data: landGeoJson as never, attribution: "Land: Natural Earth (public domain)" } },
+  sources: { land: { type: "geojson" as const, data: landData, attribution: "Land: Natural Earth (public domain)" } },
   layers: [
     { id: "sea", type: "background" as const, paint: { "background-color": "#d7e5e9" } },
     { id: "land", type: "fill" as const, source: "land", paint: { "fill-color": "#f3eee1" } },

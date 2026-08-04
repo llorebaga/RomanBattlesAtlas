@@ -1,10 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { readFileSync } from "node:fs";
 import { territories, territoriesForYear } from "../data/territories.ts";
 import { factionColor, factionList, isContextPower } from "../data/factions.ts";
+import { landPolygons } from "../data/geo/mediterranean-land.ts";
 
-const land = JSON.parse(readFileSync(new URL("../data/geo/mediterranean-land.json", import.meta.url), "utf8"));
+const land = { features: [{ properties: {}, geometry: { coordinates: landPolygons } }] };
 
 function pointInRing(point, ring) {
   let inside = false;
@@ -26,12 +26,17 @@ test("the bundled basemap puts land and sea in the right places", () => {
   }
 });
 
-test("the basemap carries no political data", () => {
-  const serialized = JSON.stringify(land);
-  for (const banned of ["ADMIN", "iso_a2", "sovereignt", "NAME", "country"]) {
-    assert.ok(!serialized.includes(banned), `basemap should not carry the ${banned} property`);
+test("the basemap is pure geometry with no political data", () => {
+  // landPolygons is coordinates only: there is nowhere for a modern country
+  // name, ISO code, or sovereignty attribute to hide.
+  assert.ok(Array.isArray(landPolygons) && landPolygons.length > 50);
+  for (const rings of landPolygons) {
+    assert.ok(Array.isArray(rings) && rings.length >= 1);
+    for (const ring of rings) {
+      assert.ok(ring.length >= 4, "every ring needs at least four positions");
+      for (const point of ring) assert.ok(point.length === 2 && point.every((n) => typeof n === "number"), "positions are [lng, lat] numbers");
+    }
   }
-  assert.deepEqual(land.features[0].properties, {}, "land features should carry no properties at all");
 });
 
 test("every territory ring is valid, closed-able Mediterranean geometry", () => {
