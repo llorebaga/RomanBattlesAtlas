@@ -3,6 +3,7 @@ import test from "node:test";
 import { territories, territoriesForYear } from "../data/territories.ts";
 import { factionColor, factionList, isContextPower } from "../data/factions.ts";
 import { landPolygons } from "../data/geo/mediterranean-land.ts";
+import { densifyClosedRing } from "../lib/mapGeometry.ts";
 
 const land = { features: [{ properties: {}, geometry: { coordinates: landPolygons } }] };
 
@@ -51,26 +52,27 @@ test("every territory zone is mostly land and labelled on land", () => {
   }
 });
 
-test("no two active powers claim the same land in the same year", () => {
-  // Overlapping translucent fills blend into a colour that belongs to neither
-  // power, which reads as a third faction that never existed.
+test("no two zones paint the same land in the same year", () => {
+  // Overlapping translucent fills blend: between two powers that invents a third
+  // colour, and between two zones of the same power it shows as a darker patch
+  // that means nothing. Checked against the densified smoothing curve, because
+  // that — not the authored polygon — is what actually gets painted.
   for (const year of [-264, -241, -218, -206, -201, -197]) {
-    const zones = territoriesForYear(year).filter((zone) => !isContextPower(zone.polity));
+    const zones = territoriesForYear(year).filter((zone) => !isContextPower(zone.polity)).map((zone) => ({ zone, curve: densifyClosedRing(zone.ring) }));
     for (let i = 0; i < zones.length; i += 1) {
       for (let j = i + 1; j < zones.length; j += 1) {
         const a = zones[i];
         const b = zones[j];
-        if (a.polity === b.polity) continue;
         let shared = 0;
-        const lngs = a.ring.map((p) => p[0]);
-        const lats = a.ring.map((p) => p[1]);
+        const lngs = a.curve.map((p) => p[0]);
+        const lats = a.curve.map((p) => p[1]);
         for (let x = Math.min(...lngs); x <= Math.max(...lngs); x += 0.25) {
           for (let y = Math.min(...lats); y <= Math.max(...lats); y += 0.25) {
             if (!isLand([x, y])) continue; // only land is ever painted
-            if (pointInRing([x, y], a.ring) && pointInRing([x, y], b.ring)) shared += 1;
+            if (pointInRing([x, y], a.curve) && pointInRing([x, y], b.curve)) shared += 1;
           }
         }
-        assert.ok(shared <= 2, `${a.name} and ${b.name} overlap on land in ${Math.abs(year)} BCE (${shared} samples)`);
+        assert.ok(shared <= 2, `${a.zone.name} and ${b.zone.name} overlap on land in ${Math.abs(year)} BCE (${shared} samples)`);
       }
     }
   }

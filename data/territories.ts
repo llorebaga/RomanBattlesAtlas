@@ -38,8 +38,10 @@ export const territories: TerritoryPeriod[] = [
     ring: [[12.3, 38.4], [14.4, 38.4], [14.4, 36.7], [12.3, 37.2]],
   },
   {
+    // North edge held below 41.2 so the smoothed curve cannot bleed onto
+    // Corsica, which Carthage did not hold.
     id: "carthage-sardinia", polity: "carthage", name: "Carthaginian Sardinia", mapLabel: "SARDINIA", fromYear: -264, toYear: -239, certainty: "probable", labelAt: [9.1, 40.1],
-    ring: [[8.0, 41.4], [9.9, 41.4], [9.9, 38.7], [8.2, 38.7]],
+    ring: [[8.0, 41.1], [9.8, 41.1], [9.9, 38.7], [8.2, 38.7]],
   },
   {
     id: "carthage-iberia", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -237, toYear: -207, certainty: "probable", labelAt: [-3.8, 38.1],
@@ -48,12 +50,14 @@ export const territories: TerritoryPeriod[] = [
 
   // --- Gauls: Cisalpine (Po valley) and Transalpine (schematic, static) ---
   {
-    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [9.6, 45.1],
-    ring: [[7.0, 45.9], [11.8, 46.1], [12.8, 45.4], [10.6, 44.5], [8.2, 44.4], [6.9, 45.1]],
+    // The two Gallic zones must not overlap: they share a colour, so a double
+    // fill would show as a darker patch that means nothing.
+    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [9.9, 45.2],
+    ring: [[7.9, 46.0], [11.8, 46.1], [12.8, 45.4], [10.6, 44.5], [8.4, 44.4], [7.7, 45.2]],
   },
   {
-    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -264, toYear: -196, certainty: "speculative", labelAt: [2.2, 44.6],
-    ring: [[-1.6, 43.3], [3.2, 42.4], [4.9, 43.3], [7.6, 43.9], [7.2, 45.8], [2.0, 46.2], [-1.4, 45.4]],
+    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -264, toYear: -196, certainty: "speculative", labelAt: [2.0, 44.6],
+    ring: [[-1.6, 43.3], [3.2, 42.4], [4.9, 43.3], [6.9, 43.9], [6.6, 45.8], [2.0, 46.2], [-1.4, 45.4]],
   },
 
   // --- Numidia: interior kingdom behind Carthage, enlarged after Zama ---
