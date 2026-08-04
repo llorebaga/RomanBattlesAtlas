@@ -1,2 +1,2 @@
-:HL["/RomanBattlesAtlas/_next/static/chunks/0-1-7_5vd2xi8.css","style"]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"VK-kN_PajG7AohOr2WfHt"}
+:HL["/RomanBattlesAtlas/_next/static/chunks/0hkf-e2n-_z8y.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"/_not-found","param":null,"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}},"staleTime":300,"buildId":"W4TYnAhjl29IQu2HkU1Wa"}
