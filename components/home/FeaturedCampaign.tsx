@@ -13,7 +13,7 @@ export function FeaturedCampaign({ coverage }: { coverage: CampaignCoverage }) {
   const { campaign, battleCount, navalBattleCount, atlasLink } = coverage;
   const points: HomeMapPoint[] = battles
     .filter((battle) => battle.war === campaign.eraId)
-    .map((battle, index) => ({ id: battle.id, coordinates: battle.coordinates, order: index }));
+    .map((battle, index) => ({ id: battle.id, coordinates: battle.coordinates, kind: battle.kind, order: index }));
 
   return (
     <section className="hp-featured" aria-labelledby="hp-featured-title">

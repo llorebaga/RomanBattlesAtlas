@@ -7,23 +7,36 @@ import { atlasTotals } from "@/lib/coverage";
 import { HomeMap, type HomeMapPoint, type HomeMapRoute } from "./HomeMap";
 
 // A restrained composition: the Mediterranean, a handful of decisive places, and
-// two campaign lines. Everything is drawn from the atlas's own data.
-const HERO_SLUGS = ["messana", "mylae", "aegates", "cannae", "zama", "cynoscephalae", "new-carthage"];
+// three campaign lines. Everything is drawn from the atlas's own data.
+//
+// Every mark is either an end of a drawn line or a decisive action on one, so the
+// lines and the places belong to the same story rather than sitting on the same
+// picture. Messana and Mylae are 30 km apart and merged into one smudge, so the
+// First Punic War is represented by the battle that ended it.
+const HERO_SLUGS = ["aegates", "new-carthage", "cannae", "zama", "cynoscephalae"];
 const HERO_POINTS: HomeMapPoint[] = HERO_SLUGS.flatMap((slug, order) => {
   const battle = battles.find((entry) => entry.slug === slug);
-  return battle ? [{ id: battle.id, coordinates: battle.coordinates, order }] : [];
+  return battle ? [{ id: battle.id, coordinates: battle.coordinates, kind: battle.kind, order }] : [];
 });
 
 // Taken from the campaign data rather than redrawn: the atlas's routes are
-// geographically corrected (marches follow land), and the hero must not contradict
-// them with a line of its own that cuts across the sea.
+// geographically corrected (marches follow land, fleets stay at sea), and the hero
+// must not contradict them with a line of its own that cuts across the water.
 const routeById = (id: string, color: string): HomeMapRoute[] => {
   const route = campaignRoutes.find((entry) => entry.id === id);
-  return route ? [{ id: route.id, color, points: route.points.map((point) => point.coordinates) }] : [];
+  if (!route) return [];
+  return [{
+    id: route.id,
+    color,
+    points: route.points.map((point) => ({ coordinates: point.coordinates, viaSea: point.viaSea })),
+  }];
 };
 const HERO_ROUTES: HomeMapRoute[] = [
   ...routeById("hannibal-march-to-italy", "var(--hp-roman-red)"),
   ...routeById("scipio-african-expedition", "var(--hp-bronze)"),
+  // Not --hp-mark: that is the same value as --hp-roman-red, so the eastern line
+  // read as a detached continuation of Hannibal's march.
+  ...routeById("roman-illyria-advance", "var(--hp-deep-blue)"),
 ];
 
 export function HomepageHero() {

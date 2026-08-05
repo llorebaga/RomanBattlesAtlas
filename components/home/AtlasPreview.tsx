@@ -20,7 +20,7 @@ export function AtlasPreview() {
   // A filter over a few dozen records; the compiler memoizes the component for us.
   const points: HomeMapPoint[] = battles
     .filter((battle) => battle.startYear >= active.startYear && battle.startYear <= active.endYear)
-    .map((battle, index) => ({ id: battle.id, coordinates: battle.coordinates, order: index }));
+    .map((battle, index) => ({ id: battle.id, coordinates: battle.coordinates, kind: battle.kind, order: index }));
 
   return (
     <div className="hp-preview">
