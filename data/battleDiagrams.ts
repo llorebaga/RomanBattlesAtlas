@@ -717,6 +717,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "rom-main", faction: "rome", kind: "ships", at: [26, 46], size: [38, 4], label: "the rest still astern" },
         ],
         arrows: [{ id: "a1", from: [44, 38], to: [52, 26], faction: "rome", kind: "move" }],
+        caveat: "Why the consul went on ahead is not explained: eagerness, a signal misread, or a squadron that was simply readier than the rest.",
       },
       {
         id: "cut-off",
@@ -868,6 +869,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "a1", from: [22, 36], to: [30, 28], faction: "rome", kind: "attack", bow: -4 },
           { id: "a2", from: [78, 36], to: [70, 28], faction: "rome", kind: "attack", bow: 4 },
         ],
+        caveat: "Polybius reports an attack from two sides; whether it was one plan or two commanders acting separately is not recoverable.",
       },
       {
         id: "charge-downhill",
@@ -1032,6 +1034,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "a1", from: [40, 28], to: [42, 40], faction: "rome", kind: "attack" },
           { id: "a2", from: [76, 30], to: [70, 50], faction: "rome", kind: "attack", bow: 6, label: "flank" },
         ],
+        caveat: "That Metellus timed the sortie to the elephants' disorder is the point of the account, but no source says how the signal was given.",
       },
       {
         id: "captured",
@@ -1145,6 +1148,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "car-line", faction: "carthage", kind: "ships", at: [26, 12], size: [40, 4], label: "forms at sea" },
         ],
         arrows: [{ id: "a1", from: [78, 50], to: [30, 16], faction: "carthage", kind: "move", bow: 14, label: "out by the channel" }],
+        caveat: "Which channel Adherbal used, and whether the Roman column could have been recalled in time, are both modern reconstructions.",
       },
       {
         id: "trapped",
@@ -1196,6 +1200,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "rom-fleet", faction: "rome", kind: "ships", at: [56, 50], size: [40, 4], label: "Roman fleet" },
         ],
         arrows: [{ id: "a1", from: [50, 22], to: [76, 30], faction: "carthage", kind: "move", label: "for Sicily" }],
+        caveat: "The convoy's size and whether it carried troops as well as supplies are reported inconsistently.",
       },
       {
         id: "intercept",
@@ -1400,6 +1405,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "a1", from: [34, 34], to: [52, 34], faction: "rome", kind: "move", label: "fords" },
           { id: "a2", from: [56, 32], to: [64, 26], faction: "carthage", kind: "retreat" },
         ],
+        caveat: "That Sempronius was provoked rather than simply confident is Polybius' reading of a decision the man himself never explained.",
       },
       {
         id: "lines",
@@ -1472,6 +1478,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "car-block", faction: "carthage", kind: "infantry", at: [88, 26], size: [12, 3], label: "blocks the exit" },
         ],
         arrows: [{ id: "a1", from: [14, 37], to: [70, 34], faction: "rome", kind: "move", label: "line of march" }],
+        caveat: "The length of the column and how far it had entered the defile are inferred from the ground, not reported.",
       },
       {
         id: "sprung",
@@ -1769,6 +1776,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "rom-camp", faction: "rome", kind: "camp", at: [84, 52], size: [20, 14], label: "Scipio's camp" },
           { id: "car-gar", faction: "carthage", kind: "infantry", at: [54, 34], size: [3.5, 15], label: "garrison on the isthmus wall" },
         ],
+        caveat: "The garrison's strength comes from Livy alone, and a thousand men for a city of this circuit is remarkably few.",
       },
       {
         id: "isthmus-assault",
@@ -1919,6 +1927,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "car-eles", faction: "carthage", kind: "elephants", at: [58, 36], size: [14, 3] },
         ],
         arrows: [{ id: "a1", from: [92, 52], to: [84, 48], faction: "rome", kind: "move", label: "forced march" }],
+        caveat: "How Nero's force was chosen and how the two camps were combined without Hasdrubal noticing are not described.",
       },
       {
         id: "stalled",
@@ -1987,6 +1996,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "rom-wings", faction: "rome", kind: "infantry", at: [24, 46], size: [14, 4], label: "Iberian allies" },
           { id: "rom-wings2", faction: "rome", kind: "infantry", at: [76, 46], size: [14, 4] },
         ],
+        caveat: "How many days the armies faced each other in the conventional order is given differently by Polybius and Livy.",
       },
       {
         id: "reversed",
@@ -2183,6 +2193,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "a1", from: [14, 40], to: [4, 18], faction: "rome", kind: "move", label: "pursuit leaves the field" },
           { id: "a2", from: [86, 40], to: [96, 18], faction: "rome", kind: "move" },
         ],
+        caveat: "Whether the cavalry pursuit was a lapse of discipline or Scipio's intention is the central argument about this battle.",
       },
       {
         id: "rear",
@@ -2311,6 +2322,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
           { id: "rom-eles", faction: "rome", kind: "elephants", at: [80, 34], size: [10, 3] },
         ],
         arrows: [{ id: "a1", from: [34, 30], to: [34, 37], faction: "macedon", kind: "attack", label: "drives back" }],
+        caveat: "The depth of Philip's right is given as doubled, which is a claim about the formation rather than a count of ranks.",
       },
       {
         id: "left-caught",

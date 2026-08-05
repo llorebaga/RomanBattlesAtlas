@@ -183,7 +183,19 @@ export const territories: TerritoryPeriod[] = [
   {
     // Hiero II's kingdom: Carthage's ally in 264, Rome's from 263, taken in 212.
     // Its frontier with the Roman province ran near the Himera.
-    id: "syracuse", polity: "syracuse", name: "Syracuse", mapLabel: "SYRACUSE", fromYear: -509, toYear: -213, certainty: "attested", labelAt: [14.95, 37.2],
+    // Syracusan power swung enormously across these three centuries — Gelon after
+    // Himera, Dionysius I with an empire reaching into southern Italy, Agathocles
+    // again — and none of it is part of Rome's story until 264. Drawing Hiero's
+    // small kingdom for 500 BCE would be an anachronism, and drawing each phase
+    // would be an atlas of Sicily rather than of Roman warfare. So the earlier
+    // centuries carry one zone at the habitual reach of Syracusan hegemony, graded
+    // `disputed` and saying in its own note that it is not any single year's border.
+    id: "syracuse-hegemony", polity: "syracuse", name: "Syracusan hegemony", mapLabel: "SYRACUSE", fromYear: -509, toYear: -265, certainty: "disputed", labelAt: [14.85, 37.25],
+    ring: [[14.1, 38.1], [14.8, 38.3], [15.4, 38.35], [15.7, 37.9], [15.6, 37.1], [15.3, 36.45], [14.5, 36.45], [14.0, 36.9], [13.9, 37.6]],
+  },
+  {
+    // 264 onwards: Hiero II's kingdom, the ally Rome dealt with and then annexed.
+    id: "syracuse", polity: "syracuse", name: "Syracuse", mapLabel: "SYRACUSE", fromYear: -264, toYear: -213, certainty: "attested", labelAt: [14.95, 37.2],
     ring: [[14.4, 38.0], [14.9, 38.2], [15.4, 38.3], [15.6, 37.9], [15.5, 37.2], [15.2, 36.5], [14.6, 36.5], [14.3, 36.9], [14.2, 37.5]],
   },
   {

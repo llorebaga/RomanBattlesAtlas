@@ -115,7 +115,7 @@ const TRANSITIONS = [
   { year: -272, gained: ["rome-italy"], lost: ["rome-peninsular", "magna-graecia"], why: "Tarentum surrenders and Rome holds the whole peninsula" },
   // The Hellenistic powers and Numidia enter the map with the Punic wars: before
   // 264 they are outside the atlas's story and colouring them would be decoration.
-  { year: -264, gained: ["macedon-greece", "numidia-early", "seleucid", "ptolemaic"], lost: [], why: "the eastern kingdoms and Numidia enter the frame as Rome crosses to Sicily" },
+  { year: -264, gained: ["macedon-greece", "numidia-early", "seleucid", "ptolemaic", "syracuse"], lost: ["syracuse-hegemony"], why: "the eastern kingdoms and Numidia enter the frame, and Syracuse narrows to the kingdom Hiero brought into the Roman alliance" },
 
   // ── The Punic and Macedonian wars ───────────────────────────────────────────
   { year: -241, gained: ["rome-sicily"], lost: ["carthage-sicily"], why: "the peace ending the First Punic War gives Rome its first province" },
