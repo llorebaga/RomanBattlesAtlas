@@ -65,6 +65,11 @@ export const sources: HistoricalSource[] = [
       { fromYear: -264, toYear: -237 },
     ],
   },
+  {
+    id: "diodorus-14", kind: "ancient", citation: "Diodorus Siculus, Library of History, Book 14",
+    note: "A Sicilian Greek writing in the first century BCE from earlier Greek historians. His account of the Gallic sack is independent of the Roman annalistic tradition and dates it differently, which is why the year of the Allia has two answers.",
+    covers: [{ fromYear: -404, toYear: -387 }],
+  },
   { id: "diodorus-23", kind: "ancient", citation: "Diodorus Siculus, Library of History, Book 23 (fragments)", note: "Fragments of an account of the First Punic War independent of Polybius, preserving different figures in places.", covers: [{ fromYear: -264, toYear: -251 }] },
   {
     id: "zonaras-8", kind: "ancient", citation: "Zonaras, Epitome of Histories, Book 8",

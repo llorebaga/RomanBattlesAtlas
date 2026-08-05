@@ -22,7 +22,7 @@ const earlyItalyAncient = ["livy-1-5", "dionysius-hal"];
 const earlyItalyModern = ["cornell-1995", "forsythe-2005"];
 const midItalyAncient = ["livy-6-10", "dionysius-hal"];
 const midItalyModern = ["oakley-1997", "salmon-1967"];
-const pyrrhicAncient = ["plutarch-pyrrhus", "appian-samnite", "livy-periochae"];
+const pyrrhicAncient = ["plutarch-pyrrhus", "dionysius-hal", "appian-samnite", "livy-periochae"];
 const pyrrhicModern = ["champion-2009", "cornell-1995"];
 
 const earlyRepublic: Battle[] = [
@@ -76,7 +76,7 @@ const earlyRepublic: Battle[] = [
       { side: "Rome", estimate: "The army broken with little fighting; many drowned in the Tiber and the survivors fled to Veii rather than to Rome", certainty: "traditional", note: "That the survivors made for Veii, not the city, is the detail that explains how Rome came to be undefended." },
       { side: "The Senones", estimate: "Slight, and the band later accepted a ransom in gold to withdraw", certainty: "traditional" },
     ],
-    ancientSourceIds: ["livy-1-5", "polybius-2", "plutarch-camillus"], modernSourceIds: earlyItalyModern,
+    ancientSourceIds: ["livy-1-5", "polybius-2", "diodorus-14", "plutarch-camillus"], modernSourceIds: earlyItalyModern,
     uncertaintyNotes: ["Roman and Greek chronologies for the sack differ by three or four years.", "How much of the city was actually destroyed is disputed; the archaeological destruction layer is thinner than the literary account implies.", "Whether the Capitol truly held out, or the story exists to soften the defeat, has been questioned since antiquity."],
     previousSlug: "veii", nextSlug: "vesuvius",
   },
@@ -313,7 +313,7 @@ const firstPunicWar: Battle[] = [
   {
     id: "sulci", slug: "sulci", name: "Battle of Sulci", kind: "naval", startYear: -258, endYear: -258, displayDate: "c. 258 BCE", location: "Waters near Sulci, south-west Sardinia", coordinates: [8.42, 39.08], uncertainty: { radiusKm: 35, certainty: "disputed", note: "Ancient testimony is brief and the precise location is not known." }, major: false,
     belligerents: ["Roman Republic", "Carthage"], commanders: [{ faction: "rome", names: ["Gaius Sulpicius Paterculus"], certainty: "probable" }, { faction: "carthage", names: ["Hannibal Gisco"], certainty: "probable" }], result: "Roman victory", summary: "A poorly documented Roman naval success off Sardinia.", significance: "The action widened the maritime theater beyond Sicily.",
-    context: "This record exists to show what the bottom of the evidence looks like. Sulci is known from a few lines in Zonaras, a twelfth-century Byzantine monk epitomising Cassius Dio, whose own books for this period are lost — so the chain from the event to the page is: something happened off Sardinia, an annalist recorded it, Dio used the annalist, Zonaras summarised Dio, and the summary survives. Every other page on this site rests on Polybius or Livy. This one does not, and the difference is why it carries no diagram and no figures.", ancientSourceIds: ["zonaras-8"], modernSourceIds: commonModern, uncertaintyNotes: ["The action is known from a few lines of a late epitome of a lost history — three removes from anyone who saw it.", "The date is given as 258 by convention; neither the year nor the season is secure.", "The location off south-western Sardinia is inferred from the place name alone.", "No figures survive for either fleet, and whether this was a fleet action or a raid on shipping cannot be determined."], previousSlug: "mylae", nextSlug: "tyndaris"
+    context: "This record exists to show what the bottom of the evidence looks like. Sulci is known from a few lines in Zonaras, a twelfth-century Byzantine monk epitomising Cassius Dio, whose own books for this period are lost — so the chain from the event to the page is: something happened off Sardinia, an annalist recorded it, Dio used the annalist, Zonaras summarised Dio, and the summary survives. Almost every other page here rests on a historian writing within a few generations of the events, whose text we still have. This one does not, and the difference is why it carries no diagram and no figures.", ancientSourceIds: ["zonaras-8"], modernSourceIds: commonModern, uncertaintyNotes: ["The action is known from a few lines of a late epitome of a lost history — three removes from anyone who saw it.", "The date is given as 258 by convention; neither the year nor the season is secure.", "The location off south-western Sardinia is inferred from the place name alone.", "No figures survive for either fleet, and whether this was a fleet action or a raid on shipping cannot be determined."], previousSlug: "mylae", nextSlug: "tyndaris"
   },
   {
     id: "tyndaris", slug: "tyndaris", name: "Battle of Tyndaris", kind: "naval", startYear: -257, endYear: -257, displayDate: "257 BCE", location: "Waters off Tyndaris, northern Sicily", coordinates: [15.05, 38.14], uncertainty: { radiusKm: 18, certainty: "probable", note: "Representative offshore point; precise positions are unknown." }, major: false,

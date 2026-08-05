@@ -313,3 +313,36 @@ test("the evidence register's own figures are countable from the data", () => {
     }
   }
 });
+
+test("an ancient author named in the prose is an author the record cites", () => {
+  // If a page says "Diodorus gives 24,000", Diodorus has to be in that record's
+  // citations, or the reader is handed an attribution they cannot follow. This found
+  // four gaps when it was written: the Allia quoting Diodorus' troop figure, Heraclea
+  // weighing Dionysius against Hieronymus, and Sulci naming Polybius and Livy in
+  // order to say they are absent — which reads as an attribution either way.
+  //
+  // Plain substring matching, deliberately. The first version used a word-boundary
+  // regex built in a template literal, where \b is a backspace character rather than
+  // a boundary, so it matched nothing and reported success. Author names are
+  // distinctive enough without it.
+  const AUTHORS = ["Polybius", "Livy", "Diodorus", "Plutarch", "Appian", "Dionysius", "Zonaras"];
+  const problems = [];
+  for (const battle of battles) {
+    const cited = [...battle.ancientSourceIds, ...battle.modernSourceIds];
+    const diagram = battleDiagrams[battle.slug];
+    const prose = [
+      battle.summary, battle.significance, battle.context ?? "",
+      ...battle.uncertaintyNotes,
+      ...(battle.forces ?? []).flatMap((force) => [force.estimate, force.note ?? ""]),
+      ...(battle.casualties ?? []).flatMap((entry) => [entry.estimate, entry.note ?? ""]),
+      ...(diagram ? diagram.stages.flatMap((stage) => [stage.description, stage.caveat ?? ""]) : []),
+      ...(diagram ? [diagram.scaleNote, diagram.orientation ?? ""] : []),
+    ].join(" ");
+    for (const author of AUTHORS) {
+      if (!prose.includes(author)) continue;
+      if (cited.some((id) => id.startsWith(author.toLowerCase() + "-"))) continue;
+      problems.push(`${battle.slug} names ${author} but does not cite him`);
+    }
+  }
+  assert.deepEqual(problems, []);
+});
