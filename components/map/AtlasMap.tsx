@@ -66,9 +66,11 @@ interface Props {
   activeBattles: Battle[];
   selectedBattle: Battle | null;
   onSelectBattle: (battle: Battle) => void;
+  /** An explicit opening view from a deep link; overrides the era framing. */
+  focus?: { location: Coordinates; zoom: number } | null;
 }
 
-export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, selectedBattle, onSelectBattle }: Props) {
+export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, selectedBattle, onSelectBattle, focus = null }: Props) {
   const [aspect, setAspect] = useState(DEFAULT_ASPECT);
   const [view, setView] = useState(() => viewBoxFor(era, DEFAULT_ASPECT));
   const dragState = useRef<{ clientX: number; clientY: number; view: typeof view } | null>(null);
@@ -116,6 +118,19 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
     flyTo(viewBoxFor(era, aspectRef.current), 700);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eraId]);
+  // A deep link's explicit view, applied once. It arrives after mount, so it also
+  // claims the era marker to stop the era effect from overriding it.
+  const focusAppliedRef = useRef(false);
+  useEffect(() => {
+    if (!focus || focusAppliedRef.current) return;
+    focusAppliedRef.current = true;
+    lastEraRef.current = eraId;
+    const [cx, cy] = project(focus.location);
+    const width = (360 / Math.pow(2, focus.zoom)) * SCALE * 1.6;
+    flyTo({ x: cx - width / 2, y: cy - (width * aspectRef.current) / 2, width }, 600);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus]);
+
   useEffect(() => {
     if (selectedId === lastSelectedRef.current) return;
     lastSelectedRef.current = selectedId;

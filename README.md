@@ -1,12 +1,14 @@
 # Roman Campaign Atlas
 
-Roman Campaign Atlas is an evidence-led interactive historical map of Rome's wars. A single continuous timeline runs from 264 BCE onward, currently spanning the **First Punic War** (264–241), the interwar decades, and the **Second Punic War** (218–201), showing representative campaign routes, changing force positions, battles, sieges, and the uncertainty behind each reconstruction. The interactive map is the site's home page.
+Roman Campaign Atlas is an evidence-led interactive historical map of Roman warfare. The home page presents the whole arc, from early Rome to Late Antiquity, and opens into an atlas whose continuous timeline currently covers 264–196 BCE in detail: the **First Punic War**, the interwar decades, the **Second Punic War**, and the **Second Macedonian War**, with campaign routes, changing frontiers, battles, sieges, and the uncertainty behind each reconstruction.
 
 > Historical caution: the atlas is a research interface, not a claim to exact reconstruction. Routes and several coordinates are provisional and are explicitly classified as attested, probable, disputed, or speculative.
 
 ## Scope
 
-- Interactive MapLibre map of the western Mediterranean as the home page (`/`, also served at `/map`)
+- An editorial home page at `/` that presents the whole arc of Roman warfare and offers four ways in: the atlas, a period, a campaign, or a single battle
+- The interactive atlas at `/atlas` (legacy `/map` preserved), openable at any year, campaign, battle, location, or zoom through query parameters
+- Supporting pages: a battle index at `/battles`, `/methodology`, and `/about`
 - A single continuous BCE timeline across every era, with play, pause, previous/next year, and three playback speeds
 - The map header and view follow the active era as you scrub; the theatre re-centres between wars
 - Roman and Carthaginian army and fleet routes with elapsed and future segments — including Hannibal's march over the Alps and Scipio's campaigns in Iberia and Africa
@@ -21,7 +23,7 @@ Roman Campaign Atlas is an evidence-led interactive historical map of Rome's war
 - Next.js App Router-compatible application via Vinext
 - TypeScript and React
 - Tailwind CSS 4 plus project-specific CSS
-- MapLibre GL JS with the public CARTO Voyager basemap (no token required)
+- The campaign atlas is inline SVG over bundled Natural Earth coastlines (no tile service); MapLibre is used only for the battle-page locator
 - Lucide icons
 - Node's built-in test runner
 - Cloudflare/Sites-compatible build output; Vercel can also run the Next.js project
@@ -50,7 +52,8 @@ npm run test:render  # server-render checks; run after build
 ## Project structure
 
 ```text
-app/                    Routes, layout, and global visual system
+app/                    Routes (home, atlas, battles, methodology, about), layout, visual system
+components/home/        Homepage sections: hero, cards, timeline, preview, coverage
 components/map/         Map, timeline, legend, and event panel
 components/battles/     Battle-area map, sequence, sources
 data/                   Editable wars/eras, battles, routes, events, and sources
@@ -58,6 +61,21 @@ lib/                    BCE dates, route interpolation, selectors, validation
 types/                  Strict historical data contracts
 tests/                  Unit and rendered-route integration tests
 ```
+
+## Deep links into the atlas
+
+Every entry point on the home page goes through `lib/atlasLinks.ts`, so the atlas is addressed in one vocabulary:
+
+```text
+/atlas                                                  the atlas as it opens
+/atlas?year=-264&campaign=first-punic                   a campaign, at its first year
+/atlas?year=-260&battle=mylae                           a battle, selected, panel open
+/atlas?year=-216&campaign=second-punic&battle=cannae     both
+/atlas?year=-197&location=22.55,39.42&zoom=5.4          an explicit view
+/atlas?layers=army,fleet,battles                        only these layers enabled
+```
+
+`year` is clamped to the timeline; a missing year falls back to the battle's, then the campaign's first year. Unknown or malformed parameters are ignored rather than throwing, and each link is an ordinary navigation, so the browser back button returns to where the visitor came from. `parseAtlasSearch` and `atlasHref` are covered by `tests/homepage.test.mjs`.
 
 ## Adding a battle
 

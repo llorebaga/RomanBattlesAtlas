@@ -1,14 +1,15 @@
 "use client";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import { Anchor, ChevronLeft, Info, LandPlot, ListFilter, Menu, X } from "lucide-react";
 import { EvidenceBadge } from "@/components/EvidenceBadge";
-import { battles } from "@/data/battles"; import { historicalEvents } from "@/data/events";
+import { battles, getBattle } from "@/data/battles"; import { historicalEvents } from "@/data/events";
 import { territoriesForYear } from "@/data/territories";
 import { getFactionInfo, factionList } from "@/data/factions";
 import { battlesForYear } from "@/lib/historySelectors"; import { clampTimelineYear, TIMELINE_END_YEAR, TIMELINE_START_YEAR } from "@/lib/historicalDates";
-import { eraForYear } from "@/data/wars";
-import type { Battle, Faction } from "@/types/history";
+import { eraForYear, getEra } from "@/data/wars";
+import { parseAtlasSearch } from "@/lib/atlasLinks";
+import type { Battle, Coordinates, Faction } from "@/types/history";
 import { AtlasMap, type MapLayers } from "./AtlasMap";
 import { BattlePanel } from "./BattlePanel"; import { MapLegend } from "./MapLegend"; import { TimelineControls } from "./TimelineControls";
 import { usePlaybackYear } from "./usePlaybackYear";
@@ -21,6 +22,42 @@ export function HistoricalMap() {
   const [hiddenFactions, setHiddenFactions] = useState<Record<string, boolean>>({});
   const [selectedBattle, setSelectedBattle] = useState<Battle | null>(null);
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [focus, setFocus] = useState<{ location: Coordinates; zoom: number } | null>(null);
+
+  // Open where the link asked. The query string is external state that only
+  // exists in the browser, so it is read after mount; applying it is the one
+  // legitimate reason to set state from an effect here.
+  const appliedLinkRef = useRef(false);
+  useEffect(() => {
+    if (appliedLinkRef.current || typeof window === "undefined") return;
+    appliedLinkRef.current = true;
+    const link = parseAtlasSearch(window.location.search);
+    if (!Object.keys(link).length) return;
+
+    const era = link.campaign ? getEra(link.campaign) : undefined;
+    const battle = link.battle ? getBattle(link.battle) : undefined;
+    // Year wins if given; otherwise take the battle's, then the campaign's start.
+    const target = link.year ?? battle?.startYear ?? era?.startYear;
+    /* eslint-disable react-hooks/set-state-in-effect -- the query string is
+       external state readable only in the browser; adopting it once on mount is
+       exactly the synchronisation an effect is for. */
+    if (target !== undefined) setYear(clampTimelineYear(target));
+    if (battle) setSelectedBattle(battle);
+    if (link.layers) {
+      const wanted = new Set(link.layers);
+      setLayers({
+        army: wanted.has("army"),
+        fleet: wanted.has("fleet"),
+        battles: wanted.has("battles"),
+        sieges: wanted.has("sieges"),
+        territories: wanted.has("territories"),
+      });
+    }
+    // An explicit view beats the era framing; a selected battle already centres itself.
+    const view = link.location ? { location: link.location, zoom: link.zoom ?? 5.4 } : era?.mapView ? { location: era.mapView.center, zoom: era.mapView.zoom } : undefined;
+    if (view && !battle) setFocus(view);
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [setYear]);
 
   const activeBattles = useMemo(() => battlesForYear(battles, year).filter((battle) => (battle.kind === "siege" ? layers.sieges : layers.battles)), [year, layers.battles, layers.sieges]);
   const selectedEvent = historicalEvents.find((event) => event.year === year);
@@ -56,7 +93,7 @@ export function HistoricalMap() {
       <div className="active-list"><div className="active-list-title"><span>Visible events</span><span>{activeBattles.length}</span></div>{activeBattles.length ? activeBattles.map((battle) => <button key={battle.id} onClick={() => { setSelectedBattle(battle); setSidebarOpen(false); }}><span className={`mini-kind ${battle.kind}`}>{battle.kind === "naval" ? "≋" : battle.kind === "siege" ? "◎" : "⚔"}</span><span><strong>{battle.name}</strong><small>{battle.location}</small></span><ChevronLeft size={15} className="event-arrow" /></button>) : <p className="empty-state">No battle marker is active. Campaign routes may still be visible.</p>}</div>
       <p className="reconstruction-disclaimer">Ancient evidence is incomplete. Territory zones, positions, and routes are schematic reconstructions, not surveyed borders or exact tracks.</p></aside>
       <section className="map-stage" aria-label={`Interactive map — ${currentEra ? currentEra.name : "Roman military campaigns"}`}>
-        <AtlasMap year={year} era={currentEra} layers={layers} hiddenFactions={hiddenFactions} activeBattles={activeBattles} selectedBattle={selectedBattle} onSelectBattle={setSelectedBattle} />
+        <AtlasMap year={year} era={currentEra} layers={layers} hiddenFactions={hiddenFactions} activeBattles={activeBattles} selectedBattle={selectedBattle} onSelectBattle={setSelectedBattle} focus={focus} />
         <div className="map-caption"><span>THE MEDITERRANEAN WORLD</span><small>Schematic territories &amp; routes · no modern borders</small></div>
         <MapLegend powers={powers} />
         {selectedBattle && <BattlePanel battle={selectedBattle} onClose={() => setSelectedBattle(null)} />}

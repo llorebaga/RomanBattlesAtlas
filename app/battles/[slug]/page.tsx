@@ -9,6 +9,7 @@ import { SourceList } from "@/components/battles/SourceList";
 import { battles, getBattle } from "@/data/battles";
 import { getEra } from "@/data/wars";
 import { factionColor } from "@/data/factions";
+import { atlasHref } from "@/lib/atlasLinks";
 
 export function generateStaticParams() { return battles.map((battle) => ({ slug: battle.slug })); }
 
@@ -28,7 +29,7 @@ export default async function BattlePage({ params }: { params: Promise<{ slug: s
 
   return (
     <main className="battle-page">
-      <nav className="detail-nav"><Link href="/map"><ArrowLeft size={16} /> Campaign map</Link><Link href="/" className="detail-brand">ROMAN CAMPAIGN ATLAS</Link><span>{eraName.toUpperCase()}</span></nav>
+      <nav className="detail-nav"><Link href={atlasHref({ year: battle.startYear, campaign: battle.war, battle: battle.slug })}><ArrowLeft size={16} /> Campaign map</Link><Link href="/" className="detail-brand">ROMAN CAMPAIGN ATLAS</Link><span>{eraName.toUpperCase()}</span></nav>
       <header className="battle-hero">
         <div className="hero-gridline" aria-hidden="true" />
         <div className="battle-hero-content">
@@ -67,7 +68,7 @@ export default async function BattlePage({ params }: { params: Promise<{ slug: s
       </div>
       <nav className="neighbor-events" aria-label="Neighboring events">
         {battle.previousSlug ? <Link href={`/battles/${battle.previousSlug}`}><ArrowLeft size={17} /><span><small>Previous event</small>{getBattle(battle.previousSlug)?.name}</span></Link> : <span />}
-        <Link href="/map" className="back-map">Return to campaign map</Link>
+        <Link href={atlasHref({ year: battle.startYear, campaign: battle.war, battle: battle.slug })} className="back-map">Return to campaign map</Link>
         {battle.nextSlug ? <Link href={`/battles/${battle.nextSlug}`}><span><small>Next event</small>{getBattle(battle.nextSlug)?.name}</span><ArrowRight size={17} /></Link> : <span />}
       </nav>
     </main>
