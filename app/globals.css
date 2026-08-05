@@ -33,6 +33,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .evidence-probable { color: #7b5b24; background: #f3ead6; }
 .evidence-disputed { color: #914d35; background: #f1dfd8; }
 .evidence-speculative { color: #645c73; background: #e9e4ee; border-style: dashed; }
+/* Traditional is set apart rather than ranked: a double border, because it is a
+   different kind of claim from the four grades of evidence above it. */
+.evidence-traditional { color: #6b5433; background: #efe7d6; border-style: double; border-width: 3px; padding: 2px 6px; }
 
 /* ── Homepage design system ────────────────────────────────────────────────
    A restrained editorial palette: deep Mediterranean blue, warm limestone,
@@ -335,6 +338,8 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
 .legend-powers { display: flex; flex-wrap: wrap; gap: 5px 11px; margin-top: 11px; font-size: .58rem; }.legend-powers span { display: flex; align-items: center; gap: 6px; }.legend-powers span.context { opacity: .62; }.legend-territory { display: inline-block; width: 12px; height: 9px; border-radius: 2px; opacity: .9; }
 .year-events { padding: 21px 19px; border-bottom: 1px solid var(--line); background: #eae4d7; }
 .year-events h2 { margin: 9px 0 7px; font: 400 1.18rem/1.2 var(--font-display); }.year-events > p:not(.eyebrow) { margin: 0 0 13px; color: #5e6059; font: 400 .78rem/1.48 Georgia, serif; }
+/* The span of a phase entry, so a reader is never told a decade is one year. */
+.year-events .year-span { margin: -3px 0 9px !important; color: var(--bronze-dark); font: 700 .66rem/1.3 var(--font-body) !important; letter-spacing: .09em; text-transform: uppercase; }
 .active-list { border-bottom: 1px solid var(--line); }.active-list-title > span:last-child { display: grid; width: 22px; height: 22px; place-items: center; border-radius: 50%; background: #ded7ca; }
 .active-list button { display: grid; width: 100%; grid-template-columns: 29px 1fr 18px; align-items: center; gap: 9px; padding: 11px 17px; border: 0; border-bottom: 1px solid #ddd5c8; background: transparent; color: inherit; text-align: left; cursor: pointer; }.active-list button:hover { background: #fffaf0; }
 .active-list button > span:nth-child(2) { display: grid; gap: 3px; }.active-list button strong { font: 400 .79rem/1.2 var(--font-display); }.active-list button small { overflow: hidden; color: var(--muted); font-size: .61rem; text-overflow: ellipsis; white-space: nowrap; }.event-arrow { transform: rotate(180deg); }

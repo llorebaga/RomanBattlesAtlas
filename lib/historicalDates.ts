@@ -3,8 +3,8 @@
 // imports (the type-stripping test runner cannot resolve the "@/" alias in a
 // value import). data/wars.ts derives the same values from the era list, and
 // tests/history.test.mjs asserts the two stay in sync — update both together
-// when adding an era outside 264–196 BCE.
-export const TIMELINE_START_YEAR = -264;
+// when adding an era outside 509–196 BCE.
+export const TIMELINE_START_YEAR = -509;
 export const TIMELINE_END_YEAR = -196;
 
 // Retained aliases so existing imports keep working.

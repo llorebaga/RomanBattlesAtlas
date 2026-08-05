@@ -9,6 +9,257 @@ const secondModern = ["lazenby-1978", "goldsworthy-2000"];
 const macedonAncient = ["polybius-18", "livy-31-33"];
 const macedonModern = ["walbank-1940", "eckstein-2008"];
 
+// ── The Republic conquers Italy, 509–265 BCE ────────────────────────────────
+//
+// A word about certainty in this block. The dates are Rome's own, and several are
+// demonstrably wrong or duplicated within the annalistic record; the sites of most
+// of these battles are unlocated; and the tactical detail in Livy for the fifth and
+// fourth centuries is largely his own reconstruction. What survives reliably is
+// which wars were fought, roughly when, and how they came out. That is enough to
+// map, and not enough to map the way the Punic wars are mapped, so the grades here
+// run through `traditional` and `disputed` rather than `attested`.
+const earlyItalyAncient = ["livy-1-5", "dionysius-hal"];
+const earlyItalyModern = ["cornell-1995", "forsythe-2005"];
+const midItalyAncient = ["livy-6-10", "dionysius-hal"];
+const midItalyModern = ["oakley-1997", "salmon-1967"];
+const pyrrhicAncient = ["plutarch-pyrrhus", "livy-6-10"];
+const pyrrhicModern = ["champion-2009", "cornell-1995"];
+
+const earlyRepublic: Battle[] = [
+  {
+    id: "lake-regillus", slug: "lake-regillus", name: "Battle of Lake Regillus", kind: "land", startYear: -496, endYear: -496, displayDate: "496 BCE (traditional)", location: "Lake Regillus, the Alban hills (site unidentified)", coordinates: [12.72, 41.78], uncertainty: { radiusKm: 14, certainty: "disputed", note: "The lake was a crater basin somewhere in the Alban hills and has never been identified; the drained Pantano Secco is the usual guess." }, major: true,
+    belligerents: ["Rome", "The Latin League"], commanders: [{ faction: "rome", names: ["Aulus Postumius Albus (dictator)"], certainty: "traditional" }, { faction: "latin", names: ["Octavius Mamilius of Tusculum"], certainty: "traditional" }], result: "Roman victory",
+    summary: "Rome defeated a Latin army in the war over who should lead Latium after the expulsion of the kings, in a battle the tradition remembered mainly for the gods who were said to have fought in it.",
+    significance: "The victory led to the treaty of Cassius three years later, which made Rome the leading partner in the Latin alliance rather than one city among equals — the foundation everything Roman built on for the next two centuries.",
+    context: "With the Tarquins expelled and in exile among the Latins, the question was whether a Rome without kings still held the primacy in Latium that the kings had won. Both sides had reason to want it settled. What the tradition preserves is a battle fought mostly by aristocratic cavalry, in which the commanders sought each other out personally — which may be a genuine memory of how early Latin war was fought, or a later writer's idea of it.",
+    forces: [
+      { side: "Rome", estimate: "The citizen levy with its aristocratic cavalry, under a dictator", certainty: "traditional", note: "No figure survives. Rome at this date could probably field a few thousand men." },
+      { side: "The Latin League", estimate: "A combined force of the Latin cities, with Tarquinian exiles and Roman deserters", certainty: "traditional" },
+    ],
+    casualties: [
+      { side: "The Latin League", estimate: "Not preserved; the Latin commander was killed", certainty: "traditional" },
+      { side: "Rome", estimate: "Not preserved, and described as heavy for a victory", certainty: "traditional" },
+    ],
+    ancientSourceIds: earlyItalyAncient, modernSourceIds: earlyItalyModern,
+    uncertaintyNotes: ["The lake has never been located.", "Castor and Pollux were said to have fought in the Roman line and to have brought the news to Rome themselves; the temple of Castor in the Forum was held to commemorate it.", "The battle may be a doublet of the later Latin War, retrojected to explain the treaty of 493."],
+    nextSlug: "veii",
+  },
+  {
+    id: "veii", slug: "veii", name: "Siege of Veii", kind: "siege", startYear: -406, endYear: -396, displayDate: "406–396 BCE (traditional)", location: "Veii, on the Cremera plateau twelve miles north of Rome", coordinates: [12.386, 42.031], uncertainty: { radiusKm: 3, certainty: "attested", note: "The city site is securely identified and extensively excavated; the Roman siege works are not." }, major: true,
+    belligerents: ["Rome", "Veii"], commanders: [{ faction: "rome", names: ["Marcus Furius Camillus (dictator)"], certainty: "traditional" }, { faction: "etruscan", names: ["Unknown"], certainty: "disputed" }], result: "Roman capture and destruction of the city",
+    summary: "Rome besieged its nearest rival, an Etruscan city on a plateau twelve miles away, and after a siege the tradition made ten years long took it, sold its people, and annexed its land.",
+    significance: "The first conquest that made Rome substantially larger than any neighbour. The annexation of Veientine territory roughly doubled Roman land, and Rome kept it rather than leaving a defeated ally in place — the pattern of everything that followed.",
+    context: "Veii sat on a plateau of about the same size as Rome's own, controlled the Tiber crossing at Fidenae and the trade in salt from the coast, and had fought Rome intermittently for a century. The tradition gives the siege ten years in open imitation of Troy, and attaches to it two changes that are probably real and probably later: pay for soldiers, which an army that cannot go home for the harvest requires, and a winter camp. The city fell, on the tradition, when a tunnel was driven into the citadel — a story that also attaches to other sieges and that the tufa around Veii, riddled with drainage cuniculi, would certainly have made imaginable.",
+    forces: [
+      { side: "Rome", estimate: "The citizen levy maintained in the field year-round, reportedly for the first time with pay", certainty: "traditional", note: "The introduction of the stipendium is dated to this siege and may belong to it." },
+      { side: "Veii", estimate: "The city's own forces; the rest of the Etruscan league did not intervene in strength", certainty: "probable", note: "Veii's isolation from the other Etruscan cities is the strategic fact of the war." },
+    ],
+    casualties: [
+      { side: "Veii", estimate: "The population killed or sold and the city never reoccupied", certainty: "probable", note: "The archaeology confirms that occupation ends at about this date." },
+      { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    ancientSourceIds: ["livy-1-5", "plutarch-camillus", "dionysius-hal"], modernSourceIds: earlyItalyModern,
+    uncertaintyNotes: ["The ten-year length is a literary echo of Troy and is not independently supported.", "The tunnel into the citadel is a folk-tale motif found in several ancient siege narratives.", "Camillus' role has been enlarged by a family tradition that made him a second founder of Rome."],
+    previousSlug: "lake-regillus", nextSlug: "allia",
+  },
+  {
+    id: "allia", slug: "allia", name: "Battle of the Allia", kind: "land", startYear: -390, endYear: -390, displayDate: "390 BCE (Roman reckoning; 387/6 in the Greek)", location: "The Allia stream, about eleven miles north of Rome", coordinates: [12.62, 42.08], uncertainty: { radiusKm: 16, certainty: "disputed", note: "The Allia is usually identified with a small tributary on the Tiber's left bank, but the identification and the bank are both argued." }, major: true,
+    belligerents: ["Rome", "The Senones"], commanders: [{ faction: "rome", names: ["Quintus Sulpicius Longus"], certainty: "traditional" }, { faction: "gaul", names: ["Brennus"], certainty: "traditional" }], result: "Catastrophic Roman defeat; Rome sacked",
+    summary: "A Gallic war band destroyed a Roman army eleven miles from the city and then took Rome itself, holding everything but the Capitol until it was bought off.",
+    significance: "The only time before the fifth century CE that Rome fell to a foreign enemy. It cost Rome its records, gave it a lasting dread of Gauls, and — because the recovery took barely a decade — became the event Romans cited to prove that Rome could not be finished by one defeat.",
+    context: "The Senones had settled the Adriatic coast a generation earlier and moved inland against Clusium, which appealed to Rome. Roman envoys, on the tradition, joined the fighting instead of mediating, and the Gauls came south. The Romans met them in the open with an army the sources say was hastily raised and badly deployed, with the weight on a wing that could be turned. Everything after the battle is remembered in vignettes — the geese on the Capitol, the senators awaiting death in their doorways, the sword thrown onto the scales — which is what happens when the records themselves have burned.",
+    forces: [
+      { side: "Rome", estimate: "Reportedly a large levy, hurriedly raised; figures in the tradition are not usable", certainty: "traditional", note: "Diodorus gives 24,000, Livy no total. The complaint in the sources is about deployment, not numbers." },
+      { side: "The Senones", estimate: "A migrating war band, numbers unrecoverable", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "The army broken with little fighting; many drowned in the Tiber and the survivors fled to Veii rather than to Rome", certainty: "traditional", note: "That the survivors made for Veii, not the city, is the detail that explains how Rome came to be undefended." },
+      { side: "The Senones", estimate: "Slight, and the band later accepted a ransom in gold to withdraw", certainty: "traditional" },
+    ],
+    ancientSourceIds: ["livy-1-5", "polybius-2", "plutarch-camillus"], modernSourceIds: earlyItalyModern,
+    uncertaintyNotes: ["Roman and Greek chronologies for the sack differ by three or four years.", "How much of the city was actually destroyed is disputed; the archaeological destruction layer is thinner than the literary account implies.", "Whether the Capitol truly held out, or the story exists to soften the defeat, has been questioned since antiquity."],
+    previousSlug: "veii", nextSlug: "vesuvius",
+  },
+  {
+    id: "vesuvius", slug: "vesuvius", name: "Battle of Vesuvius", kind: "land", startYear: -340, endYear: -340, displayDate: "340 BCE", location: "Near Veseris, at the foot of Vesuvius (site unidentified)", coordinates: [14.35, 41.0], uncertainty: { radiusKm: 30, certainty: "disputed", note: "Veseris is named as a river or place near Vesuvius and has never been identified." }, major: true,
+    belligerents: ["Rome and the Samnites", "The Latin League and the Campanians"], commanders: [{ faction: "rome", names: ["Publius Decius Mus", "Titus Manlius Torquatus"], certainty: "probable" }, { faction: "latin", names: ["Unknown"], certainty: "disputed" }], result: "Roman victory",
+    summary: "Rome defeated its own Latin and Campanian allies, who had demanded equality in the alliance and gone to war when refused. The consul Decius Mus was said to have devoted himself and the enemy to the gods of the underworld and ridden alone into the Latin line.",
+    significance: "The first battle of the war that ended the Latin League. Because the two sides were armed and drilled alike, it was also the point at which Roman writers began to describe war as decided by discipline rather than by advantage.",
+    context: "The Latin cities had fought beside Rome for a century and a half and wanted the standing that went with it: shared magistracies, a real say in where the armies went. Rome refused, and the alliance broke. The awkwardness of the war — Romans against Latins who fought in the same formations with the same weapons — shapes everything the sources say about it, including the two famous stories attached to this battle: Manlius executing his own son for leaving the ranks to fight, and Decius' devotio.",
+    forces: [
+      { side: "Rome", estimate: "Two consular armies, with Samnite allies", certainty: "probable", note: "Rome and Samnium were briefly on the same side, which is why the war could be fought at all." },
+      { side: "The Latin League", estimate: "The Latin cities with Campanian contingents, similarly armed and organised", certainty: "probable" },
+    ],
+    casualties: [
+      { side: "The Latin League", estimate: "Heavy; the wing Decius charged is said to have given way first", certainty: "traditional" },
+      { side: "Rome", estimate: "Heavy, and the consul Decius killed", certainty: "traditional", note: "Whether the devotio is historical or a rite retrojected onto his death is argued; the family produced a second and possibly a third." },
+    ],
+    ancientSourceIds: midItalyAncient, modernSourceIds: [...midItalyModern, "cornell-1995"],
+    uncertaintyNotes: ["Veseris is unlocated.", "The devotio of Decius, repeated by his son at Sentinum and possibly his grandson, looks like a family tradition shaped over generations.", "Livy's tactical detail for this battle is his own reconstruction."],
+    previousSlug: "allia", nextSlug: "trifanum",
+  },
+  {
+    id: "trifanum", slug: "trifanum", name: "Battle of Trifanum", kind: "land", startYear: -339, endYear: -339, displayDate: "339 BCE", location: "Trifanum, between Sinuessa and Minturnae (site unidentified)", coordinates: [13.85, 41.22], uncertainty: { radiusKm: 16, certainty: "disputed", note: "Placed on the coast road between Sinuessa and Minturnae; the exact site is unknown." }, major: false,
+    belligerents: ["Rome", "The Latin League and the Campanians"], commanders: [{ faction: "rome", names: ["Titus Manlius Torquatus"], certainty: "probable" }, { faction: "latin", names: ["Unknown"], certainty: "disputed" }], result: "Decisive Roman victory",
+    summary: "The Latin and Campanian armies were broken in a second pitched battle, which ended organised resistance and left Rome free to dictate the settlement of Latium.",
+    significance: "Trifanum decided the Latin War in its second season. What followed — the dissolution of the League and its replacement by separate, unequal treaties — was the constitutional invention on which Roman Italy was built.",
+    context: "After Vesuvius the Latins and Campanians put another army into the field on the coast road south of Latium. Livy passes over the battle quickly, which for a decisive engagement usually means his sources had little to say. Its consequence is what matters: within a year Rome was legislating for cities that had been its equals, annexing some outright with citizenship, tying others to Rome alone and forbidding them to deal with one another.",
+    forces: [
+      { side: "Rome", estimate: "A consular army under Manlius Torquatus", certainty: "probable" },
+      { side: "The Latin League", estimate: "The remaining Latin and Campanian levies", certainty: "probable", note: "No totals survive for either side." },
+    ],
+    casualties: [
+      { side: "The Latin League", estimate: "Reported as very heavy; organised resistance ended", certainty: "traditional" },
+      { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    ancientSourceIds: midItalyAncient, modernSourceIds: midItalyModern,
+    uncertaintyNotes: ["The site is unidentified.", "Livy's account is brief and may compress more than one action.", "The chronology of the Latin War's two campaigns is not entirely secure."],
+    previousSlug: "vesuvius", nextSlug: "caudine-forks",
+  },
+  {
+    id: "caudine-forks", slug: "caudine-forks", name: "The Caudine Forks", kind: "land", startYear: -321, endYear: -321, displayDate: "321 BCE", location: "A defile in the Caudine hills east of Capua (identification argued)", coordinates: [14.64, 41.06], uncertainty: { radiusKm: 12, certainty: "disputed", note: "Usually placed in the valley between Arpaia and Montesarchio, but no identification is agreed." }, major: true,
+    belligerents: ["Rome", "The Samnite league"], commanders: [{ faction: "rome", names: ["Titus Veturius Calvinus", "Spurius Postumius Albinus"], certainty: "probable" }, { faction: "samnite", names: ["Gaius Pontius"], certainty: "probable" }], result: "Roman surrender without a battle",
+    summary: "Two consular armies marched into a closed valley on false information, found both exits held, and surrendered. The whole force passed under the yoke and Rome accepted terms it later repudiated.",
+    significance: "The most complete Roman capitulation before Cannae, and the one the Romans found hardest to write about. It also produced the clearest case of Rome disowning an agreement its own commanders had sworn to.",
+    context: "Rome was trying to reach Luceria in Apulia and took the short road through the hills. Samnite agents, disguised as shepherds, reported that Luceria was under siege — so the army hurried. The valley it entered had a narrow entrance and a narrower exit, and Pontius had blocked and manned both. There was nothing to fight: no line could be formed and no way out could be forced. What the sources dwell on is the humiliation of the terms and the senate's later argument that a sworn agreement not ratified at Rome bound only the men who swore it.",
+    forces: [
+      { side: "Rome", estimate: "Two consular armies — on the usual reckoning some 20,000 men", certainty: "disputed", note: "The figure is inferred from the establishment, not reported." },
+      { side: "The Samnite league", estimate: "A Samnite army holding both ends of the defile and the slopes above it", certainty: "probable" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "Almost none killed; the entire force surrendered and passed under the yoke, and six hundred knights were kept as hostages", certainty: "probable", note: "The army was released, which is why Rome could resume the war so quickly — and why the disgrace, rather than the loss, is what the sources record." },
+      { side: "The Samnite league", estimate: "None", certainty: "probable" },
+    ],
+    ancientSourceIds: midItalyAncient, modernSourceIds: midItalyModern,
+    uncertaintyNotes: ["The defile has not been securely identified.", "Whether Rome legally repudiated the peace or simply broke it was argued in antiquity and is still argued.", "Livy's claim that Rome won a revenge victory the following year and sent the Samnites under the yoke in turn is generally rejected as annalistic compensation."],
+    previousSlug: "trifanum", nextSlug: "sentinum",
+  },
+  {
+    id: "sentinum", slug: "sentinum", name: "Battle of Sentinum", kind: "land", startYear: -295, endYear: -295, displayDate: "295 BCE", location: "Near Sentinum, Umbria (modern Sassoferrato)", coordinates: [12.86, 43.42], uncertainty: { radiusKm: 10, certainty: "probable", note: "The town is securely located; the battlefield in the valley below it is not." }, major: true,
+    belligerents: ["Rome", "Samnites, Senones, Etruscans and Umbrians"], commanders: [{ faction: "rome", names: ["Quintus Fabius Maximus Rullianus", "Publius Decius Mus (the son)"], certainty: "probable" }, { faction: "samnite", names: ["Gellius Egnatius"], certainty: "probable" }, { faction: "gaul", names: ["Unknown"], certainty: "disputed" }], result: "Decisive Roman victory",
+    summary: "Rome defeated a coalition of Samnites and Gauls in Umbria — the largest battle fought in Italy before Cannae — after the second Decius Mus devoted himself as his father had at Vesuvius.",
+    significance: "Sentinum ended the only serious attempt to combine the peoples of Italy against Rome. Within five years Samnium had submitted, and the coalition was never re-formed.",
+    context: "The Third Samnite War was the one in which Rome's enemies finally coordinated: Samnium, the Etruscan cities, the Umbrians and the Senonian Gauls agreed to attack together. Rome's answer was to detach part of the coalition before the battle — Roman forces raided Etruria to draw the Etruscan and Umbrian contingents home — so that the army it met at Sentinum was Samnite and Gallic only. On the field, Fabius on the right fought a deliberately slow, holding action against the Samnites; Decius on the left attacked the Gauls, whose chariots broke his cavalry, and when his wing began to give way he devoted himself and rode into them.",
+    forces: [
+      { side: "Rome", estimate: "Four legions with allies, perhaps 36,000–40,000", certainty: "disputed", note: "Livy's figures for the coalition are far larger and are not credible." },
+      { side: "Samnites and Gauls", estimate: "A combined Samnite and Senonian army of comparable or greater size", certainty: "disputed", note: "The Etruscan and Umbrian contingents had been drawn away before the battle." },
+    ],
+    casualties: [
+      { side: "Samnites and Gauls", estimate: "Livy reports 25,000 killed and 8,000 captured; the Samnite commander was killed", certainty: "disputed" },
+      { side: "Rome", estimate: "Livy reports 8,700, including the consul Decius", certainty: "disputed", note: "Heavy for a Roman victory, and concentrated on the wing that broke before the devotio." },
+    ],
+    ancientSourceIds: midItalyAncient, modernSourceIds: [...midItalyModern, "cornell-1995"],
+    uncertaintyNotes: ["The battlefield is not securely located within the Sentinum valley.", "The second devotio, repeating his father's at Vesuvius, may owe as much to family tradition as to what happened.", "Livy's totals for the coalition are inflated."],
+    previousSlug: "caudine-forks", nextSlug: "aquilonia",
+  },
+  {
+    id: "aquilonia", slug: "aquilonia", name: "Battle of Aquilonia", kind: "land", startYear: -293, endYear: -293, displayDate: "293 BCE", location: "Aquilonia, in Samnium (site unidentified)", coordinates: [15.05, 41.35], uncertainty: { radiusKm: 26, certainty: "disputed", note: "Neither Aquilonia nor the neighbouring Cominium has been located with confidence." }, major: false,
+    belligerents: ["Rome", "The Samnite league"], commanders: [{ faction: "rome", names: ["Lucius Papirius Cursor"], certainty: "probable" }, { faction: "samnite", names: ["Unknown"], certainty: "disputed" }], result: "Roman victory",
+    summary: "Rome destroyed a Samnite army raised under an oath sworn in a linen-hung enclosure, in the campaign that effectively ended Samnite resistance.",
+    significance: "The last substantial Samnite field army. Two years later Samnium submitted, and Rome held the Apennines.",
+    context: "Livy's account of this battle is remarkable for its detail about the Samnite side: a levy summoned under a religious oath administered inside an enclosure hung with linen, with men who refused cut down on the spot. Whether he had a genuine Samnite tradition, an antiquarian source, or a free hand is unresolved — the passage is unusually specific and unusually unverifiable. The battle itself was fought alongside a simultaneous Roman attack on nearby Cominium, so that neither Samnite force could support the other.",
+    forces: [
+      { side: "Rome", estimate: "A consular army, with a second operating against Cominium", certainty: "probable", note: "The two-pronged attack is the tactical point of the campaign." },
+      { side: "The Samnite league", estimate: "A levy raised under oath, the 'Linen Legion' of Livy's account", certainty: "traditional" },
+    ],
+    casualties: [
+      { side: "The Samnite league", estimate: "Livy reports over 20,000 killed or captured across the two actions", certainty: "disputed" },
+      { side: "Rome", estimate: "Not reliably preserved", certainty: "disputed" },
+    ],
+    ancientSourceIds: ["livy-6-10"], modernSourceIds: midItalyModern,
+    uncertaintyNotes: ["Aquilonia and Cominium are both unlocated.", "The ritual of the Linen Legion is either a rare glimpse of Samnite practice or a literary invention; the question is open.", "Casualty totals are Livy's and are probably inflated."],
+    previousSlug: "sentinum", nextSlug: "heraclea",
+  },
+  {
+    id: "heraclea", slug: "heraclea", name: "Battle of Heraclea", kind: "land", startYear: -280, endYear: -280, displayDate: "280 BCE", location: "Near Heraclea on the Siris, Lucania (modern Policoro)", coordinates: [16.68, 40.18], uncertainty: { radiusKm: 14, certainty: "probable", note: "The battle is fixed to the crossing of the Siris near Heraclea; the field itself is not surveyed." }, major: true,
+    belligerents: ["Rome", "Epirus, Tarentum and their allies"], commanders: [{ faction: "rome", names: ["Publius Valerius Laevinus"], certainty: "probable" }, { faction: "epirote", names: ["Pyrrhus of Epirus"], certainty: "attested" }], result: "Epirote victory",
+    summary: "Rome's first battle against a Hellenistic army. Pyrrhus held the Romans at the river crossing with his cavalry, ground them with the pike phalanx, and broke them with elephants they had never seen before.",
+    significance: "The first time Roman infantry met the Macedonian-style phalanx, and the first time it met elephants. Rome lost, and then did the thing that decided the war: raised another army.",
+    context: "Tarentum, unwilling to face Rome with its own levy, hired the ablest professional soldier in the Greek world. Pyrrhus arrived with about 25,000 men and twenty elephants — a proper Hellenistic combined-arms army of pike phalanx, Thessalian heavy cavalry and light troops. He met Laevinus at the Siris, where the fighting turned on the crossing. The infantry contest was closer than either side expected; what ended it was the elephants, against which Roman cavalry horses would not stand. Pyrrhus won and then found he had no way to make Rome talk.",
+    forces: [
+      { side: "Epirus", estimate: "About 25,000 foot and horse with twenty elephants", certainty: "probable", note: "Plutarch's figures for the expedition; the elephant count is the firmest number in the account." },
+      { side: "Rome", estimate: "A consular army of comparable size", certainty: "disputed", note: "No reliable total survives." },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "Reported between 7,000 and 15,000 depending on the source", certainty: "disputed", note: "Dionysius and Hieronymus gave different figures, and Plutarch reports both." },
+      { side: "Epirus", estimate: "Reported between 4,000 and 11,000 — heavy for the winner", certainty: "disputed", note: "The losses fell on troops Pyrrhus could not replace in Italy, which is the pattern of the whole war." },
+    ],
+    ancientSourceIds: pyrrhicAncient, modernSourceIds: pyrrhicModern,
+    uncertaintyNotes: ["The casualty figures come through two ancient traditions that disagree by a factor of two.", "Whether the Roman line was broken by the elephants or by the cavalry they panicked is not clear in the sources.", "The story that Pyrrhus, surveying the Roman dead, remarked on their discipline is the kind of anecdote the tradition attaches to admired enemies."],
+    previousSlug: "aquilonia", nextSlug: "asculum",
+  },
+  {
+    id: "asculum", slug: "asculum", name: "Battle of Asculum", kind: "land", startYear: -279, endYear: -279, displayDate: "279 BCE", location: "Near Asculum in Apulia (modern Ascoli Satriano)", coordinates: [15.56, 41.2], uncertainty: { radiusKm: 16, certainty: "disputed", note: "The town is known; whether the fighting was on the broken ground by the river or on the plain beyond is the substance of the two accounts." }, major: true,
+    belligerents: ["Rome", "Epirus and its Italian allies"], commanders: [{ faction: "rome", names: ["Publius Decius Mus", "Publius Sulpicius Saverrio"], certainty: "probable" }, { faction: "epirote", names: ["Pyrrhus of Epirus"], certainty: "attested" }], result: "Epirote victory, at a cost he could not afford",
+    summary: "Pyrrhus beat Rome a second time, over two days and on ground the Romans had chosen to blunt his phalanx. The losses among his own veterans and officers gave the language a phrase for a victory that ruins the winner.",
+    significance: "The battle that showed the war was unwinnable for Pyrrhus. Rome could replace an army; he could not replace the men he had brought from Greece, and no Italian recruit could take a place in the phalanx.",
+    context: "Rome had learned from Heraclea. The consuls took a position in broken, wooded ground by the river where a pike phalanx could not keep its formation and elephants could not be brought to bear, and they had built anti-elephant devices — carts with spikes and braziers — into their line. Plutarch preserves two accounts: one in which the first day was fought on that ground to Rome's advantage and the second on the open plain to Pyrrhus', and one in which it was a single day's battle. Either way the elephants decided it again, and either way Pyrrhus' casualty list was full of names he needed.",
+    forces: [
+      { side: "Epirus", estimate: "About 40,000 with Italian allies and nineteen elephants", certainty: "disputed", note: "Larger than at Heraclea because of Samnite, Lucanian and Tarentine contingents." },
+      { side: "Rome", estimate: "Four legions with allies, of comparable strength", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "Reported at about 6,000", certainty: "disputed" },
+      { side: "Epirus", estimate: "Reported at about 3,500, including a high proportion of his officers and Greek veterans", certainty: "disputed", note: "The remark attributed to him — that another such victory would finish him — is the origin of the phrase, whether or not he said it." },
+    ],
+    ancientSourceIds: pyrrhicAncient, modernSourceIds: pyrrhicModern,
+    uncertaintyNotes: ["Plutarch reports a one-day and a two-day version of the battle and does not decide between them.", "The Roman anti-elephant carts are described only in the later tradition.", "The famous remark is reported by Plutarch, not by any contemporary."],
+    previousSlug: "heraclea", nextSlug: "beneventum",
+  },
+  {
+    id: "beneventum", slug: "beneventum", name: "Battle of Beneventum", kind: "land", startYear: -275, endYear: -275, displayDate: "275 BCE", location: "Near Malventum, Samnium — renamed Beneventum afterwards", coordinates: [14.78, 41.13], uncertainty: { radiusKm: 22, certainty: "disputed", note: "The town is known; the battle site near it is not, and even the outcome is reported differently." }, major: true,
+    belligerents: ["Rome", "Epirus and its Italian allies"], commanders: [{ faction: "rome", names: ["Manius Curius Dentatus"], certainty: "probable" }, { faction: "epirote", names: ["Pyrrhus of Epirus"], certainty: "attested" }], result: "Roman success; Pyrrhus withdraws from Italy",
+    summary: "Back from Sicily and weaker than when he left, Pyrrhus attempted a night march to surprise a Roman camp, arrived in daylight and disordered, and was fought to a standstill. He returned to Epirus and the war ended.",
+    significance: "The end of the first war Rome fought against a Hellenistic power, and the point at which the Greek world had to take Rome seriously. Rome had beaten a professional army by outlasting it.",
+    context: "Pyrrhus had spent three years in Sicily against Carthage, taken most of the island, failed at Lilybaeum and lost the goodwill of the Greek cities. He came back to Italy with a diminished army to find Rome stronger and his Italian allies exhausted. The plan at Beneventum was a night approach over wooded hills to fall on a Roman camp before dawn; the columns lost their way, the guides failed, and the force arrived in daylight strung out and visible. In the fighting the elephants — his one arm Rome still feared — were driven back into his own line.",
+    forces: [
+      { side: "Epirus", estimate: "A reduced army with a small elephant corps", certainty: "disputed", note: "No reliable total; the Sicilian expedition and the Italian garrisons had cost him heavily." },
+      { side: "Rome", estimate: "A consular army in a fortified camp", certainty: "probable" },
+    ],
+    casualties: [
+      { side: "Epirus", estimate: "Not reliably preserved; elephants were captured and shown at Rome", certainty: "disputed", note: "Some accounts make the day a draw rather than a defeat, but all agree on what followed." },
+      { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    ancientSourceIds: pyrrhicAncient, modernSourceIds: pyrrhicModern,
+    uncertaintyNotes: ["The sources disagree on whether this was a Roman victory or an indecisive action.", "The site near Beneventum is unlocated.", "The renaming of Malventum to Beneventum is usually connected with the colony of 268 rather than with the battle."],
+    previousSlug: "asculum", nextSlug: "tarentum",
+  },
+  {
+    id: "tarentum", slug: "tarentum", name: "Siege of Tarentum", kind: "siege", startYear: -272, endYear: -272, displayDate: "272 BCE", location: "Tarentum (Taranto), on the gulf", coordinates: [17.24, 40.47], uncertainty: { radiusKm: 5, certainty: "attested", note: "The city and its harbour are securely known; the Roman lines are not located." }, major: true,
+    belligerents: ["Rome", "Tarentum and its Epirote garrison"], commanders: [{ faction: "rome", names: ["Lucius Papirius Cursor"], certainty: "probable" }, { faction: "epirote", names: ["Milo (garrison commander)"], certainty: "probable" }], result: "Tarentum surrenders",
+    summary: "With Pyrrhus gone, Rome besieged the greatest Greek city in Italy. Its Epirote garrison came to terms and marched out, and the city surrendered its walls and its fleet.",
+    significance: "The last independent power in peninsular Italy. With Tarentum in, Rome held the whole peninsula and had a war fleet — and the year after next it would cross to Sicily.",
+    context: "Tarentum had begun the war by hiring Pyrrhus and ended it holding a garrison it had not asked to keep. Rome invested the city by land while a fleet — Carthaginian, on one account, which would make it the first joint operation of the two powers — appeared offshore. The garrison commander negotiated his own withdrawal to Epirus, and the city, left to itself, accepted terms. Its walls came down, its ships were handed over, and it kept its laws.",
+    forces: [
+      { side: "Rome", estimate: "A consular army investing the city by land", certainty: "probable" },
+      { side: "Tarentum", estimate: "The city levy and an Epirote garrison holding the citadel", certainty: "probable", note: "The garrison's interests and the city's had diverged, which is what decided the siege." },
+    ],
+    casualties: [
+      { side: "Tarentum", estimate: "The city surrendered on terms; its walls were demolished and its fleet handed over", certainty: "probable", note: "It kept its own laws, and the harshness came later, after it defected to Hannibal." },
+      { side: "Rome", estimate: "Not preserved; the siege was decided by negotiation rather than assault", certainty: "probable" },
+    ],
+    ancientSourceIds: ["livy-6-10", "plutarch-pyrrhus"], modernSourceIds: pyrrhicModern,
+    uncertaintyNotes: ["Livy's narrative for these years survives only in summary, so the detail is thin.", "Whether a Carthaginian fleet took part, and on whose invitation, is disputed.", "The Roman siege works are not located."],
+    previousSlug: "beneventum", nextSlug: "messana",
+  },
+];
+
+// Which era segment each early battle belongs to, matching data/wars.ts.
+const EARLY_BATTLE_ERA: Record<string, string> = {
+  "lake-regillus": "early-republic",
+  veii: "veientine-wars",
+  allia: "gallic-crisis",
+  vesuvius: "latin-samnite-first",
+  trifanum: "latin-samnite-first",
+  "caudine-forks": "samnite-second",
+  sentinum: "samnite-third",
+  aquilonia: "samnite-third",
+  heraclea: "pyrrhic-war",
+  asculum: "pyrrhic-war",
+  beneventum: "pyrrhic-war",
+  tarentum: "italian-unification",
+};
+
 const firstPunicWar: Battle[] = [
   {
     id: "messana", slug: "messana", name: "Battle of Messana", kind: "land", startYear: -264, endYear: -264, displayDate: "264 BCE", location: "Messana, north-eastern Sicily", coordinates: [15.55, 38.19], uncertainty: { radiusKm: 8, certainty: "probable", note: "The city is secure; the exact battlefield footprint is not." }, major: true,
@@ -23,7 +274,7 @@ const firstPunicWar: Battle[] = [
       { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
       { side: "Carthage", estimate: "Not preserved; the sources record withdrawal rather than losses", certainty: "disputed", note: "The Carthaginian commander in the strait was reportedly executed at home for letting the crossing happen." },
     ],
-    ancientSourceIds: commonAncient, modernSourceIds: commonModern, uncertaintyNotes: ["Accounts compress multiple confrontations around Messana.", "Exact troop movements shown on the atlas are schematic."], nextSlug: "agrigentum"
+    ancientSourceIds: commonAncient, modernSourceIds: commonModern, uncertaintyNotes: ["Accounts compress multiple confrontations around Messana.", "Exact troop movements shown on the atlas are schematic."], previousSlug: "tarentum", nextSlug: "agrigentum"
   },
   {
     id: "agrigentum", slug: "agrigentum", name: "Siege of Agrigentum", kind: "siege", startYear: -262, endYear: -261, displayDate: "262–261 BCE", location: "Akragas (Agrigento), southern Sicily", coordinates: [13.58, 37.31], uncertainty: { radiusKm: 6, certainty: "probable", note: "The urban location is known; siege works and field actions are not precisely located." }, major: true,
@@ -423,6 +674,9 @@ const macedonianWar: Battle[] = [
 ];
 
 export const battles: Battle[] = [
+  // Tagged by hand rather than derived from data/wars.ts: this module is in the
+  // test import graph, which can only resolve "@/" aliases as type imports.
+  ...earlyRepublic.map((battle) => ({ ...battle, war: EARLY_BATTLE_ERA[battle.slug] })),
   ...firstPunicWar.map((battle) => ({ ...battle, war: "first-punic" })),
   ...secondPunicWar.map((battle) => ({ ...battle, war: "second-punic" })),
   ...macedonianWar.map((battle) => ({ ...battle, war: "macedonian-second" })),

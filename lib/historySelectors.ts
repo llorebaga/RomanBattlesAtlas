@@ -1,7 +1,29 @@
-import type { Battle, CampaignRoute } from "@/types/history";
+import type { Battle, CampaignRoute, HistoricalEvent } from "@/types/history";
 
 export function battlesForYear(battles: Battle[], year: number): Battle[] {
   return battles.filter((battle) => year >= battle.startYear && year <= battle.endYear);
+}
+
+export function eventCoversYear(event: HistoricalEvent, year: number): boolean {
+  return year >= event.year && year <= (event.toYear ?? event.year);
+}
+
+/**
+ * The entry the year-in-focus panel shows. An event for the single year always wins
+ * over a phase that merely contains it, so authoring a specific year inside a span
+ * — the battle in the middle of a long war — narrows the panel rather than
+ * colliding with it.
+ */
+export function eventForYear(events: HistoricalEvent[], year: number): HistoricalEvent | undefined {
+  return events.find((event) => event.year === year && event.toYear === undefined)
+    ?? events.find((event) => eventCoversYear(event, year));
+}
+
+/** Inclusive span of years an event stands for, for display and for coverage checks. */
+export function eventYears(event: HistoricalEvent): number[] {
+  const years: number[] = [];
+  for (let year = event.year; year <= (event.toYear ?? event.year); year += 1) years.push(year);
+  return years;
 }
 
 export function activeCampaigns(routes: CampaignRoute[], year: number): CampaignRoute[] {

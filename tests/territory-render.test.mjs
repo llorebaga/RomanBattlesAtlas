@@ -4,6 +4,7 @@ import { territories, territoriesForYear } from "../data/territories.ts";
 import { factionColor, factionList, isContextPower, factionRole, roleRank, TERRITORY_LAYERS } from "../data/factions.ts";
 import { landPolygons } from "../data/geo/mediterranean-land.ts";
 import { densifyClosedRing } from "../lib/mapGeometry.ts";
+import { TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "../lib/historicalDates.ts";
 
 const land = { features: [{ properties: {}, geometry: { coordinates: landPolygons } }] };
 
@@ -33,10 +34,16 @@ test("every territory zone is mostly land and labelled on land", () => {
     // overlaps land would render as a sliver or vanish entirely.
     const lngs = territory.ring.map((p) => p[0]);
     const lats = territory.ring.map((p) => p[1]);
+    // The step adapts to the zone. A fixed 0.3° grid is fine for Carthage but
+    // cannot resolve the territory of a city-state: Rome in 509 BCE is about forty
+    // kilometres across, which is smaller than one sample, and the coarse grid
+    // reported it as almost entirely sea.
+    const span = Math.min(Math.max(...lngs) - Math.min(...lngs), Math.max(...lats) - Math.min(...lats));
+    const step = Math.min(0.3, Math.max(0.02, span / 12));
     let tested = 0;
     let onLand = 0;
-    for (let x = Math.min(...lngs); x <= Math.max(...lngs); x += 0.3) {
-      for (let y = Math.min(...lats); y <= Math.max(...lats); y += 0.3) {
+    for (let x = Math.min(...lngs); x <= Math.max(...lngs); x += step) {
+      for (let y = Math.min(...lats); y <= Math.max(...lats); y += step) {
         if (!pointInRing([x, y], territory.ring)) continue;
         tested += 1;
         if (isLand([x, y])) onLand += 1;
@@ -152,10 +159,38 @@ test("every polity resolves to a real hex color", () => {
 });
 
 test("belligerent hues are the validated categorical set", () => {
-  const belligerents = factionList.filter((info) => info.role === "belligerent").map((info) => info.color);
-  assert.deepEqual(belligerents, ["#e34948", "#2a78d6", "#4a3aa7", "#eda100", "#008300"]);
+  // Nine belligerents share five hues plus one borrowed from a minor: the palette
+  // is scoped to the period, not to the roster. What must not drift is the set of
+  // distinct hues in play, because that is what was validated for separation.
+  const belligerents = factionList.filter((info) => info.role === "belligerent");
+  const hues = [...new Set(belligerents.map((info) => info.color))].sort();
+  assert.deepEqual(hues, ["#008300", "#2a78d6", "#4a3aa7", "#7d2b3a", "#a9538c", "#e34948", "#eda100"].sort());
   assert.ok(isContextPower("seleucid"));
   assert.ok(!isContextPower("rome"));
+});
+
+test("two powers sharing a hue never hold ground in the same year", () => {
+  // This is the rule that makes reusing a hue legitimate rather than a collision.
+  // If it ever fails, the two factions overlap in time and one of them needs a
+  // colour of its own — re-validate the categorical set rather than nudging a hex.
+  const byColour = new Map();
+  for (const info of factionList) {
+    if (!byColour.has(info.color)) byColour.set(info.color, []);
+    byColour.get(info.color).push(info.id);
+  }
+  const shared = [...byColour.entries()].filter(([, ids]) => ids.length > 1);
+  assert.ok(shared.length > 0, "expected at least one deliberately reused hue");
+
+  for (let year = TIMELINE_START_YEAR; year <= TIMELINE_END_YEAR; year += 1) {
+    const present = new Set(territoriesForYear(year).map((zone) => zone.polity));
+    for (const [colour, ids] of shared) {
+      const together = ids.filter((id) => present.has(id));
+      assert.ok(
+        together.length <= 1,
+        `${Math.abs(year)} BCE: ${together.join(" and ")} both hold ground and both draw as ${colour}`,
+      );
+    }
+  }
 });
 
 test("territory labels exist so color is never the only cue", () => {

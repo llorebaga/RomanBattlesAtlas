@@ -15,7 +15,12 @@ export interface TimelineMilestone {
 // the rest are signposts to periods still to come, and say so.
 export const timelineMilestones: TimelineMilestone[] = [
   { id: "foundation", year: -753, label: "Foundation of Rome", note: "The traditional date, remembered rather than recorded.", mapped: false },
-  { id: "republic", year: -509, label: "The Republic begins", note: "Kings give way to annual magistrates and a citizen army.", mapped: false },
+  { id: "republic", year: -509, label: "The Republic begins", note: "Kings give way to annual magistrates and a citizen army, and the atlas opens here.", mapped: true, focus: { location: [12.9, 41.8], zoom: 6.6 } },
+  { id: "veii", year: -396, label: "Veii destroyed", note: "Rome annexes its nearest rival and roughly doubles in size.", mapped: true, focus: { location: [12.5, 42.05], zoom: 6.8 } },
+  { id: "allia", year: -390, label: "The Gauls sack Rome", note: "The only time the city fell to a foreign enemy before the fifth century CE.", mapped: true, focus: { location: [12.6, 42.1], zoom: 6.4 } },
+  { id: "latin-settlement", year: -338, label: "The settlement of Latium", note: "The Latin League is dissolved and replaced by the alliance system that became Roman Italy.", mapped: true, focus: { location: [13.2, 41.5], zoom: 6.2 } },
+  { id: "sentinum", year: -295, label: "Sentinum", note: "The Italian coalition against Rome is broken.", mapped: true, focus: { location: [12.86, 43.42], zoom: 6.0 } },
+  { id: "pyrrhus", year: -280, label: "Pyrrhus lands in Italy", note: "Rome meets a Hellenistic army for the first time.", mapped: true, focus: { location: [16.4, 40.3], zoom: 5.8 } },
   { id: "first-punic", year: -264, label: "First Punic War", note: "Rome crosses to Sicily and builds a fleet.", mapped: true, focus: { location: [12.4, 37.9], zoom: 4.7 } },
   { id: "cannae", year: -216, label: "Cannae", note: "Hannibal destroys the largest army Rome had ever fielded.", mapped: true, focus: { location: [16.1, 41.3], zoom: 5.4 } },
   { id: "zama", year: -202, label: "Zama", note: "Scipio defeats Hannibal in Africa and ends the war.", mapped: true, focus: { location: [9.55, 36.05], zoom: 5.2 } },

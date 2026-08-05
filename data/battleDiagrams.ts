@@ -17,6 +17,467 @@ import type { BattleDiagram } from "@/types/history";
 //
 // The frame is 100 × 68, x rightward, y downward.
 export const battleDiagrams: Record<string, BattleDiagram> = {
+  // ── The conquest of Italy ────────────────────────────────────────────────
+  // These carry a further caution the Punic diagrams do not need. For the fifth and
+  // fourth centuries the shape of the action is often Livy's reconstruction rather
+  // than a report, so a stage here graded `traditional` is saying: this is how Rome
+  // remembered the battle going, not how it can be shown to have gone.
+  veii: {
+    scaleNote: "The plateau of Veii and the Roman lines around it. The city site is securely known and excavated; where the siege works ran is not, and the frame stands for ten years of operations.",
+    orientation: "The Tiber lies to the east, Rome twelve miles downstream.",
+    sourceIds: ["livy-1-5", "plutarch-camillus"],
+    terrain: [
+      { id: "plateau", kind: "hill", points: [[24, 16], [70, 14], [76, 34], [68, 46], [28, 46], [18, 32]], label: "the plateau", labelAt: [50, 52] },
+      { id: "city", kind: "town", at: [48, 30], size: [30, 14], label: "Veii" },
+      { id: "ravine", kind: "river", points: [[14, 12], [22, 30], [18, 48], [24, 62]], label: "the Cremera", labelAt: [10, 56] },
+    ],
+    stages: [
+      {
+        id: "invest",
+        title: "Rome invests the city",
+        description: "Veii stands on a plateau of about the same size as Rome's own, defended on most sides by ravines. Rome cannot storm it and settles down to shut it in — and then does something Roman armies had not done before: it stays through the winter instead of going home for the harvest.",
+        certainty: "probable",
+        units: [
+          { id: "rom-works", faction: "rome", kind: "works", at: [48, 30], size: [70, 42] },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [88, 30], size: [16, 14], label: "winter camp" },
+          { id: "etr-gar", faction: "etruscan", kind: "infantry", at: [48, 20], size: [22, 3], label: "the city holds" },
+        ],
+        caveat: "The tradition dates army pay to this siege, because a force kept in the field all year has to be fed; whether the reform belongs here is argued.",
+      },
+      {
+        id: "blockade",
+        title: "Ten years, and no help from Etruria",
+        description: "The other Etruscan cities do not come. Veii had quarrelled with the league and is left to fight alone, which is the strategic fact of the whole war — Rome is besieging one city, not a nation.",
+        certainty: "traditional",
+        units: [
+          { id: "rom-works", faction: "rome", kind: "works", at: [48, 30], size: [70, 42] },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [88, 30], size: [16, 14] },
+          { id: "etr-gar", faction: "etruscan", kind: "infantry", at: [48, 20], size: [20, 3], label: "no relief comes" },
+        ],
+        caveat: "The ten-year length is a literary echo of the siege of Troy and is not independently supported.",
+      },
+      {
+        id: "tunnel",
+        title: "A tunnel driven under the citadel",
+        description: "On the tradition, Roman engineers cut a gallery through the soft tufa into the citadel itself while an assault drew the defence to the walls. The tufa around Veii really is riddled with drainage cuniculi, which is at least why the story would have been imaginable.",
+        certainty: "traditional",
+        units: [
+          { id: "rom-works", faction: "rome", kind: "works", at: [48, 30], size: [70, 42] },
+          { id: "rom-assault", faction: "rome", kind: "infantry", at: [76, 30], size: [10, 16], label: "assault on the wall" },
+          { id: "rom-mine", faction: "rome", kind: "works", at: [34, 40], size: [14, 2.4], label: "the gallery" },
+          { id: "etr-gar", faction: "etruscan", kind: "infantry", at: [56, 20], size: [18, 3], label: "drawn to the walls" },
+        ],
+        arrows: [
+          { id: "a1", from: [72, 30], to: [62, 30], faction: "rome", kind: "attack" },
+          { id: "a2", from: [34, 38], to: [40, 32], faction: "rome", kind: "move" },
+        ],
+        caveat: "The tunnel is a folk-tale motif that attaches to several ancient sieges. It is how Rome remembered taking Veii, not evidence of how Veii fell.",
+      },
+      {
+        id: "taken",
+        title: "The city taken, and kept",
+        description: "Veii is stormed, its people sold, and the site never reoccupied — the archaeology agrees that occupation ends about now. What matters more is what Rome does with the land: it annexes it outright instead of leaving a beaten neighbour in place, and roughly doubles in size.",
+        certainty: "probable",
+        units: [
+          { id: "rom-in", faction: "rome", kind: "infantry", at: [48, 30], size: [26, 4], label: "the city taken" },
+          { id: "etr-gar", faction: "etruscan", kind: "infantry", at: [48, 20], size: [14, 3], routed: true },
+        ],
+      },
+    ],
+  },
+
+  allia: {
+    scaleNote: "The ground where the Allia joins the Tiber, about eleven miles above Rome. Neither the stream nor the bank the Romans stood on is securely identified.",
+    orientation: "The Tiber runs south past the Roman right; Rome lies downstream.",
+    sourceIds: ["livy-1-5", "polybius-2"],
+    terrain: [
+      { id: "tiber", kind: "river", points: [[16, 4], [12, 24], [16, 44], [12, 64]], label: "the Tiber", labelAt: [7, 36] },
+      { id: "allia", kind: "river", points: [[16, 34], [40, 32], [66, 34], [94, 32]], label: "the Allia", labelAt: [80, 40] },
+      { id: "heights", kind: "hill", points: [[62, 44], [88, 42], [94, 56], [64, 58]], label: "the heights", labelAt: [78, 62] },
+    ],
+    stages: [
+      {
+        id: "deploy",
+        title: "A hurried army, badly placed",
+        description: "Rome meets the Senones on ground of the Gauls' choosing. The line is stretched thin to avoid being outflanked, and the reserve is put out on a hill on the right instead of behind the centre — which means the centre has nothing behind it at all.",
+        certainty: "traditional",
+        units: [
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [52, 16], size: [56, 5], label: "the Senones" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [46, 40], size: [48, 4], label: "the line, stretched thin" },
+          { id: "rom-reserve", faction: "rome", kind: "infantry", at: [78, 50], size: [16, 4], label: "the reserve, out on a hill" },
+        ],
+        caveat: "The deployment is Livy's explanation of a defeat rather than a report of one; what is agreed is that the army was beaten quickly and with little fighting.",
+      },
+      {
+        id: "charge",
+        title: "The charge falls on the weak flank",
+        description: "The Gauls come on in one mass and strike where the Roman line is thinnest. There is no depth to absorb it and no reserve within reach.",
+        certainty: "traditional",
+        units: [
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [52, 24], size: [56, 5] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [46, 40], size: [48, 4] },
+          { id: "rom-reserve", faction: "rome", kind: "infantry", at: [78, 50], size: [16, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [40, 28], to: [40, 36], faction: "gaul", kind: "attack" },
+          { id: "a2", from: [64, 28], to: [64, 36], faction: "gaul", kind: "attack" },
+        ],
+      },
+      {
+        id: "rolls-up",
+        title: "The line rolls up from the flank",
+        description: "Once the flank goes the rest of the line has both a beaten wing and an open side. It breaks without being fought through.",
+        certainty: "traditional",
+        units: [
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [50, 32], size: [56, 5] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [42, 42], size: [36, 4], routed: true, label: "breaks" },
+          { id: "rom-reserve", faction: "rome", kind: "infantry", at: [78, 50], size: [16, 4], routed: true, label: "cut off on the hill" },
+        ],
+        arrows: [{ id: "a1", from: [30, 36], to: [26, 42], faction: "gaul", kind: "attack" }],
+      },
+      {
+        id: "rout",
+        title: "The rout goes to Veii, not to Rome",
+        description: "Many drown crossing the Tiber and most of the survivors make for Veii, which is nearer and still walled. Rome is left without an army to hold it, and the Gauls walk in a few days later.",
+        certainty: "probable",
+        units: [
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [50, 34], size: [50, 5], label: "the road to Rome is open" },
+          { id: "rom-flee", faction: "rome", kind: "infantry", at: [26, 48], size: [22, 4], routed: true, label: "across the river to Veii" },
+        ],
+        arrows: [{ id: "a1", from: [24, 46], to: [12, 52], faction: "rome", kind: "retreat" }],
+        caveat: "That the survivors ran to Veii rather than to Rome is the detail that explains how the city came to be undefended, and it is the part of the account that reads least like invention.",
+      },
+    ],
+  },
+
+  "caudine-forks": {
+    scaleNote: "A closed valley with a narrow entrance and a narrower exit. The identification with the pass between Arpaia and Montesarchio is the usual one and is not agreed.",
+    orientation: "Rome came from the west, making for Luceria in Apulia to the east.",
+    sourceIds: ["livy-6-10"],
+    terrain: [
+      { id: "north", kind: "ridge", points: [[6, 6], [40, 3], [74, 7], [96, 5], [96, 22], [70, 25], [36, 22], [6, 24]], label: "wooded hills", labelAt: [18, 12] },
+      { id: "south", kind: "ridge", points: [[6, 46], [38, 49], [72, 45], [96, 48], [96, 62], [70, 60], [34, 63], [6, 60]], label: "and hills again", labelAt: [50, 55] },
+      { id: "road", kind: "road", points: [[2, 36], [30, 34], [60, 36], [98, 34]], label: "the road to Luceria", labelAt: [26, 42] },
+    ],
+    stages: [
+      {
+        id: "enters",
+        title: "The army takes the short road",
+        description: "Samnite agents dressed as shepherds report that Luceria is under siege and about to fall. Two consular armies hurry east through the hills to save it rather than taking the long way round, and enter the valley in column of march.",
+        certainty: "probable",
+        units: [
+          { id: "rom-col", faction: "rome", kind: "infantry", at: [30, 34], size: [34, 4], label: "two consular armies" },
+          { id: "sam-far", faction: "samnite", kind: "works", at: [80, 34], size: [3, 14] },
+        ],
+        arrows: [{ id: "a1", from: [48, 34], to: [70, 34], faction: "rome", kind: "move" }],
+        caveat: "The false shepherds are Livy's; that Rome was deceived into taking the pass is agreed, how is not.",
+      },
+      {
+        id: "far-gate",
+        title: "The far gate is found blocked",
+        description: "The head of the column reaches the eastern exit and finds it walled and held. There is no way through and no room to form a line to force it.",
+        certainty: "probable",
+        units: [
+          { id: "rom-col", faction: "rome", kind: "infantry", at: [46, 34], size: [34, 4] },
+          { id: "sam-far", faction: "samnite", kind: "works", at: [80, 34], size: [3, 14], label: "barricaded" },
+          { id: "sam-hill", faction: "samnite", kind: "infantry", at: [58, 18], size: [26, 3], label: "on the slopes above" },
+        ],
+        arrows: [{ id: "a1", from: [66, 34], to: [76, 34], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "near-gate",
+        title: "And the way back is closed behind",
+        description: "The army turns to go back and finds the western entrance blocked too, with Samnites on both slopes. Nothing can be attacked and nothing can be defended: the position is not a battlefield, it is a container.",
+        certainty: "probable",
+        units: [
+          { id: "rom-col", faction: "rome", kind: "infantry", at: [50, 34], size: [30, 4], label: "trapped" },
+          { id: "sam-far", faction: "samnite", kind: "works", at: [80, 34], size: [3, 14] },
+          { id: "sam-near", faction: "samnite", kind: "works", at: [18, 34], size: [3, 14] },
+          { id: "sam-hill", faction: "samnite", kind: "infantry", at: [56, 18], size: [30, 3] },
+          { id: "sam-hill2", faction: "samnite", kind: "infantry", at: [56, 50], size: [30, 3] },
+        ],
+      },
+      {
+        id: "surrender",
+        title: "Surrender, and the yoke",
+        description: "The consuls come to terms. The whole force is disarmed and passes under a yoke of spears, six hundred knights are kept as hostages, and Rome undertakes to leave Samnium. Almost nobody is killed — which is why Rome could fight again within a year, and why the sources record the disgrace rather than the loss.",
+        certainty: "probable",
+        units: [
+          { id: "rom-col", faction: "rome", kind: "infantry", at: [50, 34], size: [26, 4], routed: true, label: "disarmed" },
+          { id: "sam-hill", faction: "samnite", kind: "infantry", at: [56, 20], size: [30, 3] },
+          { id: "sam-hill2", faction: "samnite", kind: "infantry", at: [56, 48], size: [30, 3] },
+        ],
+        arrows: [{ id: "a1", from: [36, 34], to: [16, 34], faction: "rome", kind: "retreat", label: "marched out under the yoke" }],
+        caveat: "Whether Rome legally repudiated the peace afterwards or simply broke it was argued in antiquity and still is. Livy's revenge victory the following year is generally rejected.",
+      },
+    ],
+  },
+
+  sentinum: {
+    scaleNote: "Relative frontages on open ground below Sentinum. The largest battle fought in Italy before Cannae; the field within the valley is not located.",
+    sourceIds: ["livy-6-10"],
+    terrain: [
+      { id: "ground", kind: "hill", points: [[6, 8], [40, 5], [72, 9], [94, 7], [92, 16], [60, 18], [28, 15], [6, 17]], label: "the hills below Sentinum", labelAt: [50, 24] },
+    ],
+    stages: [
+      {
+        id: "deploy",
+        title: "Two wings, two different enemies",
+        description: "The coalition has already been split before the battle: Roman raids into Etruria drew the Etruscan and Umbrian contingents home, so what stands here is Samnite and Gallic. Fabius takes the right against the Samnites, Decius the left against the Gauls.",
+        certainty: "probable",
+        units: [
+          { id: "sam-line", faction: "samnite", kind: "infantry", at: [70, 32], size: [30, 4], label: "Samnites" },
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [28, 32], size: [30, 5], label: "Gauls" },
+          { id: "gaul-chariots", faction: "gaul", kind: "cavalry", at: [28, 26], size: [16, 3], label: "chariots" },
+          { id: "rom-right", faction: "rome", kind: "infantry", at: [70, 46], size: [30, 4], label: "Fabius" },
+          { id: "rom-left", faction: "rome", kind: "infantry", at: [28, 46], size: [30, 4], label: "Decius" },
+          { id: "rom-lcav", faction: "rome", kind: "cavalry", at: [10, 42], size: [12, 3] },
+        ],
+        caveat: "Detaching the Etruscans and Umbrians before the battle is the strategic move the whole campaign turns on, and it is better attested than anything that happened on the field.",
+      },
+      {
+        id: "chariots",
+        title: "The chariots break the Roman left",
+        description: "Decius attacks hard on the left and his cavalry is scattered by Gallic chariots — a weapon Roman troops had not faced. The left begins to give way.",
+        certainty: "traditional",
+        units: [
+          { id: "sam-line", faction: "samnite", kind: "infantry", at: [70, 34], size: [30, 4] },
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [28, 34], size: [30, 5] },
+          { id: "gaul-chariots", faction: "gaul", kind: "cavalry", at: [16, 40], size: [16, 3] },
+          { id: "rom-right", faction: "rome", kind: "infantry", at: [70, 44], size: [30, 4] },
+          { id: "rom-left", faction: "rome", kind: "infantry", at: [30, 46], size: [28, 4], routed: true, label: "gives way" },
+          { id: "rom-lcav", faction: "rome", kind: "cavalry", at: [8, 50], size: [12, 3], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [18, 37], to: [12, 46], faction: "gaul", kind: "attack" }],
+      },
+      {
+        id: "devotio",
+        title: "Decius devotes himself",
+        description: "With his wing breaking, the consul calls on the state priest to pronounce the formula that consigns him and the enemy together to the gods of the underworld, and rides into the Gallic line to die. His father had done the same at Vesuvius sixty years before.",
+        certainty: "traditional",
+        units: [
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [28, 34], size: [30, 5] },
+          { id: "sam-line", faction: "samnite", kind: "infantry", at: [70, 34], size: [30, 4] },
+          { id: "rom-left", faction: "rome", kind: "infantry", at: [30, 48], size: [28, 4], label: "the left steadies" },
+          { id: "rom-right", faction: "rome", kind: "infantry", at: [70, 42], size: [30, 4] },
+        ],
+        arrows: [{ id: "a1", from: [30, 44], to: [30, 38], faction: "rome", kind: "attack", label: "the consul rides in" }],
+        caveat: "A devotio in the family for the second and possibly third time is the kind of thing a family tradition produces. What it explains — why a breaking wing held — is exactly what such a story is for.",
+      },
+      {
+        id: "won",
+        title: "Fabius wins on the right and takes the camp",
+        description: "Fabius has fought a deliberately slow action all day; now he commits his reserves, breaks the Samnites, and sends a force round to their camp. Caught between that and the steadied left, the coalition army is destroyed and never re-formed.",
+        certainty: "probable",
+        units: [
+          { id: "sam-line", faction: "samnite", kind: "infantry", at: [66, 34], size: [26, 4], routed: true, label: "broken" },
+          { id: "gaul-line", faction: "gaul", kind: "infantry", at: [28, 34], size: [26, 5], routed: true },
+          { id: "rom-right", faction: "rome", kind: "infantry", at: [66, 42], size: [30, 4] },
+          { id: "rom-flank", faction: "rome", kind: "infantry", at: [90, 28], size: [14, 4], label: "round to the camp" },
+          { id: "rom-left", faction: "rome", kind: "infantry", at: [30, 46], size: [28, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [66, 41], to: [66, 36], faction: "rome", kind: "attack" },
+          { id: "a2", from: [88, 34], to: [80, 30], faction: "rome", kind: "attack" },
+        ],
+      },
+    ],
+  },
+
+  heraclea: {
+    scaleNote: "The crossing of the Siris near Heraclea. Relative frontages only: Rome's first battle against a Hellenistic army, and the first against elephants.",
+    orientation: "Rome came from the north bank; Pyrrhus held the south.",
+    sourceIds: ["plutarch-pyrrhus"],
+    terrain: [
+      { id: "siris", kind: "river", points: [[0, 32], [28, 34], [58, 31], [100, 33]], label: "the Siris", labelAt: [80, 26] },
+    ],
+    stages: [
+      {
+        id: "crossing",
+        title: "Rome forces the crossing",
+        description: "Laevinus puts his army over the river rather than wait to be attacked. Pyrrhus' cavalry rides down to contest the crossing and cannot hold it, and the two infantry lines come together on the south bank.",
+        certainty: "probable",
+        units: [
+          { id: "epi-cav", faction: "epirote", kind: "cavalry", at: [50, 26], size: [22, 3.5], label: "Thessalian horse" },
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [50, 16], size: [34, 6], label: "the pike phalanx" },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [82, 14], size: [14, 3], label: "twenty elephants" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [44, 44], size: [36, 4], label: "the legions cross" },
+          { id: "rom-cav", faction: "rome", kind: "cavalry", at: [14, 44], size: [12, 3] },
+        ],
+        arrows: [{ id: "a1", from: [44, 40], to: [44, 32], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "grind",
+        title: "Pike against sword, and neither breaks",
+        description: "The phalanx and the legions push at each other repeatedly without a decision — closer than either side expected, and the thing that made Rome's later wars in the east thinkable.",
+        certainty: "probable",
+        units: [
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [50, 24], size: [34, 6] },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [82, 16], size: [14, 3] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [48, 36], size: [36, 4] },
+          { id: "rom-cav", faction: "rome", kind: "cavalry", at: [14, 40], size: [12, 3] },
+        ],
+        arrows: [
+          { id: "a1", from: [48, 33], to: [48, 29], faction: "rome", kind: "attack" },
+          { id: "a2", from: [56, 28], to: [56, 32], faction: "epirote", kind: "attack" },
+        ],
+        caveat: "Plutarch reports seven charges and counter-charges, which is a way of saying the infantry fight was indecisive rather than a count.",
+      },
+      {
+        id: "elephants",
+        title: "The elephants go in",
+        description: "Pyrrhus sends the elephants against the Roman cavalry. The horses will not face them, the wing goes, and the Epirote cavalry rides into the flank of an infantry line that is still locked to its front.",
+        certainty: "probable",
+        units: [
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [50, 26], size: [34, 6] },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [22, 34], size: [16, 3], label: "against the horse" },
+          { id: "epi-cav", faction: "epirote", kind: "cavalry", at: [26, 24], size: [16, 3.5] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [54, 38], size: [34, 4] },
+          { id: "rom-cav", faction: "rome", kind: "cavalry", at: [14, 46], size: [12, 3], routed: true, label: "will not face them" },
+        ],
+        arrows: [
+          { id: "a1", from: [22, 37], to: [16, 43], faction: "epirote", kind: "attack" },
+          { id: "a2", from: [30, 27], to: [40, 36], faction: "epirote", kind: "attack", bow: 4 },
+        ],
+      },
+      {
+        id: "withdraw",
+        title: "Rome falls back over the river",
+        description: "The legions break off and recross the Siris. Pyrrhus has won and has lost men he cannot replace in Italy — and Rome, which has lost more, simply raises another army. That asymmetry is the whole war.",
+        certainty: "probable",
+        units: [
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [50, 28], size: [34, 6], label: "holds the field" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [56, 42], size: [30, 4], routed: true, label: "back over the river" },
+        ],
+        arrows: [{ id: "a1", from: [50, 44], to: [30, 50], faction: "rome", kind: "retreat" }],
+        caveat: "The casualty figures come through two ancient traditions that differ by a factor of two; Plutarch reports both without deciding.",
+      },
+    ],
+  },
+
+  asculum: {
+    scaleNote: "Broken ground by a river, and the open plain beyond it. Plutarch preserves a one-day and a two-day version of this battle and does not choose between them.",
+    sourceIds: ["plutarch-pyrrhus"],
+    terrain: [
+      { id: "river", kind: "river", points: [[0, 44], [26, 46], [56, 43], [100, 45]], label: "the river", labelAt: [14, 50] },
+      { id: "rough", kind: "woods", points: [[14, 22], [46, 20], [52, 38], [16, 40]], label: "broken, wooded ground", labelAt: [22, 15] },
+    ],
+    stages: [
+      {
+        id: "chooses-ground",
+        title: "Rome picks ground a phalanx cannot use",
+        description: "Having learned at Heraclea what open country costs, the consuls take a position in broken wooded ground by the river where a pike block cannot keep its line and elephants cannot be brought to bear.",
+        certainty: "probable",
+        units: [
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [56, 14], size: [36, 6], label: "the phalanx" },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [86, 20], size: [14, 3], label: "nineteen elephants" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [30, 30], size: [26, 4], label: "in the rough ground" },
+          { id: "rom-carts", faction: "rome", kind: "works", at: [30, 38], size: [24, 2.4], label: "anti-elephant carts" },
+        ],
+        caveat: "The spiked and fire-carrying carts are described only in the later tradition; that Rome had prepared something against the elephants is agreed.",
+      },
+      {
+        id: "phalanx-stalls",
+        title: "The pikes cannot close",
+        description: "In among the trees and gullies the phalanx loses its front and the fight becomes a series of separate scuffles, which is exactly what Rome wants. The first day goes to the Romans, or to nobody.",
+        certainty: "disputed",
+        units: [
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [52, 22], size: [36, 6], label: "front broken up" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [32, 30], size: [26, 4] },
+          { id: "rom-carts", faction: "rome", kind: "works", at: [32, 38], size: [24, 2.4] },
+        ],
+        arrows: [{ id: "a1", from: [46, 26], to: [40, 29], faction: "epirote", kind: "attack" }],
+        caveat: "Whether there was a first day at all is one of the two versions Plutarch gives.",
+      },
+      {
+        id: "open-ground",
+        title: "Pyrrhus shifts the battle onto the plain",
+        description: "He manoeuvres to draw the Romans out of the rough ground onto level country, where the phalanx can form properly and the elephants can be used. On that ground the result is not in doubt.",
+        certainty: "disputed",
+        units: [
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [56, 26], size: [38, 6], label: "formed on the level" },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [84, 30], size: [16, 3] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [56, 40], size: [32, 4], label: "drawn onto the plain" },
+        ],
+        arrows: [{ id: "a1", from: [56, 36], to: [56, 31], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "pyrrhic",
+        title: "A victory he cannot afford",
+        description: "The elephants break the Roman line and the legions withdraw to their camp in order. Pyrrhus holds the field and his casualty list is full of the officers and Greek veterans he brought with him — men no Italian recruit can replace, and no recruit at all can take a place in a phalanx.",
+        certainty: "probable",
+        units: [
+          { id: "epi-phalanx", faction: "epirote", kind: "phalanx", at: [56, 28], size: [36, 6] },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [56, 36], size: [18, 3], label: "decide it again" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [56, 46], size: [28, 4], routed: true, label: "back to camp" },
+        ],
+        arrows: [{ id: "a1", from: [56, 39], to: [56, 43], faction: "epirote", kind: "attack" }],
+        caveat: "The remark that another such victory would finish him is reported by Plutarch two centuries later, not by any contemporary.",
+      },
+    ],
+  },
+
+  beneventum: {
+    scaleNote: "A Roman camp in wooded hill country near Malventum, and the night march that was meant to surprise it. The site is not located and even the outcome is reported differently.",
+    sourceIds: ["plutarch-pyrrhus"],
+    terrain: [
+      { id: "hills", kind: "hill", points: [[8, 8], [44, 4], [78, 9], [96, 6], [94, 26], [62, 30], [30, 26], [8, 28]], label: "wooded hills", labelAt: [50, 17] },
+    ],
+    stages: [
+      {
+        id: "night-march",
+        title: "A night march over the hills",
+        description: "Back from three years in Sicily with a smaller army and fewer friends, Pyrrhus tries to end the war with a surprise: a night approach over wooded high ground to fall on a Roman camp before dawn.",
+        certainty: "probable",
+        units: [
+          { id: "epi-col", faction: "epirote", kind: "infantry", at: [30, 14], size: [22, 4], label: "by night, over the hills" },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [16, 22], size: [12, 3] },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [66, 46], size: [24, 14], label: "the Roman camp" },
+        ],
+        arrows: [{ id: "a1", from: [40, 16], to: [56, 34], faction: "epirote", kind: "move", bow: 5 }],
+      },
+      {
+        id: "lost",
+        title: "Lost in the woods, and seen in daylight",
+        description: "The guides fail, the columns lose the way and each other, and the force comes down out of the trees strung out and visible in full daylight. Whatever advantage a night attack had is gone.",
+        certainty: "probable",
+        units: [
+          { id: "epi-col", faction: "epirote", kind: "infantry", at: [44, 24], size: [20, 4], routed: true, label: "strung out" },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [26, 26], size: [12, 3] },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [66, 46], size: [24, 14] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [64, 34], size: [28, 4], label: "forms outside the camp" },
+        ],
+        caveat: "That the march went wrong is agreed; the detail of failed guides is Plutarch's.",
+      },
+      {
+        id: "attack",
+        title: "The attack goes in anyway",
+        description: "Pyrrhus attacks a formed Roman army in front of its own camp instead of a sleeping one inside it. The elephants go in with the infantry, as they had at Heraclea and Asculum.",
+        certainty: "probable",
+        units: [
+          { id: "epi-col", faction: "epirote", kind: "infantry", at: [52, 28], size: [26, 4] },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [52, 34], size: [16, 3], label: "the elephants lead" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [60, 42], size: [30, 4] },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [66, 54], size: [24, 12] },
+        ],
+        arrows: [{ id: "a1", from: [54, 37], to: [58, 39], faction: "epirote", kind: "attack" }],
+      },
+      {
+        id: "driven-back",
+        title: "The elephants are turned back into their own line",
+        description: "Missiles from the camp's works panic the elephants, which go back through the troops behind them. The day ends with Pyrrhus checked and some of the animals captured and shown at Rome. He sails for Epirus, and the professional army of the Hellenistic world has been beaten by a militia that could replace its losses.",
+        certainty: "disputed",
+        units: [
+          { id: "epi-col", faction: "epirote", kind: "infantry", at: [50, 26], size: [24, 4], routed: true, label: "disordered from behind" },
+          { id: "epi-eles", faction: "epirote", kind: "elephants", at: [50, 32], size: [16, 3], routed: true, label: "turned back" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [60, 42], size: [30, 4], label: "holds" },
+        ],
+        arrows: [{ id: "a1", from: [56, 39], to: [52, 35], faction: "rome", kind: "missile" }],
+        caveat: "Some accounts make the day a draw rather than a Roman victory. What all of them agree on is what happened next: Pyrrhus left Italy for good.",
+      },
+    ],
+  },
+
   // ── First Punic War ──────────────────────────────────────────────────────
   messana: {
     scaleNote: "The ground around Messana and the strait behind it. The sources give a sequence of confrontations, not a battlefield, so this is drawn as a situation rather than a line of battle.",
@@ -1897,6 +2358,16 @@ export function getBattleDiagram(slug: string): BattleDiagram | undefined {
 // is schematic can carry that honestly. What cannot be drawn is an action nobody
 // described, or a campaign of months that was never one action at all.
 export const NO_DIAGRAM_REASON: Record<string, string> = {
+  // For the early Republic the bar bites harder than elsewhere. An unlocated site is
+  // still no reason to refuse — the Caudine Forks and Sentinum are drawn. What cannot
+  // be drawn is a battle whose tactical account is demonstrably the historian's own
+  // reconstruction, written four centuries later on the assumption that early Rome
+  // fought the way late Rome did.
+  "lake-regillus": "The battle is remembered for Castor and Pollux fighting in the Roman line, and its tactical detail is a duel between commanders in the manner of epic. There is a war here and an outcome; there is no action to draw.",
+  vesuvius: "Veseris is unlocated and Livy's account of the fighting is built on the manipular legion of his own day, which did not yet exist. What survives is the devotio of Decius — a religious act, not a manoeuvre.",
+  trifanum: "Livy passes over the battle in a sentence, which for a decisive engagement means his sources had nothing. Its consequences are on the map; the battle is not.",
+  aquilonia: "The account is remarkable for the Samnite oath-taking and silent about the battle. Drawing the fighting would mean inventing the one part the source does not supply.",
+  tarentum: "Decided by negotiation rather than assault: the Epirote garrison bargained its own withdrawal and the city then came to terms. There was no action to draw.",
   sulci: "Ancient testimony is a few lines. Date, scale, and location all await review, so any diagram would be invention.",
   "africa-invasion": "A campaign across two years, not a battle. Its stages are on the campaign map.",
   "alps-crossing": "A march of weeks over a route that is itself disputed, shown on the campaign map rather than as a battle.",

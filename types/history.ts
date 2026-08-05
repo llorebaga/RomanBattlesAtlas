@@ -8,9 +8,25 @@ export type Faction =
   | "gaul"
   | "syracuse"
   | "greek"
-  | "iberian";
+  | "iberian"
+  // The powers of Italy before Rome held it.
+  | "etruscan"
+  | "latin"
+  | "samnite"
+  | "epirote";
 export type ForceType = "army" | "fleet";
-export type Certainty = "attested" | "probable" | "disputed" | "speculative";
+/**
+ * How well a claim is supported, strongest first.
+ *
+ * `traditional` is not simply the weakest of the others: it marks a different kind
+ * of claim. The Roman annalistic tradition supplies names, dates and outcomes for
+ * the early Republic that no contemporary record stands behind — Livy and Dionysius
+ * were writing four centuries later from material that had already been shaped by
+ * family pride and Greek literary models. Recording those as `speculative` would
+ * imply a modern reconstruction of something real; `traditional` says instead that
+ * this is what Rome remembered, reported as memory rather than as evidence.
+ */
+export type Certainty = "attested" | "probable" | "disputed" | "speculative" | "traditional";
 export type BattleKind = "land" | "naval" | "siege" | "campaign";
 
 export type Coordinates = [longitude: number, latitude: number];
@@ -208,6 +224,16 @@ export interface Battle {
 export interface HistoricalEvent {
   id: string;
   year: number;
+  /**
+   * The last year this entry covers, when it stands for a phase rather than a year.
+   *
+   * For the Punic and Macedonian wars the sources support a year at a time. For the
+   * early Republic they mostly do not: what survives is a war, a decade of raiding,
+   * a stretch of annalistic notices. An event may therefore span its whole phase,
+   * so that every year on the scrubber is accounted for without a single year being
+   * invented to fill a gap. Omitted means the entry belongs to `year` alone.
+   */
+  toYear?: number;
   title: string;
   summary: string;
   certainty: Certainty;

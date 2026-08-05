@@ -1,8 +1,8 @@
 # Roman Campaign Atlas
 
-Roman Campaign Atlas is an evidence-led interactive historical map of Roman warfare. The home page presents the whole arc, from early Rome to Late Antiquity, and opens into an atlas whose continuous timeline currently covers 264–196 BCE in detail: the **First Punic War**, the interwar decades, the **Second Punic War**, and the **Second Macedonian War**, with campaign routes, changing frontiers, battles, sieges, and the uncertainty behind each reconstruction.
+Roman Campaign Atlas is an evidence-led interactive historical map of Roman warfare. The home page presents the whole arc, from early Rome to Late Antiquity, and opens into an atlas whose continuous timeline currently covers **509–196 BCE**: the conquest of Italy (the wars with Veii and the Latins, the Gallic sack, the three Samnite wars, and Pyrrhus), then the **First Punic War**, the interwar decades, the **Second Punic War**, and the **Second Macedonian War** — with campaign routes, changing frontiers, battles, sieges, and the uncertainty behind each reconstruction.
 
-> Historical caution: the atlas is a research interface, not a claim to exact reconstruction. Routes and several coordinates are provisional and are explicitly classified as attested, probable, disputed, or speculative.
+> Historical caution: the atlas is a research interface, not a claim to exact reconstruction. Routes and several coordinates are provisional and are explicitly classified as attested, probable, disputed, speculative, or — for the early Republic — traditional.
 
 ## Scope
 
@@ -13,7 +13,7 @@ Roman Campaign Atlas is an evidence-led interactive historical map of Roman warf
 - The map header and view follow the active era as you scrub; the theatre re-centres between wars
 - Roman and Carthaginian army and fleet routes with elapsed and future segments — including Hannibal's march over the Alps and Scipio's campaigns in Iberia and Africa
 - Filters, map key, year summary, accessible event list, and responsive battle panel
-- A focus event for every one of the 69 years, and a battle or campaign drawn on the map in every one of them — the interbellum decades and the Sicilian and Greek theatres included, not just the famous marches
+- A focus event covering every one of the 314 years, and a battle or campaign drawn on the map in every year from 264 — the interbellum decades and the Sicilian and Greek theatres included, not just the famous marches
 - Data-driven dynamic detail pages at `/battles/[slug]`; every battle that carries a tactical diagram also carries strategic context, force estimates, and reported losses
 - Unit tests for historical dates, era assignment, route interpolation, year filtering, and data validation, plus year-by-year coverage tests over the whole mapped period
 - Server-render integration checks for the map and Mylae routes
@@ -90,7 +90,7 @@ The reusable template gives every record a concise detail page. Any battle that 
 
 ## Battle diagrams
 
-Twenty-six battles carry stage-by-stage tactical diagrams in `data/battleDiagrams.ts`, keyed by slug and rendered by `components/battles/BattleDiagram.tsx` — 104 stages in all. They are diagrams, not pictures: no source gives unit positions, so each stage is an interpretation carrying its own certainty label, and `caveat` records what the drawing is deliberately not claiming.
+Thirty-three battles carry stage-by-stage tactical diagrams in `data/battleDiagrams.ts`, keyed by slug and rendered by `components/battles/BattleDiagram.tsx` — 132 stages in all. They are diagrams, not pictures: no source gives unit positions, so each stage is an interpretation carrying its own certainty label, and `caveat` records what the drawing is deliberately not claiming.
 
 The frame is abstract — 100 x 68, x rightward, y downward — never latitude and longitude. Frontages are relative; depth means something only where a source makes a point of it, such as the Roman mass at Cannae or the pike blocks at Cynoscephalae. Every stage of every diagram is rendered into the page, so the whole battle is present without JavaScript.
 
@@ -100,7 +100,7 @@ Units are `infantry`, `phalanx`, `skirmishers`, `cavalry`, `elephants`, `ships`,
 
 ### Labels place themselves
 
-Hand-placing labels does not survive twenty-six diagrams: move one unit and three captions collide. The data says *what* is labelled and `lib/diagramLabels.ts` decides *where*, trying the natural positions around each unit, area, or arrow and taking the first that clears the solid unit blocks, the drawn arrows, the stage caption, the faction key, and every label already placed. It is pure and deterministic, so the server and the client agree and the whole figure is in the HTML. An explicit `labelAt` in the data always wins, for the cases where the author knows something the solver does not.
+Hand-placing labels does not survive thirty-three diagrams: move one unit and three captions collide. The data says *what* is labelled and `lib/diagramLabels.ts` decides *where*, trying the natural positions around each unit, area, or arrow and taking the first that clears the solid unit blocks, the drawn arrows, the stage caption, the faction key, and every label already placed. It is pure and deterministic, so the server and the client agree and the whole figure is in the HTML. An explicit `labelAt` in the data always wins, for the cases where the author knows something the solver does not.
 
 ### Adding one
 
@@ -118,16 +118,30 @@ Add a `CampaignRoute` to `data/campaigns.ts`. Route points must be chronological
 
 Marching armies stay on land and fleets stay at sea, and a test judges this on the *drawn curve* rather than the waypoints, because a smoothed line bows off the coast even when every waypoint is ashore. A leg that really was a crossing by ship is marked `viaSea: true` and drawn as fine dots. Two consequences worth knowing before you fight the test: a short leg between two long ones overshoots badly, so give a near-identical pair of waypoints a nearby neighbour or merge them; and where the bundled coastline is coarse — the Isthmus of Corinth, the Sicilian east coast — the corridor that reads as land is narrower than the real one.
 
+## Early Rome, and why it is graded differently
+
+The atlas maps the Republic from **509 BCE**. The regal period before that is not mapped at all: the wars of Romulus and his successors are foundation myth, and drawing them would put the first invented thing on the map. It is covered in prose on `/methodology` instead.
+
+For everything the Punic wars rest on there is Polybius, writing within living memory. For the early Republic there is nothing of the kind — Livy and Dionysius were writing four and five centuries later from annalistic material already shaped by families with reputations to protect. Three consequences run through the data:
+
+- **A fifth evidence grade.** `traditional` marks a different *kind* of claim, not merely a weaker one: `speculative` says the atlas reconstructed something to make a real sequence followable, while `traditional` says this is what Rome remembered about itself. It renders with a double border rather than as a rank below `speculative`.
+- **Events may span a phase.** `HistoricalEvent.toYear` lets one entry cover "the Volsci and Aequi come down off the hills, 492–483", and the year-in-focus panel prints the span. Every year stays covered and no year is padded out to fill the scrubber. `eventForYear` in `lib/historySelectors.ts` resolves a single-year entry ahead of a phase that merely contains it, so authoring a specific year *narrows* the panel rather than colliding with it.
+- **Battle-level coverage is not promised before 264.** The fifth-century wars were annual raiding whose geography is unrecoverable, so the every-year-has-a-marker guarantee is scoped to 264 onwards. Before that the guarantee is per era: no era may draw nothing at all, and every year still has territory.
+
+Hues are also reused across periods. Nine belligerents cannot share five separable colours, but the atlas only ever draws one year at a time and the powers of archaic Italy were finished before Carthage and Macedon appear — so Samnium takes Macedon's indigo and the Latin League takes Numidia's amber. `tests/territory-render.test.mjs` enforces the rule that makes this legitimate: **two factions sharing a colour must never hold territory in the same year.** Etruria and Epirus needed hues of their own, because Carthage held Africa throughout and Pyrrhus ruled Syracuse.
+
 ## Year-by-year coverage
 
-The atlas is read a year at a time, so the year is the unit that has to be complete. `tests/timeline-coverage.test.mjs` holds the line on that for all 69 years of 264–196 BCE:
+The atlas is read a year at a time, so the year is the unit that has to be complete. `tests/timeline-coverage.test.mjs` holds the line on that for all 314 years of 509–196 BCE:
 
-- every year has exactly one focus event, and no year has two;
-- every year has something drawn — a battle marker, a campaign route, or both;
+- every year resolves to exactly one focus event (a phase entry may cover many years, and a single-year entry inside a phase wins);
+- every year from 264 has something drawn — a battle marker, a campaign route, or both; before that, every era does;
 - every year has territory to colour, with Rome and Carthage always present;
-- the coloured zones change hands **only** in the twelve documented transition years, each named with the settlement or defection that caused it, and are otherwise still.
+- the coloured zones change hands **only** in the nineteen documented transition years, each named with the settlement, conquest or defection that caused it, and are otherwise still.
 
 That last one runs both ways: a transition that fails to happen and a zone that quietly appears in an undocumented year both fail. The table in the test is the record of when the map is supposed to move, so add to it deliberately.
+
+If you add an era outside 509–196 BCE, update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` too — the bounds are literals there so the module stays free of runtime imports for the type-stripping test runner, and a test asserts the two stay in sync.
 
 ## Historical method and uncertainty
 
@@ -167,7 +181,7 @@ The repository includes `.openai/hosting.json` and the Vinext/Sites build config
 - Route geometry is deliberately simplified and several legs remain provisional.
 - The campaign map's basemap is deliberately apolitical: sea, land, and coastline only, drawn from bundled Natural Earth data (public domain, `data/geo/mediterranean-land.json`, regenerate with `build/make-basemap.mjs`). It carries no modern borders or place names, so every political statement on the map comes from the territory layer. Coastlines are simplified for a regional view, which is why the map caps at zoom 7.
 - Battle detail pages keep a labeled modern basemap on purpose: that locator answers "where is this place today", so modern names are the point.
-- Twenty-six of the twenty-nine battles have stage-by-stage tactical diagrams; the three that do not carry a stated reason. Sieges and unlocated fields are drawn schematically, with the frame saying so.
+- Thirty-three of the forty-one battles have stage-by-stage tactical diagrams; the eight that do not carry a stated reason. Sieges and unlocated fields are drawn schematically, with the frame saying so.
 - Second Punic War coordinates for the Alpine crossing, Baecula, the Great Plains, and Zama are provisional and await scholarly review.
 - Monthly dating is sparse, so marker interpolation communicates campaign sequence rather than continuous measured travel.
 - The campaign map needs no tile service; battle detail pages still load CARTO tiles and so require an internet connection.

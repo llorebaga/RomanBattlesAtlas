@@ -21,7 +21,7 @@ import type { TerritoryPeriod } from "@/types/history";
 export const territories: TerritoryPeriod[] = [
   // ── Rome ──────────────────────────────────────────────────────────────────
   {
-    id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -264, toYear: -196, certainty: "attested", labelAt: [13.0, 42.3],
+    id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -272, toYear: -196, certainty: "attested", labelAt: [13.0, 42.3],
     ring: [
       // Northern limit, carried a little past the watershed: the Cisalpine zone
       // is drawn after Rome and takes the overlap, so the visible frontier is the
@@ -66,7 +66,7 @@ export const territories: TerritoryPeriod[] = [
 
   // ── Gauls: the two zones part along the Alpine arc ────────────────────────
   {
-    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [10.0, 45.2],
+    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -395, toYear: -196, certainty: "probable", labelAt: [10.0, 45.2],
     ring: [
       // The Alpine crest from the Maritime Alps round to the Carnic Alps.
       [7.4, 44.2], [7.0, 44.9], [7.1, 45.5], [7.4, 45.9], [8.4, 46.2], [9.5, 46.4], [10.6, 46.5], [11.6, 46.6], [12.6, 46.4], [13.4, 45.9],
@@ -76,7 +76,7 @@ export const territories: TerritoryPeriod[] = [
     ],
   },
   {
-    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -264, toYear: -196, certainty: "speculative", labelAt: [2.0, 44.6],
+    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -509, toYear: -196, certainty: "speculative", labelAt: [2.0, 44.6],
     ring: [
       // Pyrenean frontier, from the Mediterranean to the Bay of Biscay.
       [3.4, 42.3], [2.4, 42.35], [1.4, 42.5], [0.4, 42.6], [-0.6, 42.8], [-1.6, 43.1], [-2.0, 43.6],
@@ -110,7 +110,7 @@ export const territories: TerritoryPeriod[] = [
 
   // ── Carthage ─────────────────────────────────────────────────────────────
   {
-    id: "carthage-africa", polity: "carthage", name: "Carthage", mapLabel: "CARTHAGE", fromYear: -264, toYear: -196, certainty: "attested", labelAt: [9.9, 36.2],
+    id: "carthage-africa", polity: "carthage", name: "Carthage", mapLabel: "CARTHAGE", fromYear: -509, toYear: -196, certainty: "attested", labelAt: [9.9, 36.2],
     ring: [
       // Thabraca frontier with Numidia.
       [7.2, 37.2], [7.1, 36.4], [7.4, 35.6], [7.8, 34.8],
@@ -123,11 +123,11 @@ export const territories: TerritoryPeriod[] = [
     ],
   },
   {
-    id: "carthage-sicily", polity: "carthage", name: "Carthaginian Sicily", mapLabel: "SICILY", fromYear: -264, toYear: -242, certainty: "attested", labelAt: [13.0, 37.8],
+    id: "carthage-sicily", polity: "carthage", name: "Carthaginian Sicily", mapLabel: "SICILY", fromYear: -509, toYear: -242, certainty: "attested", labelAt: [13.0, 37.8],
     ring: [[12.1, 38.1], [12.3, 38.5], [13.0, 38.4], [13.7, 38.4], [14.2, 38.3], [14.5, 38.0], [14.6, 37.5], [14.5, 37.0], [14.2, 36.6], [13.4, 36.5], [12.7, 36.6], [12.2, 37.3]],
   },
   {
-    id: "carthage-sardinia", polity: "carthage", name: "Carthaginian Sardinia", mapLabel: "SARDINIA", fromYear: -264, toYear: -239, certainty: "probable",
+    id: "carthage-sardinia", polity: "carthage", name: "Carthaginian Sardinia", mapLabel: "SARDINIA", fromYear: -509, toYear: -239, certainty: "probable",
     // Sardinia only: Corsica, to the north, was never Carthaginian.
     ring: [[8.0, 41.1], [8.6, 41.2], [9.3, 41.2], [9.9, 41.0], [10.0, 40.2], [9.8, 39.4], [9.4, 38.7], [8.6, 38.6], [8.1, 39.2], [8.0, 40.2]],
     labelAt: [9.1, 40.0],
@@ -183,7 +183,7 @@ export const territories: TerritoryPeriod[] = [
   {
     // Hiero II's kingdom: Carthage's ally in 264, Rome's from 263, taken in 212.
     // Its frontier with the Roman province ran near the Himera.
-    id: "syracuse", polity: "syracuse", name: "Syracuse", mapLabel: "SYRACUSE", fromYear: -264, toYear: -213, certainty: "attested", labelAt: [14.95, 37.2],
+    id: "syracuse", polity: "syracuse", name: "Syracuse", mapLabel: "SYRACUSE", fromYear: -509, toYear: -213, certainty: "attested", labelAt: [14.95, 37.2],
     ring: [[14.4, 38.0], [14.9, 38.2], [15.4, 38.3], [15.6, 37.9], [15.5, 37.2], [15.2, 36.5], [14.6, 36.5], [14.3, 36.9], [14.2, 37.5]],
   },
   {
@@ -232,6 +232,138 @@ export const territories: TerritoryPeriod[] = [
       [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.4, 31.6],
       // Sinai and the Red Sea flank, then the Nubian limit and the desert west.
       [34.6, 30.0], [34.0, 28.4], [33.4, 27.0], [33.0, 25.4], [32.6, 23.8], [31.0, 23.8], [29.0, 24.0], [26.6, 24.6], [24.2, 25.6], [22.0, 27.0], [20.4, 29.0],
+    ],
+  },
+
+  // ── Italy before Rome held it, 509–265 BCE ─────────────────────────────────
+  //
+  // Two things make this block different from the zones above. First, the scale:
+  // in 509 Rome's own territory is a patch about thirty kilometres across, and the
+  // frontiers that matter are rivers and hill lines a day's march apart, not the
+  // Ebro and the Alps. Second, the evidence: the extent of the Latin League or the
+  // Samnite federation in the fifth century is inferred from later boundaries,
+  // colony sites and language, not from anything anyone wrote down at the time. So
+  // these zones carry `traditional` or `probable`, never `attested`.
+  //
+  // Order matters here. Rome's growing ager is authored last so that it takes any
+  // ground it shares with the powers it was absorbing, and the phases are cut so
+  // that Rome's zone begins in the same year the previous holder's ends — which is
+  // what makes each conquest a single visible change on the map.
+
+  // The Etruscan cities: a league of independent states rather than one polity,
+  // drawn as one zone because the map cannot honestly distinguish twelve city
+  // territories whose borders are unknown.
+  {
+    id: "etruscan-league", polity: "etruscan", name: "Etruscan cities", mapLabel: "ETRURIA", fromYear: -509, toYear: -397, certainty: "probable", labelAt: [11.6, 42.75],
+    ring: [
+      // Tyrrhenian coast from the Tiber mouth to the Arno, pushed offshore.
+      [12.22, 41.66], [11.70, 41.95], [11.10, 42.30], [10.60, 42.85], [10.25, 43.35], [10.05, 43.75],
+      // The northern limit on the Apennine flank above the Arno.
+      [10.85, 43.95], [11.55, 44.00], [12.05, 43.65],
+      // Then south along the Tiber, which is the frontier with Rome and Umbria.
+      [12.30, 43.15], [12.35, 42.70], [12.45, 42.30], [12.52, 41.98], [12.35, 41.80],
+    ],
+  },
+  {
+    // After Veii is destroyed in 396 the southern third of Etruria is Roman. The
+    // rest of the league erodes by alliance rather than conquest, which is why this
+    // zone simply ends when Rome's peninsular zone begins rather than shrinking
+    // again: there is no year the sources let us draw as the fall of Etruria.
+    id: "etruscan-inner", polity: "etruscan", name: "Etruscan cities", mapLabel: "ETRURIA", fromYear: -396, toYear: -291, certainty: "probable", labelAt: [11.5, 43.2],
+    ring: [
+      [11.75, 42.10], [11.20, 42.35], [10.65, 42.85], [10.28, 43.35], [10.05, 43.75],
+      [10.85, 43.95], [11.55, 44.00], [12.05, 43.65],
+      [12.30, 43.15], [12.35, 42.70], [12.20, 42.40], [11.95, 42.20],
+    ],
+  },
+
+  // The Latin League: Rome's own kin and its first rivals, dissolved after the
+  // Latin War and replaced by the alliance system that became Roman Italy.
+  {
+    id: "latin-league", polity: "latin", name: "Latin League", mapLabel: "LATINS", fromYear: -509, toYear: -339, certainty: "traditional", labelAt: [12.95, 41.6],
+    ring: [
+      [12.20, 41.70], [12.45, 41.50], [12.75, 41.35], [13.15, 41.15],
+      [13.45, 41.35], [13.60, 41.65], [13.30, 41.85], [13.00, 42.00], [12.60, 42.00], [12.40, 41.88],
+    ],
+  },
+
+  // The Samnite federation of the central Apennines. Drawn inland only: the
+  // Campanian plain and the bay of Naples were Etruscan, Oscan and Greek, and the
+  // Samnites' reach to the sea is exactly what the wars with Rome were about.
+  {
+    id: "samnite-league", polity: "samnite", name: "Samnite league", mapLabel: "SAMNIUM", fromYear: -509, toYear: -291, certainty: "probable", labelAt: [14.6, 41.4],
+    ring: [
+      [13.85, 41.95], [14.35, 41.92], [14.90, 41.72], [15.35, 41.45], [15.40, 41.10],
+      [15.00, 40.85], [14.60, 40.90], [14.35, 41.15], [14.05, 41.45], [13.80, 41.70],
+    ],
+  },
+
+  // The Greek cities of the south, from Tarentum round the gulf to Rhegium. A
+  // coastal arc, because that is what these states were: harbours with a
+  // hinterland, not a territorial power.
+  {
+    id: "magna-graecia", polity: "greek", name: "Greek cities of Italy", mapLabel: "GREEK CITIES", fromYear: -509, toYear: -273, certainty: "probable", labelAt: [16.55, 39.9],
+    ring: [
+      [17.60, 40.60], [17.30, 40.25], [16.90, 39.95], [16.60, 39.55], [17.20, 39.00],
+      [16.60, 38.65], [16.20, 38.05], [15.55, 38.02],
+      [15.80, 38.55], [16.15, 39.15], [16.35, 39.85], [16.85, 40.35], [17.25, 40.55],
+    ],
+  },
+
+  // ── Rome's own territory, phase by phase ──────────────────────────────────
+  {
+    // 509: the city, the salt flats at the Tiber mouth, and the country out to the
+    // Alban hills. Rome is one Latin state among several and not the largest.
+    id: "rome-ager-early", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -509, toYear: -397, certainty: "traditional", labelAt: [12.6, 41.87],
+    ring: [
+      [12.20, 41.70], [12.45, 41.62], [12.75, 41.70], [12.95, 41.88],
+      [12.80, 42.05], [12.50, 42.05], [12.30, 41.90],
+    ],
+  },
+  {
+    // 396: the land of Veii annexed outright — the conquest that roughly doubled
+    // Roman territory and is the first securely consequential event on this map.
+    id: "rome-ager-veii", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -396, toYear: -339, certainty: "probable", labelAt: [12.55, 41.95],
+    ring: [
+      [12.15, 41.68], [12.55, 41.50], [12.95, 41.60], [13.10, 41.85],
+      [12.95, 42.10], [12.60, 42.30], [12.20, 42.25], [11.95, 42.05], [12.05, 41.85],
+    ],
+  },
+  {
+    // 338: the Latin War settled and Campania held. Rome now runs from the Tiber
+    // to the bay of Naples and is the largest state in Italy.
+    id: "rome-latium-campania", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -338, toYear: -300, certainty: "probable", labelAt: [13.3, 41.5],
+    ring: [
+      [12.10, 41.70], [12.70, 41.35], [13.20, 41.15], [13.90, 41.15], [14.35, 40.95], [14.55, 40.72],
+      [14.15, 40.72], [13.95, 41.05], [13.60, 41.55], [13.20, 41.90],
+      [12.90, 42.15], [12.40, 42.30], [12.05, 42.10], [12.00, 41.88],
+    ],
+  },
+  {
+    // 299: Umbria and Picenum brought in on the eve of the last Samnite war, so
+    // Rome reaches the Adriatic and can be attacked from two seas.
+    id: "rome-central-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -299, toYear: -291, certainty: "probable", labelAt: [12.9, 42.35],
+    ring: [
+      [12.10, 41.70], [12.70, 41.35], [13.20, 41.15], [13.90, 41.15], [14.35, 40.95], [14.55, 40.72],
+      [14.15, 40.72], [13.95, 41.05], [13.75, 41.60], [14.10, 41.95], [13.90, 42.40],
+      [13.85, 42.90], [13.55, 43.35], [13.20, 43.45], [12.75, 43.20], [12.35, 42.85], [12.15, 42.40],
+      [12.05, 42.10], [12.00, 41.88],
+    ],
+  },
+  {
+    // 290: Samnium beaten and Etruria bound in. Everything but the Greek south and
+    // the Gallic north is now Roman or Roman-allied.
+    id: "rome-peninsular", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -290, toYear: -273, certainty: "probable", labelAt: [13.2, 42.1],
+    ring: [
+      // Tyrrhenian coast from the Arno south past Campania to Lucania.
+      [10.05, 43.75], [10.60, 42.85], [11.40, 42.15], [12.20, 41.60], [13.20, 41.05], [14.30, 40.85],
+      [14.90, 40.55], [15.60, 40.15], [16.20, 39.85],
+      // Inland limit against the Greek cities, then north up the Apennine spine.
+      [16.10, 40.35], [16.60, 40.75], [17.20, 40.80], [17.60, 40.90],
+      // Adriatic coast north to the Gallic frontier.
+      [16.30, 41.65], [15.30, 42.10], [14.30, 42.60], [13.60, 43.30], [13.30, 43.65],
+      // The northern edge: the Apennine watershed to the Arno.
+      [12.60, 43.90], [11.90, 44.00], [11.10, 43.95],
     ],
   },
 ];

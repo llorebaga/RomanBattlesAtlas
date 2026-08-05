@@ -6,7 +6,9 @@ import { historicalEvents } from "../data/events.ts";
 import { territoriesForYear } from "../data/territories.ts";
 import { battleDiagrams, NO_DIAGRAM_REASON } from "../data/battleDiagrams.ts";
 import { sources } from "../data/sources.ts";
+import { eras } from "../data/wars.ts";
 import { isRouteActive } from "../lib/routeInterpolation.ts";
+import { eventCoversYear, eventForYear } from "../lib/historySelectors.ts";
 import { TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "../lib/historicalDates.ts";
 
 // What a visitor sees when the scrubber lands on a year.
@@ -21,26 +23,53 @@ for (let year = TIMELINE_START_YEAR; year <= TIMELINE_END_YEAR; year += 1) YEARS
 const bce = (year) => `${Math.abs(year)} BCE`;
 
 test("the mapped period is the one we think it is", () => {
-  assert.equal(TIMELINE_START_YEAR, -264);
+  // 509 BCE because that is where the Republic — and any usable narrative — begins.
+  // The regal period is covered in prose on the methodology page and nowhere else.
+  assert.equal(TIMELINE_START_YEAR, -509);
   assert.equal(TIMELINE_END_YEAR, -196);
-  assert.equal(YEARS.length, 69);
+  assert.equal(YEARS.length, 314);
 });
 
 test("every year in the mapped period has a focus event", () => {
-  const missing = YEARS.filter((year) => !historicalEvents.some((event) => event.year === year));
+  // A phase entry covers its whole span, so the early Republic is accounted for
+  // without a year of it being invented.
+  const missing = YEARS.filter((year) => !historicalEvents.some((event) => eventCoversYear(event, year)));
   assert.deepEqual(missing.map(bce), [], "years with nothing in the year-in-focus panel");
 });
 
-test("no year carries two focus events", () => {
-  // The panel shows one; a second would be authored and never seen.
+test("every year resolves to exactly one focus event", () => {
+  // The panel shows one. Overlap is allowed only in the one shape that resolves
+  // cleanly: a single-year entry inside a phase, which narrows the panel for that
+  // year. Two phases covering the same year, or two entries for one year, do not.
   for (const year of YEARS) {
-    const found = historicalEvents.filter((event) => event.year === year);
-    assert.equal(found.length, 1, `${bce(year)}: ${found.length} events`);
+    assert.ok(eventForYear(historicalEvents, year), `${bce(year)}: no event resolves`);
+    const exact = historicalEvents.filter((event) => event.year === year && event.toYear === undefined);
+    assert.ok(exact.length <= 1, `${bce(year)}: ${exact.length} single-year events`);
+    const spans = historicalEvents.filter((event) => event.toYear !== undefined && eventCoversYear(event, year));
+    assert.ok(spans.length <= 1, `${bce(year)}: covered by ${spans.length} overlapping phases`);
   }
 });
 
-test("every year has something drawn on the map", () => {
-  const empty = YEARS.filter((year) => {
+test("a phase entry spans forwards and stays inside the timeline", () => {
+  for (const event of historicalEvents) {
+    if (event.toYear === undefined) continue;
+    assert.ok(event.toYear > event.year, `${event.id}: toYear ${event.toYear} does not follow year ${event.year}`);
+    assert.ok(event.year >= TIMELINE_START_YEAR, `${event.id}: starts before the timeline`);
+    assert.ok(event.toYear <= TIMELINE_END_YEAR, `${event.id}: ends after the timeline`);
+    // A phase that points at a battle would claim the battle lasted the phase.
+    assert.ok(!event.battleSlug, `${event.id}: a phase entry should not point at a single battle`);
+  }
+});
+
+// From 264 Polybius and Livy give a continuous campaign narrative, so every single
+// year can carry a marker or a route. For the early Republic they do not: the
+// fifth-century wars were annual raiding whose geography is unrecoverable, and
+// drawing a route for 480 BCE would be the invention the atlas exists to avoid.
+// What every year can honestly carry is territory — so the guarantee is split.
+const DOCUMENTED_FROM = -264;
+
+test("no year of the documented wars is empty of battles and campaigns", () => {
+  const empty = YEARS.filter((year) => year >= DOCUMENTED_FROM).filter((year) => {
     const hasBattle = battles.some((battle) => year >= battle.startYear && year <= battle.endYear);
     const hasRoute = campaignRoutes.some((route) => isRouteActive(route, year));
     return !hasBattle && !hasRoute;
@@ -48,13 +77,28 @@ test("every year has something drawn on the map", () => {
   assert.deepEqual(empty.map(bce), [], "years where the map shows no battle and no campaign");
 });
 
+test("no era of the early Republic is a blank", () => {
+  // The weaker guarantee for the centuries before Polybius: an era may not be able
+  // to fill every year, but every era must put something on the map somewhere.
+  for (const era of eras) {
+    if (era.endYear >= DOCUMENTED_FROM) continue;
+    const hasBattle = battles.some((battle) => battle.startYear <= era.endYear && battle.endYear >= era.startYear);
+    const hasRoute = campaignRoutes.some((route) => route.startYear <= era.endYear && route.endYear >= era.startYear);
+    assert.ok(hasBattle || hasRoute, `${era.id} (${bce(era.startYear)}–${bce(era.endYear)}) draws nothing at all`);
+  }
+});
+
 test("every year has territory to colour", () => {
   for (const year of YEARS) {
     const zones = territoriesForYear(year);
-    assert.ok(zones.length >= 8, `${bce(year)}: only ${zones.length} territory zones`);
-    // Rome and Carthage are on the map throughout the Punic wars; after 201 Carthage
-    // is confined to Africa but still holds it.
+    // The early Republic has fewer powers on the map: the Hellenistic kingdoms drawn
+    // as context tints for 264–196 did not exist yet, and colouring them in would be
+    // a worse error than leaving the east blank.
+    const floor = year >= DOCUMENTED_FROM ? 8 : 5;
+    assert.ok(zones.length >= floor, `${bce(year)}: only ${zones.length} territory zones`);
     assert.ok(zones.some((zone) => zone.polity === "rome"), `${bce(year)}: Rome missing`);
+    // Carthage held Africa and western Sicily from long before Rome was a republic,
+    // and is on the map for the whole timeline.
     assert.ok(zones.some((zone) => zone.polity === "carthage"), `${bce(year)}: Carthage missing`);
   }
 });
@@ -62,6 +106,18 @@ test("every year has territory to colour", () => {
 // The years the map is *supposed* to change. Each is a settlement, a conquest, or a
 // defection that the coloured zones have to reflect on the right side of.
 const TRANSITIONS = [
+  // ── The conquest of Italy ───────────────────────────────────────────────────
+  { year: -396, gained: ["rome-ager-veii", "etruscan-inner"], lost: ["rome-ager-early", "etruscan-league"], why: "Veii is destroyed and its land annexed, roughly doubling Roman territory" },
+  { year: -395, gained: ["gaul-cisalpine"], lost: [], why: "the Gauls settle the Po valley, a few years before they reach Rome" },
+  { year: -338, gained: ["rome-latium-campania"], lost: ["latin-league", "rome-ager-veii"], why: "the Latin League is dissolved and replaced by Rome's alliance system" },
+  { year: -299, gained: ["rome-central-italy"], lost: ["rome-latium-campania"], why: "Umbria and Picenum bring Rome to the Adriatic" },
+  { year: -290, gained: ["rome-peninsular"], lost: ["rome-central-italy", "etruscan-inner", "samnite-league"], why: "Samnium submits and Etruria is bound in, leaving only the Greek south and the Gallic north" },
+  { year: -272, gained: ["rome-italy"], lost: ["rome-peninsular", "magna-graecia"], why: "Tarentum surrenders and Rome holds the whole peninsula" },
+  // The Hellenistic powers and Numidia enter the map with the Punic wars: before
+  // 264 they are outside the atlas's story and colouring them would be decoration.
+  { year: -264, gained: ["macedon-greece", "numidia-early", "seleucid", "ptolemaic"], lost: [], why: "the eastern kingdoms and Numidia enter the frame as Rome crosses to Sicily" },
+
+  // ── The Punic and Macedonian wars ───────────────────────────────────────────
   { year: -241, gained: ["rome-sicily"], lost: ["carthage-sicily"], why: "the peace ending the First Punic War gives Rome its first province" },
   { year: -238, gained: ["rome-sardinia"], lost: ["carthage-sardinia"], why: "Rome takes Sardinia during the Mercenary War" },
   { year: -237, gained: ["carthage-iberia-south"], lost: [], why: "Hamilcar crosses to Iberia" },
@@ -121,7 +177,7 @@ test("every battle year has that battle's own event or marker", () => {
     const years = [];
     for (let year = battle.startYear; year <= battle.endYear; year += 1) years.push(year);
     for (const year of years) {
-      assert.ok(historicalEvents.some((event) => event.year === year), `${battle.slug}: ${bce(year)} has no event`);
+      assert.ok(historicalEvents.some((event) => eventCoversYear(event, year)), `${battle.slug}: ${bce(year)} has no event`);
     }
   }
 });
@@ -137,7 +193,7 @@ test("a battle that is drawn is also described in full", () => {
     for (const entry of [...battle.forces, ...battle.casualties]) {
       assert.ok(entry.side && entry.estimate, `${battle.slug}: a force or casualty entry is incomplete`);
       assert.ok(
-        ["attested", "probable", "disputed", "speculative"].includes(entry.certainty),
+        ["attested", "probable", "disputed", "speculative", "traditional"].includes(entry.certainty),
         `${battle.slug}: "${entry.side}" has no evidence grade`,
       );
     }
@@ -147,7 +203,7 @@ test("a battle that is drawn is also described in full", () => {
 test("only actions that cannot be drawn are left undrawn", () => {
   // Long sieges and unlocated fields are drawable as schematic shapes; campaigns
   // spanning months and battles nobody described are not. Keep that line explicit.
-  assert.deepEqual(Object.keys(NO_DIAGRAM_REASON).sort(), ["africa-invasion", "alps-crossing", "sulci"]);
+  assert.deepEqual(Object.keys(NO_DIAGRAM_REASON).sort(), ["africa-invasion", "alps-crossing", "aquilonia", "lake-regillus", "sulci", "tarentum", "trifanum", "vesuvius"]);
   for (const battle of battles) {
     if (NO_DIAGRAM_REASON[battle.slug]) continue;
     assert.ok(battleDiagrams[battle.slug], `${battle.slug}: no diagram and no stated reason`);

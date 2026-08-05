@@ -6,7 +6,7 @@ import { EvidenceBadge } from "@/components/EvidenceBadge";
 import { battles, getBattle } from "@/data/battles"; import { historicalEvents } from "@/data/events";
 import { territoriesForYear } from "@/data/territories";
 import { getFactionInfo, factionList } from "@/data/factions";
-import { battlesForYear } from "@/lib/historySelectors"; import { clampTimelineYear, TIMELINE_END_YEAR, TIMELINE_START_YEAR } from "@/lib/historicalDates";
+import { battlesForYear, eventForYear } from "@/lib/historySelectors"; import { clampTimelineYear, formatHistoricalYear, TIMELINE_END_YEAR, TIMELINE_START_YEAR } from "@/lib/historicalDates";
 import { eraForYear, getEra } from "@/data/wars";
 import { parseAtlasSearch } from "@/lib/atlasLinks";
 import type { Battle, Coordinates, Faction } from "@/types/history";
@@ -60,7 +60,7 @@ export function HistoricalMap() {
   }, [setYear]);
 
   const activeBattles = useMemo(() => battlesForYear(battles, year).filter((battle) => (battle.kind === "siege" ? layers.sieges : layers.battles)), [year, layers.battles, layers.sieges]);
-  const selectedEvent = historicalEvents.find((event) => event.year === year);
+  const selectedEvent = eventForYear(historicalEvents, year);
   const currentEra = eraForYear(year);
   const eraFactions: Faction[] = currentEra?.factions ?? ["rome"];
   const powers = useMemo(() => { const ids = new Set(territoriesForYear(year).map((territory) => territory.polity)); return factionList.filter((info) => ids.has(info.id)); }, [year]);
@@ -88,7 +88,17 @@ export function HistoricalMap() {
         <div className="filter-divider" aria-hidden="true" />
         {layerItems.map((item) => <label key={item.key} className="filter-row"><span className="filter-label">{item.icon}{item.label}</span><input type="checkbox" checked={layers[item.key]} onChange={() => setLayers((current) => ({ ...current, [item.key]: !current[item.key] }))} /><span className="toggle" aria-hidden="true" /></label>)}
       </div>
-      <div className="year-events"><p className="eyebrow">YEAR IN FOCUS</p><h2>{selectedEvent?.title ?? "Campaign developments"}</h2><p>{selectedEvent?.summary ?? "The surviving sources record no major set-piece event for this year."}</p>{selectedEvent && <EvidenceBadge certainty={selectedEvent.certainty} />}</div>
+      <div className="year-events">
+        <p className="eyebrow">YEAR IN FOCUS</p>
+        <h2>{selectedEvent?.title ?? "Campaign developments"}</h2>
+        {/* An entry that stands for a phase says so, so that a reader scrubbing
+            through the early Republic is never told a span is a single year. */}
+        {selectedEvent?.toYear !== undefined && (
+          <p className="year-span">{formatHistoricalYear(selectedEvent.year)} – {formatHistoricalYear(selectedEvent.toYear)}</p>
+        )}
+        <p>{selectedEvent?.summary ?? "The surviving sources record no major set-piece event for this year."}</p>
+        {selectedEvent && <EvidenceBadge certainty={selectedEvent.certainty} />}
+      </div>
       {layers.territories && powers.length > 0 && <div className="powers-list"><div className="active-list-title"><span>Powers on the map</span><span>{powers.length}</span></div><div className="powers-grid">{powers.map((info) => <span key={info.id} className="power-chip"><span className="faction-swatch" style={{ background: info.color }} />{info.name}</span>)}</div></div>}
       <div className="active-list"><div className="active-list-title"><span>Visible events</span><span>{activeBattles.length}</span></div>{activeBattles.length ? activeBattles.map((battle) => <button key={battle.id} onClick={() => { setSelectedBattle(battle); setSidebarOpen(false); }}><span className={`mini-kind ${battle.kind}`}>{battle.kind === "naval" ? "≋" : battle.kind === "siege" ? "◎" : "⚔"}</span><span><strong>{battle.name}</strong><small>{battle.location}</small></span><ChevronLeft size={15} className="event-arrow" /></button>) : <p className="empty-state">No battle marker is active. Campaign routes may still be visible.</p>}</div>
       <p className="reconstruction-disclaimer">Ancient evidence is incomplete. Territory zones, positions, and routes are schematic reconstructions, not surveyed borders or exact tracks.</p></aside>

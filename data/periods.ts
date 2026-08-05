@@ -29,7 +29,8 @@ export const periods: HistoricalPeriod[] = [
     endYear: -265,
     description: "A city among neighbours becomes the master of the peninsula, through Latin, Etruscan, Samnite, and Pyrrhic wars.",
     representativeYear: -280,
-    status: "planned",
+    status: "available",
+    focus: { location: [13.6, 41.6], zoom: 5.8 },
   },
   {
     id: "middle-republic",

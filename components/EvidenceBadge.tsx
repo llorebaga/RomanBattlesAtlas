@@ -5,6 +5,7 @@ const labels: Record<Certainty, string> = {
   probable: "Probable",
   disputed: "Disputed",
   speculative: "Speculative",
+  traditional: "Traditional",
 };
 
 export function EvidenceBadge({ certainty, compact = false }: { certainty: Certainty; compact?: boolean }) {

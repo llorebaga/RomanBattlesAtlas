@@ -69,7 +69,7 @@ test("periods are chronological, continuous, and honestly labelled", () => {
   }
   // The atlas covers the middle Republic; everything else must not claim to be ready.
   const available = periods.filter((period) => period.status === "available");
-  assert.deepEqual(available.map((period) => period.id), ["middle-republic"]);
+  assert.deepEqual(available.map((period) => period.id), ["early-rome", "middle-republic"]);
 });
 
 test("period links open the atlas at a year it can show", () => {

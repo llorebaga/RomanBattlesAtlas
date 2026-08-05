@@ -5,7 +5,7 @@ import { battleDiagrams, getBattleDiagram, NO_DIAGRAM_REASON } from "../data/bat
 import { factionList } from "../data/factions.ts";
 
 const FACTIONS = new Set(factionList.map((info) => info.id));
-const CERTAINTIES = new Set(["attested", "probable", "disputed", "speculative"]);
+const CERTAINTIES = new Set(["attested", "probable", "disputed", "speculative", "traditional"]);
 const KINDS = new Set(["infantry", "phalanx", "skirmishers", "cavalry", "elephants", "ships", "camp", "works"]);
 const FRAME = { width: 100, height: 68 };
 

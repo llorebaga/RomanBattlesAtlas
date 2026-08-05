@@ -27,6 +27,16 @@ export interface FactionInfo {
 //
 // The Seleucids and Ptolemies never take the field in 264–196 BCE, so they are
 // drawn as muted context tints rather than competing for a categorical hue.
+//
+// ── Hues are reused across periods that never meet ────────────────────────────
+// Extending the atlas back to 509 BCE brought in four more belligerents, and nine
+// categorical hues cannot stay separable — least of all under colour-vision
+// deficiency. But the atlas only ever draws one year at a time, and the powers of
+// archaic Italy were finished long before Carthage and Macedon appear: the
+// Etruscan league is gone by 264, and Rome met Pyrrhus and Hannibal a lifetime
+// apart. So a hue is scoped to the period that uses it. The rule this rests on is
+// enforced by a test: two factions sharing a colour must never hold territory in
+// the same year. Before reusing a hue, check that.
 export const factionList: FactionInfo[] = [
   { id: "rome", name: "Rome", adjective: "Roman", color: "#e34948", role: "belligerent" },
   { id: "carthage", name: "Carthage", adjective: "Carthaginian", color: "#2a78d6", role: "belligerent" },
@@ -49,6 +59,30 @@ export const factionList: FactionInfo[] = [
   // their employer's colour and are named in the label; this hue is for the
   // occasions when they were a belligerent in their own right.
   { id: "iberian", name: "Iberian peoples", adjective: "Iberian", color: "#a05a3c", role: "minor" },
+
+  // ── The powers of Italy, 509–265 BCE ───────────────────────────────────────
+  // Each takes a hue already validated against Rome's red, borrowed from a power
+  // that had left the stage before this one reached it. The reuse is deliberate
+  // and tested: none of these ever shares a year with the faction it borrows from.
+  //
+  // Etruria cannot borrow: Carthage held Africa and western Sicily throughout this
+  // period too, and Etruria shares the map with Rome, Samnium, the Latins and the
+  // Gauls as well. So this is the one genuinely new hue, placed in the widest gap
+  // the co-occurring set leaves — a muted magenta around 320°, where red (25°),
+  // amber (45°), green (120°), blue (215°) and indigo (272°) are all far away. It
+  // is lighter than the indigo it sits nearest, which is the pair to watch.
+  { id: "etruscan", name: "Etruscan cities", adjective: "Etruscan", color: "#a9538c", role: "belligerent" },
+  // Samnium takes Macedon's indigo. The last Samnite war ends in 290; Rome does
+  // not meet Macedon in the field until 200.
+  { id: "samnite", name: "Samnite league", adjective: "Samnite", color: "#4a3aa7", role: "belligerent" },
+  // The Latin League takes Numidia's amber, and is dissolved in 338.
+  { id: "latin", name: "Latin League", adjective: "Latin", color: "#eda100", role: "belligerent" },
+  // Pyrrhus cannot borrow Syracuse's teal, which was the obvious candidate: he
+  // ruled Syracuse himself in 278–276, so the two are on the map together. A dark
+  // maroon instead — the same hue family as Rome's red but half its lightness,
+  // which is legible here because Epirote forces appear as routes and battle
+  // diagrams rather than as a territory fill abutting Rome's.
+  { id: "epirote", name: "Epirus under Pyrrhus", adjective: "Epirote", color: "#7d2b3a", role: "belligerent" },
 ];
 
 const byId = new Map<Faction, FactionInfo>(factionList.map((info) => [info.id, info]));

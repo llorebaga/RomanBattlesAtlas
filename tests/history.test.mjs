@@ -16,7 +16,8 @@ test("formats BCE dates consistently", () => {
 });
 
 test("clamps the continuous timeline across every era", () => {
-  assert.equal(clampTimelineYear(-300), -264);
+  assert.equal(clampTimelineYear(-600), -509);
+  assert.equal(clampTimelineYear(-300), -300);
   assert.equal(clampTimelineYear(-250), -250);
   assert.equal(clampTimelineYear(-216), -216);
   assert.equal(clampTimelineYear(-197), -197);

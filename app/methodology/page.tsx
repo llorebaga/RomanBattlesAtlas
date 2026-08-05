@@ -9,7 +9,7 @@ import { atlasHref } from "@/lib/atlasLinks";
 
 export const metadata: Metadata = {
   title: "Methodology",
-  description: "How Roman Campaign Atlas separates attested evidence from probable, disputed, and speculative reconstruction.",
+  description: "How Roman Campaign Atlas separates attested evidence from probable, disputed, and speculative reconstruction, and how it marks the annalistic tradition of early Rome.",
   alternates: { canonical: "/methodology" },
 };
 
@@ -32,8 +32,33 @@ export default function MethodologyPage() {
         </header>
 
         <section aria-labelledby="levels">
-          <h2 id="levels">The four levels</h2>
+          <h2 id="levels">The five grades</h2>
           <EvidenceLegend />
+        </section>
+
+        <section aria-labelledby="early-rome">
+          <h2 id="early-rome">Early Rome, and why it is graded differently</h2>
+          <p>
+            For the Punic and Macedonian wars there is Polybius, writing within living memory of some of it and with
+            access to people who were there. For the early Republic there is nothing of the kind. Livy and Dionysius of
+            Halicarnassus were writing in the age of Augustus about events four and five centuries earlier, from
+            annalistic material that had already passed through the hands of families with reputations to protect and
+            of Greek historians with literary models to satisfy. Rome&rsquo;s own records had been thin to begin with,
+            and the tradition itself held that much of what existed was lost when the Gauls burned the city.
+          </p>
+          <p>
+            So the atlas maps the Republic from 509 BCE, and marks that material <strong>traditional</strong> rather
+            than fitting it into the four grades of evidence. The distinction matters: <em>speculative</em> says the
+            atlas has reconstructed something to make a real sequence followable, while <em>traditional</em> says this
+            is what Rome remembered about itself. Battles from these centuries keep their traditional dates because
+            those dates are how the events are referred to, not because the year is secure — several are demonstrably
+            duplicated within the annalistic record, and the sceptical view that a good deal of the fifth century is
+            reconstruction rather than history is a serious one.
+          </p>
+          <p>
+            The regal period before 509 is not mapped at all. The wars of Romulus and his successors are foundation
+            myth, and drawing them would put the first invented thing on the map.
+          </p>
         </section>
 
         <section aria-labelledby="what-we-do-not-do">
