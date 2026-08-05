@@ -8,7 +8,7 @@
     "build": "vinext build",
     "build:pages": "next build && node build/fix-worker-imports.mjs out",
     "start": "vinext start",
-    "test": "node --experimental-strip-types --test tests/history.test.mjs tests/territory-render.test.mjs tests/atlas-map-render.test.mjs tests/homepage.test.mjs tests/battle-diagrams.test.mjs",
+    "test": "node --experimental-strip-types --test tests/history.test.mjs tests/territory-render.test.mjs tests/atlas-map-render.test.mjs tests/homepage.test.mjs tests/battle-diagrams.test.mjs tests/timeline-coverage.test.mjs",
     "test:render": "node --test tests/rendered-html.test.mjs",
     "lint": "eslint . --ignore-pattern dist --ignore-pattern .next --ignore-pattern .starter-backup"
   },

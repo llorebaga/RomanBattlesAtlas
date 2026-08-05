@@ -37,7 +37,7 @@ export function BattleDiagram({ diagram, title }: { diagram: Diagram; title: str
             JavaScript never arrives, and switching stages costs no work. */}
         {diagram.stages.map((entry, position) => (
           <div key={entry.id} className="bd-panel" hidden={position !== index}>
-            <BattleDiagramFigure stage={entry} terrain={diagram.terrain} title={title} />
+            <BattleDiagramFigure stage={entry} terrain={diagram.terrain} title={title} step={position + 1} total={diagram.stages.length} />
           </div>
         ))}
         <ol className="bd-ticks" aria-hidden="true">

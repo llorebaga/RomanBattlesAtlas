@@ -394,7 +394,7 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
    colours and the movement arrows carry the reading. */
 .bd {
   --bd-ground: #efe9db;
-  --bd-sea: #cfe0e4;
+  --bd-sea: #c2d8e0;
   --bd-marsh: #d9dcc8;
   --bd-woods: #cdd6c0;
   --bd-hill: #e3dac4;
@@ -411,9 +411,11 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
 .bd-panel[hidden] { display: none; }
 .bd-figure { display: block; width: 100%; height: auto; }
 .bd-figure text { font-family: var(--font-body); }
-.bd-unit-label { font-size: 2.1px; font-weight: 600; fill: #3c3a32; letter-spacing: .06px; }
-.bd-terrain-label { font-size: 2.2px; fill: #6c6455; letter-spacing: .1px; }
-.bd-arrow-label { font-size: 2px; fill: #4a463c; font-style: italic; }
+.bd-unit-label { font-size: 2.7px; font-weight: 600; fill: #33312a; letter-spacing: .04px; paint-order: stroke; stroke: rgba(239,233,219,.85); stroke-width: .7px; }
+.bd-terrain-label { font-size: 2.7px; fill: #665e4d; letter-spacing: .08px; font-style: italic; paint-order: stroke; stroke: rgba(239,233,219,.75); stroke-width: .6px; }
+.bd-arrow-label { font-size: 2.4px; fill: #3f3b32; font-style: italic; paint-order: stroke; stroke: rgba(239,233,219,.8); stroke-width: .7px; }
+.bd-caption-text { font-size: 3.4px; font-weight: 700; fill: #2b2922; letter-spacing: .05px; }
+.bd-key-text { font-size: 2.5px; fill: #4a463c; }
 .bd-ticks { display: flex; gap: 4px; margin: 0; padding: 8px 10px; list-style: none; border-top: 1px solid #cfc6b4; background: rgba(255,253,246,.6); }
 .bd-ticks li { flex: 1; height: 3px; background: #d8cfba; }
 .bd-ticks li.is-past { background: #b99a6b; }

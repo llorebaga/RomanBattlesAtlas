@@ -42,6 +42,13 @@ export const factionList: FactionInfo[] = [
   // from the five principal hues — at a lower strength.
   { id: "syracuse", name: "Syracuse", adjective: "Syracusan", color: "#0f7d86", role: "minor" },
   { id: "greek", name: "Greek states", adjective: "Greek", color: "#9a8f4a", role: "minor" },
+  // Saguntum fought Hannibal on its own account, with Rome an ally that never
+  // arrived. Colouring its defenders Roman would claim a Roman garrison that was
+  // not there, and calling them Greek would take Livy's foundation legend for
+  // fact. Iberian peoples who fought as somebody's mercenaries or allies keep
+  // their employer's colour and are named in the label; this hue is for the
+  // occasions when they were a belligerent in their own right.
+  { id: "iberian", name: "Iberian peoples", adjective: "Iberian", color: "#a05a3c", role: "minor" },
 ];
 
 const byId = new Map<Faction, FactionInfo>(factionList.map((info) => [info.id, info]));

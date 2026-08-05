@@ -134,6 +134,108 @@ const firstPunicRoutes: CampaignRoute[] = [
   },
 ];
 
+// The decades between the wars were not quiet, and a scrubber that showed an empty
+// map for twenty years said otherwise. These are the campaigns that filled them.
+const interbellumRoutes: CampaignRoute[] = [
+  {
+    id: "roman-sicily-consolidation",
+    name: "Roman consolidation of northern Sicily",
+    faction: "rome",
+    forceType: "army",
+    startYear: -254,
+    endYear: -251,
+    certainty: "probable",
+    description: "Operations along the north coast after the capture of Panormus: Thermae, Cephaloedium, and pressure west toward the Carthaginian strongholds.",
+    points: [
+      { year: -254, label: "Panormus taken", coordinates: [13.36, 38.06], certainty: "attested", sourceIds: ["polybius-1"] },
+      { year: -253, label: "North coast operations", coordinates: [13.9, 37.95], certainty: "speculative", sourceIds: ["polybius-1"] },
+      { year: -252, label: "Thermae and Cephaloedium", coordinates: [14.0, 37.95], certainty: "probable", sourceIds: ["polybius-1"] },
+      { year: -251, label: "Pressure toward the west", coordinates: [13.0, 37.7], certainty: "speculative", sourceIds: ["polybius-1"] },
+    ],
+  },
+  {
+    id: "carthage-mercenary-war",
+    name: "The Mercenary War",
+    faction: "carthage",
+    forceType: "army",
+    startYear: -240,
+    endYear: -237,
+    certainty: "probable",
+    description: "Hamilcar's campaign against the mutinied army and the Libyan revolt: out from Carthage, up the Bagradas, and the final encirclement of the rebels.",
+    points: [
+      { year: -240, label: "Carthage besieged in its hinterland", coordinates: [10.1, 36.7], certainty: "attested", sourceIds: ["polybius-1"] },
+      { year: -239, label: "Up the Bagradas", coordinates: [9.6, 36.5], certainty: "probable", sourceIds: ["polybius-1"] },
+      { year: -238, label: "Campaign against Utica and Hippacra", coordinates: [9.9, 37.0], certainty: "probable", sourceIds: ["polybius-1"] },
+      { year: -237, label: "The rebels destroyed", coordinates: [9.9, 36.4], certainty: "probable", sourceIds: ["polybius-1", "hoyos-2015"] },
+    ],
+  },
+  {
+    id: "roman-illyria-first",
+    name: "First Illyrian War",
+    faction: "rome",
+    forceType: "fleet",
+    startYear: -229,
+    endYear: -228,
+    certainty: "probable",
+    description: "Rome's first fleet and army east of Italy, against Illyrian raiding. It leaves Rome with allied cities on the far Adriatic shore.",
+    points: [
+      { year: -229, label: "Sailing from Brundisium", coordinates: [18.2, 40.5], certainty: "probable", sourceIds: ["polybius-1"] },
+      { year: -229, month: 6, label: "Corcyra and Apollonia", coordinates: [19.3, 40.2], certainty: "probable", sourceIds: ["polybius-1"] },
+      { year: -228, label: "Off the Illyrian coast", coordinates: [18.4, 42.3], certainty: "speculative", sourceIds: ["polybius-1"] },
+    ],
+  },
+  {
+    id: "barcid-conquest-iberia",
+    name: "Hamilcar's conquest of southern Iberia",
+    faction: "carthage",
+    forceType: "army",
+    startYear: -237,
+    endYear: -229,
+    certainty: "probable",
+    description: "From Gades up the Guadalquivir and into the interior: the campaigns that turned Iberia into a Carthaginian province paying for a new army.",
+    points: [
+      { year: -237, label: "Landing at Gades", coordinates: [-6.2, 36.6], certainty: "attested", sourceIds: ["polybius-3"] },
+      { year: -235, label: "Up the Guadalquivir", coordinates: [-5.4, 37.4], certainty: "probable", sourceIds: ["polybius-3"] },
+      { year: -232, label: "Into the interior", coordinates: [-3.9, 37.9], certainty: "speculative", sourceIds: ["polybius-3"] },
+      { year: -229, label: "Hamilcar killed on campaign", coordinates: [-2.6, 38.4], certainty: "probable", sourceIds: ["polybius-3", "goldsworthy-2000"] },
+    ],
+  },
+  {
+    id: "barcid-expansion-ebro",
+    name: "Hasdrubal and Hannibal to the Ebro",
+    faction: "carthage",
+    forceType: "army",
+    startYear: -228,
+    endYear: -220,
+    certainty: "probable",
+    description: "The foundation of New Carthage and the extension of Barcid authority up the eastern coast to the Ebro and inland to the Tagus.",
+    points: [
+      { year: -228, label: "New Carthage founded", coordinates: [-0.983, 37.6], certainty: "attested", sourceIds: ["polybius-3"] },
+      { year: -226, label: "Toward the Ebro", coordinates: [-0.6, 38.9], certainty: "probable", sourceIds: ["polybius-3"] },
+      { year: -225, label: "Through Edetania", coordinates: [-0.7, 39.4], certainty: "speculative", sourceIds: ["polybius-3"] },
+      { year: -224, label: "The eastern seaboard", coordinates: [-0.35, 39.85], certainty: "probable", sourceIds: ["polybius-3"] },
+      { year: -221, label: "Hannibal takes command", coordinates: [-1.6, 39.2], certainty: "attested", sourceIds: ["polybius-3", "livy-21-30"] },
+      { year: -220, label: "Campaigns to the Tagus", coordinates: [-4.2, 39.9], certainty: "probable", sourceIds: ["polybius-3"] },
+    ],
+  },
+  {
+    id: "roman-cisalpine-war",
+    name: "Rome's war in Cisalpine Gaul",
+    faction: "rome",
+    forceType: "army",
+    startYear: -225,
+    endYear: -222,
+    certainty: "probable",
+    description: "A Gallic invasion is destroyed at Telamon in Etruria; Rome then carries the war across the Po and takes Mediolanum, four years before Hannibal arrives.",
+    points: [
+      { year: -225, label: "Telamon in Etruria", coordinates: [11.0, 42.5], certainty: "attested", sourceIds: ["polybius-1"] },
+      { year: -224, label: "North across the Apennines", coordinates: [11.2, 44.3], certainty: "probable", sourceIds: ["polybius-1"] },
+      { year: -223, label: "Beyond the Po", coordinates: [10.2, 45.1], certainty: "probable", sourceIds: ["polybius-1"] },
+      { year: -222, label: "Clastidium and Mediolanum", coordinates: [9.2, 45.4], certainty: "attested", sourceIds: ["polybius-1"] },
+    ],
+  },
+];
+
 const secondPunicRoutes: CampaignRoute[] = [
   {
     id: "hannibal-march-to-italy",
@@ -184,6 +286,48 @@ const secondPunicRoutes: CampaignRoute[] = [
       { year: -203, label: "Shipped back to Africa", coordinates: [16.9, 38.3], certainty: "attested", sourceIds: ["livy-21-30", "goldsworthy-2000"], viaSea: true },
     ],
   },
+  // Sicily was a second front for five years and the map showed nothing of it.
+  {
+    id: "roman-sicily-second-punic",
+    name: "Marcellus’ campaign in Sicily",
+    faction: "rome",
+    forceType: "army",
+    startYear: -214,
+    endYear: -210,
+    certainty: "probable",
+    description: "Rome’s recovery of Sicily after Syracuse changed sides: across the strait from Rhegium, the storming of Leontini, two years before Syracuse, and finally the reduction of the interior and of Agrigentum.",
+    points: [
+      { year: -214, label: "Rhegium", coordinates: [15.64, 38.11], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -214, month: 5, label: "Crossing to Messana", coordinates: [15.55, 38.19], certainty: "probable", sourceIds: ["livy-21-30"], viaSea: true },
+      { year: -214, month: 7, label: "Down the eastern coast", coordinates: [15.16, 37.78], certainty: "speculative", sourceIds: ["livy-21-30"] },
+      { year: -214, month: 9, label: "Leontini stormed", coordinates: [14.99, 37.28], certainty: "probable", sourceIds: ["livy-21-30"] },
+      // Syracuse is one waypoint for two years of blockade: the precise claim about
+      // the city belongs to the battle marker, and a route corridor cannot carry a
+      // four-kilometre distinction without the smoothed line bowing into the harbour.
+      { year: -213, label: "Syracuse invested and blockaded", coordinates: [15.29, 37.06], certainty: "attested", sourceIds: ["polybius-8", "livy-21-30"] },
+      { year: -212, month: 11, label: "Westward after the sack", coordinates: [15.02, 37.12], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -211, label: "Into the interior", coordinates: [14.2, 37.32], certainty: "speculative", sourceIds: ["livy-21-30"] },
+      { year: -210, label: "Agrigentum taken", coordinates: [13.58, 37.31], certainty: "probable", sourceIds: ["livy-21-30"] },
+    ],
+  },
+  {
+    id: "carthage-sicily-relief",
+    name: "The Carthaginian expedition to Sicily",
+    faction: "carthage",
+    forceType: "army",
+    startYear: -213,
+    endYear: -211,
+    certainty: "disputed",
+    description: "Carthage’s last attempt on Sicily: a landing on the south coast, a march inland, and an approach to Syracuse that ended not in battle but in an epidemic that destroyed the army where it camped.",
+    points: [
+      { year: -213, label: "From Carthage", coordinates: [10.33, 36.85], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -213, month: 6, label: "Landing at Heraclea Minoa", coordinates: [13.28, 37.4], certainty: "probable", sourceIds: ["livy-21-30"], viaSea: true },
+      { year: -213, month: 8, label: "Agrigentum secured", coordinates: [13.58, 37.31], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -212, label: "Inland toward Syracuse", coordinates: [14.4, 37.15], certainty: "speculative", sourceIds: ["livy-21-30"] },
+      { year: -212, month: 8, label: "The army destroyed by plague", coordinates: [15.1, 37.03], certainty: "probable", sourceIds: ["livy-21-30"] },
+      { year: -211, label: "Remnants withdraw west", coordinates: [13.9, 37.5], certainty: "speculative", sourceIds: ["livy-21-30"] },
+    ],
+  },
   {
     id: "hasdrubal-march-to-italy",
     name: "Hasdrubal’s march to the Metaurus",
@@ -226,14 +370,15 @@ const secondPunicRoutes: CampaignRoute[] = [
     faction: "rome",
     forceType: "army",
     startYear: -204,
-    endYear: -202,
+    endYear: -201,
     certainty: "probable",
-    description: "The crossing from Sicily to Africa and the campaign that ended the war: a landing near Utica, victory in the Bagradas valley, and the decisive battle at Zama. The crossing is marked as a sea leg; the inland stages are marches.",
+    description: "The crossing from Sicily to Africa and the campaign that ended the war: a landing near Utica, victory in the Bagradas valley, the decisive battle at Zama, and the march back to Carthage where the terms were settled. The crossing is marked as a sea leg; the inland stages are marches.",
     points: [
       { year: -204, label: "Lilybaeum embarkation", coordinates: [12.5, 37.79], certainty: "probable", sourceIds: ["livy-21-30"] },
       { year: -204, month: 6, label: "Landing near Utica", coordinates: [10.06, 37.06], certainty: "probable", sourceIds: ["polybius-3", "livy-21-30"], viaSea: true },
       { year: -203, label: "Great Plains", coordinates: [9.2, 36.5], certainty: "disputed", sourceIds: ["polybius-3"] },
       { year: -202, label: "Zama", coordinates: [9.55, 36.05], certainty: "disputed", sourceIds: ["polybius-3", "goldsworthy-2000"] },
+      { year: -201, label: "Terms settled at Carthage", coordinates: [10.25, 36.78], certainty: "attested", sourceIds: ["polybius-3", "livy-21-30"] },
     ],
   },
 ];
@@ -272,6 +417,25 @@ const macedonianRoutes: CampaignRoute[] = [
     ],
   },
   {
+    id: "flamininus-settlement",
+    name: "Flamininus’ settlement of Greece",
+    faction: "rome",
+    forceType: "army",
+    startYear: -197,
+    endYear: -196,
+    certainty: "probable",
+    description: "What Rome did with its victory: terms dictated to Philip in the vale of Tempe, then a progress south through Boeotia to the Isthmus, where at the Isthmian Games of 196 the Greek cities were declared free — of Macedon, and under Roman oversight.",
+    points: [
+      { year: -197, month: 7, label: "Terms dictated at Tempe", coordinates: [22.6, 39.86], certainty: "attested", sourceIds: ["polybius-18", "livy-31-33"] },
+      { year: -196, month: 2, label: "South through Thessaly", coordinates: [22.5, 38.9], certainty: "speculative", sourceIds: ["livy-31-33"] },
+      { year: -196, month: 3, label: "Through Boeotia", coordinates: [23.1, 38.4], certainty: "probable", sourceIds: ["livy-31-33"] },
+      { year: -196, month: 3, label: "Across Attica", coordinates: [23.5, 38.1], certainty: "speculative", sourceIds: ["livy-31-33"] },
+      { year: -196, month: 4, label: "Past Megara", coordinates: [23.32, 37.99], certainty: "speculative", sourceIds: ["livy-31-33"] },
+      { year: -196, month: 4, label: "Over the Isthmus", coordinates: [23.08, 37.97], certainty: "speculative", sourceIds: ["livy-31-33"] },
+      { year: -196, month: 5, label: "The Isthmian Games at Corinth", coordinates: [22.9, 37.91], certainty: "attested", sourceIds: ["polybius-18", "livy-31-33"] },
+    ],
+  },
+  {
     id: "roman-aegean-fleet",
     name: "Roman and allied fleet in the Aegean",
     faction: "rome",
@@ -293,6 +457,7 @@ const macedonianRoutes: CampaignRoute[] = [
 
 export const campaignRoutes: CampaignRoute[] = [
   ...firstPunicRoutes.map((route) => ({ ...route, war: "first-punic" })),
+  ...interbellumRoutes.map((route) => ({ ...route, war: route.startYear <= -251 ? "first-punic" : "interbellum" })),
   ...secondPunicRoutes.map((route) => ({ ...route, war: "second-punic" })),
   ...macedonianRoutes.map((route) => ({ ...route, war: "macedonian-second" })),
 ];

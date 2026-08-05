@@ -27,14 +27,31 @@ const firstPunicEvents: HistoricalEvent[] = [
   { id: "e241", year: -241, title: "Victory at the Aegates", summary: "Rome defeats the relief fleet; peace ends the First Punic War.", certainty: "attested", battleSlug: "aegates" },
 ];
 
+// Every year between the wars carries its own entry: the decades after 241 are
+// where the second war was made, and a blank "year in focus" told the reader
+// nothing was happening when a great deal was.
 const interbellumEvents: HistoricalEvent[] = [
-  { id: "e240", year: -240, title: "The Mercenary War", summary: "Carthage’s unpaid mercenaries and Libyan subjects revolt in a brutal war for survival at home.", certainty: "attested", war: "interbellum" },
-  { id: "e238", year: -238, title: "Rome seizes Sardinia", summary: "Exploiting Carthage’s weakness, Rome annexes Sardinia and Corsica and raises the indemnity.", certainty: "attested", war: "interbellum" },
-  { id: "e237", year: -237, title: "The Barcids enter Iberia", summary: "Hamilcar Barca begins building a Carthaginian power base and army in Spain.", certainty: "attested", war: "interbellum" },
-  { id: "e229", year: -229, title: "Hasdrubal succeeds Hamilcar", summary: "After Hamilcar’s death, his son-in-law Hasdrubal consolidates the Iberian province and founds New Carthage.", certainty: "probable", war: "interbellum" },
-  { id: "e226", year: -226, title: "The Ebro agreement", summary: "Rome and Hasdrubal reportedly fix the Ebro as a limit of Carthaginian expansion.", certainty: "probable", war: "interbellum" },
-  { id: "e221", year: -221, title: "Hannibal takes command", summary: "At about 26, Hannibal assumes command of Carthaginian forces in Iberia.", certainty: "attested", war: "interbellum" },
-  { id: "e220", year: -220, title: "Tension over Saguntum", summary: "Roman diplomacy and Carthaginian ambition collide over the allied city of Saguntum.", certainty: "probable", war: "interbellum" },
+  { id: "e240", year: -240, title: "The Mercenary War", summary: "Carthage’s unpaid mercenaries and Libyan subjects revolt in a brutal war fought for survival at home.", certainty: "attested", war: "interbellum" },
+  { id: "e239", year: -239, title: "Revolt spreads through Libya", summary: "Utica and Hippacra join the rebels. Carthage is besieged in its own hinterland and Hamilcar is recalled to command.", certainty: "attested", war: "interbellum" },
+  { id: "e238", year: -238, title: "Rome seizes Sardinia", summary: "The mercenary garrison of Sardinia offers the island to Rome, which takes it and raises the indemnity when Carthage protests.", certainty: "attested", war: "interbellum" },
+  { id: "e237", year: -237, title: "The Barcids enter Iberia", summary: "With the revolt crushed, Hamilcar Barca crosses to Iberia to build a Carthaginian power base beyond Roman reach.", certainty: "attested", war: "interbellum" },
+  { id: "e236", year: -236, title: "Hamilcar campaigns in the south", summary: "Operations from Gades bring the Turdetani and the silver of the Guadalquivir under Carthaginian control.", certainty: "probable", war: "interbellum" },
+  { id: "e235", year: -235, title: "Rome closes the temple of Janus", summary: "For the first time in living memory Rome is formally at peace, while Carthaginian power grows in Iberia.", certainty: "probable", war: "interbellum" },
+  { id: "e234", year: -234, title: "Silver and soldiers", summary: "Iberian mines pay the indemnity to Rome and fund an army recruited and trained in Spain rather than hired abroad.", certainty: "probable", war: "interbellum" },
+  { id: "e233", year: -233, title: "Rome fights the Sardinians", summary: "Roman consuls campaign against resistance in Sardinia and against Ligurian communities in the north.", certainty: "probable", war: "interbellum" },
+  { id: "e232", year: -232, title: "Land for the landless", summary: "Rome distributes territory taken from the Gauls in the Ager Gallicus, hardening Cisalpine hostility.", certainty: "probable", war: "interbellum" },
+  { id: "e231", year: -231, title: "Roman envoys in Spain", summary: "Rome reportedly sends an embassy to Hamilcar, who answers that he makes war on Iberians to pay Roman debts.", certainty: "disputed", war: "interbellum" },
+  { id: "e230", year: -230, title: "Illyrian piracy", summary: "Attacks on Italian shipping in the Adriatic draw Roman attention east for the first time.", certainty: "probable", war: "interbellum" },
+  { id: "e229", year: -229, title: "Hasdrubal succeeds Hamilcar", summary: "Hamilcar dies on campaign. His son-in-law Hasdrubal takes command, founds New Carthage, and rules by diplomacy as much as war.", certainty: "probable", war: "interbellum" },
+  { id: "e228", year: -228, title: "First Illyrian War settled", summary: "Rome imposes terms on Queen Teuta and gains a foothold of allied cities on the far Adriatic shore.", certainty: "attested", war: "interbellum" },
+  { id: "e227", year: -227, title: "Sicily and Sardinia become provinces", summary: "Rome appoints two additional praetors to govern its overseas possessions — the beginning of provincial administration.", certainty: "attested", war: "interbellum" },
+  { id: "e226", year: -226, title: "The Ebro agreement", summary: "Rome and Hasdrubal reportedly fix the Ebro as the limit of Carthaginian expansion, leaving what lies south of it to Carthage.", certainty: "probable", war: "interbellum" },
+  { id: "e225", year: -225, title: "Gauls invade Italy", summary: "A large Gallic army crosses the Apennines and is destroyed at Telamon in Etruria, caught between two Roman armies.", certainty: "attested", war: "interbellum" },
+  { id: "e224", year: -224, title: "Rome pushes into the Po", summary: "Roman armies cross the Po and force the Boii to terms, carrying the war into Cisalpine Gaul itself.", certainty: "probable", war: "interbellum" },
+  { id: "e223", year: -223, title: "Campaign against the Insubres", summary: "Flaminius campaigns beyond the Po; the Insubres are defeated but not yet broken.", certainty: "probable", war: "interbellum" },
+  { id: "e222", year: -222, title: "Clastidium and Mediolanum", summary: "Marcellus kills a Gallic chief in single combat at Clastidium and Rome takes Mediolanum, completing the conquest of the Po valley.", certainty: "attested", war: "interbellum" },
+  { id: "e221", year: -221, title: "Hannibal takes command", summary: "Hasdrubal is assassinated. The army in Spain acclaims Hannibal, then about twenty-six, and Carthage confirms him.", certainty: "attested", war: "interbellum" },
+  { id: "e220", year: -220, title: "Tension over Saguntum", summary: "Hannibal campaigns to the Tagus and Duero while Roman envoys warn him away from Saguntum, a city south of the Ebro under Roman protection.", certainty: "probable", war: "interbellum" },
 ];
 
 const secondPunicEvents: HistoricalEvent[] = [
@@ -43,9 +60,9 @@ const secondPunicEvents: HistoricalEvent[] = [
   { id: "e217", year: -217, title: "Ambush at Lake Trasimene", summary: "Hannibal destroys Flaminius’ army; Rome appoints Fabius Maximus dictator.", certainty: "attested", battleSlug: "trasimene", war: "second-punic" },
   { id: "e216", year: -216, title: "Catastrophe at Cannae", summary: "A vast Roman army is encircled and destroyed; several Italian communities defect.", certainty: "attested", battleSlug: "cannae", war: "second-punic" },
   { id: "e215", year: -215, title: "The war widens", summary: "Capua defects, and Carthage allies with Macedon; the conflict spreads beyond Italy.", certainty: "probable", war: "second-punic" },
-  { id: "e214", year: -214, title: "Sicily and Syracuse", summary: "Syracuse turns against Rome; a long siege under Marcellus begins.", certainty: "probable", war: "second-punic" },
-  { id: "e213", year: -213, title: "War of sieges", summary: "Fighting settles into sieges and raids across Italy and Sicily.", certainty: "probable", war: "second-punic" },
-  { id: "e212", year: -212, title: "Rome invests Capua", summary: "Roman armies besiege Capua; Syracuse is stormed and Tarentum is lost to Hannibal.", certainty: "attested", war: "second-punic" },
+  { id: "e214", year: -214, title: "Sicily changes sides", summary: "Syracuse abandons its fifty-year alliance with Rome. Marcellus crosses to Sicily and storms Leontini, and a second front opens on the island.", certainty: "probable", war: "second-punic" },
+  { id: "e213", year: -213, title: "Archimedes stops an assault", summary: "Marcellus attacks Syracuse by land and sea and is beaten off outright by the engines on the walls. Rome settles down to blockade.", certainty: "attested", battleSlug: "syracuse", war: "second-punic" },
+  { id: "e212", year: -212, title: "Syracuse falls; Rome invests Capua", summary: "Syracuse is taken by escalade after two years and sacked; Roman armies seal Capua behind a double line; Tarentum is lost to Hannibal.", certainty: "attested", battleSlug: "syracuse", war: "second-punic" },
   { id: "e211", year: -211, title: "Capua retaken", summary: "Hannibal’s march on Rome fails to save Capua, which surrenders and is punished.", certainty: "attested", battleSlug: "capua", war: "second-punic" },
   { id: "e210", year: -210, title: "Scipio to Spain", summary: "The young Publius Cornelius Scipio takes command of the Roman effort in Iberia.", certainty: "probable", war: "second-punic" },
   { id: "e209", year: -209, title: "New Carthage stormed", summary: "Scipio captures the Barcid capital in a single assault, seizing its resources.", certainty: "attested", battleSlug: "new-carthage", war: "second-punic" },

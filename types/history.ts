@@ -7,7 +7,8 @@ export type Faction =
   | "numidia"
   | "gaul"
   | "syracuse"
-  | "greek";
+  | "greek"
+  | "iberian";
 export type ForceType = "army" | "fleet";
 export type Certainty = "attested" | "probable" | "disputed" | "speculative";
 export type BattleKind = "land" | "naval" | "siege" | "campaign";
@@ -123,6 +124,12 @@ export interface DiagramUnit {
   facing?: number;
   /** Broken or fleeing: drawn dashed and faded. */
   routed?: boolean;
+  /**
+   * Where the label goes, when the default place above the block is taken — most
+   * often by the unit in front of it. Stacked lines of battle are the usual case:
+   * their labels belong out to the side, not crammed into the gaps.
+   */
+  labelAt?: [number, number];
 }
 
 export interface DiagramArrow {
@@ -144,6 +151,8 @@ export interface DiagramTerrain {
   points?: [number, number][];
   at?: [number, number];
   size?: [number, number];
+  /** Where the name sits, when the derived position would collide or fall outside. */
+  labelAt?: [number, number];
 }
 
 export interface DiagramStage {

@@ -133,8 +133,18 @@ export const territories: TerritoryPeriod[] = [
     labelAt: [9.1, 40.0],
   },
   {
-    // The Barcid province, bounded by the Ebro under the treaty of 226.
-    id: "carthage-iberia", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -237, toYear: -207, certainty: "probable", labelAt: [-3.4, 38.4],
+    // 237–229: Hamilcar's base is the south — Gades, the Guadalquivir, and its
+    // silver. Carthaginian authority does not yet reach the Ebro.
+    id: "carthage-iberia-south", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -237, toYear: -229, certainty: "probable", labelAt: [-4.6, 37.6],
+    ring: [
+      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.6, 37.4], [-1.0, 38.2],
+      [-2.0, 38.8], [-3.4, 39.0], [-4.8, 38.8], [-6.2, 38.4], [-7.2, 38.0], [-7.8, 37.4],
+    ],
+  },
+  {
+    // 228–219: Hasdrubal founds New Carthage and extends up the eastern coast; the
+    // treaty of 226 names the Ebro as the limit of that expansion.
+    id: "carthage-iberia", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -228, toYear: -207, certainty: "probable", labelAt: [-3.4, 38.4],
     ring: [
       [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.1, 40.9],
       // The Ebro itself, upstream from the delta: the agreed limit.
@@ -142,6 +152,31 @@ export const territories: TerritoryPeriod[] = [
       // Southwest along the Iberian System, leaving Celtiberia and Lusitania free.
       [-2.4, 41.5], [-2.9, 40.7], [-3.6, 40.0], [-4.8, 39.4], [-6.0, 38.6], [-7.0, 38.0], [-7.6, 37.4],
     ],
+  },
+  {
+    // After Cannae much of the Italian south went over to Hannibal: Capua, the
+    // Bruttians, most of Lucania and Samnium, and in 212 Tarentum. Showing Rome
+    // in undisturbed possession of Italy through these years would be the single
+    // largest error on the map. Drawn over the Roman zone, which it supersedes.
+    id: "carthage-italy", polity: "carthage", name: "Hannibal's Italian allies", mapLabel: "ALLIED TO HANNIBAL", fromYear: -216, toYear: -212, certainty: "probable", labelAt: [16.0, 40.4],
+    ring: [
+      [14.0, 41.3], [15.2, 41.5], [16.4, 41.4], [17.6, 41.0], [18.6, 40.5], [18.0, 39.9],
+      [17.2, 39.4], [16.9, 38.8], [16.2, 38.3], [15.7, 38.8], [16.0, 39.6], [15.0, 40.2], [14.0, 40.6],
+    ],
+  },
+  {
+    // 211–208: Capua is retaken and punished, but Tarentum and the far south hold.
+    id: "carthage-italy-reduced", polity: "carthage", name: "Hannibal's Italian allies", mapLabel: "ALLIED TO HANNIBAL", fromYear: -211, toYear: -208, certainty: "probable", labelAt: [16.4, 40.2],
+    ring: [
+      [15.6, 40.6], [16.6, 40.8], [17.5, 40.6], [18.2, 40.2], [17.4, 39.5], [16.9, 38.8],
+      [16.2, 38.3], [15.7, 38.8], [16.0, 39.6], [15.4, 40.1],
+    ],
+  },
+  {
+    // 207–203: after Tarentum falls Hannibal holds only Bruttium, and holds it to
+    // the end.
+    id: "carthage-bruttium", polity: "carthage", name: "Hannibal in Bruttium", mapLabel: "BRUTTIUM", fromYear: -207, toYear: -203, certainty: "probable", labelAt: [16.4, 39.3],
+    ring: [[16.0, 40.0], [16.8, 39.9], [17.3, 39.3], [16.9, 38.7], [16.2, 38.2], [15.7, 38.7], [15.8, 39.4]],
   },
 
   // ── Third parties in the theatre ──────────────────────────────────────────

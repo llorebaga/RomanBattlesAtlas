@@ -13,9 +13,9 @@ Roman Campaign Atlas is an evidence-led interactive historical map of Roman warf
 - The map header and view follow the active era as you scrub; the theatre re-centres between wars
 - Roman and Carthaginian army and fleet routes with elapsed and future segments — including Hannibal's march over the Alps and Scipio's campaigns in Iberia and Africa
 - Filters, map key, year summary, accessible event list, and responsive battle panel
-- Principal event records for both Punic Wars, plus interwar context events
-- Data-driven dynamic detail pages at `/battles/[slug]`, with a richer layout for events that carry force, sequence, and casualty data (e.g. Mylae, Cannae, Zama)
-- Unit tests for historical dates, era assignment, route interpolation, year filtering, and data validation
+- A focus event for every one of the 69 years, and a battle or campaign drawn on the map in every one of them — the interbellum decades and the Sicilian and Greek theatres included, not just the famous marches
+- Data-driven dynamic detail pages at `/battles/[slug]`; every battle that carries a tactical diagram also carries strategic context, force estimates, and reported losses
+- Unit tests for historical dates, era assignment, route interpolation, year filtering, and data validation, plus year-by-year coverage tests over the whole mapped period
 - Server-render integration checks for the map and Mylae routes
 
 ## Technology
@@ -56,8 +56,8 @@ app/                    Routes (home, atlas, battles, methodology, about), layou
 components/home/        Homepage sections: hero, cards, timeline, preview, coverage
 components/map/         Map, timeline, legend, and event panel
 components/battles/     Battle-area map, sequence, sources
-data/                   Editable wars/eras, battles, routes, events, and sources
-lib/                    BCE dates, route interpolation, selectors, validation
+data/                   Editable wars/eras, battles, routes, events, diagrams, sources
+lib/                    BCE dates, route interpolation, selectors, validation, diagram label solver
 types/                  Strict historical data contracts
 tests/                  Unit and rendered-route integration tests
 ```
@@ -86,17 +86,27 @@ Every entry point on the home page goes through `lib/atlasLinks.ts`, so the atla
 5. Link neighboring slugs if the event belongs in the sequential detail navigation.
 6. Run `npm test` and visit `/battles/<slug>`.
 
-The reusable template gives every record a concise detail page. Any battle that carries `context`, `forces`, `moments`, or `casualties` automatically renders the richer multi-section layout (Mylae, Cannae, and Zama already do); Mylae additionally keeps a bespoke illustrated treatment.
+The reusable template gives every record a concise detail page. Any battle that carries `context`, `forces`, `moments`, or `casualties` automatically renders the richer multi-section layout; Mylae additionally keeps a bespoke illustrated treatment. A test requires every diagrammed battle to carry context, forces, and casualties, so the pages do not drift into looking half-finished next to each other. `moments` is the fallback sequence for a battle with no diagram — where a diagram exists it wins, so do not author both.
 
 ## Battle diagrams
 
-Battles carry stage-by-stage tactical diagrams in `data/battleDiagrams.ts`, keyed by slug and rendered by `components/battles/BattleDiagram.tsx`. They are diagrams, not pictures: no source gives unit positions, so each stage is an interpretation carrying its own certainty label, and `caveat` records what the drawing is deliberately not claiming.
+Twenty-six battles carry stage-by-stage tactical diagrams in `data/battleDiagrams.ts`, keyed by slug and rendered by `components/battles/BattleDiagram.tsx` — 104 stages in all. They are diagrams, not pictures: no source gives unit positions, so each stage is an interpretation carrying its own certainty label, and `caveat` records what the drawing is deliberately not claiming.
 
 The frame is abstract — 100 x 68, x rightward, y downward — never latitude and longitude. Frontages are relative; depth means something only where a source makes a point of it, such as the Roman mass at Cannae or the pike blocks at Cynoscephalae. Every stage of every diagram is rendered into the page, so the whole battle is present without JavaScript.
 
-To add one: write the stages, cite sources the battle record already lists, and run `npm test`. The suite checks that units sit inside the frame and belong to known factions, that a naval battle is fought in ships and a land battle is not, that both sides are present while the fight lasts, and that not every stage claims to be attested.
+### Vocabulary
 
-A battle with no diagram must have an entry in `NO_DIAGRAM_REASON` explaining why — a siege is not one action, and Sulci has a few lines of testimony that would not support a drawing. A test enforces that every battle has exactly one of the two.
+Units are `infantry`, `phalanx`, `skirmishers`, `cavalry`, `elephants`, `ships`, `camp`, or `works`. The last two carry the siege diagrams: a `camp` is drawn as a rectangle with its two crossing streets, and `works` as a continuous rampart hachured on its outer face — the convention a reader already knows from a survey plan, so a line of circumvallation reads as investment rather than as a formation. Terrain adds `town` and `wall` alongside the sea, river, hill, ridge, marsh, woods, and road features.
+
+### Labels place themselves
+
+Hand-placing labels does not survive twenty-six diagrams: move one unit and three captions collide. The data says *what* is labelled and `lib/diagramLabels.ts` decides *where*, trying the natural positions around each unit, area, or arrow and taking the first that clears the solid unit blocks, the drawn arrows, the stage caption, the faction key, and every label already placed. It is pure and deterministic, so the server and the client agree and the whole figure is in the HTML. An explicit `labelAt` in the data always wins, for the cases where the author knows something the solver does not.
+
+### Adding one
+
+Write the stages, cite sources the battle record already lists, and run `npm test`. The suite checks that units sit inside the frame and belong to known factions, that a naval battle is fought in ships and a land battle is not, that both sides are present while the fight lasts, that not every stage claims to be attested, and that a battle with a diagram also carries context, forces, and casualties.
+
+A battle with no diagram must have an entry in `NO_DIAGRAM_REASON` explaining why, and a test asserts that every battle has exactly one of the two. The bar is deliberately narrow: an unlocated site or a nine-year siege is *not* a reason to refuse, because what the sources give in those cases is the shape of the action and a frame that says it is schematic can carry that honestly. What cannot be drawn is an action nobody described (Sulci) or a campaign of months that was never one action at all (the African expedition, the Alpine crossing).
 
 ## Adding a war or era
 
@@ -105,6 +115,19 @@ Timeline segments live in `data/wars.ts` as an `eras` list (wars and the interbe
 ## Adding a campaign route
 
 Add a `CampaignRoute` to `data/campaigns.ts`. Route points must be chronological and use negative integers for BCE years. Add intermediate waypoints that follow plausible land corridors or sailing stages; never connect distant endpoints if that would imply an unrealistic path. Every point requires a certainty category and one or more source IDs.
+
+Marching armies stay on land and fleets stay at sea, and a test judges this on the *drawn curve* rather than the waypoints, because a smoothed line bows off the coast even when every waypoint is ashore. A leg that really was a crossing by ship is marked `viaSea: true` and drawn as fine dots. Two consequences worth knowing before you fight the test: a short leg between two long ones overshoots badly, so give a near-identical pair of waypoints a nearby neighbour or merge them; and where the bundled coastline is coarse — the Isthmus of Corinth, the Sicilian east coast — the corridor that reads as land is narrower than the real one.
+
+## Year-by-year coverage
+
+The atlas is read a year at a time, so the year is the unit that has to be complete. `tests/timeline-coverage.test.mjs` holds the line on that for all 69 years of 264–196 BCE:
+
+- every year has exactly one focus event, and no year has two;
+- every year has something drawn — a battle marker, a campaign route, or both;
+- every year has territory to colour, with Rome and Carthage always present;
+- the coloured zones change hands **only** in the twelve documented transition years, each named with the settlement or defection that caused it, and are otherwise still.
+
+That last one runs both ways: a transition that fails to happen and a zone that quietly appears in an undocumented year both fail. The table in the test is the record of when the map is supposed to move, so add to it deliberately.
 
 ## Historical method and uncertainty
 
@@ -144,7 +167,7 @@ The repository includes `.openai/hosting.json` and the Vinext/Sites build config
 - Route geometry is deliberately simplified and several legs remain provisional.
 - The campaign map's basemap is deliberately apolitical: sea, land, and coastline only, drawn from bundled Natural Earth data (public domain, `data/geo/mediterranean-land.json`, regenerate with `build/make-basemap.mjs`). It carries no modern borders or place names, so every political statement on the map comes from the territory layer. Coastlines are simplified for a regional view, which is why the map caps at zoom 7.
 - Battle detail pages keep a labeled modern basemap on purpose: that locator answers "where is this place today", so modern names are the point.
-- Thirteen battles have stage-by-stage tactical diagrams. The rest carry a stated reason instead, usually because they are sieges or multi-year campaigns rather than single actions, or because the surviving account is too thin to draw.
+- Twenty-six of the twenty-nine battles have stage-by-stage tactical diagrams; the three that do not carry a stated reason. Sieges and unlocated fields are drawn schematically, with the frame saying so.
 - Second Punic War coordinates for the Alpine crossing, Baecula, the Great Plains, and Zama are provisional and await scholarly review.
 - Monthly dating is sparse, so marker interpolation communicates campaign sequence rather than continuous measured travel.
 - The campaign map needs no tile service; battle detail pages still load CARTO tiles and so require an internet connection.

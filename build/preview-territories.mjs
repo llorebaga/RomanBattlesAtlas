@@ -11,7 +11,12 @@ import { campaignRoutes } from "../data/campaigns.ts";
 import { isRouteActive } from "../lib/routeInterpolation.ts";
 import { MAP_SCALE, projectPoint, smoothClosedPath, sampleOpenCurve } from "../lib/mapGeometry.ts";
 
-const YEARS = [-264, -241, -218, -201, -197];
+// The default set spans the three wars. Pass years as arguments (positive or
+// negative, BCE either way) to review a particular transition — the years a zone
+// changes hands are the ones worth looking at.
+const DEFAULT_YEARS = [-264, -241, -218, -201, -197];
+const requested = process.argv.slice(2).map(Number).filter(Number.isFinite);
+const YEARS = requested.length ? requested.map((year) => -Math.abs(year)) : DEFAULT_YEARS;
 // Window in degrees, converted to the map's projected units.
 const BOUNDS = { west: -11, east: 31, south: 28, north: 48 };
 const VIEW = {
