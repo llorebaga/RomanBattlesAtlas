@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { PrimaryNavigation } from "@/components/home/PrimaryNavigation";
 import { HomepageFooter } from "@/components/home/HomepageFooter";
 import { EvidenceLegend } from "@/components/home/EvidenceLegend";
-import { sources } from "@/data/sources";
+import { EvidenceRegister } from "@/components/home/EvidenceRegister";
 import { atlasHref } from "@/lib/atlasLinks";
 
 export const metadata: Metadata = {
@@ -14,9 +14,6 @@ export const metadata: Metadata = {
 };
 
 export default function MethodologyPage() {
-  const ancient = sources.filter((source) => source.kind === "ancient");
-  const modern = sources.filter((source) => source.kind === "modern");
-
   return (
     <>
       <PrimaryNavigation />
@@ -83,18 +80,14 @@ export default function MethodologyPage() {
         </section>
 
         <section aria-labelledby="sources">
-          <h2 id="sources">Sources</h2>
-          <p>Primary narratives are kept separate from modern scholarship throughout the atlas.</p>
-          <div className="hp-doc-columns">
-            <div>
-              <h3>Ancient testimony</h3>
-              <ul className="hp-doc-list">{ancient.map((source) => <li key={source.id}>{source.citation}{source.note ? ` — ${source.note}` : ""}</li>)}</ul>
-            </div>
-            <div>
-              <h3>Modern studies</h3>
-              <ul className="hp-doc-list">{modern.map((source) => <li key={source.id}>{source.citation}</li>)}</ul>
-            </div>
-          </div>
+          <h2 id="sources">The evidence register</h2>
+          <p>
+            Primary narratives are kept separate from modern scholarship throughout the atlas, and every citation is
+            checked against the years its source actually survives for. Livy wrote the Pyrrhic War in books that are
+            lost; Polybius&rsquo; third book stops at Cannae, so Zama cites his fifteenth. A test enforces it, and it
+            found sixty wrong citations the first time it ran.
+          </p>
+          <EvidenceRegister />
         </section>
 
         <p className="hp-section-more">

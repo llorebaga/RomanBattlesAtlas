@@ -223,6 +223,21 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
 /* Evidence + coverage */
 .hp-evidence-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(238px, 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
 .hp-evidence-list li { display: grid; gap: 10px; align-content: start; padding: 22px; border: 1px solid var(--hp-line); background: var(--hp-parchment); }
+/* The evidence register: each ancient text with what it survives for and how much
+   of the atlas leans on it. Numbered, because the order is chronological by the
+   earliest year each source can speak for. */
+.hp-register { display: grid; gap: 26px; }
+.hp-register-lede { max-width: 74ch; color: var(--hp-ink); font: 400 .92rem/1.65 Georgia, serif; }
+.hp-register-lede a { border-bottom: 1px solid var(--hp-line); }
+.hp-register-heading { padding-bottom: 8px; border-bottom: 1px solid var(--hp-line); font: 400 1.05rem/1.2 var(--font-display); }
+.hp-register-list { display: grid; gap: 15px; margin: 0; padding-left: 26px; }
+.hp-register-list > li { padding-left: 6px; }
+.hp-register-list.hp-register-modern { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+.hp-register-cite { margin: 0; font: 400 .88rem/1.4 Georgia, serif; color: var(--hp-ink); }
+.hp-register-span { margin: 3px 0 0; color: var(--hp-bronze-dark); font: 700 .6rem/1.35 var(--font-body); letter-spacing: .07em; text-transform: uppercase; }
+.hp-register-note { margin: 5px 0 0; max-width: 76ch; color: var(--hp-muted); font: 400 .78rem/1.55 Georgia, serif; }
+.hp-register-leans { margin: 5px 0 0; color: var(--hp-sea-green); font: 700 .62rem/1.3 var(--font-body); letter-spacing: .05em; }
+@media (max-width: 700px) { .hp-register-list { padding-left: 20px; } }
 .hp-evidence-list p { margin: 0; color: #56594f; font-size: .84rem; line-height: 1.6; }
 .hp-coverage { width: 100%; border-collapse: collapse; font-size: .84rem; }
 .hp-coverage caption { caption-side: bottom; margin-top: 12px; }

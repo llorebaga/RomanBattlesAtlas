@@ -160,6 +160,12 @@ When adding a source, give it a real range. When a citation fails the test, the 
 is almost always to cite the book that actually preserves the event, not to widen
 the range.
 
+`/methodology` renders this as an evidence register: every ancient text in the order
+of the earliest year it can speak for, what it survives for, and how much of the
+atlas leans on it — plus how many battles rest on a single ancient text, which is
+currently eleven. Every figure there is counted from the citation data rather than
+written out, and a test guards against anyone hardcoding them back.
+
 ## Year-by-year coverage
 
 The atlas is read a year at a time, so the year is the unit that has to be complete. `tests/timeline-coverage.test.mjs` holds the line on that for all 314 years of 509–196 BCE:

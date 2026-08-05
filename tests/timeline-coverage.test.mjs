@@ -288,3 +288,28 @@ test("every ancient source declares what it survives for, and is used", () => {
   const unused = sources.filter((source) => !cited.has(source.id)).map((source) => source.id);
   assert.deepEqual(unused, [], "sources declared but never cited");
 });
+
+test("the evidence register's own figures are countable from the data", () => {
+  // The methodology page states how many texts carry the atlas and how many battles
+  // hang on a single one. Both are rendered from these counts rather than written
+  // out, so this test is really a guard against someone hardcoding them back.
+  const ancient = sources.filter((source) => source.kind === "ancient");
+  const modern = sources.filter((source) => source.kind === "modern");
+  assert.ok(ancient.length > 0 && modern.length > 0);
+  assert.equal(ancient.length + modern.length, sources.length, "every source is ancient or modern");
+
+  // Every battle must name at least one ancient text: the atlas does not present a
+  // battle on modern authority alone.
+  for (const battle of battles) {
+    assert.ok(battle.ancientSourceIds.length >= 1, `${battle.slug}: no ancient testimony cited`);
+    assert.ok(battle.modernSourceIds.length >= 1, `${battle.slug}: no modern scholarship cited`);
+    for (const id of battle.ancientSourceIds) {
+      const source = sources.find((entry) => entry.id === id);
+      assert.equal(source?.kind, "ancient", `${battle.slug}: ${id} is listed as ancient testimony but is not`);
+    }
+    for (const id of battle.modernSourceIds) {
+      const source = sources.find((entry) => entry.id === id);
+      assert.equal(source?.kind, "modern", `${battle.slug}: ${id} is listed as modern scholarship but is not`);
+    }
+  }
+});
