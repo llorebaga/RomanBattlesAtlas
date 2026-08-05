@@ -1678,7 +1678,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
 
   capua: {
     scaleNote: "The double lines around Capua, drawn as a ring because that was their function. Their actual circuit is not located, and the frame stands for the whole plain of Campania around the city.",
-    sourceIds: ["livy-21-30", "goldsworthy-2000"],
+    sourceIds: ["polybius-9", "livy-21-30"],
     terrain: [
       { id: "capua", kind: "town", at: [50, 30], size: [22, 10], label: "Capua" },
     ],
@@ -1752,7 +1752,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
   "new-carthage": {
     scaleNote: "The peninsula, the harbour and the lagoon behind it, with the isthmus by which the city was joined to the mainland. Proportions are schematic; the depth of the lagoon is the disputed part of the story.",
     orientation: "The harbour lies south of the city, the lagoon north, the isthmus east.",
-    sourceIds: ["polybius-3", "livy-21-30"],
+    sourceIds: ["polybius-10", "livy-21-30"],
     terrain: [
       { id: "lagoon", kind: "sea", points: [[0, 0], [72, 0], [72, 22], [0, 22]], label: "the shallow lagoon" },
       { id: "harbour", kind: "sea", points: [[0, 46], [72, 46], [72, 68], [0, 68]], label: "the harbour" },
@@ -1825,7 +1825,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
 
   baecula: {
     scaleNote: "A camp on a terraced height with a river behind it. Several sites on the upper Guadalquivir have been proposed and none is agreed, so the frame follows Polybius' description of the ground rather than any of them.",
-    sourceIds: ["polybius-3", "goldsworthy-2000"],
+    sourceIds: ["polybius-10", "goldsworthy-2000"],
     terrain: [
       { id: "river", kind: "river", points: [[0, 6], [30, 8], [64, 5], [100, 7]], label: "a river at his back", labelAt: [50, 12] },
       // Drawn as nested contours, the way a hill is drawn on a map: the terrace is
@@ -1901,7 +1901,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
 
   metaurus: {
     scaleNote: "The action along the Metaurus; the field has never been securely located.",
-    sourceIds: ["polybius-3", "livy-21-30"],
+    sourceIds: ["polybius-11", "livy-21-30"],
     terrain: [
       { id: "river", kind: "river", points: [[0, 14], [32, 17], [66, 13], [100, 16]], label: "Metaurus" },
       { id: "ravine", kind: "marsh", points: [[8, 30], [24, 28], [26, 44], [10, 46]], label: "broken ground" },
@@ -1969,7 +1969,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
 
   ilipa: {
     scaleNote: "Scipio's reversed array on the lower Guadalquivir; the reconstruction rests on Polybius.",
-    sourceIds: ["polybius-3", "goldsworthy-2000"],
+    sourceIds: ["polybius-11", "goldsworthy-2000"],
     terrain: [
       { id: "hills", kind: "hill", points: [[20, 6], [80, 6], [82, 18], [18, 18]], label: "high ground" },
     ],
@@ -2042,7 +2042,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
 
   "great-plains": {
     scaleNote: "Relative frontages on open ground in the upper Bagradas valley. The district called the Great Plains is only broadly placed, and the diagram claims proportion, not position.",
-    sourceIds: ["polybius-3", "livy-21-30"],
+    sourceIds: ["polybius-14", "livy-21-30"],
     terrain: [
       { id: "river", kind: "river", points: [[0, 8], [32, 10], [66, 7], [100, 9]], label: "the upper Bagradas", labelAt: [50, 14] },
     ],
@@ -2124,7 +2124,7 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
 
   zama: {
     scaleNote: "Relative frontages on open inland ground; the site itself has never been securely identified.",
-    sourceIds: ["polybius-3", "livy-21-30", "appian-hann"],
+    sourceIds: ["polybius-15", "livy-21-30", "appian-hann"],
     terrain: [],
     stages: [
       {

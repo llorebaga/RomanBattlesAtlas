@@ -130,6 +130,36 @@ For everything the Punic wars rest on there is Polybius, writing within living m
 
 Hues are also reused across periods. Nine belligerents cannot share five separable colours, but the atlas only ever draws one year at a time and the powers of archaic Italy were finished before Carthage and Macedon appear — so Samnium takes Macedon's indigo and the Latin League takes Numidia's amber. `tests/territory-render.test.mjs` enforces the rule that makes this legitimate: **two factions sharing a colour must never hold territory in the same year.** Etruria and Epirus needed hues of their own, because Carthage held Africa throughout and Pyrrhus ruled Syracuse.
 
+## Citations are checked against what survives
+
+Every ancient source in `data/sources.ts` declares the years it actually survives
+for, and a test asserts that nothing — battle, diagram, or route waypoint — is ever
+cited outside them. Modern scholarship carries no range and is exempt.
+
+This is not bookkeeping. It found sixty wrong citations on its first run:
+
+- The Pyrrhic battles cited Livy. Livy wrote that war in books 12–14 and **those
+  books are lost**; what survives is the Periochae, a paragraph per book. Heraclea,
+  Asculum, Beneventum and Tarentum now cite Plutarch, Appian's Samnite fragments and
+  the Periochae.
+- Seven Second Punic battles cited Polybius' Book 3, which **stops at Cannae**.
+  Polybius survives complete only to Book 5; after that it is fragments distributed
+  by book, so Capua is Book 9, New Carthage and Baecula Book 10, the Metaurus and
+  Ilipa Book 11, the Great Plains Book 14, Zama Book 15.
+- The Illyrian and Cisalpine wars and Barcid Iberia cited Book 1 or Book 3 where
+  the material is in Book 2.
+
+A source may declare several ranges, because a narrative can double back: Polybius'
+Book 2 is about 237–220 BCE but pauses to recount the Gallic sack of 390, and that
+is why it is a legitimate citation for both. Where a text survives only in
+fragments, or only complete to a certain year, the range says so — Dionysius is
+complete to 443 BCE and fragments thereafter — and the battle page prints it under
+the citation, so a reader can see how much weight it bears.
+
+When adding a source, give it a real range. When a citation fails the test, the fix
+is almost always to cite the book that actually preserves the event, not to widen
+the range.
+
 ## Year-by-year coverage
 
 The atlas is read a year at a time, so the year is the unit that has to be complete. `tests/timeline-coverage.test.mjs` holds the line on that for all 314 years of 509–196 BCE:

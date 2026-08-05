@@ -5,7 +5,7 @@ import { campaignRoutes } from "../data/campaigns.ts";
 import { historicalEvents } from "../data/events.ts";
 import { territoriesForYear } from "../data/territories.ts";
 import { battleDiagrams, NO_DIAGRAM_REASON } from "../data/battleDiagrams.ts";
-import { sources } from "../data/sources.ts";
+import { sources, sourceCoversYear } from "../data/sources.ts";
 import { eras } from "../data/wars.ts";
 import { isRouteActive } from "../lib/routeInterpolation.ts";
 import { eventCoversYear, eventForYear } from "../lib/historySelectors.ts";
@@ -239,4 +239,52 @@ test("the battle chain reads in order and joins up", () => {
     }
     if (battle.nextSlug) assert.ok(bySlug.get(battle.nextSlug), `${battle.slug}: nextSlug ${battle.nextSlug} does not exist`);
   }
+});
+
+test("no source is cited for years it does not survive for", () => {
+  // The check that makes a citation mean something. Livy wrote the Pyrrhic War in
+  // books 12–14 and those books are lost; Polybius' Book 3 stops at Cannae, so
+  // Zama belongs to Book 15. A citation outside a text's surviving range points a
+  // reader at something that does not discuss the event — or does not exist.
+  const byId = new Map(sources.map((source) => [source.id, source]));
+  const problems = [];
+  const check = (id, year, where) => {
+    const source = byId.get(id);
+    if (!source || source.kind !== "ancient") return;
+    if (sourceCoversYear(source, year)) return;
+    const ranges = source.covers.map((r) => `${Math.abs(r.fromYear)}–${Math.abs(r.toYear)}`).join(", ");
+    problems.push(`${where}: cites ${id} for ${Math.abs(year)} BCE, but it covers ${ranges} BCE`);
+  };
+
+  for (const battle of battles) {
+    for (const id of battle.ancientSourceIds) check(id, battle.startYear, `battle ${battle.slug}`);
+  }
+  for (const [slug, diagram] of Object.entries(battleDiagrams)) {
+    const battle = battles.find((entry) => entry.slug === slug);
+    for (const id of diagram.sourceIds ?? []) check(id, battle.startYear, `diagram ${slug}`);
+  }
+  for (const route of campaignRoutes) {
+    for (const point of route.points) {
+      for (const id of point.sourceIds) check(id, point.year, `route ${route.id} at "${point.label}"`);
+    }
+  }
+  assert.deepEqual(problems, []);
+});
+
+test("every ancient source declares what it survives for, and is used", () => {
+  for (const source of sources) {
+    if (source.kind !== "ancient") continue;
+    assert.ok(source.covers?.length, `${source.id}: an ancient source must declare its surviving range`);
+    for (const range of source.covers) {
+      assert.ok(range.fromYear <= range.toYear, `${source.id}: inverted range`);
+    }
+  }
+  // A source nobody cites is either a gap in the citations or dead weight in the list.
+  const cited = new Set([
+    ...battles.flatMap((battle) => [...battle.ancientSourceIds, ...battle.modernSourceIds]),
+    ...Object.values(battleDiagrams).flatMap((diagram) => diagram.sourceIds ?? []),
+    ...campaignRoutes.flatMap((route) => route.points.flatMap((point) => point.sourceIds)),
+  ]);
+  const unused = sources.filter((source) => !cited.has(source.id)).map((source) => source.id);
+  assert.deepEqual(unused, [], "sources declared but never cited");
 });

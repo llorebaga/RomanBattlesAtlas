@@ -42,6 +42,21 @@ export interface HistoricalSource {
   kind: "ancient" | "modern";
   citation: string;
   note?: string;
+  /**
+   * The years this text actually covers — for an ancient source, the years it
+   * *survives* for.
+   *
+   * This is not decoration. Livy wrote the Pyrrhic War in books 12–14 and those
+   * books are lost; Polybius' Book 3 stops at Cannae and Zama is in Book 15. A
+   * citation outside these ranges sends a reader to a text that does not discuss
+   * the event, or does not exist. A test asserts every citation falls inside one
+   * of its source's ranges.
+   *
+   * Several ranges are allowed because a narrative can double back: Polybius'
+   * Book 2 is about 237–220 BCE but pauses to recount the Gallic sack of 390.
+   * Modern works carry no range and are exempt.
+   */
+  covers?: { fromYear: number; toYear: number; note?: string }[];
 }
 
 export interface CampaignRoutePoint {

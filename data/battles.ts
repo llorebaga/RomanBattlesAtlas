@@ -22,7 +22,7 @@ const earlyItalyAncient = ["livy-1-5", "dionysius-hal"];
 const earlyItalyModern = ["cornell-1995", "forsythe-2005"];
 const midItalyAncient = ["livy-6-10", "dionysius-hal"];
 const midItalyModern = ["oakley-1997", "salmon-1967"];
-const pyrrhicAncient = ["plutarch-pyrrhus", "livy-6-10"];
+const pyrrhicAncient = ["plutarch-pyrrhus", "appian-samnite", "livy-periochae"];
 const pyrrhicModern = ["champion-2009", "cornell-1995"];
 
 const earlyRepublic: Battle[] = [
@@ -99,11 +99,11 @@ const earlyRepublic: Battle[] = [
     previousSlug: "allia", nextSlug: "trifanum",
   },
   {
-    id: "trifanum", slug: "trifanum", name: "Battle of Trifanum", kind: "land", startYear: -339, endYear: -339, displayDate: "339 BCE", location: "Trifanum, between Sinuessa and Minturnae (site unidentified)", coordinates: [13.85, 41.22], uncertainty: { radiusKm: 16, certainty: "disputed", note: "Placed on the coast road between Sinuessa and Minturnae; the exact site is unknown." }, major: false,
+    id: "trifanum", slug: "trifanum", name: "Battle of Trifanum", kind: "land", startYear: -340, endYear: -340, displayDate: "340 BCE", location: "Trifanum, between Sinuessa and Minturnae (site unidentified)", coordinates: [13.85, 41.22], uncertainty: { radiusKm: 16, certainty: "disputed", note: "Placed on the coast road between Sinuessa and Minturnae; the exact site is unknown." }, major: false,
     belligerents: ["Rome", "The Latin League and the Campanians"], commanders: [{ faction: "rome", names: ["Titus Manlius Torquatus"], certainty: "probable" }, { faction: "latin", names: ["Unknown"], certainty: "disputed" }], result: "Decisive Roman victory",
-    summary: "The Latin and Campanian armies were broken in a second pitched battle, which ended organised resistance and left Rome free to dictate the settlement of Latium.",
-    significance: "Trifanum decided the Latin War in its second season. What followed — the dissolution of the League and its replacement by separate, unequal treaties — was the constitutional invention on which Roman Italy was built.",
-    context: "After Vesuvius the Latins and Campanians put another army into the field on the coast road south of Latium. Livy passes over the battle quickly, which for a decisive engagement usually means his sources had little to say. Its consequence is what matters: within a year Rome was legislating for cities that had been its equals, annexing some outright with citizenship, tying others to Rome alone and forbidding them to deal with one another.",
+    summary: "Weeks after Vesuvius, the Latin and Campanian armies were broken in a second pitched battle on the coast road, which ended organised resistance in the field and left Rome free to dictate the settlement of Latium.",
+    significance: "Trifanum decided the Latin War in its first season. What followed — the dissolution of the League and its replacement by separate, unequal treaties — was the constitutional invention on which Roman Italy was built.",
+    context: "Within weeks of Vesuvius the Latins and Campanians put another army into the field on the coast road south of Latium. Livy passes over the battle quickly, which for a decisive engagement usually means his sources had little to say. Its consequence is what matters: within a year Rome was legislating for cities that had been its equals, annexing some outright with citizenship, tying others to Rome alone and forbidding them to deal with one another.",
     forces: [
       { side: "Rome", estimate: "A consular army under Manlius Torquatus", certainty: "probable" },
       { side: "The Latin League", estimate: "The remaining Latin and Campanian levies", certainty: "probable", note: "No totals survive for either side." },
@@ -113,7 +113,7 @@ const earlyRepublic: Battle[] = [
       { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
     ],
     ancientSourceIds: midItalyAncient, modernSourceIds: midItalyModern,
-    uncertaintyNotes: ["The site is unidentified.", "Livy's account is brief and may compress more than one action.", "The chronology of the Latin War's two campaigns is not entirely secure."],
+    uncertaintyNotes: ["The site is unidentified.", "Livy's account is brief and may compress more than one action.", "Livy places Trifanum in the same year as Vesuvius, weeks after it; some modern accounts put it in 339, which would make the war a two-season affair."],
     previousSlug: "vesuvius", nextSlug: "caudine-forks",
   },
   {
@@ -238,7 +238,7 @@ const earlyRepublic: Battle[] = [
       { side: "Tarentum", estimate: "The city surrendered on terms; its walls were demolished and its fleet handed over", certainty: "probable", note: "It kept its own laws, and the harshness came later, after it defected to Hannibal." },
       { side: "Rome", estimate: "Not preserved; the siege was decided by negotiation rather than assault", certainty: "probable" },
     ],
-    ancientSourceIds: ["livy-6-10", "plutarch-pyrrhus"], modernSourceIds: pyrrhicModern,
+    ancientSourceIds: ["plutarch-pyrrhus", "livy-periochae", "zonaras-8"], modernSourceIds: pyrrhicModern,
     uncertaintyNotes: ["Livy's narrative for these years survives only in summary, so the detail is thin.", "Whether a Carthaginian fleet took part, and on whose invitation, is disputed.", "The Roman siege works are not located."],
     previousSlug: "beneventum", nextSlug: "messana",
   },
@@ -274,7 +274,7 @@ const firstPunicWar: Battle[] = [
       { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
       { side: "Carthage", estimate: "Not preserved; the sources record withdrawal rather than losses", certainty: "disputed", note: "The Carthaginian commander in the strait was reportedly executed at home for letting the crossing happen." },
     ],
-    ancientSourceIds: commonAncient, modernSourceIds: commonModern, uncertaintyNotes: ["Accounts compress multiple confrontations around Messana.", "Exact troop movements shown on the atlas are schematic."], previousSlug: "tarentum", nextSlug: "agrigentum"
+    ancientSourceIds: ["polybius-1", "diodorus-23"], modernSourceIds: commonModern, uncertaintyNotes: ["Accounts compress multiple confrontations around Messana.", "Exact troop movements shown on the atlas are schematic."], previousSlug: "tarentum", nextSlug: "agrigentum"
   },
   {
     id: "agrigentum", slug: "agrigentum", name: "Siege of Agrigentum", kind: "siege", startYear: -262, endYear: -261, displayDate: "262–261 BCE", location: "Akragas (Agrigento), southern Sicily", coordinates: [13.58, 37.31], uncertainty: { radiusKm: 6, certainty: "probable", note: "The urban location is known; siege works and field actions are not precisely located." }, major: true,
@@ -288,7 +288,7 @@ const firstPunicWar: Battle[] = [
       { side: "Rome", estimate: "Heavy from disease and hunger over the winter rather than in the fighting", certainty: "disputed" },
       { side: "Carthage", estimate: "The relief army broken; the garrison escaped intact", certainty: "attested", note: "The city's people were sold into slavery — Diodorus gives 25,000 — which cost Rome Sicilian sympathy for years." },
     ],
-    ancientSourceIds: commonAncient, modernSourceIds: commonModern, uncertaintyNotes: ["The sequence and geography of the relief battle remain reconstructed."], previousSlug: "messana", nextSlug: "mylae"
+    ancientSourceIds: ["polybius-1", "diodorus-23"], modernSourceIds: commonModern, uncertaintyNotes: ["The sequence and geography of the relief battle remain reconstructed."], previousSlug: "messana", nextSlug: "mylae"
   },
   {
     id: "mylae", slug: "mylae", name: "Battle of Mylae", kind: "naval", startYear: -260, endYear: -260, displayDate: "260 BCE", location: "Waters off Mylae (modern Milazzo), Sicily", coordinates: [15.23, 38.29], uncertainty: { radiusKm: 18, certainty: "probable", note: "The general coastal setting is accepted; the precise battle area is unknown." }, major: true,
@@ -542,7 +542,7 @@ const secondPunicWar: Battle[] = [
       { side: "Carthage", estimate: "The city surrendered; its ruling council was executed and the population sold or dispersed", certainty: "attested", note: "Reports of how many senators died, and how many took poison first, vary." },
       { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
     ],
-    ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The chronology of the siege and Hannibal’s demonstration against Rome is compressed in the sources.", "The scale of the reprisals against Capua is variously reported."], previousSlug: "syracuse", nextSlug: "new-carthage"
+    ancientSourceIds: ["polybius-9", "livy-21-30"], modernSourceIds: secondModern, uncertaintyNotes: ["The chronology of the siege and Hannibal’s demonstration against Rome is compressed in the sources.", "The scale of the reprisals against Capua is variously reported."], previousSlug: "syracuse", nextSlug: "new-carthage"
   },
   {
     id: "new-carthage", slug: "new-carthage", name: "Capture of New Carthage", kind: "siege", startYear: -209, endYear: -209, displayDate: "209 BCE", location: "Carthago Nova (Cartagena), south-eastern Iberia", coordinates: [-0.983, 37.6], uncertainty: { radiusKm: 5, certainty: "probable", note: "The harbour city is secure; the assault route across the lagoon is reconstructed." }, major: true,
@@ -556,7 +556,7 @@ const secondPunicWar: Battle[] = [
       { side: "Carthage", estimate: "The city taken in a single day with heavy loss among the defenders and inhabitants", certainty: "probable", note: "Mago surrendered the citadel; the craftsmen of the arsenal were kept and put to Roman work." },
       { side: "Rome", estimate: "Not preserved; reported as light for an assault on a walled city", certainty: "disputed" },
     ],
-    ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The mechanism of the lagoon crossing (wind, tide, or ford) is debated.", "The speed of the march and assault may be idealized in the tradition."], previousSlug: "capua", nextSlug: "baecula"
+    ancientSourceIds: ["polybius-10", "livy-21-30"], modernSourceIds: secondModern, uncertaintyNotes: ["The mechanism of the lagoon crossing (wind, tide, or ford) is debated.", "The speed of the march and assault may be idealized in the tradition."], previousSlug: "capua", nextSlug: "baecula"
   },
   {
     id: "baecula", slug: "baecula", name: "Battle of Baecula", kind: "land", startYear: -208, endYear: -208, displayDate: "208 BCE", location: "Near Baecula, upper Guadalquivir (site debated)", coordinates: [-3.1, 38.03], uncertainty: { radiusKm: 30, certainty: "disputed", note: "The identification with a modern site is contested." }, major: false,
@@ -570,7 +570,7 @@ const secondPunicWar: Battle[] = [
       { side: "Carthage", estimate: "Livy gives 8,000 dead, but a large part of the army withdrew in order", certainty: "disputed", note: "How much escaped is the substance of the modern argument about the battle." },
       { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
     ],
-    ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The battlefield location is disputed among several Guadalquivir sites.", "How much of Hasdrubal’s force escaped is debated."], previousSlug: "new-carthage", nextSlug: "metaurus"
+    ancientSourceIds: ["polybius-10", "livy-21-30"], modernSourceIds: secondModern, uncertaintyNotes: ["The battlefield location is disputed among several Guadalquivir sites.", "How much of Hasdrubal’s force escaped is debated."], previousSlug: "new-carthage", nextSlug: "metaurus"
   },
   {
     id: "metaurus", slug: "metaurus", name: "Battle of the Metaurus", kind: "land", startYear: -207, endYear: -207, displayDate: "207 BCE", location: "Along the river Metaurus, near Fanum Fortunae (Fano)", coordinates: [12.9, 43.7], uncertainty: { radiusKm: 20, certainty: "disputed", note: "The action is fixed to the river, but the precise field is uncertain." }, major: true,
@@ -584,7 +584,7 @@ const secondPunicWar: Battle[] = [
       { side: "Carthage", estimate: "The army destroyed and Hasdrubal killed in the fighting", certainty: "attested", note: "Polybius gives around 10,000 dead; Livy's 57,000 is not credible." },
       { side: "Rome", estimate: "Reported as about 2,000 by Polybius and 8,000 by Livy", certainty: "disputed" },
     ],
-    ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The exact battlefield along the Metauro is not established.", "The dramatic account of Nero’s forced march is shaped by later tradition."], previousSlug: "baecula", nextSlug: "ilipa"
+    ancientSourceIds: ["polybius-11", "livy-21-30"], modernSourceIds: secondModern, uncertaintyNotes: ["The exact battlefield along the Metauro is not established.", "The dramatic account of Nero’s forced march is shaped by later tradition."], previousSlug: "baecula", nextSlug: "ilipa"
   },
   {
     id: "ilipa", slug: "ilipa", name: "Battle of Ilipa", kind: "land", startYear: -206, endYear: -206, displayDate: "206 BCE", location: "Near Ilipa, lower Guadalquivir (Alcalá del Río)", coordinates: [-5.98, 37.52], uncertainty: { radiusKm: 15, certainty: "probable", note: "The general area is accepted; the deployment is reconstructed from Polybius." }, major: true,
@@ -598,7 +598,7 @@ const secondPunicWar: Battle[] = [
       { side: "Carthage", estimate: "The army broken up; Hasdrubal Gisco reached Gades with a remnant and Mago left for Italy", certainty: "probable", note: "Carthage put no further field army into Iberia." },
       { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
     ],
-    ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The tactical reconstruction depends heavily on Polybius.", "Army sizes are debated."], previousSlug: "metaurus", nextSlug: "great-plains"
+    ancientSourceIds: ["polybius-11", "livy-21-30"], modernSourceIds: secondModern, uncertaintyNotes: ["The tactical reconstruction depends heavily on Polybius.", "Army sizes are debated."], previousSlug: "metaurus", nextSlug: "great-plains"
   },
   {
     id: "great-plains", slug: "great-plains", name: "Battle of the Great Plains", kind: "land", startYear: -203, endYear: -203, displayDate: "203 BCE", location: "Bagradas (Medjerda) valley, the Campi Magni, Africa", coordinates: [9.0, 36.4], uncertainty: { radiusKm: 35, certainty: "disputed", note: "The ‘Great Plains’ district is broadly placed on the upper Bagradas." }, major: false,
@@ -612,7 +612,7 @@ const secondPunicWar: Battle[] = [
       { side: "Carthage", estimate: "The Celtiberians destroyed almost entirely; the cavalry escaped after breaking early", certainty: "probable", note: "Mercenaries in Africa had nowhere to run to and no expectation of quarter." },
       { side: "Rome", estimate: "Not preserved; reported as slight", certainty: "disputed" },
     ],
-    ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The exact location of the Campi Magni is not fixed.", "The sequence with the preceding ‘Battle of the Camps’ is compressed in the sources."], previousSlug: "ilipa", nextSlug: "zama"
+    ancientSourceIds: ["polybius-14", "livy-21-30"], modernSourceIds: secondModern, uncertaintyNotes: ["The exact location of the Campi Magni is not fixed.", "The sequence with the preceding ‘Battle of the Camps’ is compressed in the sources."], previousSlug: "ilipa", nextSlug: "zama"
   },
   {
     id: "zama", slug: "zama", name: "Battle of Zama", kind: "land", startYear: -202, endYear: -202, displayDate: "202 BCE", location: "Interior of modern Tunisia, near Zama (exact site disputed)", coordinates: [9.55, 36.05], uncertainty: { radiusKm: 45, certainty: "disputed", note: "No securely identified battlefield; several inland sites west of Carthage are proposed." }, major: true,
@@ -632,7 +632,7 @@ const secondPunicWar: Battle[] = [
       { title: "Cavalry returns", description: "The allied Numidian and Roman cavalry, having driven off their opponents, struck Hannibal’s rear.", certainty: "attested" },
       { title: "Envelopment", description: "Caught front and rear, the Carthaginian line collapsed.", certainty: "probable" },
     ],
-    ancientSourceIds: ["polybius-3", "livy-21-30", "appian-hann"], modernSourceIds: ["lazenby-1978", "goldsworthy-2000"], uncertaintyNotes: ["The battlefield has never been securely located.", "Whether the site was Zama, Naraggara, or elsewhere is debated.", "Army sizes and casualty figures are literary."], previousSlug: "great-plains"
+    ancientSourceIds: ["polybius-15", "livy-21-30", "appian-hann"], modernSourceIds: ["lazenby-1978", "goldsworthy-2000"], uncertaintyNotes: ["The battlefield has never been securely located.", "Whether the site was Zama, Naraggara, or elsewhere is debated.", "Army sizes and casualty figures are literary."], previousSlug: "great-plains"
   },
 ];
 
