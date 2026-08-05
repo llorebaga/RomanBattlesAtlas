@@ -267,8 +267,18 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
 
 /* Map figures */
 .hp-map { display: block; width: 100%; height: auto; }
-.hp-map-animate .hp-map-points > g, .hp-map-animate .hp-map-routes > path { animation: hpMarkIn .9s ease-out both; }
+.hp-map-animate .hp-map-points > g { animation: hpMarkIn .9s ease-out both; }
 @keyframes hpMarkIn { from { opacity: 0; } to { opacity: 1; } }
+/* The route draws itself from its first waypoint to its last, by sweeping the mask
+   that reveals it. The dash units are normalised by pathLength="1" on the mask
+   path, so one rule covers every window size. Both the dash pattern and the offset
+   live in the keyframes: with the animation off — reduced motion, or a still
+   figure — the mask path has no dasharray at all and the route is simply there. */
+@keyframes hpRouteDraw {
+  from { stroke-dasharray: 1 1; stroke-dashoffset: 1; }
+  to { stroke-dasharray: 1 1; stroke-dashoffset: 0; }
+}
+.hp-map-animate .hp-route-reveal { animation: hpRouteDraw 2.8s cubic-bezier(.35, 0, .3, 1) both; }
 
 @media (max-width: 1080px) {
   .hp-featured { grid-template-columns: minmax(0, 1fr); }
@@ -307,7 +317,7 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
 
 /* Motion is decoration here: the marks are already visible without it. */
 @media (prefers-reduced-motion: reduce) {
-  .hp-map-animate .hp-map-points > g, .hp-map-animate .hp-map-routes > path { animation: none; }
+  .hp-map-animate .hp-map-points > g, .hp-map-animate .hp-route-reveal { animation: none; }
   .hp-explore-card:hover, .hp-period-card:hover, .hp-battle-card:hover, .hp-button-primary:hover { transform: none; }
 }
 

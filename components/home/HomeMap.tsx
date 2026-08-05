@@ -14,6 +14,11 @@ export interface HomeMapPoint {
   kind?: "land" | "naval" | "siege" | "campaign";
   /** Order of appearance for the staggered fade-in. */
   order?: number;
+  /**
+   * Overrides the staggered delay, in seconds. Used to land a mark at the moment
+   * the drawing route reaches it, so the march appears to arrive somewhere.
+   */
+  delaySeconds?: number;
 }
 
 export interface HomeMapRoutePoint {
@@ -85,28 +90,57 @@ export function HomeMap({ bounds = DEFAULT_BOUNDS, points = [], routes = [], ani
       </g>
       {routes.length > 0 && (
         <g className="hp-map-routes">
-          {routes.map((route, index) => (
-            <g key={route.id} style={animate ? { animationDelay: `${0.3 + index * 0.45}s` } : undefined}>
-              {routeRuns(route.points).map((run, runIndex) => {
-                const d = `M${run.points.map((point) => { const [x, y] = projectPoint(point); return `${x.toFixed(1)} ${y.toFixed(1)}`; }).join("L")}`;
-                return (
-                  <path
-                    key={runIndex}
-                    d={d}
-                    fill="none"
-                    stroke={route.color}
-                    strokeOpacity={run.sea ? 0.72 : 0.95}
-                    strokeWidth={(run.sea ? 1.7 : 2.4) * scale}
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    // A march is a nearly solid line so it visibly joins the places it
-                    // links; a sea crossing is a fine dotted track, as on the atlas.
-                    strokeDasharray={run.sea ? `${0.8 * scale} ${2.6 * scale}` : `${7 * scale} ${3 * scale}`}
-                  />
-                );
-              })}
-            </g>
-          ))}
+          {routes.map((route, index) => {
+            const runs = routeRuns(route.points);
+            const project = (points: Coordinates[]) =>
+              `M${points.map((point) => { const [x, y] = projectPoint(point); return `${x.toFixed(1)} ${y.toFixed(1)}`; }).join("L")}`;
+            // One continuous path through the whole route, used only as a mask that
+            // sweeps from the first waypoint to the last. The visible line is dashed,
+            // so it cannot draw itself by animating its own dash offset — that would
+            // set the dashes marching instead of revealing the route.
+            const whole = project(runs.flatMap((run) => run.points));
+            const maskId = `hp-route-reveal-${route.id}`;
+            return (
+              <g key={route.id}>
+                {animate && (
+                  <defs>
+                    <mask id={maskId} maskUnits="userSpaceOnUse" x={view.x} y={view.y} width={view.width} height={view.height}>
+                      <path
+                        d={whole}
+                        fill="none"
+                        stroke="#fff"
+                        strokeWidth={7 * scale}
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        // pathLength normalises the dash units to the whole path, so the
+                        // reveal needs no measurement and works at any window.
+                        pathLength={1}
+                        className="hp-route-reveal"
+                        style={{ animationDelay: `${0.35 + index * 0.45}s` }}
+                      />
+                    </mask>
+                  </defs>
+                )}
+                <g mask={animate ? `url(#${maskId})` : undefined}>
+                  {runs.map((run, runIndex) => (
+                    <path
+                      key={runIndex}
+                      d={project(run.points)}
+                      fill="none"
+                      stroke={route.color}
+                      strokeOpacity={run.sea ? 0.72 : 0.95}
+                      strokeWidth={(run.sea ? 1.7 : 2.4) * scale}
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      // A march is a nearly solid line so it visibly joins the places it
+                      // links; a sea crossing is a fine dotted track, as on the atlas.
+                      strokeDasharray={run.sea ? `${0.8 * scale} ${2.6 * scale}` : `${7 * scale} ${3 * scale}`}
+                    />
+                  ))}
+                </g>
+              </g>
+            );
+          })}
         </g>
       )}
       {points.length > 0 && (
@@ -127,7 +161,8 @@ export function HomeMap({ bounds = DEFAULT_BOUNDS, points = [], routes = [], ani
             const [x, y] = projectPoint(point.coordinates);
             const radius = (point.kind === "campaign" ? 4.6 : 5.4) * scale;
             const keyline = 1.1 * scale;
-            const style = animate ? { animationDelay: `${0.5 + (point.order ?? index) * 0.22}s` } : undefined;
+            const delay = point.delaySeconds ?? 0.5 + (point.order ?? index) * 0.22;
+            const style = animate ? { animationDelay: `${delay}s` } : undefined;
             // The mark says what kind of action it was, which is why some of them sit
             // out at sea. A ring reads as a fleet action, a square as a walled place.
             if (point.kind === "naval") {

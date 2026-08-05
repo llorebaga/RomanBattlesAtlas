@@ -6,38 +6,37 @@ import { battles } from "@/data/battles";
 import { atlasTotals } from "@/lib/coverage";
 import { HomeMap, type HomeMapPoint, type HomeMapRoute } from "./HomeMap";
 
-// A restrained composition: the Mediterranean, a handful of decisive places, and
-// three campaign lines. Everything is drawn from the atlas's own data.
+// One march, drawing itself: Hannibal from New Carthage over the Pyrenees, the
+// Rhône and the Alps into Apulia. A single line across two-thirds of the frame
+// reads better behind a headline than three competing ones did, and it is the
+// journey most people already half-know.
 //
-// Every mark is either an end of a drawn line or a decisive action on one, so the
-// lines and the places belong to the same story rather than sitting on the same
-// picture. Messana and Mylae are 30 km apart and merged into one smudge, so the
-// First Punic War is represented by the battle that ended it.
-const HERO_SLUGS = ["aegates", "new-carthage", "cannae", "zama", "cynoscephalae"];
-const HERO_POINTS: HomeMapPoint[] = HERO_SLUGS.flatMap((slug, order) => {
+// The two marks are its ends and nothing else. Earlier versions carried five, of
+// which three sat on no line at all — which is the same mismatch, just quieter.
+const HERO_ROUTE_ID = "hannibal-march-to-italy";
+// Cannae appears as the line reaches it, so the march arrives somewhere rather
+// than the destination being there all along waiting for it.
+const HERO_MARKS: { slug: string; delaySeconds: number }[] = [
+  { slug: "new-carthage", delaySeconds: 0.45 },
+  { slug: "cannae", delaySeconds: 2.75 },
+];
+const HERO_POINTS: HomeMapPoint[] = HERO_MARKS.flatMap(({ slug, delaySeconds }, order) => {
   const battle = battles.find((entry) => entry.slug === slug);
-  return battle ? [{ id: battle.id, coordinates: battle.coordinates, kind: battle.kind, order }] : [];
+  return battle ? [{ id: battle.id, coordinates: battle.coordinates, kind: battle.kind, order, delaySeconds }] : [];
 });
 
-// Taken from the campaign data rather than redrawn: the atlas's routes are
+// Taken from the campaign data rather than redrawn: the atlas's route is
 // geographically corrected (marches follow land, fleets stay at sea), and the hero
-// must not contradict them with a line of its own that cuts across the water.
-const routeById = (id: string, color: string): HomeMapRoute[] => {
-  const route = campaignRoutes.find((entry) => entry.id === id);
+// must not contradict it with a line of its own that cuts across the water.
+const HERO_ROUTES: HomeMapRoute[] = (() => {
+  const route = campaignRoutes.find((entry) => entry.id === HERO_ROUTE_ID);
   if (!route) return [];
   return [{
     id: route.id,
-    color,
+    color: "var(--hp-roman-red)",
     points: route.points.map((point) => ({ coordinates: point.coordinates, viaSea: point.viaSea })),
   }];
-};
-const HERO_ROUTES: HomeMapRoute[] = [
-  ...routeById("hannibal-march-to-italy", "var(--hp-roman-red)"),
-  ...routeById("scipio-african-expedition", "var(--hp-bronze)"),
-  // Not --hp-mark: that is the same value as --hp-roman-red, so the eastern line
-  // read as a detached continuation of Hannibal's march.
-  ...routeById("roman-illyria-advance", "var(--hp-deep-blue)"),
-];
+})();
 
 export function HomepageHero() {
   const totals = atlasTotals();
@@ -46,7 +45,7 @@ export function HomepageHero() {
     <section className="hp-hero" aria-labelledby="hp-hero-title">
       <div className="hp-hero-visual" aria-hidden="true">
         <HomeMap
-          title="The Mediterranean world, with decisive battles and campaign routes"
+          title="Hannibal’s march from New Carthage into Italy, drawn across the Mediterranean world"
           bounds={{ west: -11, east: 31, south: 30, north: 48 }}
           points={HERO_POINTS}
           routes={HERO_ROUTES}
