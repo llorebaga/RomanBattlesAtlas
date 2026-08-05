@@ -88,6 +88,16 @@ Every entry point on the home page goes through `lib/atlasLinks.ts`, so the atla
 
 The reusable template gives every record a concise detail page. Any battle that carries `context`, `forces`, `moments`, or `casualties` automatically renders the richer multi-section layout (Mylae, Cannae, and Zama already do); Mylae additionally keeps a bespoke illustrated treatment.
 
+## Battle diagrams
+
+Battles carry stage-by-stage tactical diagrams in `data/battleDiagrams.ts`, keyed by slug and rendered by `components/battles/BattleDiagram.tsx`. They are diagrams, not pictures: no source gives unit positions, so each stage is an interpretation carrying its own certainty label, and `caveat` records what the drawing is deliberately not claiming.
+
+The frame is abstract — 100 x 68, x rightward, y downward — never latitude and longitude. Frontages are relative; depth means something only where a source makes a point of it, such as the Roman mass at Cannae or the pike blocks at Cynoscephalae. Every stage of every diagram is rendered into the page, so the whole battle is present without JavaScript.
+
+To add one: write the stages, cite sources the battle record already lists, and run `npm test`. The suite checks that units sit inside the frame and belong to known factions, that a naval battle is fought in ships and a land battle is not, that both sides are present while the fight lasts, and that not every stage claims to be attested.
+
+A battle with no diagram must have an entry in `NO_DIAGRAM_REASON` explaining why — a siege is not one action, and Sulci has a few lines of testimony that would not support a drawing. A test enforces that every battle has exactly one of the two.
+
 ## Adding a war or era
 
 Timeline segments live in `data/wars.ts` as an `eras` list (wars and the interbellum periods between them). Each era sets its year span, a header label, and a `mapView` the map eases to when the timeline enters it. The overall scrubber bounds are derived from this list; if you add an era outside 264–201 BCE, also update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` — a unit test asserts the two stay in sync. Tag each battle, route, and event with the matching `war` id.
@@ -134,7 +144,7 @@ The repository includes `.openai/hosting.json` and the Vinext/Sites build config
 - Route geometry is deliberately simplified and several legs remain provisional.
 - The campaign map's basemap is deliberately apolitical: sea, land, and coastline only, drawn from bundled Natural Earth data (public domain, `data/geo/mediterranean-land.json`, regenerate with `build/make-basemap.mjs`). It carries no modern borders or place names, so every political statement on the map comes from the territory layer. Coastlines are simplified for a regional view, which is why the map caps at zoom 7.
 - Battle detail pages keep a labeled modern basemap on purpose: that locator answers "where is this place today", so modern names are the point.
-- Only Mylae currently has the fully illustrated bespoke treatment; other major battles use the shared rich layout.
+- Thirteen battles have stage-by-stage tactical diagrams. The rest carry a stated reason instead, usually because they are sieges or multi-year campaigns rather than single actions, or because the surviving account is too thin to draw.
 - Second Punic War coordinates for the Alpine crossing, Baecula, the Great Plains, and Zama are provisional and await scholarly review.
 - Monthly dating is sparse, so marker interpolation communicates campaign sequence rather than continuous measured travel.
 - The campaign map needs no tile service; battle detail pages still load CARTO tiles and so require an internet connection.

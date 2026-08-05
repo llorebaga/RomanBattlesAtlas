@@ -91,6 +91,82 @@ export interface BattleMoment {
   certainty: Certainty;
 }
 
+// ── Tactical diagrams ──────────────────────────────────────────────────────
+// A battle drawn stage by stage: how it opened, how it turned, how it ended.
+//
+// These are diagrams, not pictures. No surviving source gives unit positions, so
+// every stage is an interpretation and says so with its own certainty label. The
+// frame is abstract: 0–100 on both axes, x rightward, y downward (screen space),
+// never latitude and longitude — the point is the shape of the action, not a
+// survey of ground.
+
+export type DiagramUnitKind =
+  | "infantry"      // legion, Libyan foot, Gallic and Iberian foot
+  | "phalanx"       // pike block: deep, brittle at the flanks
+  | "skirmishers"   // velites, slingers, peltasts
+  | "cavalry"
+  | "elephants"
+  | "ships"
+  | "camp"
+  | "works";        // siege lines, ramparts, walls
+
+export interface DiagramUnit {
+  id: string;
+  faction: Faction;
+  kind: DiagramUnitKind;
+  label?: string;
+  /** Centre of the formation, in frame units. */
+  at: [number, number];
+  /** [frontage, depth] in frame units. Depth carries real meaning for a phalanx. */
+  size?: [number, number];
+  /** Degrees clockwise; 0 faces up the frame. */
+  facing?: number;
+  /** Broken or fleeing: drawn dashed and faded. */
+  routed?: boolean;
+}
+
+export interface DiagramArrow {
+  id: string;
+  from: [number, number];
+  to: [number, number];
+  faction?: Faction;
+  kind?: "move" | "attack" | "retreat" | "missile";
+  label?: string;
+  /** Sideways bow, in frame units; positive curves clockwise. */
+  bow?: number;
+}
+
+export interface DiagramTerrain {
+  id: string;
+  kind: "sea" | "coast" | "river" | "hill" | "ridge" | "woods" | "marsh" | "town" | "wall" | "road";
+  label?: string;
+  /** Outline or centreline, depending on the feature. */
+  points?: [number, number][];
+  at?: [number, number];
+  size?: [number, number];
+}
+
+export interface DiagramStage {
+  id: string;
+  title: string;
+  description: string;
+  certainty: Certainty;
+  units: DiagramUnit[];
+  arrows?: DiagramArrow[];
+  /** What the diagram is deliberately not claiming at this stage. */
+  caveat?: string;
+}
+
+export interface BattleDiagram {
+  /** Roughly how much ground the frame stands for, stated plainly. */
+  scaleNote: string;
+  /** Which way is north, when the sources support saying so. */
+  orientation?: string;
+  terrain: DiagramTerrain[];
+  stages: DiagramStage[];
+  sourceIds?: string[];
+}
+
 export interface Battle {
   id: string;
   slug: string;

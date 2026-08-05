@@ -388,3 +388,61 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
 }
+
+/* ── Battle diagrams ───────────────────────────────────────────────────────
+   Tactical stages drawn from data. Muted ground and terrain so the faction
+   colours and the movement arrows carry the reading. */
+.bd {
+  --bd-ground: #efe9db;
+  --bd-sea: #cfe0e4;
+  --bd-marsh: #d9dcc8;
+  --bd-woods: #cdd6c0;
+  --bd-hill: #e3dac4;
+  --bd-contour: #b3a68a;
+  --bd-river: #8fb4c4;
+  --bd-coast: #a9a08a;
+  --bd-town: #ddd2ba;
+  --bd-works: #8d8065;
+  --bd-road: #b6a98d;
+  --bd-edge: #4a463c;
+  margin-top: 22px;
+}
+.bd-stage { position: relative; border: 1px solid #a9a193; background: var(--bd-ground); }
+.bd-panel[hidden] { display: none; }
+.bd-figure { display: block; width: 100%; height: auto; }
+.bd-figure text { font-family: var(--font-body); }
+.bd-unit-label { font-size: 2.1px; font-weight: 600; fill: #3c3a32; letter-spacing: .06px; }
+.bd-terrain-label { font-size: 2.2px; fill: #6c6455; letter-spacing: .1px; }
+.bd-arrow-label { font-size: 2px; fill: #4a463c; font-style: italic; }
+.bd-ticks { display: flex; gap: 4px; margin: 0; padding: 8px 10px; list-style: none; border-top: 1px solid #cfc6b4; background: rgba(255,253,246,.6); }
+.bd-ticks li { flex: 1; height: 3px; background: #d8cfba; }
+.bd-ticks li.is-past { background: #b99a6b; }
+.bd-ticks li.is-active { background: var(--bronze-dark); }
+.bd-controls { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 0; }
+.bd-controls button { display: inline-flex; align-items: center; gap: 6px; padding: 8px 13px; border: 1px solid #b3a992; background: #fffdf6; color: var(--ink); font-size: .74rem; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; cursor: pointer; }
+.bd-controls button:hover:not(:disabled) { border-color: var(--charcoal); }
+.bd-controls button:disabled { opacity: .4; cursor: not-allowed; }
+.bd-counter { margin: 0; color: var(--muted); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+.bd-stages { display: grid; gap: 1px; margin: 6px 0 0; padding: 0; list-style: none; background: var(--line); border: 1px solid var(--line); }
+.bd-stages > li { background: #faf7ef; }
+.bd-stages > li.is-active { background: #fffdf6; }
+.bd-stages button { display: grid; grid-template-columns: 34px 1fr; gap: 12px; width: 100%; padding: 14px 16px; border: 0; border-left: 3px solid transparent; background: transparent; text-align: left; cursor: pointer; }
+.bd-stages > li.is-active button { border-left-color: var(--bronze-dark); }
+.bd-stage-number { color: var(--bronze); font: 400 .9rem/1.4 var(--font-display); }
+.bd-stage-copy { display: grid; gap: 6px; }
+.bd-stage-copy strong { font: 400 1rem/1.3 var(--font-display); }
+.bd-stage-copy > span { color: #56594f; font-size: .84rem; line-height: 1.6; }
+.bd-stage-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.bd-stage-meta em { color: var(--muted); font-size: .74rem; }
+.bd-legend { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 12px; }
+.bd-legend-keys { display: flex; flex-wrap: wrap; gap: 6px 14px; }
+.bd-legend-keys span { display: inline-flex; align-items: center; gap: 6px; color: #4f544c; font-size: .72rem; }
+.bd-legend-keys i { width: 12px; height: 8px; border: 1px solid var(--bd-edge); }
+.bd-scale { display: flex; align-items: flex-start; gap: 7px; margin: 0; max-width: 62ch; color: var(--muted); font-size: .72rem !important; line-height: 1.5; }
+.diagram-absent { padding: 16px 18px; border-left: 3px solid var(--line); background: #f1ece1; color: #55594f; font-size: .88rem !important; }
+
+@media (max-width: 620px) {
+  .bd-stages button { grid-template-columns: 26px 1fr; gap: 9px; padding: 12px 12px; }
+  .bd-controls button { padding: 9px 11px; }
+  .bd-unit-label, .bd-arrow-label { font-size: 2.6px; }
+}
