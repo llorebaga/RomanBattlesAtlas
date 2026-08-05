@@ -1,6 +1,6 @@
 :HL["/RomanBattlesAtlas/_next/static/chunks/0.zspf4ux_d86.css","style"]
-:HL["/RomanBattlesAtlas/_next/static/chunks/0v_nfv1shpvqb.css","style"]
+:HL["/RomanBattlesAtlas/_next/static/chunks/0~9fq_x503h1..css","style"]
 :HL["/RomanBattlesAtlas/_next/static/media/797e433ab948586e-s.p.08e28id.o-okb.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/RomanBattlesAtlas/_next/static/media/caa3a2e1cccd8315-s.p.09~u27dqhyhd6.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/RomanBattlesAtlas/_next/static/media/ec2f4458eb06f74e-s.p.09_wjtigl~olh.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"battles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"africa-invasion","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"1tF3owPdHP0H22bpWir4o"}
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"battles","param":null,"prefetchHints":0,"slots":{"children":{"name":"slug","param":{"type":"d","key":"africa-invasion","siblings":null},"prefetchHints":0,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}}}}}},"staleTime":300,"buildId":"R5531hgzjG1WRudVn40mR"}
