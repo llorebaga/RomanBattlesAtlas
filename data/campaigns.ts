@@ -929,6 +929,163 @@ const lateRepublicanRoutes: CampaignRoute[] = [
   },
 ];
 
+// ── Spain, Jugurtha and the Cimbri, 145–100 BCE ───────────────────────────
+//
+// The Cimbric route is the only one in the atlas that is not an army's line of
+// operations but a people's migration, drawn over thirteen years. It is also the
+// only one whose direction is decided by the enemy: every Roman route in this
+// block is a response to where the Cimbri had already gone.
+const marianRoutes: CampaignRoute[] = [
+  {
+    id: "roman-spain-viriathus",
+    name: "The Lusitanian and Numantine wars",
+    faction: "rome",
+    forceType: "army",
+    startYear: -145,
+    endYear: -133,
+    certainty: "speculative",
+    description: "Twelve years of consular armies in Spain against two enemies who would not fight a battle: Viriathus in the west, who beat or evaded every commander sent against him until three of his own men were bribed to kill him, and then Numantia on the Celtiberian plateau. The line joins the theatres, not a march — no one army did this.",
+    points: [
+      { year: -145, label: "Corduba", coordinates: [-4.78, 37.9], certainty: "probable", sourceIds: ["appian-iberica"] },
+      { year: -143, label: "Into Lusitania", coordinates: [-7.0, 39.2], certainty: "speculative", sourceIds: ["appian-iberica"] },
+      { year: -139, label: "The Tagus valley", coordinates: [-5.5, 39.8], certainty: "speculative", sourceIds: ["appian-iberica"] },
+      { year: -134, label: "North to Numantia", coordinates: [-2.44, 41.81], certainty: "attested", sourceIds: ["appian-iberica"] },
+    ],
+  },
+  {
+    id: "roman-asia-aristonicus",
+    name: "Taking possession of the bequest",
+    faction: "rome",
+    forceType: "army",
+    startYear: -132,
+    endYear: -129,
+    certainty: "probable",
+    description: "Attalus III left his kingdom to Rome in his will. Aristonicus refused to be inherited, raised western Asia — freeing slaves to do it — and killed a consul in the field. It took three campaigns to take possession of a province acquired on paper.",
+    points: [
+      { year: -132, label: "Pergamum", coordinates: [27.18, 39.13], certainty: "attested", sourceIds: ["livy-periochae-54-70"] },
+      { year: -131, label: "Up the Caicus", coordinates: [28.2, 38.9], certainty: "speculative", sourceIds: ["livy-periochae-54-70"] },
+      { year: -130, label: "Into inland Asia", coordinates: [28.9, 38.2], certainty: "speculative", sourceIds: ["livy-periochae-54-70"] },
+      { year: -129, label: "The province organised at Ephesus", coordinates: [27.34, 37.94], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+    ],
+  },
+  {
+    id: "roman-narbonensis",
+    name: "The conquest of southern Gaul",
+    faction: "rome",
+    forceType: "army",
+    startYear: -128,
+    endYear: -114,
+    certainty: "probable",
+    description: "Rome takes the coast of southern Gaul largely to secure the land route to the Spanish provinces it already holds. The Allobroges and the Arverni are beaten in 121, a colony is planted at Narbo, and the road that will carry every army to Spain for the next century is Roman. It is also the ground the Cimbri will walk over.",
+    points: [
+      { year: -128, label: "Massilia", coordinates: [5.37, 43.3], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+      { year: -124, label: "Up the Rhône", coordinates: [4.81, 44.14], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+      { year: -121, label: "Against the Allobroges", coordinates: [5.3, 45.2], certainty: "attested", sourceIds: ["livy-periochae-54-70"] },
+      { year: -118, label: "The colony at Narbo", coordinates: [3.0, 43.4], certainty: "attested", sourceIds: ["livy-periochae-54-70"] },
+      { year: -114, label: "Garrisoning the province", coordinates: [4.0, 43.7], certainty: "speculative", sourceIds: ["livy-periochae-54-70"] },
+    ],
+  },
+  {
+    id: "metellus-marius-numidia",
+    name: "Metellus and Marius in Numidia",
+    faction: "rome",
+    forceType: "army",
+    startYear: -112,
+    endYear: -105,
+    certainty: "probable",
+    description: "Seven years of a war Rome kept nearly settling and then not settling. Metellus took the command in 109 and made it a methodical reduction of towns; Marius, his legate, took it from him by election in 107 and pushed Jugurtha west until he had nowhere left but his father-in-law's kingdom. The war ended in a betrayal rather than a battle.",
+    points: [
+      { year: -112, month: 4, label: "Sailing from Sicily", coordinates: [12.43, 37.8], certainty: "speculative", sourceIds: ["sallust-jugurtha"] },
+      { year: -112, month: 6, label: "Landing at Utica", coordinates: [10.06, 37.06], certainty: "probable", sourceIds: ["sallust-jugurtha"], viaSea: true },
+      { year: -109, label: "Into the interior", coordinates: [9.2, 36.2], certainty: "probable", sourceIds: ["sallust-jugurtha"] },
+      { year: -108, label: "The Muthul", coordinates: [8.6, 35.9], certainty: "attested", sourceIds: ["sallust-jugurtha"] },
+      { year: -107, label: "Thala", coordinates: [8.0, 35.3], certainty: "probable", sourceIds: ["sallust-jugurtha"] },
+      { year: -106, label: "Capsa stormed", coordinates: [8.7, 34.4], certainty: "probable", sourceIds: ["sallust-jugurtha"] },
+      { year: -105, label: "West towards Mauretania", coordinates: [5.5, 34.6], certainty: "probable", sourceIds: ["sallust-jugurtha"] },
+    ],
+  },
+  {
+    id: "jugurtha-numidia",
+    name: "Jugurtha's war of movement",
+    faction: "numidia",
+    forceType: "army",
+    startYear: -112,
+    endYear: -105,
+    certainty: "probable",
+    description: "Jugurtha had commanded Numidian cavalry for Scipio at Numantia and had watched how a Roman army worked from inside the Roman camp. His war was built on never being caught: an army that could disperse under pressure and re-form somewhere else, in country where a Roman force had to march to water. It ended when his father-in-law handed him over.",
+    points: [
+      { year: -112, label: "Cirta taken", coordinates: [6.6, 36.36], certainty: "attested", sourceIds: ["sallust-jugurtha"] },
+      { year: -108, label: "The Muthul", coordinates: [8.6, 35.9], certainty: "attested", sourceIds: ["sallust-jugurtha"] },
+      { year: -106, label: "South to the desert edge", coordinates: [8.5, 34.2], certainty: "probable", sourceIds: ["sallust-jugurtha"] },
+      { year: -105, label: "To Bocchus, and handed over", coordinates: [4.5, 34.8], certainty: "attested", sourceIds: ["sallust-jugurtha"] },
+    ],
+  },
+  {
+    id: "cimbri-migration",
+    name: "The migration of the Cimbri and Teutones",
+    faction: "cimbri",
+    forceType: "army",
+    startYear: -113,
+    endYear: -101,
+    certainty: "speculative",
+    description: "Thirteen years of a people in motion, and the only route in the atlas whose direction Rome did not choose. They appear in the eastern Alps in 113, wander west across Gaul beating Roman armies as they go, destroy two of them on the Rhône in 105, turn away from an open road into Italy to spend three years in Spain, come back, split in two, and are annihilated one half at a time. The line between the named points is inference throughout.",
+    points: [
+      { year: -113, label: "Noreia", coordinates: [14.9, 46.9], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+      { year: -111, label: "West along the Danube", coordinates: [11.0, 47.6], certainty: "speculative", sourceIds: ["livy-periochae-54-70"] },
+      { year: -109, label: "Into Gaul", coordinates: [6.0, 47.0], certainty: "speculative", sourceIds: ["livy-periochae-54-70"] },
+      { year: -105, label: "The Rhône at Arausio", coordinates: [4.81, 44.14], certainty: "attested", sourceIds: ["livy-periochae-54-70", "plutarch-marius"] },
+      { year: -104, label: "Over the Pyrenees", coordinates: [0.4, 42.6], certainty: "speculative", sourceIds: ["plutarch-marius"] },
+      { year: -103, label: "Into Spain, and back", coordinates: [-1.5, 42.2], certainty: "probable", sourceIds: ["plutarch-marius"] },
+      { year: -102, label: "Back into Gaul, and split in two", coordinates: [2.0, 44.0], certainty: "probable", sourceIds: ["plutarch-marius"] },
+      { year: -101, label: "Over the Alps into Italy", coordinates: [8.42, 45.32], certainty: "attested", sourceIds: ["plutarch-marius"] },
+    ],
+  },
+  {
+    id: "marius-gaul",
+    name: "Marius in Gaul and the Po valley",
+    faction: "rome",
+    forceType: "army",
+    startYear: -104,
+    endYear: -101,
+    certainty: "probable",
+    description: "Two years of refusing battle, and then two summers of ending the war. Marius held his army on the Rhône, drilled it, and had it dig a canal to the sea to supply itself while the Cimbri were in Spain. When the migration came back and split, he destroyed the Teutones at Aquae Sextiae, then took the same army across the Alps to join Catulus and destroy the Cimbri at Vercellae.",
+    points: [
+      { year: -104, label: "The camp on the Rhône", coordinates: [4.75, 43.9], certainty: "probable", sourceIds: ["plutarch-marius"] },
+      { year: -103, label: "The canal to the sea", coordinates: [4.75, 43.55], certainty: "attested", sourceIds: ["plutarch-marius"] },
+      { year: -102, label: "Aquae Sextiae", coordinates: [5.45, 43.53], certainty: "attested", sourceIds: ["plutarch-marius"] },
+      { year: -101, month: 4, label: "Over the Alpine foot into Italy", coordinates: [7.2, 44.6], certainty: "probable", sourceIds: ["plutarch-marius"] },
+      { year: -101, month: 7, label: "Vercellae", coordinates: [8.42, 45.32], certainty: "attested", sourceIds: ["plutarch-marius"] },
+    ],
+  },
+  {
+    id: "roman-sicily-servile",
+    name: "The Second Servile War in Sicily",
+    faction: "rome",
+    forceType: "army",
+    startYear: -104,
+    endYear: -100,
+    certainty: "probable",
+    description: "While Marius was rebuilding the army in Gaul, Sicily was in the hands of a slave revolt for four years — the second in a generation on the same island, and put down only after the Cimbric war freed troops to do it. It is on the map because a province in revolt for four years is not a quiet stretch, whatever the summaries give it.",
+    points: [
+      { year: -104, label: "Syracuse", coordinates: [15.29, 37.07], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+      { year: -102, label: "Enna", coordinates: [14.28, 37.57], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+      { year: -100, label: "Triocala", coordinates: [13.2, 37.5], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+    ],
+  },
+];
+
+// Which era segment each Marian-era route belongs to, matching data/wars.ts.
+const MARIAN_ROUTE_ERA: Record<string, string> = {
+  "roman-spain-viriathus": "iberian-wars",
+  "roman-asia-aristonicus": "gracchan-crisis",
+  "roman-narbonensis": "gracchan-crisis",
+  "metellus-marius-numidia": "jugurthine-war",
+  "jugurtha-numidia": "jugurthine-war",
+  "cimbri-migration": "cimbric-war",
+  "marius-gaul": "cimbric-war",
+  "roman-sicily-servile": "cimbric-war",
+};
+
 // Which era segment each late route belongs to, matching data/wars.ts. The Spanish
 // route spans three eras and is filed under the one that holds most of it.
 const LATE_ROUTE_ERA: Record<string, string> = {
@@ -966,4 +1123,5 @@ export const campaignRoutes: CampaignRoute[] = [
   // The two standing-garrison routes belong to the stretches they cover rather
   // than to a war, and Mummius' march belongs to 146 alongside the African siege.
   ...lateRepublicanRoutes.map((route) => ({ ...route, war: LATE_ROUTE_ERA[route.id] })),
+  ...marianRoutes.map((route) => ({ ...route, war: MARIAN_ROUTE_ERA[route.id] })),
 ];

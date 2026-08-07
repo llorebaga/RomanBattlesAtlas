@@ -85,6 +85,13 @@ export const factionList: FactionInfo[] = [
   // their employer's colour and are named in the label; this hue is for the
   // occasions when they were a belligerent in their own right.
   { id: "iberian", name: "Iberian peoples", adjective: "Iberian", color: "#a05a3c", role: "minor" },
+  // The Cimbri and Teutones take Carthage's blue, free from 146 and first needed in
+  // 113. They are the one belligerent in the atlas that never holds a territory
+  // zone, and that is the point rather than an omission: they were peoples on the
+  // move for a decade and a half, and drawing them as a shaded country would claim
+  // a homeland they had left and a conquest they never made. They exist here as
+  // routes and as the armies in four battle diagrams.
+  { id: "cimbri", name: "Cimbri and Teutones", adjective: "Cimbric", color: "#2a78d6", role: "belligerent" },
 
   // ── The powers of Italy, 509–265 BCE ───────────────────────────────────────
   // Each takes a hue already validated against Rome's red, borrowed from a power

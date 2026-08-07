@@ -23,7 +23,8 @@ test("clamps the continuous timeline across every era", () => {
   assert.equal(clampTimelineYear(-197), -197);
   assert.equal(clampTimelineYear(-190), -190);
   assert.equal(clampTimelineYear(-160), -160);
-  assert.equal(clampTimelineYear(-100), -146);
+  assert.equal(clampTimelineYear(-101), -101);
+  assert.equal(clampTimelineYear(-50), -100);
 });
 
 test("interpolates only active campaign routes", () => {
@@ -104,6 +105,22 @@ test("carries the middle Republic through to its end in 146", () => {
   assert.equal(eraForYear(-160)?.id, "after-pydna");
   assert.equal(eraForYear(-146)?.id, "punic-third");
   assert.ok(activeCampaigns(campaignRoutes, -165).some((route) => route.id === "roman-spain-annual"));
+});
+
+test("reaches the wars of Marius, and the army that stops belonging to the state", () => {
+  assert.ok(battlesForYear(battles, -105).some((battle) => battle.slug === "arausio"));
+  assert.ok(battlesForYear(battles, -102).some((battle) => battle.slug === "aquae-sextiae"));
+  assert.ok(battlesForYear(battles, -101).some((battle) => battle.slug === "vercellae"));
+  assert.equal(battles.find((battle) => battle.slug === "muthul")?.war, "jugurthine-war");
+  // Noreia and Arausio fall inside the Jugurthine era and belong to the Cimbric
+  // war: the two ran at once, and a year can only carry one era.
+  assert.equal(eraForYear(-105)?.id, "jugurthine-war");
+  assert.equal(battles.find((battle) => battle.slug === "arausio")?.war, "cimbric-war");
+  // The Cimbri are the one belligerent that never holds ground: they were peoples
+  // on the move, and a shaded country would claim a homeland they had left.
+  assert.equal(getFactionInfo("cimbri")?.role, "belligerent");
+  assert.ok(!territoriesForYear(-103).some((zone) => zone.polity === "cimbri"));
+  assert.ok(activeCampaigns(campaignRoutes, -103).some((route) => route.id === "cimbri-migration"));
 });
 
 test("territory zones evolve with the timeline", () => {

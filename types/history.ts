@@ -9,6 +9,7 @@ export type Faction =
   | "syracuse"
   | "greek"
   | "pergamon"
+  | "cimbri"
   | "iberian"
   // The powers of Italy before Rome held it.
   | "etruscan"
@@ -116,6 +117,17 @@ export interface TerritoryPeriod {
   labelAt?: Coordinates;
   /** Short name for the map itself; colour and legend carry the polity. */
   mapLabel?: string;
+  /**
+   * What this outline is not claiming.
+   *
+   * Required on any zone graded `disputed` or `speculative`, and enforced by a
+   * test. A grade on its own tells a reader that the shape is uncertain but not
+   * how — whether the frontier is guessed, the date approximate, or the whole
+   * outline a composite of two centuries that never existed in any single year.
+   * The map surfaces this on the zone itself, so the caveat travels with the
+   * shape instead of living in a source comment nobody reads.
+   */
+  note?: string;
 }
 
 export interface BattleMoment {

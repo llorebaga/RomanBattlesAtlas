@@ -28,6 +28,11 @@ const SIDE_FACTION: Record<string, Faction> = {
   "Seleucid Empire": "seleucid", Rhodes: "greek", Pergamum: "pergamon",
   "Rome and Pergamum": "rome", "Rome and Rhodes": "rome",
   "Rome, Pergamum and Carthage": "rome", "Rome and allies": "rome",
+  // Spain, Jugurtha and the Cimbri. The migrating peoples take their own hue;
+  // Numantia is Celtiberian and keeps the Iberian colour rather than borrowing
+  // an enemy’s.
+  Numantia: "iberian", "Cimbri and Teutones": "cimbri", Cimbri: "cimbri",
+  "Teutones and Ambrones": "cimbri", "Roman Republic and Numidia": "rome",
 };
 function sideColor(side: string): string {
   const faction = SIDE_FACTION[side];

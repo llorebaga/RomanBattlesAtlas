@@ -2960,6 +2960,367 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
       },
     ],
   },
+
+  // ── Spain, Jugurtha and the Cimbri ───────────────────────────────────────
+  // Four of these six are drawn from a single source each — Sallust for the
+  // Muthul, Plutarch for the two Marian battles — and one, Arausio, from summaries
+  // that say only that both armies were destroyed. The stages are graded
+  // accordingly, and Arausio's are deliberately the coarsest in the atlas.
+  numantia: {
+    scaleNote: "The hill of Numantia and the nine kilometres of wall around it. Uniquely in this atlas the siege works are not schematic — Schulten excavated the camps and the circumvallation, and their positions are known.",
+    orientation: "The Douro and its tributary enclose the hill on the north and east.",
+    sourceIds: ["appian-iberica"],
+    terrain: [
+      { id: "hill", kind: "hill", points: [[42, 26], [58, 24], [64, 34], [56, 44], [42, 42], [36, 34]], label: "Numantia", labelAt: [50, 17] },
+      { id: "river", kind: "river", points: [[20, 16], [40, 20], [62, 18], [80, 24]], label: "the Douro", labelAt: [76, 16] },
+      { id: "wall", kind: "wall", points: [[26, 20], [70, 16], [80, 34], [70, 52], [30, 54], [20, 36], [26, 20]], label: "the circumvallation", labelAt: [50, 62] },
+    ],
+    stages: [
+      {
+        id: "cleared",
+        title: "The army made into an army again",
+        description: "Scipio arrives to find a camp with more traders and camp followers than soldiers, expels them, and drills what is left. He does not attack.",
+        certainty: "attested",
+        units: [
+          { id: "town", faction: "iberian", kind: "works", at: [50, 34], size: [20, 14], label: "Numantia" },
+          { id: "rom", faction: "rome", kind: "infantry", at: [50, 60], size: [26, 4] },
+        ],
+      },
+      {
+        id: "invested",
+        title: "Seven camps and a wall",
+        description: "A continuous line is built round the town and the river is blocked with booms. The siege is now a question of supply rather than of assault.",
+        certainty: "attested",
+        units: [
+          { id: "town", faction: "iberian", kind: "works", at: [50, 34], size: [20, 14] },
+          { id: "c1", faction: "rome", kind: "camp", at: [24, 26], size: [8, 5] },
+          { id: "c2", faction: "rome", kind: "camp", at: [72, 24], size: [8, 5] },
+          { id: "c3", faction: "rome", kind: "camp", at: [76, 44], size: [8, 5] },
+          { id: "c4", faction: "rome", kind: "camp", at: [50, 56], size: [8, 5] },
+          { id: "c5", faction: "rome", kind: "camp", at: [22, 44], size: [8, 5] },
+        ],
+        caveat: "Seven camps are attested; five are drawn, because the frame cannot hold seven legibly and the point is the ring, not the count.",
+      },
+      {
+        id: "breakout",
+        title: "A breakout that finds no one",
+        description: "Rhetogenes gets a few men through the line to appeal to the other Celtiberian towns for help. None of them will move against Rome.",
+        certainty: "probable",
+        units: [
+          { id: "town", faction: "iberian", kind: "works", at: [50, 34], size: [20, 14] },
+          { id: "party", faction: "iberian", kind: "cavalry", at: [72, 52], size: [6, 3], label: "Rhetogenes" },
+          { id: "c3", faction: "rome", kind: "camp", at: [76, 44], size: [8, 5] },
+          { id: "c4", faction: "rome", kind: "camp", at: [50, 56], size: [8, 5] },
+        ],
+        arrows: [{ id: "a1", from: [62, 44], to: [76, 56], faction: "iberian", kind: "move", label: "out through the line" }],
+      },
+      {
+        id: "starved",
+        title: "Eight months",
+        description: "The town starves and surrenders. It is razed, and its territory divided among Rome's Spanish allies.",
+        certainty: "attested",
+        units: [
+          { id: "town", faction: "iberian", kind: "works", at: [50, 34], size: [20, 14], routed: true, label: "surrendered" },
+          { id: "rom", faction: "rome", kind: "infantry", at: [50, 52], size: [22, 4] },
+        ],
+        arrows: [{ id: "a1", from: [50, 49], to: [50, 43], faction: "rome", kind: "move" }],
+      },
+    ],
+  },
+
+  noreia: {
+    scaleNote: "A valley in the eastern Alps. Noreia has never been located, so this frame stands for the shape of an ambush that went wrong and for nothing on the ground.",
+    orientation: "The Cimbric column is moving south-west, from left to right.",
+    sourceIds: ["livy-periochae-54-70"],
+    terrain: [
+      { id: "slopes", kind: "hill", points: [[0, 6], [40, 2], [80, 6], [100, 4], [100, 22], [60, 26], [20, 22], [0, 24]], label: "the high ground", labelAt: [50, 14] },
+      { id: "road", kind: "road", points: [[4, 40], [30, 42], [60, 41], [96, 43]], label: "the line of march" },
+    ],
+    stages: [
+      {
+        id: "guided",
+        title: "Guides, and an ambush behind them",
+        description: "The Cimbri agree to leave Noric territory and accept Roman guides. Carbo has already put his army on the ground the guides are leading them to.",
+        certainty: "probable",
+        units: [
+          { id: "cim-column", faction: "cimbri", kind: "infantry", at: [26, 42], size: [26, 4], label: "the column, on the march" },
+          { id: "rom-hidden", faction: "rome", kind: "infantry", at: [60, 20], size: [22, 4], label: "Carbo, in position" },
+        ],
+        arrows: [{ id: "a1", from: [40, 42], to: [58, 42], faction: "cimbri", kind: "move" }],
+      },
+      {
+        id: "sprung",
+        title: "Sprung early, or seen coming",
+        description: "The attack goes in against a column that is not surprised. The sources say only that the Cimbri learned of the treachery; how is not recorded.",
+        certainty: "disputed",
+        units: [
+          { id: "cim-column", faction: "cimbri", kind: "infantry", at: [52, 40], size: [26, 5] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [56, 26], size: [22, 4] },
+        ],
+        arrows: [{ id: "a1", from: [56, 30], to: [54, 36], faction: "rome", kind: "attack" }],
+        caveat: "Whether the ambush was discovered, mistimed, or simply beaten is not recoverable — no narrative source survives.",
+      },
+      {
+        id: "destroyed",
+        title: "The army destroyed",
+        description: "The Roman line breaks and the army is cut to pieces. A storm is credited with ending the pursuit, which is either a real memory of Alpine weather or an explanation of why there were survivors at all.",
+        certainty: "probable",
+        units: [
+          { id: "cim-column", faction: "cimbri", kind: "infantry", at: [50, 32], size: [30, 6] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [58, 20], size: [22, 4], routed: true, label: "destroyed" },
+        ],
+        arrows: [{ id: "a1", from: [52, 28], to: [56, 24], faction: "cimbri", kind: "attack" }],
+      },
+    ],
+  },
+
+  muthul: {
+    scaleNote: "A ridge above the road down to the river Muthul, perhaps ten kilometres of front. Sallust describes the ground in detail and names nothing that can be found today.",
+    orientation: "The river lies south, at the bottom; the Roman column is marching towards it.",
+    sourceIds: ["sallust-jugurtha"],
+    terrain: [
+      { id: "ridge", kind: "ridge", points: [[4, 18], [30, 14], [60, 16], [88, 13], [96, 22], [60, 26], [30, 24], [6, 28]], label: "the ridge", labelAt: [50, 8] },
+      { id: "river", kind: "river", points: [[0, 60], [30, 62], [64, 61], [100, 63]], label: "the Muthul", labelAt: [16, 66] },
+    ],
+    stages: [
+      {
+        id: "strung-out",
+        title: "The column marches down to water",
+        description: "Metellus' army descends towards the river in march order. Jugurtha has put his army along the ridge above and behind it, and has been there since before the Romans arrived.",
+        certainty: "probable",
+        units: [
+          { id: "num-ridge", faction: "numidia", kind: "cavalry", at: [50, 22], size: [40, 4], label: "Jugurtha, on the ridge" },
+          { id: "rom-van", faction: "rome", kind: "infantry", at: [34, 46], size: [14, 4], label: "Rutilius, sent ahead" },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [62, 38], size: [18, 4], label: "the main body" },
+        ],
+        arrows: [{ id: "a1", from: [40, 46], to: [34, 54], faction: "rome", kind: "move", label: "to the river" }],
+      },
+      {
+        id: "come-down",
+        title: "Attacked while it cannot form a line",
+        description: "The Numidians come down on an army split between its vanguard and its main body, in country that lets cavalry get behind either.",
+        certainty: "probable",
+        units: [
+          { id: "num-a", faction: "numidia", kind: "cavalry", at: [36, 30], size: [18, 4] },
+          { id: "num-b", faction: "numidia", kind: "cavalry", at: [70, 28], size: [18, 4] },
+          { id: "rom-van", faction: "rome", kind: "infantry", at: [30, 50], size: [14, 4] },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [64, 40], size: [18, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [70, 32], to: [66, 37], faction: "numidia", kind: "attack" },
+          { id: "a2", from: [36, 34], to: [32, 46], faction: "numidia", kind: "attack" },
+        ],
+        caveat: "Sallust's Numidians disperse and re-form repeatedly rather than holding a line; the blocks here are positions in a sequence, not a formation.",
+      },
+      {
+        id: "water-held",
+        title: "The water is held",
+        description: "Rutilius' detachment reaches the river and keeps it. In this country that is the whole battle: an army that cannot drink cannot stay.",
+        certainty: "probable",
+        units: [
+          { id: "rom-van", faction: "rome", kind: "infantry", at: [30, 54], size: [16, 4], label: "on the river" },
+          { id: "num-b", faction: "numidia", kind: "cavalry", at: [66, 30], size: [18, 4] },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [64, 40], size: [18, 4] },
+        ],
+        arrows: [{ id: "a1", from: [64, 36], to: [66, 34], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "withdraws",
+        title: "A field held, and an army that walks away",
+        description: "The Romans clear the ridge and camp on the ground, which makes it a victory. Jugurtha's army disperses and re-forms elsewhere, undamaged, and the war goes on for three more years.",
+        certainty: "probable",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [50, 30], size: [30, 4], label: "on the ridge" },
+          { id: "num-away", faction: "numidia", kind: "cavalry", at: [84, 16], size: [16, 4], label: "withdrawn intact" },
+        ],
+        arrows: [{ id: "a1", from: [74, 20], to: [88, 12], faction: "numidia", kind: "retreat" }],
+      },
+    ],
+  },
+
+  arausio: {
+    scaleNote: "The Rhône near Arausio. The field is unlocated, and this frame claims only the one thing the sources are clear about: two Roman armies camped apart with the river behind them.",
+    orientation: "The Rhône runs down the frame; the Cimbri come from the north.",
+    sourceIds: ["livy-periochae-54-70", "plutarch-marius"],
+    terrain: [
+      { id: "rhone", kind: "river", points: [[50, 0], [46, 18], [52, 38], [48, 58], [54, 68]], label: "the Rhône", labelAt: [58, 60] },
+    ],
+    stages: [
+      {
+        id: "apart",
+        title: "Two armies that will not combine",
+        description: "Caepio is a proconsul and a patrician; Mallius is the consul and a new man. Caepio will not camp with him, and puts the river between them.",
+        certainty: "attested",
+        units: [
+          { id: "caepio", faction: "rome", kind: "infantry", at: [26, 30], size: [20, 5], label: "Caepio" },
+          { id: "mallius", faction: "rome", kind: "infantry", at: [74, 34], size: [20, 5], label: "Mallius (consul)" },
+          { id: "cimbri", faction: "cimbri", kind: "infantry", at: [50, 10], size: [30, 5], label: "the Cimbri" },
+        ],
+      },
+      {
+        id: "alone",
+        title: "Caepio attacks first, alone",
+        description: "Mallius has opened negotiations. To prevent a settlement that would be the consul's credit rather than his own, Caepio goes in with his own army.",
+        certainty: "probable",
+        units: [
+          { id: "caepio", faction: "rome", kind: "infantry", at: [30, 22], size: [20, 5], label: "Caepio, alone" },
+          { id: "mallius", faction: "rome", kind: "infantry", at: [74, 34], size: [20, 5] },
+          { id: "cimbri", faction: "cimbri", kind: "infantry", at: [48, 12], size: [32, 5] },
+        ],
+        arrows: [{ id: "a1", from: [32, 19], to: [40, 15], faction: "rome", kind: "attack" }],
+        caveat: "The motive is supplied by sources hostile to Caepio. That the two armies fought separately is not in doubt; why is a Roman explanation of a Roman disaster.",
+      },
+      {
+        id: "in-detail",
+        title: "Destroyed one after the other",
+        description: "Caepio's camp is overrun. The Cimbri then turn on Mallius, whose army has the Rhône at its back and nowhere to go.",
+        certainty: "probable",
+        units: [
+          { id: "caepio", faction: "rome", kind: "infantry", at: [30, 20], size: [18, 5], routed: true },
+          { id: "cimbri", faction: "cimbri", kind: "infantry", at: [56, 20], size: [34, 6] },
+          { id: "mallius", faction: "rome", kind: "infantry", at: [76, 36], size: [20, 5], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [64, 24], to: [74, 31], faction: "cimbri", kind: "attack" }],
+      },
+      {
+        id: "open",
+        title: "Italy left open, and not taken",
+        description: "Nothing organised remains between the Cimbri and Italy. They turn west into Spain instead — a decision no source explains, and the three years it buys are the reason Rome survives.",
+        certainty: "attested",
+        units: [
+          { id: "cimbri", faction: "cimbri", kind: "infantry", at: [46, 30], size: [34, 6] },
+          { id: "rome-none", faction: "rome", kind: "infantry", at: [82, 48], size: [10, 3], routed: true, label: "survivors" },
+        ],
+        arrows: [{ id: "a1", from: [32, 32], to: [10, 38], faction: "cimbri", kind: "move", label: "west, into Spain" }],
+      },
+    ],
+  },
+
+  "aquae-sextiae": {
+    scaleNote: "Hill country near Aquae Sextiae, perhaps three kilometres of front. The town is certain; which valley the action was fought in is argued over.",
+    orientation: "The Teutones are moving along the road below; the Romans hold the slope above it.",
+    sourceIds: ["plutarch-marius"],
+    terrain: [
+      { id: "slope", kind: "hill", points: [[0, 10], [30, 6], [64, 9], [100, 6], [100, 30], [64, 34], [30, 31], [0, 34]], label: "the slope", labelAt: [50, 20] },
+      { id: "road", kind: "road", points: [[2, 46], [34, 48], [68, 47], [98, 49]], label: "the road into Italy" },
+      { id: "woods", kind: "woods", points: [[6, 58], [26, 56], [30, 66], [8, 68]], label: "woods", labelAt: [18, 63] },
+    ],
+    stages: [
+      {
+        id: "past",
+        title: "Six days of watching them go by",
+        description: "The migration files past the fortified camp. Marius keeps his men behind the rampart and makes them look at it — his answer to an army that had been frightened of these people for eleven years.",
+        certainty: "probable",
+        units: [
+          { id: "teu", faction: "cimbri", kind: "infantry", at: [50, 46], size: [40, 5], label: "the Teutones, marching" },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [50, 22], size: [16, 6], label: "the Roman camp" },
+        ],
+        arrows: [{ id: "a1", from: [70, 46], to: [92, 47], faction: "cimbri", kind: "move" }],
+      },
+      {
+        id: "ambrones",
+        title: "The Ambrones caught at the water",
+        description: "A first action at a watercourse: the Ambrones, strung out crossing, are attacked by troops already formed and driven back on their own wagons.",
+        certainty: "probable",
+        units: [
+          { id: "amb", faction: "cimbri", kind: "infantry", at: [40, 46], size: [20, 5], routed: true, label: "the Ambrones" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [44, 32], size: [22, 4] },
+          { id: "teu", faction: "cimbri", kind: "infantry", at: [78, 46], size: [22, 5] },
+        ],
+        arrows: [{ id: "a1", from: [44, 36], to: [42, 42], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "hidden",
+        title: "Three thousand men put behind them",
+        description: "Marcellus takes a detachment into the woods behind the enemy line of march during the night, with orders to wait until the main lines are engaged.",
+        certainty: "attested",
+        units: [
+          { id: "teu", faction: "cimbri", kind: "infantry", at: [52, 44], size: [36, 5] },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [52, 30], size: [30, 4] },
+          { id: "rom-hidden", faction: "rome", kind: "infantry", at: [18, 60], size: [12, 3], label: "Marcellus, concealed" },
+        ],
+        arrows: [{ id: "a1", from: [30, 60], to: [44, 52], faction: "rome", kind: "move", bow: -4 }],
+        caveat: "A detachment held out of sight through a night and most of a day is the hardest claim in this diagram, and it rests on Plutarch alone.",
+      },
+      {
+        id: "both-sides",
+        title: "Front and rear at once",
+        description: "The Roman line comes down the slope into a formed enemy; at the moment of contact the concealed force attacks the rear. The Teutones cease to exist as a people.",
+        certainty: "probable",
+        units: [
+          { id: "teu", faction: "cimbri", kind: "infantry", at: [52, 44], size: [36, 6], routed: true, label: "broken" },
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [52, 34], size: [30, 4] },
+          { id: "rom-hidden", faction: "rome", kind: "infantry", at: [52, 58], size: [14, 3] },
+        ],
+        arrows: [
+          { id: "a1", from: [52, 38], to: [52, 41], faction: "rome", kind: "attack" },
+          { id: "a2", from: [52, 55], to: [52, 48], faction: "rome", kind: "attack" },
+        ],
+      },
+    ],
+  },
+
+  vercellae: {
+    scaleNote: "The Raudian plain, open ground in the Po valley. The site is not identified; what the frame claims is a flat field, a chosen hour, and the direction the Cimbri were made to face.",
+    orientation: "The Cimbri face east into the morning sun and the dust; the Romans come from the west.",
+    sourceIds: ["plutarch-marius"],
+    terrain: [
+      { id: "wagons", kind: "town", at: [88, 34], size: [10, 26], label: "the wagon laager" },
+    ],
+    stages: [
+      {
+        id: "joined",
+        title: "Two Roman armies, this time combined",
+        description: "Marius brings his veterans over from Gaul to Catulus, whose army the Cimbri had already pushed back. The contrast with Arausio four years earlier is the whole point.",
+        certainty: "attested",
+        units: [
+          { id: "cim", faction: "cimbri", kind: "infantry", at: [68, 34], size: [16, 26], label: "the Cimbri" },
+          { id: "marius", faction: "rome", kind: "infantry", at: [28, 24], size: [14, 14], label: "Marius' wing" },
+          { id: "catulus", faction: "rome", kind: "infantry", at: [28, 46], size: [14, 14], label: "Catulus' centre" },
+        ],
+      },
+      {
+        id: "hour",
+        title: "The hour and the facing chosen",
+        description: "Battle is offered at midday in high summer, on open ground, with the Cimbri facing east into the sun and into the dust their own advance raises.",
+        certainty: "probable",
+        units: [
+          { id: "cim", faction: "cimbri", kind: "infantry", at: [64, 34], size: [16, 28] },
+          { id: "marius", faction: "rome", kind: "infantry", at: [36, 22], size: [14, 14] },
+          { id: "catulus", faction: "rome", kind: "infantry", at: [36, 46], size: [14, 14] },
+        ],
+        arrows: [{ id: "a1", from: [44, 34], to: [54, 34], faction: "rome", kind: "attack", label: "into the dust" }],
+        caveat: "Heat, dust and the facing are given by the sources as decisive. They are also exactly what a victorious army's account would emphasise about an enemy from the north.",
+      },
+      {
+        id: "envelop",
+        title: "The wings close",
+        description: "Marius' wings come round a line that is already blinded and overheating in armour it is not used to. The fighting is over quickly.",
+        certainty: "probable",
+        units: [
+          { id: "cim", faction: "cimbri", kind: "infantry", at: [66, 34], size: [14, 24], routed: true },
+          { id: "marius", faction: "rome", kind: "infantry", at: [54, 16], size: [16, 6] },
+          { id: "catulus", faction: "rome", kind: "infantry", at: [50, 34], size: [12, 14] },
+          { id: "wing2", faction: "rome", kind: "infantry", at: [54, 52], size: [16, 6] },
+        ],
+        arrows: [
+          { id: "a1", from: [58, 20], to: [64, 26], faction: "rome", kind: "attack" },
+          { id: "a2", from: [58, 48], to: [64, 42], faction: "rome", kind: "attack" },
+        ],
+      },
+      {
+        id: "wagons",
+        title: "The wagon line",
+        description: "The pursuit reaches the laager, where the women kill their children and themselves rather than be taken. The Cimbri end here as a people, and the argument over whose wing deserved the credit begins immediately.",
+        certainty: "probable",
+        units: [
+          { id: "cim", faction: "cimbri", kind: "infantry", at: [76, 34], size: [10, 18], routed: true },
+          { id: "rom", faction: "rome", kind: "infantry", at: [58, 34], size: [16, 22] },
+        ],
+        arrows: [{ id: "a1", from: [68, 34], to: [80, 34], faction: "rome", kind: "attack" }],
+      },
+    ],
+  },
 };
 
 export function getBattleDiagram(slug: string): BattleDiagram | undefined {

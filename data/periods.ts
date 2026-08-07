@@ -48,8 +48,13 @@ export const periods: HistoricalPeriod[] = [
     startYear: -145,
     endYear: -31,
     description: "Conquest abroad and armies loyal to their commanders at home, from Numidia and Gaul to Pharsalus and Actium.",
-    representativeYear: -58,
-    status: "planned",
+    // Mapped as far as 100 BCE: Spain, Jugurtha and the Cimbri are drawn, and the
+    // representative year is Vercellae rather than Caesar's Gaul, because the atlas
+    // must open somewhere it can actually show. Everything from the Social War on is
+    // still to come, which is why this is `partial` and not `available`.
+    representativeYear: -101,
+    status: "partial",
+    focus: { location: [6.5, 44.5], zoom: 4.6 },
   },
   {
     id: "augustan",

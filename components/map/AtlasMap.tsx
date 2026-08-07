@@ -262,7 +262,16 @@ export function AtlasMap({ year, era, layers, hiddenFactions, activeBattles, sel
                 .filter((zone) => roles.includes(factionRole(zone.polity)))
                 .slice()
                 .sort((a, b) => roleRank(a.polity) - roleRank(b.polity))
-                .map((zone) => <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={factionColor(zone.polity)} />)}
+                .map((zone) => (
+                  // Every zone carries its evidence grade and, where it has one,
+                  // what the outline is deliberately not claiming. Routes have
+                  // said this since they were drawn; the zones held the same data
+                  // and threw it away, so a reader could not tell a surveyed
+                  // frontier from a two-century composite.
+                  <path key={zone.id} d={smoothClosedPath(zone.ring)} fill={factionColor(zone.polity)}>
+                    <title>{`${zone.name} — ${zone.certainty}${zone.note ? `. ${zone.note}` : ""}`}</title>
+                  </path>
+                ))}
             </g>
           ))}
         </g>

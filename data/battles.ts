@@ -1005,6 +1005,220 @@ const thirdPunicWar: Battle[] = [
   },
 ];
 
+// Spain, Jugurtha and the Cimbri. The thinnest evidence since the fifth century
+// with one exception: Sallust wrote a monograph on the Jugurthine War, and Plutarch
+// a life of Marius. Everything outside those two texts is a paragraph a year.
+const marianAncient = ["livy-periochae-54-70", "plutarch-marius"];
+const marianModern = ["sampson-2010", "harris-1979"];
+
+const MARIAN_BATTLE_ERA: Record<string, string> = {
+  numantia: "iberian-wars",
+  muthul: "jugurthine-war",
+  noreia: "cimbric-war",
+  arausio: "cimbric-war",
+  "aquae-sextiae": "cimbric-war",
+  vercellae: "cimbric-war",
+};
+
+const marianWars: Battle[] = [
+  {
+    id: "numantia", slug: "numantia", name: "Siege of Numantia", kind: "siege", startYear: -134, endYear: -133, displayDate: "134–133 BCE", location: "Numantia, on the upper Douro in Celtiberia", coordinates: [-2.44, 41.81], uncertainty: { radiusKm: 3, certainty: "attested", note: "The hill is securely identified and the Roman circumvallation and camps were excavated by Schulten in the early twentieth century — the best-preserved Roman siege works of the Republic." }, major: true,
+    belligerents: ["Roman Republic", "Numantia and the Celtiberians"],
+    commanders: [
+      { faction: "rome", names: ["Publius Cornelius Scipio Aemilianus"], certainty: "attested" },
+      { faction: "iberian", names: ["Rhetogenes", "Avarus"], certainty: "probable" },
+    ],
+    result: "Numantia starved out and destroyed",
+    summary: "A hill town of perhaps eight thousand people had beaten four Roman armies and forced one to surrender. Scipio Aemilianus refused to fight it at all: he rebuilt the army's discipline, ringed the place with nine kilometres of wall and seven camps, and waited eight months.",
+    significance: "Numantia ended twenty years of Roman failure in Spain and set the shape of Roman siegecraft for the rest of the Republic — the answer to a position that cannot be stormed is to make it a problem of supply. It also made the reputation that let Scipio be sent anywhere, and produced the excavated siege lines that are the best physical evidence for how a Republican army built.",
+    context: "The Spanish wars had become a scandal at Rome. Commanders signed treaties to extract their armies and the Senate repudiated them; one consular army of twenty thousand had been surrounded and surrendered, saved only by terms its quaestor negotiated — Tiberius Gracchus, whose treatment over that treaty pushed him towards the tribunate that killed him. Scipio was sent by special dispensation, found an army with camp followers outnumbering soldiers, expelled them, and then declined battle entirely. The wall is the argument: he had concluded that the problem was not that Numantia was hard to beat but that Roman armies in Spain kept giving it the chance.",
+    forces: [
+      { side: "Rome", estimate: "About 60,000, including allied and Numidian contingents — Jugurtha commanded the Numidian cavalry", certainty: "probable", note: "Wildly disproportionate to the target, which is the point: the siege was designed to make fighting unnecessary." },
+      { side: "Numantia", estimate: "Perhaps 8,000 people, of whom the fighting men were far fewer", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Numantia", estimate: "The population destroyed; the survivors sold and the town razed", certainty: "probable", note: "The tradition that most of the inhabitants killed themselves rather than surrender is preserved by Appian and is the kind of ending Roman accounts of Spanish sieges reliably supply." },
+      { side: "Rome", estimate: "Light — the point of the method was that there was almost no fighting", certainty: "probable" },
+    ],
+    moments: [
+      { title: "The army cleared out", description: "Scipio expels the traders, prostitutes and baggage that had accumulated round the camp, and drills what is left.", certainty: "attested" },
+      { title: "Nine kilometres of wall", description: "Seven camps linked by a continuous circumvallation, with the river blocked by booms — the excavated line is still traceable.", certainty: "attested" },
+      { title: "A breakout that finds nothing", description: "Rhetogenes gets out with a few men to appeal to other Celtiberian towns; none will move against Rome.", certainty: "probable" },
+      { title: "Eight months", description: "The town starves, and surrenders.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["appian-iberica", "livy-periochae-54-70"], modernSourceIds: ["astin-1967", "richardson-1986"],
+    uncertaintyNotes: [
+      "Numbers on both sides come through Appian and are hard to reconcile with the size of the site.",
+      "The mass-suicide tradition is a topos of Roman writing about Spanish sieges and cannot be checked.",
+      "Schulten's excavation fixed the siege works but his reconstruction of the campaign has been substantially revised.",
+    ],
+  },
+  {
+    id: "noreia", slug: "noreia", name: "Battle of Noreia", kind: "land", startYear: -113, endYear: -113, displayDate: "113 BCE", location: "Noreia, in the eastern Alps (site unidentified)", coordinates: [14.9, 46.9], uncertainty: { radiusKm: 60, certainty: "disputed", note: "Noreia was the chief town of the Norican kingdom and has never been located; the marker stands for a district in the eastern Alps, not a field." }, major: false,
+    belligerents: ["Roman Republic", "Cimbri and Teutones"],
+    commanders: [
+      { faction: "rome", names: ["Gnaeus Papirius Carbo (consul)"], certainty: "attested" },
+      { faction: "cimbri", names: ["Not recorded"], certainty: "disputed" },
+    ],
+    result: "Cimbric victory",
+    summary: "The first meeting between Rome and the migrating peoples out of the north. Carbo tried to ambush a column that had already agreed to withdraw, and had his army destroyed.",
+    significance: "Noreia begins thirteen years in which the Cimbri and Teutones beat five Roman armies, and it establishes the pattern: Rome's problem was not that these peoples were unbeatable but that consular armies kept attacking them badly. It is also the first entry in the case that made Marius' career possible.",
+    context: "The Cimbri had come south into the territory of the Taurisci, who were Roman allies. Carbo confronted them; they offered to leave, and he gave them guides — who led them into a position where he had set an ambush. The ambush went wrong. Nothing about the account is flattering to Rome, and it survives because later writers used it to explain how a war that should never have happened began.",
+    forces: [
+      { side: "Rome", estimate: "A consular army, so perhaps 20,000 to 30,000", certainty: "speculative", note: "No figure survives; this is the standard establishment for the year and nothing more." },
+      { side: "Cimbri and Teutones", estimate: "A migrating people with its fighting men, families and wagons", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "The army destroyed; the summaries say only that it was cut to pieces", certainty: "disputed", note: "A storm is credited with breaking off the pursuit and saving the survivors, which may be a real memory of weather in the Alps or a face-saving explanation of why anyone got away." },
+      { side: "Cimbri and Teutones", estimate: "Not recorded", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "An offer to withdraw", description: "The Cimbri agree to leave Noric territory and accept Roman guides.", certainty: "probable" },
+      { title: "The ambush set", description: "Carbo positions his army to attack the column while it is on the march and expecting nothing.", certainty: "probable" },
+      { title: "The ambush fails", description: "The attack is discovered or mistimed; the Cimbri turn on the Roman line and break it.", certainty: "disputed" },
+    ],
+    ancientSourceIds: ["livy-periochae-54-70"], modernSourceIds: marianModern,
+    uncertaintyNotes: [
+      "Noreia has never been located and the battle site is unknown.",
+      "Everything about the action comes from summaries and later notices; there is no narrative source.",
+      "The treachery Carbo is charged with is reported by writers with an interest in the nobility's incompetence.",
+    ],
+    nextSlug: "arausio",
+  },
+  {
+    id: "muthul", slug: "muthul", name: "Battle of the Muthul", kind: "land", startYear: -108, endYear: -108, displayDate: "108 BCE", location: "The river Muthul, in the Numidian interior (unidentified)", coordinates: [8.6, 35.9], uncertainty: { radiusKm: 70, certainty: "disputed", note: "Sallust describes the ground carefully and names no place that can be identified; the river has never been fixed, and the marker is a guess at the district." }, major: false,
+    belligerents: ["Roman Republic", "Numidia"],
+    commanders: [
+      { faction: "rome", names: ["Quintus Caecilius Metellus (consul)", "Gaius Marius (legate)", "Publius Rutilius Rufus (legate)"], certainty: "attested" },
+      { faction: "numidia", names: ["Jugurtha", "Bomilcar"], certainty: "attested" },
+    ],
+    result: "Roman victory, without effect",
+    summary: "Jugurtha put his army along a ridge above the only road to water and waited for the Roman column to string out beneath it. Metellus' army fought its way clear and held the field — and the Numidians withdrew intact, which is what they had come to do.",
+    significance: "The clearest illustration in the atlas of a victory that decides nothing. Jugurtha's war was not about holding ground; it was about never being caught, and about outlasting a Roman political system that changed commanders annually. The Muthul is the battle Rome won and then had to go on fighting for three more years — and it is where Marius, as legate, learned the war he would later be given.",
+    context: "Sallust's account of this campaign is the fullest narrative of any battle in this stretch, and it is a set piece in a book arguing that the Roman nobility had become incapable. Metellus is his exception — genuinely able, genuinely incorruptible — which makes the fact that even Metellus could not finish the war the whole point. The Numidian army was built for this: light cavalry and mobile infantry that could disperse under pressure and re-form somewhere else, in country where a Roman army had to march to water.",
+    forces: [
+      { side: "Rome", estimate: "A consular army of about 30,000 with allied cavalry", certainty: "probable" },
+      { side: "Numidia", estimate: "Numidian cavalry and light infantry, with elephants; no dependable total", certainty: "disputed", note: "Sallust gives an impression of great numbers without a figure, which for once may be honesty rather than rhetoric." },
+    ],
+    casualties: [
+      { side: "Numidia", estimate: "Not recorded; the army withdrew in order", certainty: "disputed" },
+      { side: "Rome", estimate: "Not recorded, and heavier than a victory implies", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "The column strung out", description: "The Roman army marches down towards water with the Numidians on the high ground above and in front of it.", certainty: "probable" },
+      { title: "Attacked while divided", description: "Jugurtha comes down on the head and flank of a force that cannot form a single line.", certainty: "probable" },
+      { title: "Rutilius takes the river", description: "The detachment sent ahead to secure the water holds it, which is what keeps the army alive.", certainty: "probable" },
+      { title: "A field held, and nothing gained", description: "The Romans clear the ridge and camp on the ground. Jugurtha's army disperses and re-forms, undamaged.", certainty: "probable" },
+    ],
+    ancientSourceIds: ["sallust-jugurtha", "livy-periochae-54-70"], modernSourceIds: marianModern,
+    uncertaintyNotes: [
+      "The river Muthul has never been identified and the battlefield is unlocated.",
+      "The entire tactical account is Sallust's, in a monograph written forty years later to make a political argument.",
+      "No casualty figures survive for either side.",
+    ],
+  },
+  {
+    id: "arausio", slug: "arausio", name: "Battle of Arausio", kind: "land", startYear: -105, endYear: -105, displayDate: "6 October 105 BCE", location: "Near Arausio (Orange), on the Rhône", coordinates: [4.81, 44.14], uncertainty: { radiusKm: 20, certainty: "disputed", note: "The town is known and the river fixes the general position; the field itself is not identified." }, major: true,
+    belligerents: ["Roman Republic", "Cimbri and Teutones"],
+    commanders: [
+      { faction: "rome", names: ["Gnaeus Mallius Maximus (consul)", "Quintus Servilius Caepio (proconsul)"], certainty: "attested" },
+      { faction: "cimbri", names: ["Boiorix"], certainty: "probable" },
+    ],
+    result: "Catastrophic Roman defeat",
+    summary: "Two Roman armies camped separately on the Rhône because their commanders would not serve together — one a consul, the other a patrician who would not take orders from a new man. The Cimbri destroyed them one after the other against the river.",
+    significance: "The worst Roman defeat since Cannae, and unlike Cannae it was not inflicted by a great general — it was produced by two Romans refusing to combine. It emptied Italy of trained men, and the reaction to it broke the constitution: Marius was elected consul in absence and then re-elected annually until the war was over, which no law allowed. Arausio is why the Roman army stopped being a militia of property-owners.",
+    context: "Caepio was a proconsul and a patrician; Mallius was the consul and a novus homo. Caepio refused to camp with him, refused to accept his authority, and — when Mallius opened negotiations with the Cimbri — attacked on his own to prevent a settlement he would get no credit for. The two armies were on opposite banks. What followed was less a battle than the destruction of two separate armies in sequence, with the river behind each of them. Caepio was later stripped of his citizenship, which by Roman standards is an admission of how bad it was.",
+    forces: [
+      { side: "Rome", estimate: "Reported as 80,000 soldiers with camp followers, in two armies that never combined", certainty: "disputed", note: "Almost certainly the largest force Rome had put in the field, and the figure is exactly the kind that grows to match the scale of a disaster." },
+      { side: "Cimbri and Teutones", estimate: "Not recorded", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "Reported as 80,000 soldiers and 40,000 servants and camp followers killed", certainty: "disputed", note: "The number is transmitted through Livy's summaries and repeated by later writers. It should be read as 'both armies ceased to exist', which is not in doubt, rather than as a count." },
+      { side: "Cimbri and Teutones", estimate: "Not recorded", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Two camps, two commanders", description: "Caepio will not serve under a consul he considers his social inferior, and camps separately across the river.", certainty: "attested" },
+      { title: "Caepio attacks alone", description: "To forestall a negotiated settlement that would be Mallius' credit, Caepio goes in with his own army first.", certainty: "probable" },
+      { title: "Destroyed in detail", description: "Caepio's camp is overrun; the Cimbri then turn on Mallius, whose army has the Rhône at its back.", certainty: "probable" },
+      { title: "Italy left open", description: "Nothing organised remains between the Cimbri and Italy — and they go to Spain instead, which buys Rome three years.", certainty: "attested" },
+    ],
+    ancientSourceIds: marianAncient, modernSourceIds: marianModern,
+    uncertaintyNotes: [
+      "The field has not been located.",
+      "The casualty figure is a literary total and cannot be treated as a count.",
+      "Why the Cimbri turned away from an open road into Italy is not explained by any source.",
+    ],
+    previousSlug: "noreia", nextSlug: "aquae-sextiae",
+  },
+  {
+    id: "aquae-sextiae", slug: "aquae-sextiae", name: "Battle of Aquae Sextiae", kind: "land", startYear: -102, endYear: -102, displayDate: "102 BCE", location: "Near Aquae Sextiae (Aix-en-Provence)", coordinates: [5.45, 43.53], uncertainty: { radiusKm: 15, certainty: "disputed", note: "The town is certain and the action is placed in the hills near it; the specific valley is argued over and not fixed." }, major: true,
+    belligerents: ["Roman Republic", "Teutones and Ambrones"],
+    commanders: [
+      { faction: "rome", names: ["Gaius Marius (consul)", "Claudius Marcellus (legate)"], certainty: "attested" },
+      { faction: "cimbri", names: ["Teutobod"], certainty: "probable" },
+    ],
+    result: "Decisive Roman victory",
+    summary: "Marius let the Teutones file past his fortified camp for six days without being drawn out, then followed them, took a position above their line of march, and destroyed them over two days — with a detachment of three thousand hidden behind them that came out of the woods at the moment the lines met.",
+    significance: "The first half of the answer to thirteen years of defeat, and a demonstration of what the rebuilt army could do: a general who could refuse battle for two years, choose his ground, and hold a concealed force in position through a day's fighting had troops of a kind Rome had not previously had. It is also where the political bill starts running — these were long-service soldiers with no property, and what they were owed at the end was land Marius could not give them.",
+    context: "Marius had spent two years declining to fight while his men dug a canal and got used to marching under their own baggage. The migration had by then split: the Teutones and Ambrones were to enter Italy by the coast road and the Cimbri through the Alpine passes, which meant Marius could deal with them one at a time. When the Teutones passed his camp they mocked the Romans by asking whether they had any messages for their wives. The account is Plutarch's and reads as a set piece; the six days are probably real, because they are exactly how long it takes a migration with wagons to pass a fixed point.",
+    forces: [
+      { side: "Rome", estimate: "Two legions with allies, perhaps 30,000 to 40,000, and a concealed detachment of 3,000", certainty: "probable" },
+      { side: "Teutones and Ambrones", estimate: "Reported in the hundreds of thousands including families", certainty: "disputed", note: "Migration totals in the sources are not counts. The fighting strength is unrecoverable." },
+    ],
+    casualties: [
+      { side: "Teutones and Ambrones", estimate: "Reported as 100,000 or more killed and captured, and the people destroyed as a people", certainty: "disputed", note: "That the Teutones ceased to exist is not in doubt; the number is literary. Plutarch adds that the field was still fertile years later, which is a topos." },
+      { side: "Rome", estimate: "Not preserved; reported as light", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Six days of marching past", description: "The migration files past the Roman camp. Marius keeps his men behind the rampart and makes them watch.", certainty: "probable" },
+      { title: "The Ambrones at the river", description: "A first action at a watercourse where the Ambrones, caught crossing, are broken by troops already formed.", certainty: "probable" },
+      { title: "Ground chosen above the road", description: "Marius takes a position on the slope, forcing an attack uphill against a formed line.", certainty: "probable" },
+      { title: "Marcellus out of the woods", description: "Three thousand men concealed behind the enemy since the previous night attack the rear as the lines meet in front.", certainty: "attested" },
+    ],
+    ancientSourceIds: marianAncient, modernSourceIds: marianModern,
+    uncertaintyNotes: [
+      "The exact site near Aix is disputed between several valleys.",
+      "Numbers for the migration are literary and should not be read as counts.",
+      "The narrative is Plutarch's, in a life, and its best details are the ones a biographer would most want to be true.",
+    ],
+    previousSlug: "arausio", nextSlug: "vercellae",
+  },
+  {
+    id: "vercellae", slug: "vercellae", name: "Battle of Vercellae", kind: "land", startYear: -101, endYear: -101, displayDate: "30 July 101 BCE", location: "The Raudian plain, in the Po valley near Vercellae", coordinates: [8.42, 45.32], uncertainty: { radiusKm: 40, certainty: "disputed", note: "The 'Raudian plain' is named by the sources and not identified; proposals range across the western Po valley, and the marker is the traditional one near Vercellae." }, major: true,
+    belligerents: ["Roman Republic", "Cimbri"],
+    commanders: [
+      { faction: "rome", names: ["Gaius Marius (consul)", "Quintus Lutatius Catulus (proconsul)", "Lucius Cornelius Sulla (legate)"], certainty: "attested" },
+      { faction: "cimbri", names: ["Boiorix"], certainty: "attested" },
+    ],
+    result: "Decisive Roman victory; the Cimbri destroyed",
+    summary: "The Cimbri had crossed the Alps and pushed Catulus' army out of the way. Marius brought his own veterans over from Gaul, joined him, and fought on ground and at an hour of his choosing — with the sun and the dust blowing into the Cimbric line.",
+    significance: "The end of the migration and of the war that had run since 113. It also settles the shape of the next fifty years of Roman politics: the army that won it was Marius' rather than Rome's, its veterans had to be paid in land the Senate would not vote, and the quarrel over who deserved the credit — Marius, Catulus, or Catulus' legate Sulla — is the first move in a rivalry that ends with a Roman army marching on Rome.",
+    context: "The two halves of the migration had failed to arrive together: the Teutones were already destroyed when the Cimbri came down into Italy expecting to meet them. Marius chose the day and the direction. The sources agree that the heat and the dust ruined the Cimbri, who had come from the north and were fighting in a Po valley high summer at midday, facing east into the sun. Catulus' account of the battle, which Plutarch used, naturally gave Catulus' wing the decisive share; Marius' supporters said otherwise. The disagreement is itself the historically important thing.",
+    forces: [
+      { side: "Rome", estimate: "About 52,000 in two armies combined — Marius' veterans from Gaul and Catulus' from the Alps", certainty: "probable" },
+      { side: "Cimbri", estimate: "Reported in six figures with families and wagons behind the line", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Cimbri", estimate: "Reported as 120,000 killed and 60,000 captured; the people ceased to exist", certainty: "disputed", note: "The women are said to have killed their children and themselves at the wagon line rather than be enslaved. That the Cimbri were annihilated is certain; the figures are not." },
+      { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Two armies joined", description: "Marius brings his Gallic veterans across to Catulus, whose army the Cimbri had already pushed back over the Adige.", certainty: "attested" },
+      { title: "The hour and the facing chosen", description: "Marius takes the field at midday in high summer with the Cimbri facing into the sun and the dust.", certainty: "probable" },
+      { title: "The wings envelop", description: "Marius' wings close on a line already blinded and overheating; the fighting is decided quickly.", certainty: "probable" },
+      { title: "The wagon line", description: "The pursuit reaches the laager, where the non-combatants are killed or take their own lives.", certainty: "probable" },
+      { title: "The quarrel over the credit", description: "Catulus and Sulla claim the decisive share; Marius' partisans deny it. The dispute outlives all of them.", certainty: "attested" },
+    ],
+    ancientSourceIds: marianAncient, modernSourceIds: marianModern,
+    uncertaintyNotes: [
+      "The Raudian plain has never been identified; proposals span the western Po valley.",
+      "The battle narrative descends partly from Catulus' own memoir, which had a case to make.",
+      "Casualty and migration figures are literary throughout.",
+    ],
+    previousSlug: "aquae-sextiae",
+  },
+];
+
 export const battles: Battle[] = [
   // Tagged by hand rather than derived from data/wars.ts: this module is in the
   // test import graph, which can only resolve "@/" aliases as type imports.
@@ -1015,6 +1229,9 @@ export const battles: Battle[] = [
   ...seleucidWar.map((battle) => ({ ...battle, war: "seleucid-war" })),
   ...thirdMacedonianWar.map((battle) => ({ ...battle, war: "macedonian-third" })),
   ...thirdPunicWar.map((battle) => ({ ...battle, war: "punic-third" })),
+  // Noreia and Arausio fall inside the Jugurthine era but belong to the Cimbric
+  // war: the two ran concurrently, and the era can only name one of them per year.
+  ...marianWars.map((battle) => ({ ...battle, war: MARIAN_BATTLE_ERA[battle.slug] })),
 ];
 
 export function getBattle(slug: string): Battle | undefined {

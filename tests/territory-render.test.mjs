@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
 import { territories, territoriesForYear } from "../data/territories.ts";
 import { factionColor, factionList, isContextPower, factionRole, roleRank, TERRITORY_LAYERS } from "../data/factions.ts";
 import { landPolygons } from "../data/geo/mediterranean-land.ts";
@@ -116,6 +117,15 @@ const OWNERSHIP = [
   { year: -146, places: { Pella: [22.52, 40.76] }, polity: "rome" },
   { year: -160, places: { Pella: [22.52, 40.76] }, polity: "macedon" },
   { year: -146, places: { "Numidian interior": [4.0, 35.6] }, polity: "numidia" },
+  // The Attalid bequest, taken possession of by force and organised in 129.
+  { year: -140, places: { Pergamum: [27.18, 39.13], Ephesus: [27.34, 37.94] }, polity: "pergamon" },
+  { year: -120, places: { Pergamum: [27.18, 39.13], Ephesus: [27.34, 37.94] }, polity: "rome" },
+  // Southern Gaul, taken to secure the road to Spain — and the ground Arausio is
+  // fought on, which is why the province has to be on the map before 105.
+  { year: -130, places: { Narbo: [3.0, 43.2], Arausio: [4.81, 44.14] }, polity: "gaul" },
+  { year: -105, places: { Narbo: [3.0, 43.2], Arausio: [4.81, 44.14] }, polity: "rome" },
+  { year: -105, places: { "free Gaul": [2.0, 45.6] }, polity: "gaul" },
+  { year: -101, places: { "Numidian interior": [4.0, 35.6] }, polity: "numidia" },
 ];
 
 // Ground that is blank on purpose. These peoples were independent, so colouring
@@ -228,6 +238,25 @@ test("two powers sharing a hue never hold ground in the same year", () => {
       );
     }
   }
+});
+
+test("a zone that admits uncertainty says what kind", async () => {
+  // For a long time every zone carried an evidence grade and the map threw it
+  // away: the paths were fill-only, TerritoryPeriod had no note field, and the
+  // Syracusan zone was marked `disputed` in a source comment no reader could see.
+  // A grade alone does not tell anyone *how* a shape is uncertain — whether the
+  // frontier is guessed, the date approximate, or the outline a composite of two
+  // centuries that never coexisted. So the weaker grades owe an explanation.
+  for (const zone of territories) {
+    if (zone.certainty !== "disputed" && zone.certainty !== "speculative") continue;
+    assert.ok(zone.note, `${zone.id}: graded ${zone.certainty} but does not say what it is not claiming`);
+    assert.ok(zone.note.length > 40, `${zone.id}: the note should explain, not label`);
+  }
+  // And the map has to actually surface it, or the field is decoration again.
+  const source = await readFile(new URL("../components/map/AtlasMap.tsx", import.meta.url), "utf8");
+  assert.match(source, /<title>\{`\$\{zone\.name\}/, "territory paths must carry an accessible title");
+  assert.match(source, /zone\.certainty/, "the title must include the evidence grade");
+  assert.match(source, /zone\.note/, "the title must include the note when there is one");
 });
 
 test("territory labels exist so color is never the only cue", () => {

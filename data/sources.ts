@@ -198,6 +198,38 @@ export const sources: HistoricalSource[] = [
   },
   { id: "gruen-1984", kind: "modern", citation: "Erich S. Gruen, The Hellenistic World and the Coming of Rome (1984)", note: "The case against reading Rome's eastern wars as a programme of conquest." },
   { id: "astin-1967", kind: "modern", citation: "A. E. Astin, Scipio Aemilianus (1967)" },
+
+  // ── Spain, Jugurtha, and the Cimbri, 145–100 BCE ───────────────────────────
+  // The thinnest evidence in the atlas since the fifth century, with one brilliant
+  // exception. Livy is gone and the Periochae give a paragraph a year; Polybius
+  // ends in 146. Against that, Sallust wrote a whole monograph on the Jugurthine
+  // War forty years after it — the first sustained contemporary-adjacent account of
+  // a Roman war since Polybius, and openly a political argument about the rot in
+  // the nobility rather than a campaign history. It is the best and the most
+  // tendentious source in this stretch at the same time.
+  {
+    id: "appian-iberica", kind: "ancient", citation: "Appian, Roman History: The Spanish Wars",
+    note: "The Lusitanian and Numantine wars, and the only connected account of either. Appian preserves the terms Rome kept breaking and the sieges in some detail, at three centuries' distance.",
+    covers: [{ fromYear: -154, toYear: -133 }],
+  },
+  {
+    id: "sallust-jugurtha", kind: "ancient", citation: "Sallust, Bellum Iugurthinum",
+    note: "A monograph, not a chronicle, written around 41 BCE to argue that the war exposed a nobility that could be bought. It is the fullest narrative of any war in this period and it is shaped end to end by that argument — which does not make its facts wrong, but does explain which ones it keeps.",
+    covers: [{ fromYear: -118, toYear: -105 }],
+  },
+  {
+    id: "plutarch-marius", kind: "ancient", citation: "Plutarch, Life of Marius",
+    note: "The Cimbric war and the man who ended it, in a life built to show a great soldier destroyed by wanting more. The best surviving account of Aquae Sextiae and Vercellae, and hostile to its subject by the end.",
+    covers: [{ fromYear: -157, toYear: -86 }],
+  },
+  {
+    id: "livy-periochae-54-70", kind: "ancient", citation: "Livy, Periochae, Books 54–70 (the summaries of the lost books)",
+    note: "145 to 91 BCE at a paragraph a year, and for long stretches the only thing there is. It records that armies were destroyed and where, and almost never how.",
+    covers: [{ fromYear: -145, toYear: -91 }],
+  },
+  { id: "sampson-2010", kind: "modern", citation: "Gareth C. Sampson, The Crisis of Rome: The Jugurthine and Northern Wars (2010)" },
+  { id: "richardson-1986", kind: "modern", citation: "J. S. Richardson, Hispaniae: Spain and the Development of Roman Imperialism (1986)" },
+  { id: "harris-1979", kind: "modern", citation: "William V. Harris, War and Imperialism in Republican Rome (1979)", note: "The argument that Roman expansion was driven by the aristocracy's own need for war, rather than by defensive accident." },
 ];
 
 export function sourcesByIds(ids: string[]): HistoricalSource[] {

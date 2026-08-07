@@ -1,6 +1,6 @@
 # Roman Campaign Atlas
 
-Roman Campaign Atlas is an evidence-led interactive historical map of Roman warfare. The home page presents the whole arc, from early Rome to Late Antiquity, and opens into an atlas whose continuous timeline currently covers **509–146 BCE**: the conquest of Italy (the wars with Veii and the Latins, the Gallic sack, the three Samnite wars, and Pyrrhus), then the **First Punic War**, the interwar decades, the **Second Punic War**, the **Second Macedonian War**, the **war with Antiochus III** that carried Rome into Asia, and the two wars of the 140s that ended with Carthage and Corinth destroyed in the same summer — with campaign routes, changing frontiers, battles, sieges, and the uncertainty behind each reconstruction.
+Roman Campaign Atlas is an evidence-led interactive historical map of Roman warfare. The home page presents the whole arc, from early Rome to Late Antiquity, and opens into an atlas whose continuous timeline currently covers **509–100 BCE**: the conquest of Italy (the wars with Veii and the Latins, the Gallic sack, the three Samnite wars, and Pyrrhus), then the **First Punic War**, the interwar decades, the **Second Punic War**, the **Second Macedonian War**, the **war with Antiochus III** that carried Rome into Asia, the two wars of the 140s that ended with Carthage and Corinth destroyed in the same summer, and the Spanish, Jugurthine and Cimbric wars that carry the story to Marius — with campaign routes, changing frontiers, battles, sieges, and the uncertainty behind each reconstruction.
 
 > Historical caution: the atlas is a research interface, not a claim to exact reconstruction. Routes and several coordinates are provisional and are explicitly classified as attested, probable, disputed, speculative, or — for the early Republic — traditional.
 
@@ -13,7 +13,7 @@ Roman Campaign Atlas is an evidence-led interactive historical map of Roman warf
 - The map header and view follow the active era as you scrub; the theatre re-centres between wars
 - Roman and Carthaginian army and fleet routes with elapsed and future segments — including Hannibal's march over the Alps and Scipio's campaigns in Iberia and Africa
 - Filters, map key, year summary, accessible event list, and responsive battle panel
-- A focus event covering every one of the 364 years, and a battle or campaign drawn on the map in every year from 264 — the interbellum decades and the Sicilian and Greek theatres included, not just the famous marches
+- A focus event covering every one of the 410 years, and a battle or campaign drawn on the map in every year from 264 — the interbellum decades and the Sicilian and Greek theatres included, not just the famous marches
 - Data-driven dynamic detail pages at `/battles/[slug]`; every battle that carries a tactical diagram also carries strategic context, force estimates, and reported losses
 - Unit tests for historical dates, era assignment, route interpolation, year filtering, and data validation, plus year-by-year coverage tests over the whole mapped period
 - Server-render integration checks for the map and Mylae routes
@@ -168,7 +168,7 @@ written out, and a test guards against anyone hardcoding them back.
 
 ## Year-by-year coverage
 
-The atlas is read a year at a time, so the year is the unit that has to be complete. `tests/timeline-coverage.test.mjs` holds the line on that for all 364 years of 509–146 BCE:
+The atlas is read a year at a time, so the year is the unit that has to be complete. `tests/timeline-coverage.test.mjs` holds the line on that for all 410 years of 509–100 BCE:
 
 - every year resolves to exactly one focus event (a phase entry may cover many years, and a single-year entry inside a phase wins);
 - every year from 264 has something drawn — a battle marker, a campaign route, or both; before that, every era does;
@@ -177,7 +177,7 @@ The atlas is read a year at a time, so the year is the unit that has to be compl
 
 That last one runs both ways: a transition that fails to happen and a zone that quietly appears in an undocumented year both fail. The table in the test is the record of when the map is supposed to move, so add to it deliberately.
 
-If you add an era outside 509–146 BCE, update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` too — the bounds are literals there so the module stays free of runtime imports for the type-stripping test runner, and a test asserts the two stay in sync.
+If you add an era outside 509–100 BCE, update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` too — the bounds are literals there so the module stays free of runtime imports for the type-stripping test runner, and a test asserts the two stay in sync.
 
 ## Historical method and uncertainty
 

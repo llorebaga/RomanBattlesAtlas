@@ -26,11 +26,11 @@ test("the mapped period is the one we think it is", () => {
   // 509 BCE because that is where the Republic — and any usable narrative — begins.
   // The regal period is covered in prose on the methodology page and nowhere else.
   assert.equal(TIMELINE_START_YEAR, -509);
-  // 146 because that is where the middle Republic ends and where the period the
-  // atlas claims to cover is actually complete: Carthage and Corinth destroyed in
-  // the same summer, and provinces in Africa and Macedonia.
-  assert.equal(TIMELINE_END_YEAR, -146);
-  assert.equal(YEARS.length, 364);
+  // 100 BCE: the late Republic is mapped as far as the end of the Cimbric war,
+  // which is where the army stops belonging to the state. Everything from the
+  // Social War on is still to come, and periods.ts says `partial` accordingly.
+  assert.equal(TIMELINE_END_YEAR, -100);
+  assert.equal(YEARS.length, 410);
 });
 
 test("every year in the mapped period has a focus event", () => {
@@ -149,8 +149,12 @@ const TRANSITIONS = [
   // ── The last two wars of the middle Republic ────────────────────────────────
   { year: -167, gained: ["macedon-republics"], lost: ["macedon-reduced"], why: "Pydna abolishes the Antigonid kingdom and Macedon is cut into four republics" },
   { year: -161, gained: ["carthage-reduced", "numidia-emporia"], lost: ["carthage-africa"], why: "Masinissa takes the Tripolitanian emporia, and Carthage may not answer without Rome's leave" },
-  { year: -148, gained: ["rome-macedonia"], lost: ["macedon-republics"], why: "Andriscus shows the four republics can still be assembled, so Macedonia is annexed" },
+  { year: -148, gained: ["rome-macedonia", "numidia-kingdom"], lost: ["macedon-republics", "numidia-masinissa"], why: "Andriscus shows the four republics can still be assembled, so Macedonia is annexed; and Masinissa dies after sixty years, so the Numidian zone stops carrying his name" },
   { year: -146, gained: ["rome-africa"], lost: ["carthage-reduced"], why: "Carthage is destroyed and its territory becomes the province of Africa" },
+
+  // ── Spain, Jugurtha and the Cimbri ──────────────────────────────────────────
+  { year: -129, gained: ["rome-asia"], lost: ["pergamon-apamea"], why: "the Attalid bequest is finally taken possession of and organised as the province of Asia" },
+  { year: -121, gained: ["rome-narbonensis", "gaul-transalpine-reduced"], lost: ["gaul-transalpine"], why: "southern Gaul is conquered to secure the land route to Spain — the ground Arausio will be fought on" },
 ];
 
 test("territory changes hands in the year it changed hands", () => {

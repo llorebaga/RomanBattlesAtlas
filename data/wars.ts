@@ -227,6 +227,54 @@ export const eras: Era[] = [
     mapView: { center: [15.0, 38.0], zoom: 3.8 },
     factions: ["rome", "carthage"],
   },
+  {
+    id: "iberian-wars",
+    name: "The wars in Spain",
+    shortName: "Spain",
+    kind: "war",
+    startYear: -145,
+    endYear: -133,
+    blurb:
+      "The wars Rome could not finish. Viriathus held Lusitania for eight years against a succession of consular armies and was killed by three of his own men, bribed; Numantia, a hill town of eight thousand, beat four Roman armies and forced one to surrender before Scipio Aemilianus starved it out with a wall. Neither war produced a battle Rome could point to, and both were fought about whether Roman commanders had to keep the terms they signed.",
+    mapView: { center: [-4.0, 40.5], zoom: 5.0 },
+    factions: ["rome", "iberian"],
+  },
+  {
+    id: "gracchan-crisis",
+    name: "The Gracchi, and an empire acquired by will",
+    shortName: "The Gracchi",
+    kind: "interbellum",
+    startYear: -132,
+    endYear: -114,
+    blurb:
+      "Rome acquires Asia because a king leaves it to her in his will, fights three years to take possession of the bequest, and conquers southern Gaul to secure the road to Spain. At home the same years kill two tribunes in the street over who gets the land the wars produced. Nothing in this stretch is a war Rome declared on a rival; all of it is the cost of holding what it already had.",
+    mapView: { center: [12.0, 40.0], zoom: 3.6 },
+    factions: ["rome"],
+  },
+  {
+    id: "jugurthine-war",
+    name: "Jugurtha, and the Cimbri in the north",
+    shortName: "Jugurtha",
+    kind: "war",
+    startYear: -113,
+    endYear: -105,
+    blurb:
+      "Two wars at once, and Rome losing both. In Africa a Numidian prince who had learned the Roman army from inside it fought a war of movement no consular army could pin down, and bought every settlement that threatened to end it. In the north a migrating people destroyed one Roman army after another, ending at Arausio with the worst defeat since Cannae. Both years produced the same conclusion at Rome: the nobility could not do this, and Marius could.",
+    mapView: { center: [5.0, 40.0], zoom: 3.6 },
+    factions: ["rome", "numidia", "cimbri"],
+  },
+  {
+    id: "cimbric-war",
+    name: "Marius and the Cimbri",
+    shortName: "The Cimbri",
+    kind: "war",
+    startYear: -104,
+    endYear: -100,
+    blurb:
+      "Marius held the consulship five years running — illegally, and because nobody else was trusted to do it — rebuilt the army around long service and a standard rather than a property qualification, and then destroyed the Teutones at Aquae Sextiae and the Cimbri at Vercellae in successive summers. The migration that had beaten five Roman armies was annihilated, and the army that did it belonged to its general.",
+    mapView: { center: [6.5, 44.5], zoom: 4.6 },
+    factions: ["rome", "cimbri"],
+  },
 ];
 
 export function eraForYear(year: number): Era | undefined {
