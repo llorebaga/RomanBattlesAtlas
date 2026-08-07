@@ -117,6 +117,47 @@ export const sources: HistoricalSource[] = [
   { id: "livy-31-33", kind: "ancient", citation: "Livy, Ab Urbe Condita, Books 31–33", note: "The fullest surviving narrative of the Second Macedonian War, largely following Polybius but pro-Roman where it departs from him.", covers: [{ fromYear: -201, toYear: -196 }] },
   { id: "walbank-1940", kind: "modern", citation: "F. W. Walbank, Philip V of Macedon (1940)" },
   { id: "eckstein-2008", kind: "modern", citation: "Arthur M. Eckstein, Rome Enters the Greek East (2008)" },
+
+  // ── The war with Antiochus III, 192–188 BCE ────────────────────────────────
+  // The evidence here is better than for any earlier war in the atlas and worse
+  // than it looks. Livy's fourth decade is continuous, detailed and largely
+  // transcribed from Polybius — but Polybius' own books for these years survive
+  // only in excerpts, so where Livy departs from him there is often nothing left
+  // to check him against. Magnesia is the sharpest case: the fullest order of
+  // battle we have for a Seleucid army comes from a Roman annalistic tradition
+  // with every reason to make it enormous.
+  {
+    id: "polybius-20", kind: "ancient", citation: "Polybius, Histories, Book 20 (fragments)",
+    note: "Antiochus' winter at Chalcis, the Aetolian decision that brought him to Greece, and the fighting at Thermopylae. Preserved as excerpts, so it corroborates Livy in places rather than running alongside him.",
+    covers: [{ fromYear: -192, toYear: -189 }],
+  },
+  {
+    id: "polybius-21", kind: "ancient", citation: "Polybius, Histories, Book 21 (fragments)",
+    note: "The naval war off Ionia, the crossing to Asia, Magnesia, and the terms imposed at Apamea — for which Polybius preserves clauses Livy abbreviates. Excerpts again, and thinnest exactly where the battle narrative would be.",
+    covers: [{ fromYear: -190, toYear: -188 }],
+  },
+  {
+    id: "livy-34-37", kind: "ancient", citation: "Livy, Ab Urbe Condita, Books 34–37",
+    note: "The war with Nabis, the years of embassies, and then the Antiochene war from Thermopylae to Magnesia. The fullest surviving narrative, following Polybius closely for the campaigns and an annalistic source for the Roman politics — and for the figures.",
+    covers: [{ fromYear: -195, toYear: -189 }],
+  },
+  {
+    id: "livy-38", kind: "ancient", citation: "Livy, Ab Urbe Condita, Book 38",
+    note: "The Aetolian settlement, Manlius Vulso's march against the Galatians, and the text of the peace of Apamea. The Galatian campaign is reported with unusual candour about plunder as a motive.",
+    covers: [{ fromYear: -189, toYear: -187 }],
+  },
+  {
+    id: "appian-syrian", kind: "ancient", citation: "Appian, Roman History: The Syrian War",
+    note: "A continuous account of the war independent of Livy in places, and the second witness for the deployment at Magnesia. Later, compressed, and willing to supply a speech where a source gave him none.",
+    covers: [{ fromYear: -192, toYear: -188 }],
+  },
+  {
+    id: "plutarch-cato", kind: "ancient", citation: "Plutarch, Life of Cato the Elder",
+    note: "The night march over Callidromus that turned the Thermopylae position, told as Cato's own claim about himself — Plutarch is drawing on a tradition in which Cato was his own best witness.",
+    covers: [{ fromYear: -234, toYear: -149 }],
+  },
+  { id: "grainger-2002", kind: "modern", citation: "John D. Grainger, The Roman War of Antiochos the Great (2002)" },
+  { id: "bar-kochva-1976", kind: "modern", citation: "Bezalel Bar-Kochva, The Seleucid Army (1976)", note: "The standard reconstruction of how a Seleucid army was actually organised, and the case for cutting the reported totals at Magnesia down." },
 ];
 
 export function sourcesByIds(ids: string[]): HistoricalSource[] {

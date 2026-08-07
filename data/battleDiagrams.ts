@@ -2357,6 +2357,339 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
       },
     ],
   },
+
+  // ── The war with Antiochus III ───────────────────────────────────────────
+  // Livy's fourth decade describes these actions in more tactical detail than
+  // anything else in the atlas, and the detail is not evenly trustworthy. The
+  // shape of each battle — who was on which wing, what broke first — is Polybian
+  // and can be drawn. The frontages are not recoverable, and at Magnesia the two
+  // surviving orders of battle disagree about where several contingents stood.
+  thermopylae: {
+    scaleNote: "The narrows at Thermopylae and the mountain above them, perhaps four kilometres of front. The ancient shoreline ran where the sea is drawn here; it is now several kilometres further out.",
+    orientation: "The Malian Gulf is north, at the top; Callidromus rises to the south. The Romans come from the west, at the left.",
+    sourceIds: ["livy-34-37", "polybius-20", "plutarch-cato"],
+    terrain: [
+      { id: "gulf", kind: "sea", points: [[0, 0], [100, 0], [100, 15], [0, 15]], label: "the Malian Gulf", labelAt: [16, 8] },
+      { id: "callidromus", kind: "hill", points: [[0, 44], [22, 40], [46, 42], [70, 39], [100, 43], [100, 68], [0, 68]], label: "Callidromus", labelAt: [76, 58] },
+      { id: "pass", kind: "road", points: [[0, 28], [100, 28]], label: "the pass" },
+      { id: "rampart", kind: "wall", points: [[56, 17], [56, 39]], label: "double rampart", labelAt: [64, 20] },
+    ],
+    stages: [
+      {
+        id: "held",
+        title: "The pass is fortified, and the paths are watched",
+        description: "Antiochus blocks the narrows with a double rampart and a ditch, and — unlike Leonidas — posts Aetolians on the mountain tracks that turn the position. On paper the pass cannot be forced.",
+        certainty: "attested",
+        units: [
+          { id: "sel-phalanx", faction: "seleucid", kind: "phalanx", at: [50, 28], size: [6, 16], label: "behind the rampart", labelAt: [42, 12] },
+          { id: "sel-light", faction: "seleucid", kind: "skirmishers", at: [60, 28], size: [4, 14] },
+          { id: "aet-heights", faction: "seleucid", kind: "infantry", at: [52, 48], size: [16, 4], label: "Aetolians on the heights" },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [26, 28], size: [8, 18] },
+        ],
+      },
+      {
+        id: "frontal",
+        title: "The frontal attack is checked",
+        description: "Glabrio attacks the rampart head-on. Pikes behind a wall in a defile are close to unshiftable, and the assault gains nothing.",
+        certainty: "probable",
+        units: [
+          { id: "sel-phalanx", faction: "seleucid", kind: "phalanx", at: [50, 28], size: [6, 16] },
+          { id: "sel-light", faction: "seleucid", kind: "skirmishers", at: [60, 28], size: [4, 14] },
+          { id: "aet-heights", faction: "seleucid", kind: "infantry", at: [52, 48], size: [16, 4], label: "Aetolians on the heights" },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [36, 28], size: [8, 18] },
+        ],
+        arrows: [{ id: "a1", from: [41, 28], to: [46, 28], faction: "rome", kind: "attack", label: "checked" }],
+        caveat: "How many days or attempts this took is not clearly reported; the diagram compresses it into one stage.",
+      },
+      {
+        id: "callidromus",
+        title: "Cato climbs Callidromus in the dark",
+        description: "A column goes over the mountain by night on the same paths that turned the pass in 480, and comes down on the Aetolian outposts before they can send word to the rampart below.",
+        certainty: "attested",
+        units: [
+          { id: "sel-phalanx", faction: "seleucid", kind: "phalanx", at: [50, 28], size: [6, 16] },
+          { id: "aet-heights", faction: "seleucid", kind: "infantry", at: [52, 48], size: [16, 4], routed: true, label: "surprised" },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [36, 28], size: [8, 18] },
+          { id: "rom-cato", faction: "rome", kind: "infantry", at: [40, 54], size: [10, 3], label: "Cato's column" },
+        ],
+        arrows: [{ id: "a1", from: [16, 58], to: [46, 50], faction: "rome", kind: "move", bow: 5, label: "over the mountain by night" }],
+        caveat: "The route over the mountain is not securely traced, and Cato's share of the credit comes through a tradition in which he was his own witness.",
+      },
+      {
+        id: "collapse",
+        title: "Taken from behind, the line breaks",
+        description: "Roman troops appear on the slope above and behind the camp. The rampart is abandoned, and the retreat through the defile becomes a rout. Antiochus reaches Chalcis with a few hundred men.",
+        certainty: "attested",
+        units: [
+          { id: "sel-phalanx", faction: "seleucid", kind: "phalanx", at: [58, 28], size: [6, 14], routed: true, label: "broken" },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [42, 28], size: [8, 18] },
+          { id: "rom-cato", faction: "rome", kind: "infantry", at: [56, 44], size: [10, 3] },
+        ],
+        arrows: [
+          { id: "a1", from: [56, 40], to: [58, 34], faction: "rome", kind: "attack" },
+          { id: "a2", from: [47, 28], to: [53, 28], faction: "rome", kind: "attack" },
+          { id: "a3", from: [66, 26], to: [88, 24], faction: "seleucid", kind: "retreat", label: "flight east" },
+        ],
+      },
+    ],
+  },
+
+  corycus: {
+    scaleNote: "Open water off the Erythraean peninsula. A fleet action covers far more sea than any frame can hold; this is the shape of the engagement, not its extent.",
+    orientation: "The Ionian coast lies east, at the right; Ephesus is beyond it to the south-east.",
+    sourceIds: ["livy-34-37"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[0, 0], [100, 0], [100, 68], [0, 68]] },
+      { id: "cape", kind: "coast", points: [[86, 12], [100, 10], [100, 58], [88, 54], [84, 34]], label: "Cape Corycus", labelAt: [92, 34] },
+    ],
+    stages: [
+      {
+        id: "junction",
+        title: "Eumenes joins before the fleets meet",
+        description: "The Pergamene squadron comes down to the Romans off Phocaea. Polyxenidas' chance was to catch the two separately, and it passes.",
+        certainty: "probable",
+        units: [
+          { id: "rom-fleet", faction: "rome", kind: "ships", at: [26, 34], size: [14, 10], label: "Livius, 81 decked ships" },
+          { id: "per-fleet", faction: "pergamon", kind: "ships", at: [30, 16], size: [10, 5], label: "Eumenes, 24 ships" },
+          { id: "sel-fleet", faction: "seleucid", kind: "ships", at: [66, 34], size: [14, 12], label: "Polyxenidas" },
+        ],
+        arrows: [{ id: "a1", from: [30, 21], to: [28, 29], faction: "pergamon", kind: "move", label: "joins" }],
+      },
+      {
+        id: "melee",
+        title: "The heavier ships close and grapple",
+        description: "The allied line drives in to board rather than to manoeuvre — the fight the slower, heavier Roman ships want, and the one the Seleucid fleet is least suited to.",
+        certainty: "probable",
+        units: [
+          { id: "rom-fleet", faction: "rome", kind: "ships", at: [40, 36], size: [16, 10] },
+          { id: "per-fleet", faction: "pergamon", kind: "ships", at: [42, 20], size: [10, 5] },
+          { id: "sel-fleet", faction: "seleucid", kind: "ships", at: [60, 30], size: [14, 12] },
+        ],
+        arrows: [
+          { id: "a1", from: [48, 34], to: [54, 32], faction: "rome", kind: "attack" },
+          { id: "a2", from: [47, 21], to: [55, 24], faction: "pergamon", kind: "attack" },
+        ],
+        caveat: "No source gives the order of the ships in either line; the wings here stand for the two allied contingents, not for a known formation.",
+      },
+      {
+        id: "flight",
+        title: "Back into Ephesus",
+        description: "Polyxenidas breaks off with what he has left — about a quarter of his decked ships gone — and shuts himself in the harbour. The allies do not force it.",
+        certainty: "attested",
+        units: [
+          { id: "rom-fleet", faction: "rome", kind: "ships", at: [46, 34], size: [16, 10] },
+          { id: "per-fleet", faction: "pergamon", kind: "ships", at: [48, 20], size: [10, 5] },
+          { id: "sel-fleet", faction: "seleucid", kind: "ships", at: [72, 42], size: [12, 8], routed: true, label: "23 ships lost" },
+        ],
+        arrows: [{ id: "a1", from: [74, 48], to: [84, 58], faction: "seleucid", kind: "retreat", label: "to Ephesus" }],
+      },
+    ],
+  },
+
+  eurymedon: {
+    scaleNote: "Open water off the Pamphylian coast near Side. The location is given only as a district, and the frame is schematic throughout.",
+    orientation: "The Pamphylian shore is south, at the bottom; the Rhodians come from the west.",
+    sourceIds: ["livy-34-37", "appian-syrian"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[0, 0], [100, 0], [100, 68], [0, 68]] },
+      { id: "shore", kind: "coast", points: [[0, 58], [40, 56], [72, 59], [100, 57], [100, 68], [0, 68]], label: "the Pamphylian shore", labelAt: [50, 64] },
+    ],
+    stages: [
+      {
+        id: "lines",
+        title: "The squadrons form",
+        description: "Eudamus intercepts a fleet raised in Phoenicia and Cilicia and heading west to join Polyxenidas. Hannibal has the larger squadron and takes the seaward wing himself.",
+        certainty: "probable",
+        units: [
+          { id: "rho-line", faction: "greek", kind: "ships", at: [30, 30], size: [10, 22], label: "Eudamus, 36 ships", labelAt: [16, 30] },
+          { id: "sel-right", faction: "seleucid", kind: "ships", at: [64, 20], size: [10, 12], label: "Hannibal" },
+          { id: "sel-left", faction: "seleucid", kind: "ships", at: [64, 42], size: [10, 12] },
+        ],
+      },
+      {
+        id: "press",
+        title: "Hannibal's wing drives the Rhodian left back",
+        description: "The one part of the day that goes as he intends: weight of numbers on the seaward flank pushes the Rhodian left in towards the shore.",
+        certainty: "probable",
+        units: [
+          { id: "rho-left", faction: "greek", kind: "ships", at: [38, 44], size: [8, 10], routed: true, label: "pressed" },
+          { id: "rho-right", faction: "greek", kind: "ships", at: [34, 22], size: [8, 12] },
+          { id: "sel-right", faction: "seleucid", kind: "ships", at: [56, 20], size: [10, 12], label: "Hannibal" },
+          { id: "sel-left", faction: "seleucid", kind: "ships", at: [54, 44], size: [10, 12] },
+        ],
+        arrows: [{ id: "a1", from: [48, 44], to: [42, 46], faction: "seleucid", kind: "attack", label: "drives in" }],
+      },
+      {
+        id: "seamanship",
+        title: "The Rhodians work round the flank",
+        description: "Handier ships and better crews tell. The Rhodian right gets outside the Phoenician line and takes it from the beam, and the squadron turns back east. It never reaches the Aegean.",
+        certainty: "probable",
+        units: [
+          { id: "rho-right", faction: "greek", kind: "ships", at: [56, 12], size: [10, 8] },
+          { id: "rho-left", faction: "greek", kind: "ships", at: [42, 44], size: [8, 10] },
+          { id: "sel-fleet", faction: "seleucid", kind: "ships", at: [64, 30], size: [12, 16], routed: true, label: "turned back" },
+        ],
+        arrows: [
+          { id: "a1", from: [46, 18], to: [60, 20], faction: "greek", kind: "attack", bow: -5, label: "round the flank" },
+          { id: "a2", from: [74, 32], to: [90, 34], faction: "seleucid", kind: "retreat", label: "east" },
+        ],
+        caveat: "Livy's account is short and its interest is in Hannibal's defeat rather than in the manoeuvre; the flanking movement is the shape the narrative implies, not one it describes.",
+      },
+    ],
+  },
+
+  myonessus: {
+    scaleNote: "Open water between Teos and Samos. The cape names a locality; the action ranged well beyond it.",
+    orientation: "The Ionian coast lies north, at the top; Ephesus is south-east.",
+    sourceIds: ["livy-34-37", "polybius-21"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[0, 0], [100, 0], [100, 68], [0, 68]] },
+      { id: "coast", kind: "coast", points: [[0, 0], [100, 0], [100, 12], [64, 15], [28, 13], [0, 10]], label: "the Ionian coast", labelAt: [50, 6] },
+    ],
+    stages: [
+      {
+        id: "out",
+        title: "Polyxenidas accepts battle",
+        description: "With 89 decked ships against 80, the Seleucid admiral has a real numerical advantage for the first and last time, and comes out to use it.",
+        certainty: "attested",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "ships", at: [40, 44], size: [22, 8], label: "Regillus, 58 Roman ships" },
+          { id: "rho-line", faction: "greek", kind: "ships", at: [66, 44], size: [12, 8], label: "Eudamus, 22 Rhodian" },
+          { id: "sel-line", faction: "seleucid", kind: "ships", at: [52, 26], size: [34, 9], label: "Polyxenidas, 89 ships" },
+        ],
+        arrows: [{ id: "a1", from: [52, 32], to: [52, 38], faction: "seleucid", kind: "attack" }],
+      },
+      {
+        id: "flank",
+        title: "The Rhodians turn the seaward flank",
+        description: "The Roman centre holds the Seleucid line in place while the faster Rhodian squadron on the right works round its end.",
+        certainty: "probable",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "ships", at: [40, 40], size: [22, 8] },
+          { id: "rho-line", faction: "greek", kind: "ships", at: [76, 32], size: [12, 8] },
+          { id: "sel-line", faction: "seleucid", kind: "ships", at: [50, 28], size: [34, 9] },
+        ],
+        arrows: [
+          { id: "a1", from: [66, 42], to: [78, 30], faction: "greek", kind: "attack", bow: -6, label: "round the end" },
+          { id: "a2", from: [42, 36], to: [42, 32], faction: "rome", kind: "attack" },
+        ],
+      },
+      {
+        id: "fire",
+        title: "Fire ahead of the bows",
+        description: "Rhodian ships carry fire-pots slung ahead of the bow on poles. An enemy that sheers away rather than accept the ram presents its flank instead, which is the point of the weapon.",
+        certainty: "probable",
+        units: [
+          { id: "rho-line", faction: "greek", kind: "ships", at: [74, 30], size: [12, 8], label: "fire-pots" },
+          { id: "sel-left", faction: "seleucid", kind: "ships", at: [58, 26], size: [16, 9], routed: true },
+          { id: "rom-line", faction: "rome", kind: "ships", at: [38, 38], size: [22, 8] },
+        ],
+        arrows: [{ id: "a1", from: [70, 28], to: [64, 26], faction: "greek", kind: "missile", label: "fire" }],
+        caveat: "The fire-pots are described as Rhodian practice in general rather than at Myonnesus specifically; how much they decided here is inference.",
+      },
+      {
+        id: "broken",
+        title: "Half the fleet lost, and the Hellespont open",
+        description: "Some 42 ships are taken, sunk or burnt. The remnant runs for Ephesus and stays there. Antiochus abandons the Hellespont without contesting it, and the consular army crosses into Asia.",
+        certainty: "attested",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "ships", at: [42, 34], size: [22, 8] },
+          { id: "rho-line", faction: "greek", kind: "ships", at: [70, 28], size: [12, 8] },
+          { id: "sel-rest", faction: "seleucid", kind: "ships", at: [40, 20], size: [14, 7], routed: true, label: "42 ships lost" },
+        ],
+        arrows: [{ id: "a1", from: [46, 18], to: [76, 14], faction: "seleucid", kind: "retreat", label: "to Ephesus" }],
+      },
+    ],
+  },
+
+  magnesia: {
+    scaleNote: "The plain between the Phrygius and the Hermus, perhaps five kilometres of front. The field has never been located, and the two surviving orders of battle cannot be reconciled — this follows Livy where they differ.",
+    orientation: "The river Phrygius covers the Roman left, at the left of the frame. Mount Sipylus is behind the Seleucid position.",
+    sourceIds: ["livy-34-37", "appian-syrian", "polybius-21"],
+    terrain: [
+      { id: "river", kind: "river", points: [[10, 4], [12, 20], [9, 38], [11, 58], [8, 68]], label: "the Phrygius", labelAt: [4, 44] },
+      { id: "camp", kind: "town", at: [50, 62], size: [16, 5], label: "Roman camp" },
+    ],
+    stages: [
+      {
+        id: "array",
+        title: "The armies form",
+        description: "Antiochus draws up a phalanx of sixteen thousand in ten blocks thirty-two deep, with elephants standing in the gaps between them, cataphracts on both wings, and scythed chariots in front of his left. Rome puts four legions in the centre, Eumenes with the allied horse on the right, and almost nothing on the left, which the river covers.",
+        certainty: "probable",
+        units: [
+          { id: "sel-phal-a", faction: "seleucid", kind: "phalanx", at: [42, 22], size: [9, 9], label: "phalanx, ten blocks", labelAt: [50, 8] },
+          { id: "sel-phal-b", faction: "seleucid", kind: "phalanx", at: [53, 22], size: [9, 9] },
+          { id: "sel-phal-c", faction: "seleucid", kind: "phalanx", at: [64, 22], size: [9, 9] },
+          { id: "sel-eles", faction: "seleucid", kind: "elephants", at: [47.5, 22], size: [2, 9] },
+          { id: "sel-right", faction: "seleucid", kind: "cavalry", at: [26, 22], size: [12, 6], label: "Antiochus, cataphracts" },
+          { id: "sel-left", faction: "seleucid", kind: "cavalry", at: [80, 22], size: [12, 6], label: "Seleucus" },
+          { id: "sel-chariots", faction: "seleucid", kind: "cavalry", at: [82, 32], size: [12, 3], label: "scythed chariots" },
+          { id: "rom-left", faction: "rome", kind: "cavalry", at: [22, 46], size: [8, 4], label: "left, on the river", labelAt: [16, 54] },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [52, 46], size: [36, 6], label: "four legions" },
+          { id: "rom-right", faction: "pergamon", kind: "cavalry", at: [82, 46], size: [12, 5], label: "Eumenes" },
+          { id: "rom-eles", faction: "rome", kind: "elephants", at: [52, 56], size: [8, 3], label: "16 elephants, in reserve" },
+        ],
+        caveat: "Frontages are relative. The depth of the pike blocks is the one measurement a source insists on, and it is drawn as a claim about the formation rather than a count of ranks.",
+      },
+      {
+        id: "chariots",
+        title: "The chariots are broken before contact",
+        description: "Eumenes sends archers and slingers forward against the scythed chariots rather than waiting to receive them. The teams panic, turn, and career back through the cavalry drawn up behind.",
+        certainty: "attested",
+        units: [
+          { id: "sel-left", faction: "seleucid", kind: "cavalry", at: [80, 24], size: [12, 6] },
+          { id: "sel-chariots", faction: "seleucid", kind: "cavalry", at: [82, 32], size: [12, 3], routed: true, label: "driven back into their own line" },
+          { id: "rom-skirm", faction: "pergamon", kind: "skirmishers", at: [82, 40], size: [12, 3], label: "archers and slingers" },
+          { id: "rom-right", faction: "pergamon", kind: "cavalry", at: [90, 46], size: [10, 5] },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [52, 46], size: [36, 6] },
+          { id: "sel-phal-b", faction: "seleucid", kind: "phalanx", at: [53, 22], size: [28, 9], label: "phalanx, still unengaged" },
+          { id: "sel-right", faction: "seleucid", kind: "cavalry", at: [26, 22], size: [12, 6], label: "Antiochus" },
+          { id: "rom-left", faction: "rome", kind: "cavalry", at: [22, 46], size: [8, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [82, 37], to: [82, 34], faction: "pergamon", kind: "missile" },
+          { id: "a2", from: [82, 30], to: [80, 27], faction: "seleucid", kind: "retreat" },
+        ],
+      },
+      {
+        id: "wings",
+        title: "Both wings win, in opposite directions",
+        description: "With its own chariots through it, the Seleucid left is charged before it can re-form and driven off the field. At the same moment Antiochus breaks the Roman left on the river and pursues it all the way to the camp — where a tribune rallies the line and stops him at the rampart.",
+        certainty: "probable",
+        units: [
+          { id: "sel-left", faction: "seleucid", kind: "cavalry", at: [86, 18], size: [12, 5], routed: true, label: "swept away" },
+          { id: "rom-right", faction: "pergamon", kind: "cavalry", at: [80, 34], size: [12, 5], label: "Eumenes" },
+          { id: "sel-phal-b", faction: "seleucid", kind: "phalanx", at: [53, 22], size: [28, 9] },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [52, 44], size: [36, 6] },
+          { id: "rom-left", faction: "rome", kind: "cavalry", at: [30, 56], size: [8, 4], routed: true },
+          { id: "sel-right", faction: "seleucid", kind: "cavalry", at: [36, 50], size: [12, 6], label: "Antiochus, too far forward" },
+        ],
+        arrows: [
+          { id: "a1", from: [82, 30], to: [86, 22], faction: "pergamon", kind: "attack" },
+          { id: "a2", from: [26, 30], to: [40, 54], faction: "seleucid", kind: "attack", bow: 6, label: "to the camp" },
+        ],
+        caveat: "How far Antiochus pursued, and whether he could have turned back sooner, is the one judgement every ancient account makes and none can support.",
+      },
+      {
+        id: "phalanx",
+        title: "The phalanx is left standing alone",
+        description: "Unbeaten and abandoned by both wings, the pike blocks close into a square and begin to retire in good order — a formation nothing in the Roman line can break into. Then the elephants standing in the gaps are wounded by missiles, panic, and open the square from the inside.",
+        certainty: "attested",
+        units: [
+          { id: "sel-square", faction: "seleucid", kind: "phalanx", at: [53, 26], size: [22, 12], label: "closed into a square" },
+          { id: "sel-eles", faction: "seleucid", kind: "elephants", at: [53, 26], size: [6, 4], routed: true, label: "panicked" },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [53, 44], size: [36, 6] },
+          { id: "rom-right", faction: "pergamon", kind: "cavalry", at: [80, 32], size: [12, 5] },
+          { id: "rom-skirm", faction: "rome", kind: "skirmishers", at: [53, 38], size: [24, 3], label: "missiles" },
+        ],
+        arrows: [
+          { id: "a1", from: [53, 36], to: [53, 32], faction: "rome", kind: "missile" },
+          { id: "a2", from: [76, 30], to: [66, 28], faction: "pergamon", kind: "attack" },
+        ],
+        caveat: "That the elephants broke the square is stated; the rest of the collapse is not described, and the diagram stops where the sources do.",
+      },
+    ],
+  },
 };
 
 export function getBattleDiagram(slug: string): BattleDiagram | undefined {

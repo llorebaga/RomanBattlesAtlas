@@ -8,6 +8,7 @@ export type Faction =
   | "gaul"
   | "syracuse"
   | "greek"
+  | "pergamon"
   | "iberian"
   // The powers of Italy before Rome held it.
   | "etruscan"

@@ -22,6 +22,12 @@ export function generateStaticParams() { return battles.map((battle) => ({ slug:
 const SIDE_FACTION: Record<string, Faction> = {
   Rome: "rome", Carthage: "carthage", Macedon: "macedon", Syracuse: "syracuse",
   Saguntum: "iberian", Numidia: "numidia", Capua: "carthage",
+  // The Antiochene war was fought by coalitions, so the side is often a list. A
+  // combined force takes the colour of whoever led it; Rhodes fought its own war
+  // at the Eurymedon and takes the Greek-states colour rather than Rome's.
+  "Seleucid Empire": "seleucid", Rhodes: "greek", Pergamum: "pergamon",
+  "Rome and Pergamum": "rome", "Rome and Rhodes": "rome",
+  "Rome, Pergamum and Carthage": "rome", "Rome and allies": "rome",
 };
 function sideColor(side: string): string {
   const faction = SIDE_FACTION[side];

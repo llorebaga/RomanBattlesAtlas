@@ -638,6 +638,165 @@ const macedonianRoutes: CampaignRoute[] = [
   },
 ];
 
+// ── The war with Antiochus III, 192–188 BCE ────────────────────────────────
+//
+// Two things about this theatre shape the routes. The first is that the war was
+// decided by whether armies could cross water: the Hellespont is the whole
+// strategic question, and the fleet routes are not scenery beside the land ones
+// but the reason the land ones exist. The second is that Antiochus' own movements
+// are better recorded than most — he was a king travelling with a court, and
+// where he wintered was a political event — so this is one of the few campaigns
+// where a route can be drawn from named places rather than inferred from a march
+// rate.
+const seleucidRoutes: CampaignRoute[] = [
+  {
+    id: "flamininus-nabis-war",
+    name: "Flamininus against Nabis, and the Roman withdrawal",
+    faction: "rome",
+    forceType: "army",
+    startYear: -195,
+    endYear: -194,
+    certainty: "probable",
+    description: "The last thing Rome did in Greece before leaving it: a short war against Nabis of Sparta fought with Achaean, Macedonian and Pergamene help, which took Argos and the Laconian ports from him and left him on his throne. Then Flamininus withdrew every garrison — including the three fortresses Philip had called the fetters of Greece — and sailed for Italy.",
+    points: [
+      { year: -195, month: 3, label: "Concentration at Corinth", coordinates: [22.93, 37.94], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -195, month: 5, label: "Argos recovered", coordinates: [22.72, 37.63], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -195, month: 7, label: "Against Sparta", coordinates: [22.43, 37.08], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -195, month: 8, label: "Gytheum and the Laconian coast", coordinates: [22.57, 36.85], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -195, month: 10, label: "Back north through Arcadia", coordinates: [22.42, 37.46], certainty: "speculative", sourceIds: ["livy-34-37"] },
+      { year: -194, month: 4, label: "Garrisons withdrawn at the Isthmus", coordinates: [22.93, 37.92], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -194, month: 5, label: "Through Boeotia", coordinates: [23.32, 38.32], certainty: "speculative", sourceIds: ["livy-34-37"] },
+      { year: -194, month: 5, label: "Chalcis evacuated", coordinates: [23.55, 38.42], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -194, month: 6, label: "West along the Locrian shore", coordinates: [22.7, 38.75], certainty: "speculative", sourceIds: ["livy-34-37"] },
+      { year: -194, month: 6, label: "Demetrias evacuated, and home", coordinates: [22.93, 39.35], certainty: "attested", sourceIds: ["livy-34-37"] },
+    ],
+  },
+  {
+    id: "antiochus-into-europe",
+    name: "Antiochus III from Thrace to Thermopylae",
+    faction: "seleucid",
+    forceType: "army",
+    startYear: -195,
+    endYear: -191,
+    certainty: "probable",
+    description: "Four years of a king moving on the assumption that he had time. Antiochus refounded Lysimachia in Thrace and claimed his ancestors' European possessions, spent two years exchanging embassies at Ephesus, and crossed to Demetrias in the autumn of 192 with about ten thousand men. He wintered at Chalcis on Euboea — a stop this line passes over, because a garrison in a city is not a march — and met the Roman army at Thermopylae the following spring.",
+    points: [
+      { year: -195, label: "Lysimachia refounded", coordinates: [26.5, 40.4], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -193, label: "Down the Aegean", coordinates: [25.8, 39.2], certainty: "speculative", sourceIds: ["livy-34-37"], viaSea: true },
+      { year: -193, label: "Embassies at Ephesus", coordinates: [27.05, 37.9], certainty: "attested", sourceIds: ["livy-34-37"], viaSea: true },
+      { year: -192, month: 9, label: "Landing at Demetrias", coordinates: [23.05, 39.3], certainty: "attested", sourceIds: ["livy-34-37", "appian-syrian"], viaSea: true },
+      { year: -191, month: 4, label: "The pass of Thermopylae", coordinates: [22.54, 38.8], certainty: "attested", sourceIds: ["polybius-20", "livy-34-37"] },
+    ],
+  },
+  {
+    id: "roman-army-to-asia",
+    name: "The Scipios' march into Asia",
+    faction: "rome",
+    forceType: "army",
+    startYear: -191,
+    endYear: -190,
+    certainty: "probable",
+    description: "The first Roman army to campaign in Asia, and it walked there. After Thermopylae the consular army of 190 went north through Macedonia and Thrace with Philip V's cooperation — the alternative to a sea crossing Rome could not yet guarantee — and ferried over the Hellespont once Myonnesus had cleared the water. Antiochus abandoned the straits without contesting them.",
+    points: [
+      { year: -191, month: 3, label: "Landing at Apollonia", coordinates: [19.47, 40.72], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -191, month: 3, label: "Through the Aoös gorge", coordinates: [20.2, 40.1], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -191, month: 4, label: "Into Thessaly", coordinates: [22.0, 39.55], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -191, month: 4, label: "Thermopylae forced", coordinates: [22.54, 38.8], certainty: "attested", sourceIds: ["livy-34-37", "polybius-20"] },
+      { year: -190, month: 4, label: "North past Tempe", coordinates: [22.6, 39.86], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 5, label: "Through Macedonia to Pella", coordinates: [22.52, 40.76], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 6, label: "East to the Strymon", coordinates: [23.84, 40.82], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 7, label: "Across Thrace", coordinates: [25.4, 41.2], certainty: "speculative", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 8, label: "Down to the Chersonese", coordinates: [26.5, 40.4], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 9, label: "Over the Hellespont", coordinates: [26.25, 40.25], certainty: "attested", sourceIds: ["livy-34-37", "polybius-21"], viaSea: true },
+      { year: -190, month: 11, label: "Up the Hermus past Sardis", coordinates: [28.04, 38.49], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 12, label: "Magnesia ad Sipylum", coordinates: [27.43, 38.61], certainty: "attested", sourceIds: ["livy-34-37", "appian-syrian"] },
+    ],
+  },
+  {
+    id: "manlius-galatia",
+    name: "Manlius Vulso in Galatia, and the peace at Apamea",
+    faction: "rome",
+    forceType: "army",
+    startYear: -189,
+    endYear: -188,
+    certainty: "probable",
+    description: "With the war already won, the consul of 189 took the army inland against the Galatians — the Celtic settlers of central Anatolia — stormed them on Mount Olympus and Magaba, and came back with enough plunder that the Senate argued about whether to grant him a triumph at all. The terms with Antiochus were then settled at Apamea in Phrygia.",
+    points: [
+      { year: -189, month: 4, label: "Inland from Ephesus", coordinates: [27.34, 37.94], certainty: "probable", sourceIds: ["livy-38"] },
+      { year: -189, month: 6, label: "Through Pisidia and Phrygia", coordinates: [30.17, 38.07], certainty: "speculative", sourceIds: ["livy-38"] },
+      { year: -189, month: 8, label: "The Galatians on Mount Olympus", coordinates: [31.9, 40.15], certainty: "probable", sourceIds: ["livy-38", "polybius-21"] },
+      { year: -189, month: 9, label: "Magaba stormed", coordinates: [32.9, 39.85], certainty: "probable", sourceIds: ["livy-38"] },
+      { year: -188, month: 4, label: "The peace of Apamea", coordinates: [30.17, 38.07], certainty: "attested", sourceIds: ["polybius-21", "livy-38"] },
+    ],
+  },
+  {
+    id: "roman-rhodian-fleet",
+    name: "The Roman and Rhodian fleet in the Aegean",
+    faction: "rome",
+    forceType: "fleet",
+    startYear: -191,
+    endYear: -190,
+    certainty: "probable",
+    description: "The campaign that decided the war. Two seasons of working down the Ionian coast to bring the Seleucid fleet to battle — Corycus in 191, a bad reverse at Panormus in 190 where a Rhodian squadron was destroyed by a ruse, and then Myonnesus, which finished the Seleucid navy and opened the Hellespont to the army.",
+    points: [
+      { year: -191, month: 7, label: "Concentration at Delos", coordinates: [25.27, 37.4], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -191, month: 9, label: "Action off Cape Corycus", coordinates: [26.45, 38.19], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 6, label: "Based off Samos", coordinates: [26.6, 37.6], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 9, label: "Myonnesus", coordinates: [26.86, 38.06], certainty: "attested", sourceIds: ["livy-34-37", "polybius-21"] },
+      { year: -190, month: 10, label: "West of Lesbos", coordinates: [25.7, 39.15], certainty: "speculative", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 10, label: "North to the Hellespont", coordinates: [26.25, 40.25], certainty: "probable", sourceIds: ["livy-34-37"] },
+    ],
+  },
+  {
+    id: "seleucid-aegean-fleet",
+    name: "Polyxenidas and the Seleucid fleet",
+    faction: "seleucid",
+    forceType: "fleet",
+    startYear: -191,
+    endYear: -190,
+    certainty: "probable",
+    description: "Antiochus' admiral was a Rhodian exile fighting his own city, and his war was fought largely by stratagem: beaten in the open at Corycus, he destroyed a Rhodian squadron at Panormus by pretending to betray his king, and then had to come out and fight at Myonnesus anyway. After it the fleet stayed in Ephesus for the rest of the war.",
+    points: [
+      { year: -191, month: 8, label: "Out from Ephesus", coordinates: [27.05, 37.9], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -191, month: 9, label: "Beaten off Cape Corycus", coordinates: [26.45, 38.19], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 5, label: "The ambush at Panormus", coordinates: [26.3, 37.7], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 9, label: "Destroyed at Myonnesus", coordinates: [26.86, 38.06], certainty: "attested", sourceIds: ["livy-34-37", "polybius-21"] },
+      { year: -190, month: 10, label: "The remnant shut in Ephesus", coordinates: [27.05, 37.9], certainty: "attested", sourceIds: ["livy-34-37"] },
+    ],
+  },
+  {
+    id: "hannibal-phoenician-fleet",
+    name: "Hannibal's Phoenician squadron",
+    faction: "seleucid",
+    forceType: "fleet",
+    startYear: -190,
+    endYear: -190,
+    certainty: "probable",
+    description: "The one naval command of Hannibal's life. Exiled at Antiochus' court since 195 and consulted for his name rather than his advice, he was sent to raise ships in Phoenicia and Cilicia and bring them round to join Polyxenidas. A Rhodian squadron met him off the Pamphylian coast and turned him back, and the reinforcement never reached the Aegean.",
+    points: [
+      { year: -190, month: 5, label: "Ships raised in Phoenicia", coordinates: [35.2, 33.27], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 7, label: "West along the Cilician coast", coordinates: [33.6, 35.4], certainty: "speculative", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 8, label: "Turned back off the Eurymedon", coordinates: [31.2, 36.5], certainty: "attested", sourceIds: ["livy-34-37", "appian-syrian"] },
+    ],
+  },
+  {
+    id: "pergamene-fleet",
+    name: "Eumenes II's squadron, and the ferry over the Hellespont",
+    faction: "pergamon",
+    forceType: "fleet",
+    startYear: -191,
+    endYear: -190,
+    certainty: "probable",
+    description: "Pergamum's contribution was the one Rome could not supply for itself: local ships, local pilots, and a king who joined the Roman squadron in person at Corycus. In 190 the same squadron carried the consular army over the Hellespont — the crossing the whole naval war had been fought to make possible.",
+    points: [
+      { year: -191, month: 8, label: "Out from Elaea", coordinates: [26.8, 38.98], certainty: "probable", sourceIds: ["livy-34-37"] },
+      { year: -191, month: 9, label: "Joins the Romans off Phocaea", coordinates: [26.75, 38.67], certainty: "attested", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 8, label: "West of Lesbos", coordinates: [25.7, 39.15], certainty: "speculative", sourceIds: ["livy-34-37"] },
+      { year: -190, month: 9, label: "Ferrying the army over the Hellespont", coordinates: [26.25, 40.25], certainty: "probable", sourceIds: ["livy-34-37", "polybius-21"] },
+    ],
+  },
+];
+
 // Which era segment each early route belongs to, matching data/wars.ts.
 const EARLY_ROUTE_ERA: Record<string, string> = {
   "roman-latium-early": "early-republic",
@@ -657,4 +816,7 @@ export const campaignRoutes: CampaignRoute[] = [
   ...interbellumRoutes.map((route) => ({ ...route, war: route.startYear <= -251 ? "first-punic" : "interbellum" })),
   ...secondPunicRoutes.map((route) => ({ ...route, war: "second-punic" })),
   ...macedonianRoutes.map((route) => ({ ...route, war: "macedonian-second" })),
+  // The Nabis war and the withdrawal belong to the interbellum that produced the
+  // next war; everything from Antiochus' move on Europe belongs to the war itself.
+  ...seleucidRoutes.map((route) => ({ ...route, war: route.id === "flamininus-nabis-war" ? "greek-settlement" : "seleucid-war" })),
 ];

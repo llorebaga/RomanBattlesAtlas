@@ -25,6 +25,7 @@ export const timelineMilestones: TimelineMilestone[] = [
   { id: "cannae", year: -216, label: "Cannae", note: "Hannibal destroys the largest army Rome had ever fielded.", mapped: true, focus: { location: [16.1, 41.3], zoom: 5.4 } },
   { id: "zama", year: -202, label: "Zama", note: "Scipio defeats Hannibal in Africa and ends the war.", mapped: true, focus: { location: [9.55, 36.05], zoom: 5.2 } },
   { id: "cynoscephalae", year: -197, label: "Cynoscephalae", note: "The legion breaks the Macedonian phalanx.", mapped: true, focus: { location: [22.55, 39.42], zoom: 5.4 } },
+  { id: "magnesia", year: -190, label: "Magnesia", note: "Rome campaigns in Asia for the first time, breaks the largest army it had ever faced, and annexes none of it.", mapped: true, focus: { location: [27.43, 38.61], zoom: 5.2 } },
   { id: "carthage-destroyed", year: -146, label: "Carthage destroyed", note: "Carthage and Corinth are sacked in the same year.", mapped: false },
   { id: "caesar-civil-war", year: -49, label: "Caesar's civil war", note: "The Rubicon, Pharsalus, and the end of the Republic in practice.", mapped: false },
   { id: "augustus", year: -27, label: "Augustus takes power", note: "A standing professional army under one commander.", mapped: false },

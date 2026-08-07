@@ -21,7 +21,7 @@ import type { TerritoryPeriod } from "@/types/history";
 export const territories: TerritoryPeriod[] = [
   // ── Rome ──────────────────────────────────────────────────────────────────
   {
-    id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -272, toYear: -196, certainty: "attested", labelAt: [13.0, 42.3],
+    id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -272, toYear: -188, certainty: "attested", labelAt: [13.0, 42.3],
     ring: [
       // Northern limit, carried a little past the watershed: the Cisalpine zone
       // is drawn after Rome and takes the overlap, so the visible frontier is the
@@ -42,16 +42,16 @@ export const territories: TerritoryPeriod[] = [
     ring: [[12.1, 38.1], [12.3, 38.5], [13.0, 38.4], [13.7, 38.4], [14.3, 38.35], [14.6, 38.1], [14.7, 37.6], [14.6, 37.1], [14.3, 36.6], [13.5, 36.5], [12.7, 36.6], [12.2, 37.3]],
   },
   {
-    id: "rome-sicily-whole", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -212, toYear: -196, certainty: "attested", labelAt: [14.0, 37.6],
+    id: "rome-sicily-whole", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -212, toYear: -188, certainty: "attested", labelAt: [14.0, 37.6],
     ring: [[12.1, 38.1], [12.3, 38.5], [13.2, 38.45], [14.2, 38.4], [15.0, 38.4], [15.5, 38.35], [15.6, 37.8], [15.4, 37.1], [15.1, 36.5], [14.2, 36.4], [13.2, 36.5], [12.2, 37.3]],
   },
   {
-    id: "rome-sardinia", polity: "rome", name: "Sardinia & Corsica", mapLabel: "SARDINIA", fromYear: -238, toYear: -196, certainty: "attested", labelAt: [9.1, 40.1],
+    id: "rome-sardinia", polity: "rome", name: "Sardinia & Corsica", mapLabel: "SARDINIA", fromYear: -238, toYear: -188, certainty: "attested", labelAt: [9.1, 40.1],
     ring: [[8.3, 43.3], [9.0, 43.4], [9.7, 43.2], [9.9, 42.5], [9.6, 41.6], [10.0, 41.0], [10.0, 40.2], [9.8, 39.4], [9.4, 38.7], [8.6, 38.6], [8.1, 39.2], [8.0, 40.2], [8.2, 41.0], [8.1, 42.0], [8.2, 42.8]],
   },
   {
     // 206 onwards Rome inherits the Barcid province: the same Ebro frontier.
-    id: "rome-iberia", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -206, toYear: -196, certainty: "probable", labelAt: [-3.4, 38.4],
+    id: "rome-iberia", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -206, toYear: -188, certainty: "probable", labelAt: [-3.4, 38.4],
     ring: [
       // Up the Mediterranean coast, offshore, to the Ebro delta.
       [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.1, 40.9],
@@ -66,7 +66,7 @@ export const territories: TerritoryPeriod[] = [
 
   // ── Gauls: the two zones part along the Alpine arc ────────────────────────
   {
-    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -395, toYear: -196, certainty: "probable", labelAt: [10.0, 45.2],
+    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -395, toYear: -188, certainty: "probable", labelAt: [10.0, 45.2],
     ring: [
       // The Alpine crest from the Maritime Alps round to the Carnic Alps.
       [7.4, 44.2], [7.0, 44.9], [7.1, 45.5], [7.4, 45.9], [8.4, 46.2], [9.5, 46.4], [10.6, 46.5], [11.6, 46.6], [12.6, 46.4], [13.4, 45.9],
@@ -76,7 +76,7 @@ export const territories: TerritoryPeriod[] = [
     ],
   },
   {
-    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -509, toYear: -196, certainty: "speculative", labelAt: [2.0, 44.6],
+    id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -509, toYear: -188, certainty: "speculative", labelAt: [2.0, 44.6],
     ring: [
       // Pyrenean frontier, from the Mediterranean to the Bay of Biscay.
       [3.4, 42.3], [2.4, 42.35], [1.4, 42.5], [0.4, 42.6], [-0.6, 42.8], [-1.6, 43.1], [-2.0, 43.6],
@@ -101,7 +101,7 @@ export const territories: TerritoryPeriod[] = [
   },
   {
     // Enlarged by Rome after Zama at Carthage's expense.
-    id: "numidia-masinissa", polity: "numidia", name: "Numidia (Masinissa)", mapLabel: "NUMIDIA", fromYear: -201, toYear: -196, certainty: "probable", labelAt: [4.4, 35.6],
+    id: "numidia-masinissa", polity: "numidia", name: "Numidia (Masinissa)", mapLabel: "NUMIDIA", fromYear: -201, toYear: -188, certainty: "probable", labelAt: [4.4, 35.6],
     ring: [
       [-1.8, 35.4], [-1.0, 36.2], [0.2, 36.9], [1.6, 37.1], [3.0, 37.2], [4.6, 37.3], [6.0, 37.4], [7.2, 37.4],
       [7.6, 36.6], [7.5, 35.6], [7.2, 34.6], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
@@ -110,7 +110,7 @@ export const territories: TerritoryPeriod[] = [
 
   // ── Carthage ─────────────────────────────────────────────────────────────
   {
-    id: "carthage-africa", polity: "carthage", name: "Carthage", mapLabel: "CARTHAGE", fromYear: -509, toYear: -196, certainty: "attested", labelAt: [9.9, 36.2],
+    id: "carthage-africa", polity: "carthage", name: "Carthage", mapLabel: "CARTHAGE", fromYear: -509, toYear: -188, certainty: "attested", labelAt: [9.9, 36.2],
     ring: [
       // Thabraca frontier with Numidia.
       [7.2, 37.2], [7.1, 36.4], [7.4, 35.6], [7.8, 34.8],
@@ -201,10 +201,28 @@ export const territories: TerritoryPeriod[] = [
   {
     // After Cynoscephalae Rome declared the Greek cities free — nominally
     // independent, under Roman oversight. Bounded by Olympus and the Pindus.
-    id: "greek-states", polity: "greek", name: "Greek states", mapLabel: "GREEK STATES", fromYear: -197, toYear: -196, certainty: "probable", labelAt: [22.4, 38.6],
+    id: "greek-states", polity: "greek", name: "Greek states", mapLabel: "GREEK STATES", fromYear: -197, toYear: -188, certainty: "probable", labelAt: [22.4, 38.6],
     ring: [
       [19.2, 40.0], [20.2, 39.9], [21.2, 39.9], [22.2, 39.9], [23.2, 40.0], [24.2, 40.2],
       [24.8, 39.4], [24.4, 38.4], [23.9, 37.4], [23.6, 36.3], [22.6, 36.2], [21.4, 36.4], [20.6, 37.4], [20.0, 38.4], [19.2, 39.2],
+    ],
+  },
+  {
+    // Antiochus' bridgehead in Greece. He landed at Demetrias in the autumn of 192
+    // with about ten thousand men, wintered at Chalcis, and held Magnesia, Achaea
+    // Phthiotis and Malis until Thermopylae threw him out in the spring of 191.
+    //
+    // Drawn over the freed Greek states, which it supersedes: he is a principal and
+    // they are a minor power, so the ground reads as his. Two cautions the outline
+    // cannot carry itself. It is a year-granular zone for a hold that lasted two
+    // campaigning seasons at most, so 191 shows it for a year in which he was gone
+    // by April. And Euboea is left out: Chalcis opened its gates to him, but a city
+    // and its garrison are not a shaded province, and the island drawn solid would
+    // claim far more than the sources support.
+    id: "seleucid-greece", polity: "seleucid", name: "Antiochus' bridgehead in Greece", mapLabel: "ANTIOCHUS", fromYear: -192, toYear: -191, certainty: "probable", labelAt: [22.4, 39.0],
+    ring: [
+      [22.3, 39.5], [22.9, 39.5], [23.4, 39.3], [23.2, 39.0],
+      [22.9, 38.7], [22.5, 38.6], [22.1, 38.8], [22.0, 39.2],
     ],
   },
 
@@ -221,28 +239,131 @@ export const territories: TerritoryPeriod[] = [
   },
   {
     // Reduced to Macedonia proper after 197: Greece is free, the coast retained.
-    id: "macedon-reduced", polity: "macedon", name: "Macedon", mapLabel: "MACEDON", fromYear: -197, toYear: -196, certainty: "probable", labelAt: [22.2, 41.2],
+    id: "macedon-reduced", polity: "macedon", name: "Macedon", mapLabel: "MACEDON", fromYear: -197, toYear: -188, certainty: "probable", labelAt: [22.2, 41.2],
     ring: [
       [19.3, 41.4], [20.0, 42.0], [21.0, 42.3], [22.0, 42.3], [23.0, 42.0], [24.0, 41.6], [24.9, 41.4],
       [24.9, 40.7], [24.2, 40.4], [23.2, 40.2], [22.2, 40.1], [21.2, 40.1], [20.2, 40.1], [19.2, 40.3],
     ],
   },
+  // ── The Seleucids, in three phases ────────────────────────────────────────
+  //
+  // One outline for the whole atlas would hide the only thing the map has to say
+  // about this empire: that it filled Asia Minor for seventy years and then, in a
+  // single treaty, was pushed out of it. The phases are cut at the two years that
+  // did it — 200, when Rome's alliance with Attalus puts Pergamum on the map and
+  // the Attalid corner has to come out of the Seleucid fill, and 188, when Apamea
+  // moves the frontier back to the Taurus.
   {
-    id: "seleucid", polity: "seleucid", name: "Seleucid Empire", mapLabel: "SELEUCIDS", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [37.4, 36.4],
+    id: "seleucid", polity: "seleucid", name: "Seleucid Empire", mapLabel: "SELEUCIDS", fromYear: -264, toYear: -201, certainty: "probable", labelAt: [37.4, 36.4],
     ring: [
-      // Anatolian and Levantine coasts, offshore, then the inland limits.
+      // Anatolian coast and the eastern limits.
       [26.0, 40.4], [28.0, 40.6], [30.0, 41.4], [32.0, 42.2], [34.0, 42.2], [36.0, 41.6], [38.0, 40.4], [40.0, 39.0],
-      [41.0, 37.0], [40.0, 35.0], [38.0, 33.4], [36.4, 32.6], [35.0, 31.4], [34.2, 31.6],
-      [34.6, 33.0], [35.4, 34.6], [34.0, 36.0], [32.0, 36.4], [30.0, 36.2], [28.0, 36.4], [26.4, 38.4],
+      [41.0, 37.0], [40.0, 35.0], [38.4, 34.5], [36.8, 34.4],
+      // The southern frontier is the Eleutherus, not the Egyptian border: Coele-Syria
+      // was Ptolemaic for the whole third century, and four Syrian wars were fought
+      // over it before Antiochus finally took it at Panium in 200.
+      [35.4, 34.7], [34.6, 35.6],
+      // Then the Levantine and southern Anatolian coasts north and west, offshore.
+      [34.0, 36.0], [32.0, 36.4], [30.0, 36.2], [28.0, 36.4], [26.4, 38.4],
     ],
   },
   {
-    id: "ptolemaic", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -264, toYear: -196, certainty: "probable", labelAt: [29.5, 28.0],
+    // 200–189: the same empire with the Attalid kingdom cut out of its north-west
+    // corner. The line between them runs from the Aegean below Pergamum up the
+    // Caicus divide — this edge is authored on both zones, and Pergamum's ring
+    // deliberately overshoots it, because the Seleucids are a principal and take
+    // the overlap. What a reader sees is this line, with no pale seam behind it.
+    //
+    // Ionia stays Seleucid: Ephesus was Antiochus' western capital and the base
+    // his fleet fought the naval war from, and giving it to Pergamum here would
+    // make nonsense of Corycus and Myonessus.
+    id: "seleucid-west", polity: "seleucid", name: "Seleucid Empire", mapLabel: "SELEUCIDS", fromYear: -200, toYear: -189, certainty: "probable", labelAt: [37.4, 36.4],
+    ring: [
+      [29.2, 40.3], [30.0, 41.4], [32.0, 42.2], [34.0, 42.2], [36.0, 41.6], [38.0, 40.4], [40.0, 39.0],
+      [41.0, 37.0], [40.0, 35.0], [38.0, 33.4], [36.4, 32.6], [35.0, 31.4], [34.2, 31.6],
+      [34.6, 33.0], [35.4, 34.6], [34.0, 36.0], [32.0, 36.4], [30.0, 36.2], [28.4, 36.4],
+      // Up the Carian and Ionian coast, offshore, keeping Miletus and Ephesus.
+      [27.0, 37.0], [26.8, 37.8],
+      // The Attalid frontier, inland to the Propontis.
+      [26.9, 38.6], [27.8, 39.0], [29.0, 39.6],
+    ],
+  },
+  {
+    // 188: Apamea. Antiochus gives up everything north and west of the Taurus,
+    // pays an indemnity in twelve annual instalments, and surrenders his elephants
+    // and all but ten warships. Rome takes none of the ground itself.
+    id: "seleucid-apamea", polity: "seleucid", name: "Seleucid Empire after Apamea", mapLabel: "SELEUCIDS", fromYear: -188, toYear: -188, certainty: "attested", labelAt: [37.4, 36.2],
+    ring: [
+      // The Taurus frontier, from the Cilician coast east along the range.
+      [33.0, 36.4], [33.6, 37.0], [34.6, 37.6], [35.8, 37.9], [37.2, 37.7], [38.6, 37.5], [40.0, 37.2],
+      // Eastern limit, then south-west down the Syrian flank to the Egyptian border.
+      [41.0, 36.4], [40.4, 35.0], [38.6, 33.6], [36.6, 32.8], [35.2, 31.6], [34.2, 31.6],
+      // Levantine coast north, offshore throughout, back to Cilicia.
+      [34.6, 33.0], [35.4, 34.6], [34.6, 36.0], [33.6, 36.1],
+    ],
+  },
+
+  // ── Attalid Pergamum ──────────────────────────────────────────────────────
+  {
+    // Pergamum enters the map in 200 rather than at its own foundation, on the
+    // same rule the eastern kingdoms follow: a power is drawn from the year it
+    // enters Rome's story, and Attalus I's alliance against Philip V is that year.
+    // Before then it would be decoration.
+    id: "pergamon", polity: "pergamon", name: "Attalid Pergamum", mapLabel: "PERGAMUM", fromYear: -200, toYear: -189, certainty: "probable", labelAt: [27.3, 39.2],
+    ring: [
+      // Propontis and Troad shore, offshore, then the eastern limit inland.
+      [25.9, 40.4], [27.2, 40.7], [28.6, 40.5], [29.6, 40.3],
+      // South past the Seleucid frontier — the overshoot is deliberate; see above.
+      [29.3, 39.3], [28.0, 38.7], [26.6, 38.2],
+      [26.0, 38.9], [25.8, 39.8],
+    ],
+  },
+  {
+    // Apamea handed the Seleucid west to Rome's two allies: Eumenes II took Mysia,
+    // Lydia, both Phrygias, Lycaonia and Pisidia, Rhodes took Lycia and Caria south
+    // of the Maeander. They are inside one outline because the map cannot honestly
+    // draw the Maeander as a surveyed border, and the label says both names.
+    //
+    // Bithynia, Galatia, Paphlagonia, Pontus and Cappadocia are left blank. They
+    // were not Antiochus' to lose and not Rome's to give, and colouring them as
+    // part of the settlement would be the larger error.
+    id: "pergamon-apamea", polity: "pergamon", name: "Attalid and Rhodian gains at Apamea", mapLabel: "PERGAMUM & RHODES", fromYear: -188, toYear: -188, certainty: "attested", labelAt: [29.5, 38.8],
+    ring: [
+      // Aegean and Propontis shore, offshore.
+      [25.8, 40.4], [27.0, 40.7], [28.4, 40.6], [29.6, 40.6],
+      // Northern limit against Bithynia and Paphlagonia, east to the Galatian edge.
+      [30.4, 40.0], [31.4, 39.6], [32.6, 39.4],
+      // Eastern limit against Galatia and Cappadocia, then south-west to the Taurus.
+      [33.2, 38.6], [33.0, 37.6], [32.0, 37.0], [30.8, 36.8],
+      // Round the Lycian and Carian coast, offshore, and back up the Ionian shore.
+      [29.6, 36.0], [28.4, 36.0], [27.2, 36.6], [26.6, 37.4], [26.6, 38.2], [26.0, 38.9], [25.8, 39.8],
+    ],
+  },
+  {
+    // 264–201: Egypt with Coele-Syria, which is the shape that explains the third
+    // century. The Ptolemies held the Levant to the Eleutherus and the Seleucids
+    // spent four wars trying to take it; drawing Egypt as the Nile alone would make
+    // both of those disappear.
+    id: "ptolemaic", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -264, toYear: -201, certainty: "probable", labelAt: [29.5, 28.0],
     ring: [
       // Cyrenaica and the Egyptian coast, every stretch pushed offshore so the
       // Nile delta shore is never left pale.
-      [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.4, 31.6],
+      [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.4, 31.5],
+      // Up the Levantine coast, offshore, to the Eleutherus frontier, then east.
+      [34.8, 32.6], [35.3, 33.6], [35.8, 35.0], [36.6, 35.0],
+      // Back south along the desert edge of Coele-Syria, then into Sinai.
+      [36.8, 33.4], [36.2, 32.2], [35.7, 31.4], [35.1, 30.6],
       // Sinai and the Red Sea flank, then the Nubian limit and the desert west.
+      [34.6, 30.0], [34.0, 28.4], [33.4, 27.0], [33.0, 25.4], [32.6, 23.8], [31.0, 23.8], [29.0, 24.0], [26.6, 24.6], [24.2, 25.6], [22.0, 27.0], [20.4, 29.0],
+    ],
+  },
+  {
+    // 200 onwards: Panium. Antiochus takes Coele-Syria and Egypt is the Nile and
+    // Cyrenaica again — the victory that freed him to turn west, and so the other
+    // half of why the year 200 is a hinge on this map.
+    id: "ptolemaic-egypt", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -200, toYear: -188, certainty: "probable", labelAt: [29.5, 28.0],
+    ring: [
+      [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.4, 31.6],
       [34.6, 30.0], [34.0, 28.4], [33.4, 27.0], [33.0, 25.4], [32.6, 23.8], [31.0, 23.8], [29.0, 24.0], [26.6, 24.6], [24.2, 25.6], [22.0, 27.0], [20.4, 29.0],
     ],
   },

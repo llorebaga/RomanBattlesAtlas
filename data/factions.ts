@@ -19,17 +19,26 @@ export interface FactionInfo {
 // swatches, and the legend all read colors from here, so adding a power only
 // needs an entry here plus the id in the Faction union.
 //
-// The five belligerent hues are a validated categorical set: every pair clears
-// the lightness, chroma, and normal-vision separation gates with all pairs in
-// play (worst normal-vision ΔE 16.3). Two pairs land in the 6–8 CVD band, which
-// is why territory zones also carry direct name labels on the map — color is
-// never the only cue. Do not re-tint these individually; re-validate the set.
+// The five hues of the Punic and Macedonian wars are a validated categorical set:
+// every pair clears the lightness, chroma, and normal-vision separation gates with
+// all pairs in play (worst normal-vision ΔE 16.3). Two pairs land in the 6–8 CVD
+// band, which is why territory zones also carry direct name labels on the map —
+// color is never the only cue. Do not re-tint these individually; re-validate the set.
 //
-// The Seleucids and Ptolemies never take the field in 264–196 BCE, so they are
-// drawn as muted context tints rather than competing for a categorical hue.
+// From 192 a sixth can appear beside them, because the Seleucids become a
+// belligerent while Rome, Carthage, Macedon, Numidia and the Gauls are all still on
+// the map. That costs nothing: the magenta they take was sited for Etruria against
+// exactly these five, in the widest gap the set leaves. Adding a genuinely new hue
+// to a year that already draws six would not be so cheap — check the co-occurring
+// set before trying.
+//
+// Ptolemaic Egypt never takes the field anywhere in the mapped period, so it is
+// drawn as a muted context tint rather than competing for a categorical hue. The
+// Seleucids were in that class until the atlas reached 192: from Thermopylae to
+// Magnesia they are a principal, and `context` means "never fought here".
 //
 // ── Hues are reused across periods that never meet ────────────────────────────
-// Extending the atlas back to 509 BCE brought in four more belligerents, and nine
+// Extending the atlas back to 509 BCE brought in four more belligerents, and ten
 // categorical hues cannot stay separable — least of all under colour-vision
 // deficiency. But the atlas only ever draws one year at a time, and the powers of
 // archaic Italy were finished long before Carthage and Macedon appear: the
@@ -43,7 +52,17 @@ export const factionList: FactionInfo[] = [
   { id: "macedon", name: "Macedon", adjective: "Macedonian", color: "#4a3aa7", role: "belligerent" },
   { id: "numidia", name: "Numidia", adjective: "Numidian", color: "#eda100", role: "belligerent" },
   { id: "gaul", name: "Gallic peoples", adjective: "Gallic", color: "#008300", role: "belligerent" },
-  { id: "seleucid", name: "Seleucid Empire", adjective: "Seleucid", color: "#8c8577", role: "context" },
+  // Antiochus III takes Etruria's magenta. The last Etruscan zone ends in 291 and
+  // the Seleucids do not appear on the map until 264, so the two never share a
+  // year. The pair this hue was chosen against is Macedon's indigo, which is
+  // exactly the neighbour it has here — magenta is the lighter of the two, and the
+  // Aegean separates them.
+  //
+  // Promoting the Seleucids repaints them for 264–193 as well, when they were
+  // scenery. That is the honest direction: the role describes the faction across
+  // the whole atlas, and an empire Rome fought at Magnesia was never really
+  // background — it was a power the map had not yet reached.
+  { id: "seleucid", name: "Seleucid Empire", adjective: "Seleucid", color: "#a9538c", role: "belligerent" },
   { id: "ptolemaic", name: "Ptolemaic Egypt", adjective: "Ptolemaic", color: "#6f7d86", role: "context" },
   // Third parties in the theatre rather than principals: Hiero's Syracuse held
   // south-eastern Sicily as an independent ally until 212, and the Greek states
@@ -52,6 +71,13 @@ export const factionList: FactionInfo[] = [
   // from the five principal hues — at a lower strength.
   { id: "syracuse", name: "Syracuse", adjective: "Syracusan", color: "#0f7d86", role: "minor" },
   { id: "greek", name: "Greek states", adjective: "Greek", color: "#9a8f4a", role: "minor" },
+  // Attalid Pergamum takes Syracuse's teal: Syracuse is off the map from 212, and
+  // Pergamum does not enter it until 200. Eumenes II led the decisive cavalry
+  // charge at Magnesia and took most of Anatolia at Apamea, which is more than a
+  // minor power usually does — but Pergamum fought as Rome's ally rather than as a
+  // principal, and colouring it as one would put a sixth belligerent hue on a
+  // validated set of five. It sits a step back instead, like Hiero's Syracuse.
+  { id: "pergamon", name: "Attalid Pergamum", adjective: "Pergamene", color: "#0f7d86", role: "minor" },
   // Saguntum fought Hannibal on its own account, with Rome an ally that never
   // arrived. Colouring its defenders Roman would claim a Roman garrison that was
   // not there, and calling them Greek would take Livy's foundation legend for

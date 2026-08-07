@@ -87,6 +87,23 @@ const OWNERSHIP = [
   { year: -264, places: { "Nile delta": [31.0, 31.2], "Cyrenaica": [21.8, 32.7] }, polity: "ptolemaic" },
   { year: -264, places: { "Po valley": [10.4, 45.0], "Alpine foot": [8.0, 45.6] }, polity: "gaul" },
   { year: -264, places: { "Apennine south slope": [11.5, 43.9] }, polity: "rome" },
+  // The war with Antiochus. Ionia has to stay Seleucid while Pergamum holds the
+  // north-west corner, or the naval war is fought out of somebody else's harbour.
+  // Coele-Syria is Ptolemaic for the whole third century and Seleucid after Panium
+  // in 200. Promoting the Seleucids out of the context layer made them win this
+  // seam, which is how the error surfaced — before that they simply lost it.
+  { year: -264, places: { Judaea: [35.2, 31.8], Gaza: [34.47, 31.5], Damascus: [36.3, 33.5] }, polity: "ptolemaic" },
+  { year: -264, places: { Antioch: [36.2, 36.2] }, polity: "seleucid" },
+  { year: -190, places: { Judaea: [35.2, 31.8], Gaza: [34.47, 31.5] }, polity: "seleucid" },
+  { year: -190, places: { "Nile delta": [31.0, 31.2] }, polity: "ptolemaic" },
+  { year: -195, places: { Ephesus: [27.34, 37.94], "Seleucid Syria": [37.0, 36.2], Cilicia: [34.6, 37.0] }, polity: "seleucid" },
+  { year: -195, places: { Pergamum: [27.18, 39.13], "the Troad": [26.4, 39.8] }, polity: "pergamon" },
+  // Antiochus' bridgehead supersedes the freed Greek states while he holds it.
+  { year: -192, places: { "Malis and Phthiotis": [22.5, 39.0] }, polity: "seleucid" },
+  { year: -195, places: { "Malis and Phthiotis": [22.5, 39.0] }, polity: "greek" },
+  // Apamea: the Seleucids go behind the Taurus, and Rome keeps none of it.
+  { year: -188, places: { "Seleucid Syria": [37.0, 36.2], "Cilicia Pedias": [35.6, 37.0] }, polity: "seleucid" },
+  { year: -188, places: { Ephesus: [27.34, 37.94], Pergamum: [27.18, 39.13], Phrygia: [30.5, 38.6], Lycia: [29.6, 36.6] }, polity: "pergamon" },
 ];
 
 // Ground that is blank on purpose. These peoples were independent, so colouring
@@ -95,6 +112,10 @@ const OWNERSHIP = [
 const UNCLAIMED_BY_DESIGN = [
   { year: -218, places: { "north of the Ebro": [0.9, 41.7], "Celtiberian interior": [-3.5, 41.2], "Cantabrian coast": [-4.0, 43.2] } },
   { year: -264, places: { Liguria: [8.4, 44.3], "free Iberia": [-4.0, 40.0] } },
+  // Apamea gave the Seleucid west to Rome's allies. The northern Anatolian kingdoms
+  // were never Antiochus' to lose or Rome's to give, so the grant must stop short of
+  // them rather than sweeping across the peninsula.
+  { year: -188, places: { Bithynia: [30.5, 40.5], "Galatia (Ancyra)": [32.85, 39.93], Cappadocia: [35.5, 38.7] } },
 ];
 
 test("land held by independent peoples stays unclaimed", () => {
@@ -165,7 +186,11 @@ test("belligerent hues are the validated categorical set", () => {
   const belligerents = factionList.filter((info) => info.role === "belligerent");
   const hues = [...new Set(belligerents.map((info) => info.color))].sort();
   assert.deepEqual(hues, ["#008300", "#2a78d6", "#4a3aa7", "#7d2b3a", "#a9538c", "#e34948", "#eda100"].sort());
-  assert.ok(isContextPower("seleucid"));
+  // Ptolemaic Egypt is the last power on the map that never takes the field. The
+  // Seleucids were in that class until the atlas reached 192; promoting them cost
+  // no new hue, because Etruria's magenta had been free since 291.
+  assert.ok(isContextPower("ptolemaic"));
+  assert.ok(!isContextPower("seleucid"));
   assert.ok(!isContextPower("rome"));
 });
 

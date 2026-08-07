@@ -163,10 +163,22 @@ const macedonianEvents: HistoricalEvent[] = [
   { id: "e196", year: -196, title: "Freedom of the Greeks", summary: "At the Isthmian Games, Flamininus proclaims the Greek cities free — under Roman oversight.", certainty: "attested", war: "macedonian-second" },
 ];
 
+const seleucidEvents: HistoricalEvent[] = [
+  { id: "e195", year: -195, title: "War on Nabis of Sparta", summary: "Before he can leave, Flamininus takes Rome and its Greek allies against the last independent power in the Peloponnese. Nabis loses Argos and the Laconian ports but keeps Sparta and his throne — a settlement that satisfies nobody and leaves the Achaeans to finish the job.", certainty: "attested", war: "greek-settlement" },
+  { id: "e194", year: -194, title: "Rome leaves Greece", summary: "Flamininus withdraws every Roman garrison, including the three fortresses Philip had called the fetters of Greece — Demetrias, Chalcis and Acrocorinth — and sails home. It is the one moment Rome does exactly what it said it would do, and it leaves the fortresses open for the next army that wants them.", certainty: "attested", war: "greek-settlement" },
+  { id: "e193", year: -193, title: "The embassies fail", summary: "Roman envoys at Ephesus tell Antiochus to keep out of Europe; his tell Rome to keep out of Asia. Neither will concede the principle, and the Aetolians, who believe Rome cheated them of their share of the Macedonian victory, begin looking for a king of their own.", certainty: "probable", war: "greek-settlement" },
+  { id: "e192", year: -192, title: "Antiochus lands at Demetrias", summary: "Elected the Aetolians’ commander-in-chief, Antiochus crosses to Greece with about ten thousand men — expecting the Greeks to rise for him, and finding almost nobody does. He winters at Chalcis. Rome declares war.", certainty: "attested", war: "seleucid-war" },
+  { id: "e191", year: -191, title: "Thrown out of Europe at Thermopylae", summary: "Acilius Glabrio attacks the pass frontally while Cato climbs Callidromus in the dark and comes down behind the Aetolian outposts holding the heights. Antiochus escapes to Ephesus with a few hundred men. In the autumn the Roman and Pergamene fleets beat his admiral Polyxenidas off Cape Corycus.", certainty: "attested", battleSlug: "thermopylae", war: "seleucid-war" },
+  { id: "e190", year: -190, title: "Magnesia decides it", summary: "Hannibal, commanding a fleet for the only time in his life, is beaten by the Rhodians off the Eurymedon; Myonessus destroys the Seleucid fleet and opens the Hellespont; and the first Roman army ever to enter Asia breaks Antiochus at Magnesia under the walls of Sipylus.", certainty: "attested", battleSlug: "magnesia", war: "seleucid-war" },
+  { id: "e189", year: -189, title: "Aetolia beaten, Galatia plundered", summary: "Ambracia falls after a siege fought partly underground, and the Aetolian League surrenders its independence in foreign policy. Meanwhile the consul Manlius Vulso marches into Galatia and storms the Celtic settlers on Mount Olympus and Magaba — a campaign for plunder that the Senate very nearly refused to honour.", certainty: "probable", war: "seleucid-war" },
+  { id: "e188", year: -188, title: "The peace of Apamea", summary: "Antiochus abandons everything north and west of the Taurus, surrenders his elephants and all but ten warships, and undertakes to pay fifteen thousand talents over twelve years — the largest indemnity in ancient history. Rome annexes nothing: the ground goes to Pergamum and Rhodes, and the legions go home.", certainty: "attested", war: "seleucid-war" },
+];
+
 export const historicalEvents: HistoricalEvent[] = [
   ...earlyRepublicEvents,
   ...firstPunicEvents.map((event) => ({ ...event, war: "first-punic" })),
   ...interbellumEvents,
   ...secondPunicEvents,
   ...macedonianEvents,
+  ...seleucidEvents,
 ];

@@ -155,6 +155,30 @@ export const eras: Era[] = [
     mapView: { center: [21, 39.6], zoom: 5.1 },
     factions: ["rome", "macedon"],
   },
+  {
+    id: "greek-settlement",
+    name: "The uneasy peace in Greece",
+    shortName: "Uneasy peace",
+    kind: "interbellum",
+    startYear: -195,
+    endYear: -193,
+    blurb:
+      "Rome has declared the Greeks free and now has to decide what that means. Flamininus makes war on Nabis of Sparta, withdraws every Roman garrison from Greece, and sails home — leaving an Aetolia that thinks it was cheated of its share and an Antiochus III who has spent the same years taking back Asia Minor and Thrace. Three years of embassies settle nothing.",
+    mapView: { center: [24.0, 39.4], zoom: 4.6 },
+    factions: ["rome", "seleucid"],
+  },
+  {
+    id: "seleucid-war",
+    name: "The war with Antiochus III",
+    shortName: "Antiochene War",
+    kind: "war",
+    startYear: -192,
+    endYear: -188,
+    blurb:
+      "Invited into Greece by the Aetolians, Antiochus III lands at Demetrias with too small an army and is thrown out of Europe at Thermopylae within a year. Rome then does what it had never done before: crosses into Asia, breaks the largest army it had ever faced at Magnesia, and takes no territory at all — the Seleucid empire is pushed behind the Taurus and its spoils handed to Pergamum and Rhodes.",
+    mapView: { center: [26.5, 38.6], zoom: 4.4 },
+    factions: ["rome", "seleucid", "pergamon"],
+  },
 ];
 
 export function eraForYear(year: number): Era | undefined {

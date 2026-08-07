@@ -21,7 +21,8 @@ test("clamps the continuous timeline across every era", () => {
   assert.equal(clampTimelineYear(-250), -250);
   assert.equal(clampTimelineYear(-216), -216);
   assert.equal(clampTimelineYear(-197), -197);
-  assert.equal(clampTimelineYear(-100), -196);
+  assert.equal(clampTimelineYear(-190), -190);
+  assert.equal(clampTimelineYear(-100), -188);
 });
 
 test("interpolates only active campaign routes", () => {
@@ -69,6 +70,23 @@ test("includes the Second Macedonian War with a new faction", () => {
   assert.deepEqual(eras.find((era) => era.id === "macedonian-second")?.factions, ["rome", "macedon"]);
   assert.equal(getFactionInfo("macedon")?.adjective, "Macedonian");
   assert.match(factionColor("rome"), /^#[0-9a-f]{6}$/i);
+});
+
+test("includes the war with Antiochus, and Rome's first campaign in Asia", () => {
+  assert.ok(battlesForYear(battles, -191).some((battle) => battle.slug === "thermopylae"));
+  assert.ok(battlesForYear(battles, -190).some((battle) => battle.slug === "magnesia"));
+  assert.equal(battles.find((battle) => battle.slug === "magnesia")?.war, "seleucid-war");
+  assert.equal(eraForYear(-194)?.id, "greek-settlement");
+  assert.equal(eraForYear(-190)?.id, "seleucid-war");
+  // The march into Asia is the point of the campaign layer here: without the
+  // Hellespont crossing there is no Magnesia.
+  assert.ok(activeCampaigns(campaignRoutes, -190).some((route) => route.id === "roman-army-to-asia"));
+  assert.ok(campaignRoutes.find((route) => route.id === "roman-army-to-asia")?.points.some((point) => point.viaSea));
+  assert.deepEqual(eras.find((era) => era.id === "seleucid-war")?.factions, ["rome", "seleucid", "pergamon"]);
+  // Antiochus stops being scenery: the Seleucids were a context tint until the
+  // atlas reached a war they actually fought.
+  assert.equal(getFactionInfo("seleucid")?.role, "belligerent");
+  assert.equal(getFactionInfo("pergamon")?.adjective, "Pergamene");
 });
 
 test("territory zones evolve with the timeline", () => {

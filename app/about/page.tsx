@@ -6,6 +6,8 @@ import { HomepageFooter } from "@/components/home/HomepageFooter";
 import { CoverageStatus } from "@/components/home/CoverageStatus";
 import { atlasTotals } from "@/lib/coverage";
 import { atlasHref } from "@/lib/atlasLinks";
+import { TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "@/lib/historicalDates";
+import { formatYearRange } from "@/data/periods";
 
 export const metadata: Metadata = {
   title: "About",
@@ -34,7 +36,8 @@ export default function AboutPage() {
           <h2 id="scope">Scope today</h2>
           <p>
             The atlas covers {totals.wars} campaigns in detail — {totals.battles} mapped battles and sieges, of which{" "}
-            {totals.naval} were fought at sea, with {totals.routes} army and fleet routes across the years 264 to 196 BCE.
+            {totals.naval} were fought at sea, with {totals.routes} army and fleet routes across{" "}
+            {formatYearRange(TIMELINE_START_YEAR, TIMELINE_END_YEAR)}.
             The wider arc of Roman warfare, from the conquest of Italy to the end of the western empire, is laid out on
             the homepage so the gaps are visible rather than hidden.
           </p>

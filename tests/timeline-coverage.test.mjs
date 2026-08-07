@@ -26,8 +26,11 @@ test("the mapped period is the one we think it is", () => {
   // 509 BCE because that is where the Republic — and any usable narrative — begins.
   // The regal period is covered in prose on the methodology page and nowhere else.
   assert.equal(TIMELINE_START_YEAR, -509);
-  assert.equal(TIMELINE_END_YEAR, -196);
-  assert.equal(YEARS.length, 314);
+  // 188 because Apamea is where the war with Antiochus ends and where Rome's
+  // settlement of the East is complete: the next thing on this timeline is the
+  // Third Macedonian War, twenty years later, which is not mapped yet.
+  assert.equal(TIMELINE_END_YEAR, -188);
+  assert.equal(YEARS.length, 322);
 });
 
 test("every year in the mapped period has a focus event", () => {
@@ -130,6 +133,14 @@ const TRANSITIONS = [
   { year: -202, gained: [], lost: ["carthage-bruttium"], why: "Hannibal is recalled to Africa" },
   { year: -201, gained: ["numidia-masinissa"], lost: ["numidia-early"], why: "the peace settles Numidia on Masinissa" },
   { year: -197, gained: ["macedon-reduced", "greek-states"], lost: ["macedon-greece"], why: "Cynoscephalae strips Macedon of Greece" },
+
+  // ── The war with Antiochus III ──────────────────────────────────────────────
+  // 200 is a hinge at both ends of the Mediterranean, and the map has to show both:
+  // Rome allies with Attalus, and Antiochus finally takes Coele-Syria at Panium.
+  { year: -200, gained: ["seleucid-west", "pergamon", "ptolemaic-egypt"], lost: ["seleucid", "ptolemaic"], why: "Rome's alliance with Attalus I brings Pergamum into the story, and Panium transfers Coele-Syria from Egypt to Antiochus" },
+  { year: -192, gained: ["seleucid-greece"], lost: [], why: "Antiochus lands at Demetrias and holds Magnesia, Phthiotis and Malis" },
+  { year: -190, gained: [], lost: ["seleucid-greece"], why: "Thermopylae ended the bridgehead — the zone runs through 191 because the battle was fought on that ground in the spring of it" },
+  { year: -188, gained: ["seleucid-apamea", "pergamon-apamea"], lost: ["seleucid-west", "pergamon"], why: "Apamea pushes the Seleucids behind the Taurus and hands Asia Minor to Pergamum and Rhodes" },
 ];
 
 test("territory changes hands in the year it changed hands", () => {

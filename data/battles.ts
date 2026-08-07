@@ -9,6 +9,15 @@ const secondModern = ["lazenby-1978", "goldsworthy-2000"];
 const macedonAncient = ["polybius-18", "livy-31-33"];
 const macedonModern = ["walbank-1940", "eckstein-2008"];
 
+// The Antiochene war has the best narrative evidence in the atlas and the worst
+// numbers. Livy's fourth decade runs continuously through it and is largely
+// Polybius in Latin, but Polybius' own books for these years survive as excerpts,
+// so where Livy's annalistic source takes over — which is exactly where the
+// figures are — there is nothing left to check him against. Hence `probable` for
+// the shape of every action here and `disputed` for almost every total.
+const seleucidAncient = ["livy-34-37", "appian-syrian"];
+const seleucidModern = ["grainger-2002", "eckstein-2008"];
+
 // ── The Republic conquers Italy, 509–265 BCE ────────────────────────────────
 //
 // A word about certainty in this block. The dates are Rome's own, and several are
@@ -676,6 +685,175 @@ const macedonianWar: Battle[] = [
   },
 ];
 
+const seleucidWar: Battle[] = [
+  {
+    id: "thermopylae", slug: "thermopylae", name: "Battle of Thermopylae", kind: "land", startYear: -191, endYear: -191, displayDate: "April 191 BCE", location: "The pass of Thermopylae, Malis", coordinates: [22.54, 38.8], uncertainty: { radiusKm: 6, certainty: "probable", note: "The pass is one of the securely known battlefields of antiquity, and the ground has changed more than almost any other: the Malian Gulf has silted up, and the defile that was a strip between cliff and surf now lies several kilometres inland. The marker is the ancient narrows, not the modern ones." }, major: true,
+    belligerents: ["Roman Republic, with Macedon and the Achaeans", "Seleucid Empire and the Aetolian League"],
+    commanders: [
+      { faction: "rome", names: ["Manius Acilius Glabrio (consul)", "Marcus Porcius Cato (legate)"], certainty: "attested" },
+      { faction: "seleucid", names: ["Antiochus III"], certainty: "attested" },
+    ],
+    result: "Decisive Roman victory",
+    summary: "Antiochus fortified the pass and posted Aetolians on the heights above it; Cato climbed Callidromus in the dark, came down behind them, and the Seleucid position collapsed from the rear. Antiochus reached Chalcis with a few hundred men and was out of Europe within days.",
+    significance: "The war Antiochus came to Greece to fight was over in a single morning, six months after he landed. What remained was not a contest for Greece but the question Rome had never yet faced: whether to follow a Hellenistic king into Asia.",
+    context: "Antiochus had crossed with about ten thousand men on the Aetolian promise that Greece would rise for him. Almost none of it did — Philip V, whom Rome had beaten five years earlier, came in on Rome's side instead, and the Achaeans declared against him. That left him holding a bridgehead with an army too small to fight for it, in front of a pass whose lesson every Greek knew by heart. He fortified the narrows with a double rampart, and he did not repeat Leonidas' mistake: he put two thousand Aetolians on the mountain paths over Callidromus. The battle turned on whether troops posted to watch a path would actually watch it.",
+    forces: [
+      { side: "Rome", estimate: "Two legions with allied contingents, perhaps 20,000 in all; two detachments of about 2,000 each sent over the mountain", certainty: "probable", note: "Livy gives the flanking columns precisely and the main body not at all — the usual shape of these figures." },
+      { side: "Seleucid Empire", estimate: "About 10,000 foot and 500 horse behind the rampart, with 2,000 Aetolians holding the paths above", certainty: "probable", note: "The force Antiochus brought to Europe was small by his own standards. He had left the bulk of the royal army in Asia, expecting a political war rather than a battle." },
+    ],
+    casualties: [
+      { side: "Seleucid Empire", estimate: "Livy reports the army destroyed almost entire; Antiochus escaped with about 500 men", certainty: "disputed", note: "‘Destroyed almost entire’ is a formula. What is not in doubt is that the army ceased to exist as a force in Europe — no Seleucid unit fought in Greece again." },
+      { side: "Rome", estimate: "Reported as light; no figure survives that is worth repeating", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "The rampart holds", description: "Glabrio attacks the narrows frontally and is held: the position is as strong as its reputation, and pikes behind a wall in a defile are very hard to shift.", certainty: "probable" },
+      { title: "Cato climbs Callidromus", description: "In darkness, Cato takes a column over the mountain by the paths that turned the pass in 480.", certainty: "attested" },
+      { title: "The Aetolian outposts are surprised", description: "The watch on the heights is broken before it can send warning down to the rampart.", certainty: "probable" },
+      { title: "Collapse from the rear", description: "Roman troops appear on the slope above and behind the Seleucid camp; the line breaks and the retreat becomes a rout in the defile.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["livy-34-37", "polybius-20", "appian-syrian", "plutarch-cato"], modernSourceIds: seleucidModern,
+    uncertaintyNotes: [
+      "The coastline has moved: the ancient defile cannot be walked today, and reconstructions of its width rest on geology rather than on the sources.",
+      "Cato's night march is told through Plutarch in a tradition that goes back to Cato's own account of himself, and his share of the credit cannot be independently checked.",
+      "Casualty figures on both sides are literary.",
+    ],
+    nextSlug: "corycus",
+  },
+  {
+    id: "corycus", slug: "corycus", name: "Battle of Cape Corycus", kind: "naval", startYear: -191, endYear: -191, displayDate: "September 191 BCE", location: "Off Cape Corycus, the Erythraean peninsula, Ionia", coordinates: [26.45, 38.19], uncertainty: { radiusKm: 18, certainty: "probable", note: "The cape is known; a fleet action fought along a coast covers far more water than a point can show." }, major: false,
+    belligerents: ["Roman Republic, Pergamum and Carthage", "Seleucid Empire"],
+    commanders: [
+      { faction: "rome", names: ["Gaius Livius Salinator (praetor)"], certainty: "attested" },
+      { faction: "pergamon", names: ["Eumenes II"], certainty: "attested" },
+      { faction: "seleucid", names: ["Polyxenidas"], certainty: "attested" },
+    ],
+    result: "Roman and Pergamene victory",
+    summary: "The first fleet action of the war. Livius' Roman squadron, joined by Eumenes off Phocaea, caught Polyxenidas at sea and drove him back into Ephesus with the loss of about a quarter of his decked ships.",
+    significance: "Command of the Aegean was the precondition for everything that followed: without it no Roman army could cross to Asia. Corycus did not settle the naval war, but it established that the Seleucid fleet could not win it in open battle, and it pushed Polyxenidas into the ambushes and stratagems he spent the next year attempting instead.",
+    context: "Antiochus' admiral was Polyxenidas, a Rhodian exile — which mattered, because it meant the Seleucid fleet was commanded by someone who understood the one navy in the Aegean that could out-sail Rome, and who was fighting his own city. The Roman squadron was slower and heavier than his, and its crews were new. What it had was allies: twenty-four Pergamene ships under Eumenes in person, and a contingent sent by Carthage under the terms of the peace of 201 — the defeated enemy of the last war rowing on Rome's flank in this one.",
+    forces: [
+      { side: "Rome, Pergamum and Carthage", estimate: "About 81 decked Roman ships, joined by 24 Pergamene; a small Carthaginian squadron among them", certainty: "probable" },
+      { side: "Seleucid Empire", estimate: "About 70 decked ships and 130 lighter craft", certainty: "probable", note: "The lighter vessels are counted in the totals and did little in the action; the decked ships are what fought." },
+    ],
+    casualties: [
+      { side: "Seleucid Empire", estimate: "About 23 decked ships lost — some 13 sunk or burnt and 10 taken", certainty: "disputed" },
+      { side: "Rome and allies", estimate: "One ship taken, reported as the Carthaginian", certainty: "disputed", note: "A suspiciously tidy detail, and the kind a Roman source would find worth recording." },
+    ],
+    moments: [
+      { title: "Joined off Phocaea", description: "Eumenes brings the Pergamene squadron down to the Roman fleet before Polyxenidas can engage either separately.", certainty: "probable" },
+      { title: "The lines meet", description: "The heavier allied ships close and grapple rather than manoeuvre, which is the fight they want and not the one the Seleucids do.", certainty: "probable" },
+      { title: "Flight to Ephesus", description: "Polyxenidas disengages with his remaining ships and shuts himself in the harbour; the allies do not force it.", certainty: "attested" },
+    ],
+    ancientSourceIds: seleucidAncient, modernSourceIds: seleucidModern,
+    uncertaintyNotes: [
+      "Ship-by-ship narratives of ancient fleet actions are reconstructions; only the outcome and the rough tallies survive.",
+      "The totals come through Livy, whose naval numbers are less inflated than his land ones but not independent of them.",
+    ],
+    previousSlug: "thermopylae", nextSlug: "eurymedon",
+  },
+  {
+    id: "eurymedon", slug: "eurymedon", name: "Battle of the Eurymedon", kind: "naval", startYear: -190, endYear: -190, displayDate: "summer 190 BCE", location: "Off Side, at the mouth of the Eurymedon, Pamphylia", coordinates: [30.99, 36.76], uncertainty: { radiusKm: 25, certainty: "disputed", note: "Sources place the action off the Pamphylian coast near Side; the exact water is not fixed." }, major: false,
+    belligerents: ["Rhodes", "Seleucid Empire"],
+    commanders: [
+      { faction: "greek", names: ["Eudamus of Rhodes"], certainty: "attested" },
+      { faction: "seleucid", names: ["Hannibal"], certainty: "attested" },
+    ],
+    result: "Rhodian victory",
+    summary: "A Rhodian squadron intercepted the fleet Hannibal had raised in Phoenicia and Cilicia and was bringing west to join Polyxenidas, and turned it back — the only naval command of Hannibal's life, and a defeat.",
+    significance: "The strategic point is what did not happen next. Had the Phoenician squadron reached the Aegean, Polyxenidas would have fought Myonessus with half as many ships again. It never arrived, and the sea was lost in consequence.",
+    context: "Hannibal had been an exile at Antiochus' court since 195, consulted for his name and largely ignored for his advice. What he was finally given was the job of bringing the Phoenician and Cilician ships round to the Aegean — a task requiring seamanship he had never had and crews he had never commanded, against the best sailors in the Mediterranean. The Rhodians who met him were fighting the fleet action they had been built for.",
+    forces: [
+      { side: "Rhodes", estimate: "About 36 ships under Eudamus", certainty: "probable" },
+      { side: "Seleucid Empire", estimate: "About 47 decked ships raised in Phoenicia and Cilicia", certainty: "probable", note: "Larger than the Rhodian squadron, and worse handled — which is the whole account of the battle." },
+    ],
+    casualties: [
+      { side: "Seleucid Empire", estimate: "Ships disabled and the squadron turned back; no reliable count", certainty: "disputed", note: "Livy's interest is in the reversal rather than the tally, and the figures he gives are thin even by his standards." },
+      { side: "Rhodes", estimate: "The left wing was roughly handled before the day turned; no figure survives", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Hannibal's right presses", description: "The Seleucid right, which Hannibal commands in person, drives the Rhodian left back — the one part of the day that goes as he intends.", certainty: "probable" },
+      { title: "Rhodian seamanship tells", description: "Eudamus' ships work round the heavier, less handy Phoenicians and take them from the flank.", certainty: "probable" },
+      { title: "Turned back east", description: "The squadron breaks off and retires; it never reaches the Aegean, and Polyxenidas fights the rest of the war without it.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["livy-34-37", "appian-syrian", "polybius-21"], modernSourceIds: seleucidModern,
+    uncertaintyNotes: [
+      "The site is given only as the Pamphylian coast near Side.",
+      "Hannibal's personal role is emphasised by sources writing about Hannibal; how much of the squadron he actually directed is not recoverable.",
+      "No dependable casualty figures survive for either side.",
+    ],
+    previousSlug: "corycus", nextSlug: "myonessus",
+  },
+  {
+    id: "myonessus", slug: "myonessus", name: "Battle of Myonnesus", kind: "naval", startYear: -190, endYear: -190, displayDate: "September 190 BCE", location: "Off Cape Myonnesus, between Teos and Lebedos, Ionia", coordinates: [26.86, 38.06], uncertainty: { radiusKm: 20, certainty: "probable", note: "The promontory is identified; the action ranged along the coast between Teos and Samos." }, major: true,
+    belligerents: ["Roman Republic and Rhodes", "Seleucid Empire"],
+    commanders: [
+      { faction: "rome", names: ["Lucius Aemilius Regillus (praetor)"], certainty: "attested" },
+      { faction: "greek", names: ["Eudamus of Rhodes"], certainty: "attested" },
+      { faction: "seleucid", names: ["Polyxenidas"], certainty: "attested" },
+    ],
+    result: "Decisive Roman and Rhodian victory",
+    summary: "Polyxenidas came out to fight with a slight advantage in numbers and lost roughly half his fleet. The Seleucid navy did not put to sea again, and the Hellespont was left open.",
+    significance: "This is the battle that made Magnesia possible. With the Aegean cleared, the consular army crossed into Asia unopposed — the first Roman army ever to do so — and Antiochus, who had spent the summer fortifying the Hellespont, abandoned the crossing without contesting it.",
+    context: "Antiochus' whole strategy after Thermopylae rested on the sea. Asia was defensible if Rome could not reach it, and the Hellespont was the gate. Polyxenidas had already shown at Panormus that he could win by stratagem — he destroyed a Rhodian squadron there by feigning treachery — but stratagem does not clear a sea. At some point he had to beat the combined fleet in open water, and at Myonnesus he tried. The Rhodian contingent carried fire-pots slung ahead of the bows on poles, a weapon designed to make a heavier enemy sheer away from the ram rather than accept it.",
+    forces: [
+      { side: "Rome and Rhodes", estimate: "About 58 Roman and 22 Rhodian decked ships, 80 in all", certainty: "probable" },
+      { side: "Seleucid Empire", estimate: "About 89 decked ships", certainty: "probable", note: "A real numerical advantage, and the last one Antiochus had anywhere." },
+    ],
+    casualties: [
+      { side: "Seleucid Empire", estimate: "About 42 ships lost — some 29 captured and 13 sunk or burnt", certainty: "disputed" },
+      { side: "Rome and Rhodes", estimate: "Two or three ships lost", certainty: "disputed", note: "A ratio steep enough to be worth doubting, though the strategic result is not in question: the fleet never sailed again." },
+    ],
+    moments: [
+      { title: "Polyxenidas comes out", description: "With more decked ships than the allies, the Seleucid admiral accepts the open battle he has been avoiding.", certainty: "attested" },
+      { title: "The Rhodian right turns the line", description: "The Rhodian squadron, faster and better handled, works round the Seleucid flank while the Roman centre holds it.", certainty: "probable" },
+      { title: "Fire ahead of the bows", description: "Rhodian fire-pots slung on poles keep enemy ships from closing to ram; ships that sheer off present a flank.", certainty: "probable" },
+      { title: "The Hellespont opens", description: "The remnant runs for Ephesus. Antiochus withdraws his garrisons from the straits without a fight, and the army crosses.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["livy-34-37", "polybius-21", "appian-syrian"], modernSourceIds: seleucidModern,
+    uncertaintyNotes: [
+      "The action ranged over open water; the cape names a locality rather than a field.",
+      "The loss ratio is reported by sources hostile to Antiochus and is steeper than most ancient fleet actions.",
+      "The Rhodian fire-pots are described in general terms, and how decisive they were at Myonnesus specifically is an inference.",
+    ],
+    previousSlug: "eurymedon", nextSlug: "magnesia",
+  },
+  {
+    id: "magnesia", slug: "magnesia", name: "Battle of Magnesia", kind: "land", startYear: -190, endYear: -190, displayDate: "December 190 BCE", location: "The plain of the Hermus below Magnesia ad Sipylum (Manisa)", coordinates: [27.43, 38.61], uncertainty: { radiusKm: 22, certainty: "disputed", note: "The armies are placed on the plain between the Phrygius and the Hermus below Mount Sipylus; the field itself has never been fixed, and the two ancient accounts cannot be reconciled into a single map." }, major: true,
+    belligerents: ["Roman Republic and Pergamum", "Seleucid Empire"],
+    commanders: [
+      { faction: "rome", names: ["Lucius Cornelius Scipio Asiaticus (consul)", "Gnaeus Domitius Ahenobarbus"], certainty: "attested" },
+      { faction: "pergamon", names: ["Eumenes II"], certainty: "attested" },
+      { faction: "seleucid", names: ["Antiochus III", "Seleucus", "Antipater"], certainty: "attested" },
+    ],
+    result: "Decisive Roman victory",
+    summary: "The first Roman army to fight in Asia destroyed the largest army Rome had yet faced. Eumenes broke the scythed chariots before contact and rolled up the Seleucid left; Antiochus won his own charge on the right and rode it too far; the phalanx, unbeaten in the centre, was left standing alone and was broken up by its own elephants.",
+    significance: "Magnesia ended the Seleucid empire as a Mediterranean power and left no state between Rome and the eastern kingdoms that could fight it. What Rome did with the victory mattered as much: it annexed nothing, imposed an indemnity, and handed the ground to Pergamum and Rhodes — hegemony without administration, which is how Rome ran the East for the next fifty years.",
+    context: "Scipio Africanus, the victor of Zama, came to Asia as his brother's legate — the consul was Lucius, and everyone understood who the soldier was. He then fell ill and was absent from the battle, so the campaign's decisions belong to Lucius and to Gnaeus Domitius. Antiochus had every reason not to fight: he had lost the sea, his best troops were unbeaten, and winter was coming. He fought anyway, with an army assembled from the whole extent of his empire — Median cataphracts, Galatian foot, Cappadocians, Arab camel-archers, Cretan slingers, and a phalanx of sixteen thousand men drawn up in ten blocks thirty-two deep with elephants standing in the gaps between them. It was the most heterogeneous force any Roman army ever met, and its parts had never manoeuvred together.",
+    forces: [
+      { side: "Rome and Pergamum", estimate: "About 30,000: two Roman and two Latin legions, Pergamene and Achaean contingents, and 16 elephants kept in reserve", certainty: "probable", note: "The elephants were African and smaller than Antiochus' Indian ones; the Romans deliberately kept them out of the line." },
+      { side: "Seleucid Empire", estimate: "Reported as 60,000 foot and 12,000 horse, with 54 elephants and scythed chariots", certainty: "disputed", note: "Livy and Appian agree on figures that Bar-Kochva's reconstruction of Seleucid establishment strengths cannot support. The phalanx of 16,000 is credible; the total is the number a Roman tradition needed the largest army in the world to be." },
+    ],
+    casualties: [
+      { side: "Seleucid Empire", estimate: "Livy reports 50,000 foot and 3,000 horse killed, and 15 elephants taken", certainty: "disputed" },
+      { side: "Rome and Pergamum", estimate: "Livy reports 300 foot, 24 horse and 25 Pergamenes", certainty: "disputed", note: "The pair of figures is the clearest example in the atlas of a casualty tradition that is arithmetic rather than evidence. The rout was real and one-sided; these numbers are not a measurement of it." },
+    ],
+    moments: [
+      { title: "Chariots broken before contact", description: "Eumenes sends archers and slingers against the scythed chariots on the Seleucid left; the teams panic and career back through the cavalry drawn up behind them.", certainty: "attested" },
+      { title: "The Seleucid left rolled up", description: "With its own chariots through it, the left is charged before it can re-form and driven off the field.", certainty: "probable" },
+      { title: "Antiochus rides too far", description: "On the right the king breaks the Roman left with his cataphracts and pursues it to the camp, where a tribune rallies the line — and by the time he turns back the battle behind him is lost.", certainty: "probable" },
+      { title: "The phalanx is left standing", description: "Unbroken and abandoned by both wings, the pike blocks close into a square and retire in good order until their own elephants, wounded and driven back into them, break the formation open.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["livy-34-37", "polybius-21", "appian-syrian"], modernSourceIds: ["bar-kochva-1976", "grainger-2002"],
+    uncertaintyNotes: [
+      "The battlefield has never been located; the placement below Sipylus is inference from the line of march.",
+      "Livy and Appian give orders of battle that differ in the placement of several contingents and cannot both be right.",
+      "The Seleucid total is not credible as reported, and the Roman casualty figure is not credible at all.",
+      "Scipio Africanus was present in the camp but ill, and the ancient accounts differ on how much of the plan was his.",
+    ],
+    previousSlug: "myonessus",
+  },
+];
+
 export const battles: Battle[] = [
   // Tagged by hand rather than derived from data/wars.ts: this module is in the
   // test import graph, which can only resolve "@/" aliases as type imports.
@@ -683,6 +861,7 @@ export const battles: Battle[] = [
   ...firstPunicWar.map((battle) => ({ ...battle, war: "first-punic" })),
   ...secondPunicWar.map((battle) => ({ ...battle, war: "second-punic" })),
   ...macedonianWar.map((battle) => ({ ...battle, war: "macedonian-second" })),
+  ...seleucidWar.map((battle) => ({ ...battle, war: "seleucid-war" })),
 ];
 
 export function getBattle(slug: string): Battle | undefined {
