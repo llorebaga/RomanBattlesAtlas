@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readdir, readFile } from "node:fs/promises";
 import { battles } from "../data/battles.ts";
 import { eras } from "../data/wars.ts";
 import { periods, formatYearRange } from "../data/periods.ts";
@@ -53,6 +54,40 @@ test("battle links carry the battle, its year, and its campaign", () => {
     assert.equal(clampTimelineYear(parsed.year), parsed.year, `${slug}'s year must be inside the timeline`);
     assert.equal(battleHref(slug), `/battles/${slug}`, "detail-page links must not change shape");
   }
+});
+
+// ── What the pages claim about coverage ────────────────────────────────────
+test("no page writes the atlas's year range out by hand", async () => {
+  // This test exists because one sentence on the homepage said "264 to 196 BCE"
+  // and went on saying it through two extensions of the timeline — first when the
+  // atlas reached back to 509, then when it ran forward past 196. It was wrong on
+  // the live site for both. A range that is rendered from TIMELINE_START_YEAR and
+  // TIMELINE_END_YEAR cannot drift; one that is typed into JSX always can.
+  //
+  // Data files are exempt: a battle's displayDate ("149–146 BCE") and a source's
+  // surviving range are facts about that record, not claims about the atlas.
+  const RANGE = /\d{2,4}\s*(?:to|–|-)\s*\d{2,4}\s*(?:BCE|CE)/;
+  const roots = ["app", "components"];
+  const offenders = [];
+
+  async function walk(dir) {
+    for (const entry of await readdir(new URL(`../${dir}/`, import.meta.url), { withFileTypes: true })) {
+      if (entry.isDirectory()) {
+        await walk(`${dir}/${entry.name}`);
+        continue;
+      }
+      if (!entry.name.endsWith(".tsx") && !entry.name.endsWith(".ts")) continue;
+      const path = `${dir}/${entry.name}`;
+      const source = await readFile(new URL(`../${path}`, import.meta.url), "utf8");
+      source.split("\n").forEach((line, index) => {
+        // Comments may name a range while explaining why it must not be hardcoded.
+        if (/^\s*(?:\/\/|\*|\{\/\*)/.test(line)) return;
+        if (RANGE.test(line)) offenders.push(`${path}:${index + 1} — ${line.trim()}`);
+      });
+    }
+  }
+  for (const root of roots) await walk(root);
+  assert.deepEqual(offenders, [], "render the range from the timeline bounds instead");
 });
 
 // ── Periods ────────────────────────────────────────────────────────────────

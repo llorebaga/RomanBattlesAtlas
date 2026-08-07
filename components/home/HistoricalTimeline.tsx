@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { timelineMilestones } from "@/data/timelineMilestones";
 import { atlasHref } from "@/lib/atlasLinks";
+import { formatYearRange } from "@/data/periods";
+import { TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "@/lib/historicalDates";
 
 const label = (year: number) => (year < 0 ? `${Math.abs(year)} BCE` : `${year} CE`);
 
@@ -40,7 +42,10 @@ export function HistoricalTimeline() {
           );
         })}
       </ol>
-      <p className="hp-figure-note">The atlas currently covers 264 to 196 BCE in detail. Later milestones mark where the project is going.</p>
+      {/* Derived, not written out. This line carried a hardcoded range and went on
+          claiming it through two extensions of the timeline; a test now refuses any
+          literal year range in the pages, so it cannot go stale again. */}
+      <p className="hp-figure-note">The atlas currently covers {formatYearRange(TIMELINE_START_YEAR, TIMELINE_END_YEAR)} in detail. Later milestones mark where the project is going.</p>
     </div>
   );
 }
