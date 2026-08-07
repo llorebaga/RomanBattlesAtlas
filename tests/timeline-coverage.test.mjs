@@ -26,11 +26,11 @@ test("the mapped period is the one we think it is", () => {
   // 509 BCE because that is where the Republic — and any usable narrative — begins.
   // The regal period is covered in prose on the methodology page and nowhere else.
   assert.equal(TIMELINE_START_YEAR, -509);
-  // 188 because Apamea is where the war with Antiochus ends and where Rome's
-  // settlement of the East is complete: the next thing on this timeline is the
-  // Third Macedonian War, twenty years later, which is not mapped yet.
-  assert.equal(TIMELINE_END_YEAR, -188);
-  assert.equal(YEARS.length, 322);
+  // 146 because that is where the middle Republic ends and where the period the
+  // atlas claims to cover is actually complete: Carthage and Corinth destroyed in
+  // the same summer, and provinces in Africa and Macedonia.
+  assert.equal(TIMELINE_END_YEAR, -146);
+  assert.equal(YEARS.length, 364);
 });
 
 test("every year in the mapped period has a focus event", () => {
@@ -101,8 +101,12 @@ test("every year has territory to colour", () => {
     assert.ok(zones.length >= floor, `${bce(year)}: only ${zones.length} territory zones`);
     assert.ok(zones.some((zone) => zone.polity === "rome"), `${bce(year)}: Rome missing`);
     // Carthage held Africa and western Sicily from long before Rome was a republic,
-    // and is on the map for the whole timeline.
-    assert.ok(zones.some((zone) => zone.polity === "carthage"), `${bce(year)}: Carthage missing`);
+    // and is on the map every year until the one in which it stopped existing. 146
+    // is the exception the whole Third Punic War exists to produce, so it is stated
+    // here rather than quietly dropped from the assertion.
+    // BCE years are negative, so "before 146" is the more negative side.
+    if (year < -146) assert.ok(zones.some((zone) => zone.polity === "carthage"), `${bce(year)}: Carthage missing`);
+    else assert.ok(!zones.some((zone) => zone.polity === "carthage"), "146 BCE: Carthage should be gone from the map");
   }
 });
 
@@ -141,6 +145,12 @@ const TRANSITIONS = [
   { year: -192, gained: ["seleucid-greece"], lost: [], why: "Antiochus lands at Demetrias and holds Magnesia, Phthiotis and Malis" },
   { year: -190, gained: [], lost: ["seleucid-greece"], why: "Thermopylae ended the bridgehead — the zone runs through 191 because the battle was fought on that ground in the spring of it" },
   { year: -188, gained: ["seleucid-apamea", "pergamon-apamea"], lost: ["seleucid-west", "pergamon"], why: "Apamea pushes the Seleucids behind the Taurus and hands Asia Minor to Pergamum and Rhodes" },
+
+  // ── The last two wars of the middle Republic ────────────────────────────────
+  { year: -167, gained: ["macedon-republics"], lost: ["macedon-reduced"], why: "Pydna abolishes the Antigonid kingdom and Macedon is cut into four republics" },
+  { year: -161, gained: ["carthage-reduced", "numidia-emporia"], lost: ["carthage-africa"], why: "Masinissa takes the Tripolitanian emporia, and Carthage may not answer without Rome's leave" },
+  { year: -148, gained: ["rome-macedonia"], lost: ["macedon-republics"], why: "Andriscus shows the four republics can still be assembled, so Macedonia is annexed" },
+  { year: -146, gained: ["rome-africa"], lost: ["carthage-reduced"], why: "Carthage is destroyed and its territory becomes the province of Africa" },
 ];
 
 test("territory changes hands in the year it changed hands", () => {

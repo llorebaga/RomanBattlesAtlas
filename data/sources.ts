@@ -108,7 +108,11 @@ export const sources: HistoricalSource[] = [
     note: "Detailed but later, rhetorically shaped, and consistently pro-Roman. Where it follows Polybius it is useful; where it does not, its figures are often inflated. Book 21 opens with the background from 221.",
     covers: [{ fromYear: -221, toYear: -201 }],
   },
-  { id: "appian-hann", kind: "ancient", citation: "Appian, Roman History: The Hannibalic War & The Punic Wars", note: "Later compilation preserving otherwise lost material, and prone to dramatic invention where it does not.", covers: [{ fromYear: -218, toYear: -201 }] },
+  {
+    id: "appian-hann", kind: "ancient", citation: "Appian, Roman History: The Hannibalic War & The Punic Wars",
+    note: "Later compilation preserving otherwise lost material, and prone to dramatic invention where it does not. The Libyca runs on past Zama to the destruction of Carthage, which is why it is cited for two separated stretches: for the years between, it has nothing.",
+    covers: [{ fromYear: -218, toYear: -201 }, { fromYear: -149, toYear: -146, note: "the Third Punic War, for which it is the fullest continuous narrative" }],
+  },
   { id: "lazenby-1978", kind: "modern", citation: "J. F. Lazenby, Hannibal’s War (1978)" },
   { id: "goldsworthy-2000", kind: "modern", citation: "Adrian Goldsworthy, The Fall of Carthage (2000)" },
 
@@ -158,6 +162,42 @@ export const sources: HistoricalSource[] = [
   },
   { id: "grainger-2002", kind: "modern", citation: "John D. Grainger, The Roman War of Antiochos the Great (2002)" },
   { id: "bar-kochva-1976", kind: "modern", citation: "Bezalel Bar-Kochva, The Seleucid Army (1976)", note: "The standard reconstruction of how a Seleucid army was actually organised, and the case for cutting the reported totals at Magnesia down." },
+
+  // ── The Third Macedonian War, and the years to 146 ─────────────────────────
+  // The evidence divides sharply at 167. Down to that year Livy's fifth decade
+  // survives and the atlas has its best narrative anywhere. After it Livy is lost
+  // — books 46 onward exist only as one-paragraph summaries — and the twenty years
+  // to the destruction of Carthage are reconstructed from fragments and from
+  // Polybius, who was in Rome as an Achaean hostage for most of them and standing
+  // beside Scipio Aemilianus at the end. That is why events in 166–150 are graded
+  // as phases rather than years: the record thins, and the map should say so.
+  {
+    id: "livy-39-45", kind: "ancient", citation: "Livy, Ab Urbe Condita, Books 39–45",
+    note: "187 to 167 BCE: the wars in Liguria and Spain, Perseus' accession, the Third Macedonian War, Pydna, and the settlement that dismantled Macedon. Book 45 is the last that survives, and it breaks off mid-sentence — everything after 167 is lost.",
+    covers: [{ fromYear: -187, toYear: -167 }],
+  },
+  {
+    id: "polybius-27-30", kind: "ancient", citation: "Polybius, Histories, Books 27–30 (fragments)",
+    note: "The Third Macedonian War from a Greek who lived through it and whose own city was punished for its part in it. Excerpts rather than a narrative, and the fullest of them are about politics rather than battle.",
+    covers: [{ fromYear: -171, toYear: -167 }],
+  },
+  {
+    id: "plutarch-aemilius", kind: "ancient", citation: "Plutarch, Life of Aemilius Paullus",
+    note: "The fullest account of Pydna and the only one that describes what the phalanx looked like to the men facing it — Plutarch has Paullus say he was frightened by the sight of it. A life, so shaped to its subject throughout.",
+    covers: [{ fromYear: -191, toYear: -160 }],
+  },
+  {
+    id: "livy-periochae-46-53", kind: "ancient", citation: "Livy, Periochae, Books 46–53 (the summaries of the lost books)",
+    note: "166 to 146 BCE in a paragraph a year. It fixes consuls, provinces and outcomes and nothing else, which is why the atlas draws these two decades as phases rather than as years.",
+    covers: [{ fromYear: -166, toYear: -146 }],
+  },
+  {
+    id: "polybius-36-39", kind: "ancient", citation: "Polybius, Histories, Books 36–39 (fragments)",
+    note: "The Third Punic War, the Achaean War, and the sack of both cities. Polybius stood beside Scipio Aemilianus watching Carthage burn and recorded what he said — the one moment in the atlas where a narrator is an eyewitness to what he describes.",
+    covers: [{ fromYear: -150, toYear: -146 }],
+  },
+  { id: "gruen-1984", kind: "modern", citation: "Erich S. Gruen, The Hellenistic World and the Coming of Rome (1984)", note: "The case against reading Rome's eastern wars as a programme of conquest." },
+  { id: "astin-1967", kind: "modern", citation: "A. E. Astin, Scipio Aemilianus (1967)" },
 ];
 
 export function sourcesByIds(ids: string[]): HistoricalSource[] {

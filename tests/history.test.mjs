@@ -22,7 +22,8 @@ test("clamps the continuous timeline across every era", () => {
   assert.equal(clampTimelineYear(-216), -216);
   assert.equal(clampTimelineYear(-197), -197);
   assert.equal(clampTimelineYear(-190), -190);
-  assert.equal(clampTimelineYear(-100), -188);
+  assert.equal(clampTimelineYear(-160), -160);
+  assert.equal(clampTimelineYear(-100), -146);
 });
 
 test("interpolates only active campaign routes", () => {
@@ -87,6 +88,22 @@ test("includes the war with Antiochus, and Rome's first campaign in Asia", () =>
   // atlas reached a war they actually fought.
   assert.equal(getFactionInfo("seleucid")?.role, "belligerent");
   assert.equal(getFactionInfo("pergamon")?.adjective, "Pergamene");
+});
+
+test("carries the middle Republic through to its end in 146", () => {
+  assert.ok(battlesForYear(battles, -168).some((battle) => battle.slug === "pydna"));
+  assert.ok(battlesForYear(battles, -146).some((battle) => battle.slug === "carthage"));
+  assert.equal(battles.find((battle) => battle.slug === "pydna")?.war, "macedonian-third");
+  assert.equal(battles.find((battle) => battle.slug === "carthage")?.war, "punic-third");
+  // The siege spans four years, so the scrubber should find it in every one.
+  for (const year of [-149, -148, -147, -146]) {
+    assert.ok(battlesForYear(battles, year).some((battle) => battle.slug === "carthage"), `${year}: the siege should be on the map`);
+  }
+  // The connective stretches exist so that no year between the wars is a blank.
+  assert.equal(eraForYear(-180)?.id, "western-wars");
+  assert.equal(eraForYear(-160)?.id, "after-pydna");
+  assert.equal(eraForYear(-146)?.id, "punic-third");
+  assert.ok(activeCampaigns(campaignRoutes, -165).some((route) => route.id === "roman-spain-annual"));
 });
 
 test("territory zones evolve with the timeline", () => {

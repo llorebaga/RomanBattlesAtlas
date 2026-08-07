@@ -797,6 +797,150 @@ const seleucidRoutes: CampaignRoute[] = [
   },
 ];
 
+// ── From Apamea to the year 146 ────────────────────────────────────────────
+//
+// Two of these routes are unlike anything else in the file. The Ligurian and
+// Spanish ones do not trace a campaign: they stand for a decade and for three
+// decades of annual praetorian commands that the sources record as a list of
+// consuls and a casualty count, with no line of march at all. Drawing them is
+// still the honest choice, because the alternative is a map that goes quiet for
+// forty years in which Rome was at war continuously — the quiet would be the lie.
+// Their intermediate points are graded `speculative` and say so.
+const lateRepublicanRoutes: CampaignRoute[] = [
+  {
+    id: "roman-liguria-istria",
+    name: "The Ligurian and Istrian wars",
+    faction: "rome",
+    forceType: "army",
+    startYear: -187,
+    endYear: -177,
+    certainty: "speculative",
+    description: "A decade of consular armies working through the Ligurian Apennines and then round the head of the Adriatic — mountain warfare against peoples who could not be brought to a battle, ending with the colony at Aquileia in 181 and the Istrian war of 178. No source gives a line of march; this is the theatre, not the route.",
+    points: [
+      { year: -187, label: "Pisae", coordinates: [10.4, 43.72], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -186, label: "Into the Ligurian Apennines", coordinates: [9.6, 44.42], certainty: "speculative", sourceIds: ["livy-39-45"] },
+      { year: -185, label: "Genua and the coast road", coordinates: [8.95, 44.5], certainty: "speculative", sourceIds: ["livy-39-45"] },
+      { year: -183, label: "East across the Po plain", coordinates: [11.0, 44.9], certainty: "speculative", sourceIds: ["livy-39-45"] },
+      { year: -182, label: "Through Venetia", coordinates: [11.87, 45.41], certainty: "speculative", sourceIds: ["livy-39-45"] },
+      { year: -181, label: "North of the lagoon", coordinates: [12.6, 45.9], certainty: "speculative", sourceIds: ["livy-39-45"] },
+      { year: -181, label: "Aquileia founded", coordinates: [13.37, 45.85], certainty: "attested", sourceIds: ["livy-39-45"] },
+      { year: -178, label: "The head of the gulf", coordinates: [13.85, 45.75], certainty: "speculative", sourceIds: ["livy-39-45"] },
+      { year: -177, label: "Into Istria", coordinates: [13.95, 45.15], certainty: "probable", sourceIds: ["livy-39-45"] },
+    ],
+  },
+  {
+    id: "roman-spain-annual",
+    name: "The annual campaigns in Spain",
+    faction: "rome",
+    forceType: "army",
+    startYear: -178,
+    endYear: -150,
+    certainty: "speculative",
+    description: "Thirty years in which two praetors went to Spain every year and fought. Gracchus' settlement of 179 held for a generation; from 154 the Celtiberian and Lusitanian wars broke it, and the fighting became unpopular enough at Rome that in 151 the consul had to conscript by force. This line is the extent of the two provinces and their frontier, not a march — no single army walked it.",
+    points: [
+      { year: -178, label: "Tarraco", coordinates: [1.25, 41.12], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -176, label: "Up the Ebro", coordinates: [-0.88, 41.65], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -170, label: "The Celtiberian plateau", coordinates: [-2.45, 41.6], certainty: "speculative", sourceIds: ["livy-39-45"] },
+      { year: -160, label: "South to Corduba", coordinates: [-4.78, 37.9], certainty: "speculative", sourceIds: ["livy-periochae-46-53"] },
+      { year: -150, label: "Into Lusitania", coordinates: [-7.0, 39.2], certainty: "probable", sourceIds: ["livy-periochae-46-53"] },
+    ],
+  },
+  {
+    id: "roman-macedonia-third",
+    name: "The Roman advance to Pydna",
+    faction: "rome",
+    forceType: "army",
+    startYear: -171,
+    endYear: -168,
+    certainty: "probable",
+    description: "Three years of getting nowhere and then four weeks of getting it right. The consular army came the usual way, through Illyria into Thessaly, was beaten in the opening cavalry action at Callinicus, and spent two more seasons unable to force the passes. Aemilius Paullus arrived in 168, turned the Elpeus line by sending a column over Olympus, and brought Perseus to battle on the plain below Pydna.",
+    points: [
+      { year: -171, month: 3, label: "Landing at Apollonia", coordinates: [19.47, 40.72], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -171, month: 4, label: "Through the Aoös gorge", coordinates: [20.2, 40.1], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -171, month: 5, label: "Into Thessaly", coordinates: [22.0, 39.55], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -171, month: 6, label: "Callinicus", coordinates: [22.42, 39.66], certainty: "attested", sourceIds: ["livy-39-45", "polybius-27-30"] },
+      { year: -168, month: 5, label: "Over the Olympus range", coordinates: [22.3, 40.05], certainty: "probable", sourceIds: ["livy-39-45", "plutarch-aemilius"] },
+      { year: -168, month: 6, label: "Pydna", coordinates: [22.62, 40.36], certainty: "attested", sourceIds: ["plutarch-aemilius", "livy-39-45"] },
+    ],
+  },
+  {
+    id: "perseus-macedon",
+    name: "Perseus' defence of Macedon",
+    faction: "macedon",
+    forceType: "army",
+    startYear: -171,
+    endYear: -168,
+    certainty: "probable",
+    description: "Perseus fought the war he could win for as long as he could: forward into Thessaly for the cavalry victory at Callinicus, then back onto the Elpeus, where a fortified line and a river held a Roman consular army for a whole season. He gave that up rather than be cut off, and had to fight on open ground below Pydna — the one place his army was certain to lose.",
+    points: [
+      { year: -171, month: 4, label: "Out from Pella", coordinates: [22.52, 40.76], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -171, month: 5, label: "South into Thessaly", coordinates: [22.3, 40.0], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -171, month: 6, label: "Callinicus, outside Larissa", coordinates: [22.42, 39.66], certainty: "attested", sourceIds: ["livy-39-45", "polybius-27-30"] },
+      { year: -169, label: "Back onto the Elpeus line", coordinates: [22.48, 40.12], certainty: "probable", sourceIds: ["livy-39-45"] },
+      { year: -168, month: 6, label: "Pydna", coordinates: [22.62, 40.36], certainty: "attested", sourceIds: ["plutarch-aemilius", "livy-39-45"] },
+    ],
+  },
+  {
+    id: "roman-africa-third",
+    name: "The expedition against Carthage",
+    faction: "rome",
+    forceType: "army",
+    startYear: -149,
+    endYear: -146,
+    certainty: "probable",
+    description: "The consuls of 149 crossed from Sicily, took Utica as a base — it had already changed sides — and sat down in front of a city that had surrendered its weapons and then rebuilt them. Two years of assaults failed. Scipio Aemilianus destroyed the last field army at Nepheris in the winter of 147, closed the harbour, and stormed the place in the spring.",
+    points: [
+      { year: -149, month: 4, label: "Sailing from Lilybaeum", coordinates: [12.43, 37.8], certainty: "probable", sourceIds: ["appian-hann"] },
+      { year: -149, month: 5, label: "Landing at Utica", coordinates: [10.06, 37.06], certainty: "attested", sourceIds: ["appian-hann"], viaSea: true },
+      { year: -149, month: 6, label: "Before the walls of Carthage", coordinates: [10.3, 36.88], certainty: "attested", sourceIds: ["appian-hann", "polybius-36-39"] },
+      { year: -147, month: 12, label: "Nepheris", coordinates: [10.25, 36.6], certainty: "probable", sourceIds: ["appian-hann"] },
+      { year: -146, month: 4, label: "Carthage stormed", coordinates: [10.32, 36.85], certainty: "attested", sourceIds: ["appian-hann", "polybius-36-39"] },
+    ],
+  },
+  {
+    id: "metellus-andriscus",
+    name: "Metellus against Andriscus",
+    faction: "rome",
+    forceType: "army",
+    startYear: -149,
+    endYear: -148,
+    certainty: "probable",
+    description: "A man claiming to be Perseus' son raised Macedonia against the four republics Rome had made of it, and beat one Roman army before Metellus destroyed him near Pydna — on or close to the ground where the kingdom had ended twenty years earlier. Rome stopped experimenting: Macedonia became a province.",
+    points: [
+      { year: -149, label: "Across from Thessaly", coordinates: [22.1, 39.7], certainty: "probable", sourceIds: ["livy-periochae-46-53"] },
+      { year: -148, label: "North to Pydna again", coordinates: [22.58, 40.32], certainty: "probable", sourceIds: ["livy-periochae-46-53"] },
+    ],
+  },
+  {
+    id: "mummius-achaea",
+    name: "Mummius and the sack of Corinth",
+    faction: "rome",
+    forceType: "army",
+    startYear: -146,
+    endYear: -146,
+    certainty: "probable",
+    description: "The Achaean League, pushed into a war it could not fight, was broken at Scarpheia and again at the Isthmus. Mummius took Corinth, killed or sold its population, and shipped its art to Italy. The League was dissolved and Greece put under the governor of the new province of Macedonia — in the same months Carthage was burning.",
+    points: [
+      { year: -146, month: 6, label: "South from Thermopylae", coordinates: [22.54, 38.8], certainty: "probable", sourceIds: ["polybius-36-39"] },
+      { year: -146, month: 7, label: "Through Boeotia", coordinates: [23.32, 38.32], certainty: "speculative", sourceIds: ["polybius-36-39"] },
+      { year: -146, month: 8, label: "Scarpheia and the Isthmus", coordinates: [23.05, 38.02], certainty: "probable", sourceIds: ["polybius-36-39"] },
+      { year: -146, month: 9, label: "Corinth sacked", coordinates: [22.93, 37.94], certainty: "attested", sourceIds: ["polybius-36-39"] },
+    ],
+  },
+];
+
+// Which era segment each late route belongs to, matching data/wars.ts. The Spanish
+// route spans three eras and is filed under the one that holds most of it.
+const LATE_ROUTE_ERA: Record<string, string> = {
+  "roman-liguria-istria": "western-wars",
+  "roman-spain-annual": "after-pydna",
+  "roman-macedonia-third": "macedonian-third",
+  "perseus-macedon": "macedonian-third",
+  "roman-africa-third": "punic-third",
+  "metellus-andriscus": "punic-third",
+  "mummius-achaea": "punic-third",
+};
+
 // Which era segment each early route belongs to, matching data/wars.ts.
 const EARLY_ROUTE_ERA: Record<string, string> = {
   "roman-latium-early": "early-republic",
@@ -819,4 +963,7 @@ export const campaignRoutes: CampaignRoute[] = [
   // The Nabis war and the withdrawal belong to the interbellum that produced the
   // next war; everything from Antiochus' move on Europe belongs to the war itself.
   ...seleucidRoutes.map((route) => ({ ...route, war: route.id === "flamininus-nabis-war" ? "greek-settlement" : "seleucid-war" })),
+  // The two standing-garrison routes belong to the stretches they cover rather
+  // than to a war, and Mummius' march belongs to 146 alongside the African siege.
+  ...lateRepublicanRoutes.map((route) => ({ ...route, war: LATE_ROUTE_ERA[route.id] })),
 ];

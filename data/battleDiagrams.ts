@@ -2690,6 +2690,276 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
       },
     ],
   },
+
+  // ── The Third Macedonian War and the Third Punic War ─────────────────────
+  callinicus: {
+    scaleNote: "Open ground between the two camps outside Larissa, perhaps three kilometres across. The hill Livy names has never been located, so the frame is orientation only.",
+    orientation: "The Roman camp lies south, at the bottom; Perseus' to the north.",
+    sourceIds: ["livy-39-45", "polybius-27-30"],
+    terrain: [
+      { id: "hill", kind: "hill", points: [[38, 20], [58, 17], [70, 24], [56, 32], [40, 30]], label: "Callinicus", labelAt: [54, 12] },
+      { id: "rom-camp", kind: "town", at: [50, 60], size: [22, 5], label: "Roman camp" },
+    ],
+    stages: [
+      {
+        id: "screens",
+        title: "The cavalry screens meet",
+        description: "Both armies have their horse and light foot out in front of the camps. The contact grows out of that rather than from a decision by either king or consul.",
+        certainty: "probable",
+        units: [
+          { id: "mac-horse", faction: "macedon", kind: "cavalry", at: [50, 26], size: [28, 5], label: "Perseus' horse" },
+          { id: "mac-light", faction: "macedon", kind: "skirmishers", at: [50, 33], size: [22, 3], label: "Cretan archers" },
+          { id: "rom-horse", faction: "rome", kind: "cavalry", at: [50, 44], size: [28, 5] },
+          { id: "rom-light", faction: "rome", kind: "skirmishers", at: [50, 38], size: [22, 3] },
+        ],
+        arrows: [{ id: "a1", from: [50, 36], to: [50, 34], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "flank-goes",
+        title: "The allied horse gives way",
+        description: "The Thessalian and Aetolian cavalry on the Roman flank breaks first, and the line it was holding is uncovered.",
+        certainty: "probable",
+        units: [
+          { id: "mac-horse", faction: "macedon", kind: "cavalry", at: [46, 28], size: [28, 5] },
+          { id: "mac-thracian", faction: "macedon", kind: "cavalry", at: [76, 28], size: [14, 4], label: "Cotys' Thracians" },
+          { id: "rom-horse", faction: "rome", kind: "cavalry", at: [44, 42], size: [24, 5] },
+          { id: "rom-allies", faction: "rome", kind: "cavalry", at: [74, 44], size: [14, 4], routed: true, label: "allied horse" },
+        ],
+        arrows: [{ id: "a1", from: [76, 33], to: [76, 40], faction: "macedon", kind: "attack" }],
+        caveat: "Livy blames the allied contingents for the collapse, which is what a Roman account of a Roman defeat tends to do.",
+      },
+      {
+        id: "rolled-up",
+        title: "The Sacred Squadron rolls up the line",
+        description: "Perseus' heavy horse takes the Roman cavalry in the flank it has just uncovered and rides down the light infantry supporting it.",
+        certainty: "probable",
+        units: [
+          { id: "mac-horse", faction: "macedon", kind: "cavalry", at: [56, 36], size: [30, 5], label: "the Sacred Squadron" },
+          { id: "rom-horse", faction: "rome", kind: "cavalry", at: [40, 46], size: [24, 5], routed: true },
+          { id: "rom-light", faction: "rome", kind: "skirmishers", at: [40, 52], size: [20, 3], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [66, 40], to: [46, 44], faction: "macedon", kind: "attack", bow: 4 }],
+      },
+      {
+        id: "not-followed",
+        title: "Perseus does not follow it up",
+        description: "The consular army gets back inside its camp intact. Perseus halts, and offers peace on the terms he had been refused before the battle.",
+        certainty: "attested",
+        units: [
+          { id: "mac-horse", faction: "macedon", kind: "cavalry", at: [50, 40], size: [30, 5] },
+          { id: "rom-army", faction: "rome", kind: "infantry", at: [50, 56], size: [26, 4], label: "back in camp" },
+        ],
+        arrows: [{ id: "a1", from: [50, 48], to: [50, 52], faction: "rome", kind: "retreat" }],
+      },
+    ],
+  },
+
+  pydna: {
+    scaleNote: "The coastal plain below Pydna between the mountain and the sea, perhaps four kilometres of front. The line of the Leucus is used to fix the position; the frontages are reconstructed.",
+    orientation: "The sea is east, at the right; Mount Olocrus rises to the west. The Romans face north.",
+    sourceIds: ["livy-39-45", "plutarch-aemilius", "polybius-27-30"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[88, 0], [100, 0], [100, 68], [88, 68]], label: "the sea", labelAt: [94, 60] },
+      { id: "hills", kind: "hill", points: [[0, 0], [14, 0], [16, 30], [12, 52], [0, 62]], label: "Olocrus", labelAt: [6, 34] },
+      { id: "leucus", kind: "river", points: [[10, 34], [30, 36], [52, 35], [74, 37], [88, 36]], label: "the Leucus", labelAt: [30, 42] },
+    ],
+    stages: [
+      {
+        id: "arrayed",
+        title: "Both armies form, and neither attacks",
+        description: "Perseus has abandoned the Elpeus line rather than be cut off and drawn up on the plain. The two armies face each other for a day without engaging.",
+        certainty: "attested",
+        units: [
+          { id: "mac-phal-a", faction: "macedon", kind: "phalanx", at: [40, 22], size: [24, 8], label: "the phalanx, two corps", labelAt: [40, 8] },
+          { id: "mac-phal-b", faction: "macedon", kind: "phalanx", at: [66, 22], size: [24, 8] },
+          { id: "mac-horse", faction: "macedon", kind: "cavalry", at: [82, 24], size: [12, 4], label: "Perseus" },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [52, 50], size: [40, 6], label: "two legions" },
+          { id: "rom-eles", faction: "rome", kind: "elephants", at: [82, 50], size: [10, 4], label: "22 elephants" },
+        ],
+      },
+      {
+        id: "accident",
+        title: "A loose animal starts it",
+        description: "Skirmishing over a stray pack animal near the stream pulls both lines forward before either commander has ordered anything.",
+        certainty: "probable",
+        units: [
+          { id: "mac-light", faction: "macedon", kind: "skirmishers", at: [52, 32], size: [18, 3] },
+          { id: "rom-light", faction: "rome", kind: "skirmishers", at: [52, 40], size: [18, 3] },
+          { id: "mac-phal-a", faction: "macedon", kind: "phalanx", at: [40, 22], size: [24, 8] },
+          { id: "mac-phal-b", faction: "macedon", kind: "phalanx", at: [66, 22], size: [24, 8] },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [52, 50], size: [40, 6] },
+        ],
+        arrows: [
+          { id: "a1", from: [52, 38], to: [52, 35], faction: "rome", kind: "attack" },
+          { id: "a2", from: [52, 30], to: [52, 33], faction: "macedon", kind: "attack" },
+        ],
+        caveat: "The animal appears in more than one account and is exactly the kind of detail invented to explain a battle nobody chose to fight.",
+      },
+      {
+        id: "phalanx-advances",
+        title: "The phalanx drives the legions back",
+        description: "On level ground the pike front is irresistible. The legions give way in front of it, and Paullus says afterwards that the sight was the most frightening thing he had seen.",
+        certainty: "attested",
+        units: [
+          { id: "mac-phal-a", faction: "macedon", kind: "phalanx", at: [40, 32], size: [24, 8] },
+          { id: "mac-phal-b", faction: "macedon", kind: "phalanx", at: [66, 32], size: [24, 8] },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [52, 52], size: [40, 6], routed: true, label: "pushed back" },
+        ],
+        arrows: [{ id: "a1", from: [52, 40], to: [52, 47], faction: "macedon", kind: "attack", label: "irresistible in front" }],
+      },
+      {
+        id: "gaps",
+        title: "The ground opens the front",
+        description: "Advancing over uneven ground and pushing a line that is giving way unevenly, the pike front loses its continuity. Gaps appear along it — and a phalanx is only a wall while it is continuous.",
+        certainty: "attested",
+        units: [
+          { id: "mac-a", faction: "macedon", kind: "phalanx", at: [30, 38], size: [16, 8] },
+          { id: "mac-b", faction: "macedon", kind: "phalanx", at: [52, 40], size: [16, 8] },
+          { id: "mac-c", faction: "macedon", kind: "phalanx", at: [74, 38], size: [16, 8] },
+          { id: "rom-legions", faction: "rome", kind: "infantry", at: [52, 54], size: [40, 5] },
+        ],
+        caveat: "That the front broke up is stated by every account; where the gaps were is not, and the three blocks here stand for a process rather than a formation.",
+      },
+      {
+        id: "maniples",
+        title: "Maniples into the gaps",
+        description: "Paullus breaks his line into its parts and orders them into the gaps individually. Inside the pike line the sarissa is useless and the gladius is not, and the phalanx is destroyed from within.",
+        certainty: "attested",
+        units: [
+          { id: "mac-a", faction: "macedon", kind: "phalanx", at: [30, 38], size: [16, 8], routed: true },
+          { id: "mac-b", faction: "macedon", kind: "phalanx", at: [52, 40], size: [16, 8], routed: true },
+          { id: "mac-c", faction: "macedon", kind: "phalanx", at: [74, 38], size: [16, 8], routed: true },
+          { id: "rom-man-1", faction: "rome", kind: "infantry", at: [41, 46], size: [7, 3] },
+          { id: "rom-man-2", faction: "rome", kind: "infantry", at: [63, 46], size: [7, 3] },
+          { id: "rom-man-3", faction: "rome", kind: "infantry", at: [86, 44], size: [7, 3] },
+          { id: "rom-eles", faction: "rome", kind: "elephants", at: [86, 52], size: [10, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [41, 44], to: [41, 41], faction: "rome", kind: "attack" },
+          { id: "a2", from: [63, 44], to: [63, 42], faction: "rome", kind: "attack" },
+        ],
+      },
+    ],
+  },
+
+  carthage: {
+    scaleNote: "The peninsula of Carthage, its triple landward wall, the two harbours and the Byrsa hill. The circuit and the harbours are archaeologically established; the siege lines are schematic.",
+    orientation: "The gulf of Tunis is east, at the right; the isthmus and the landward wall face west.",
+    sourceIds: ["appian-hann", "polybius-36-39"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[70, 0], [100, 0], [100, 68], [70, 68]], label: "the gulf", labelAt: [88, 8] },
+      { id: "wall", kind: "wall", points: [[34, 8], [33, 26], [34, 44], [36, 60]], label: "the triple wall", labelAt: [22, 34] },
+      { id: "byrsa", kind: "hill", points: [[52, 24], [62, 22], [66, 32], [58, 38], [50, 34]], label: "the Byrsa", labelAt: [58, 17] },
+      { id: "harbours", kind: "town", at: [62, 50], size: [12, 10], label: "the harbours" },
+    ],
+    stages: [
+      {
+        id: "disarmed",
+        title: "Disarmed, and then told to move",
+        description: "Carthage hands over three hundred hostages and its entire arsenal — Appian counts two hundred thousand sets of armour — and is then ordered to abandon the site and rebuild inland. It refuses, and starts making weapons with nothing.",
+        certainty: "attested",
+        units: [
+          { id: "pun-city", faction: "carthage", kind: "works", at: [52, 34], size: [30, 40], label: "the city rearms" },
+          { id: "rom-army", faction: "rome", kind: "infantry", at: [16, 34], size: [10, 24], label: "consular army" },
+        ],
+        arrows: [{ id: "a1", from: [22, 34], to: [30, 34], faction: "rome", kind: "move" }],
+      },
+      {
+        id: "assaults",
+        title: "Two years of assaults achieve nothing",
+        description: "The landward wall is triple and the approach across the isthmus is narrow. Attacks on it fail, and the besiegers lose more than the besieged.",
+        certainty: "probable",
+        units: [
+          { id: "pun-wall", faction: "carthage", kind: "works", at: [40, 34], size: [12, 44], label: "the wall holds" },
+          { id: "rom-a", faction: "rome", kind: "infantry", at: [20, 20], size: [10, 8], routed: true },
+          { id: "rom-b", faction: "rome", kind: "infantry", at: [20, 48], size: [10, 8], routed: true },
+          { id: "pun-field", faction: "carthage", kind: "cavalry", at: [12, 62], size: [12, 4], label: "Hasdrubal, in the field" },
+        ],
+        arrows: [
+          { id: "a1", from: [26, 20], to: [33, 22], faction: "rome", kind: "attack" },
+          { id: "a2", from: [26, 48], to: [33, 46], faction: "rome", kind: "attack" },
+        ],
+      },
+      {
+        id: "mole",
+        title: "Scipio seals the harbour",
+        description: "A mole is built across the harbour mouth. The Carthaginians cut a new channel through to open water and get a fleet out, but the city is now cut off from supply and goes into the winter without food.",
+        certainty: "attested",
+        units: [
+          { id: "rom-mole", faction: "rome", kind: "works", at: [78, 54], size: [16, 4], label: "the mole" },
+          { id: "rom-ships", faction: "rome", kind: "ships", at: [86, 44], size: [10, 8] },
+          { id: "pun-ships", faction: "carthage", kind: "ships", at: [72, 40], size: [8, 6], label: "the new channel" },
+          { id: "rom-lines", faction: "rome", kind: "works", at: [26, 34], size: [6, 46], label: "lines across the isthmus" },
+          { id: "pun-city", faction: "carthage", kind: "works", at: [52, 32], size: [26, 34] },
+        ],
+        arrows: [{ id: "a1", from: [72, 46], to: [76, 50], faction: "rome", kind: "move" }],
+        caveat: "The mole and the cut channel are both described; their exact line on the ground is not recoverable from the harbour remains.",
+      },
+      {
+        id: "streets",
+        title: "Six days from the harbour to the Byrsa",
+        description: "The final assault goes in through the harbour quarter and fights uphill house by house, burning and demolishing as it advances. The citadel surrenders on the sixth day.",
+        certainty: "attested",
+        units: [
+          { id: "rom-assault", faction: "rome", kind: "infantry", at: [66, 46], size: [14, 6] },
+          { id: "pun-byrsa", faction: "carthage", kind: "works", at: [58, 30], size: [14, 12], label: "the Byrsa" },
+          { id: "pun-street", faction: "carthage", kind: "infantry", at: [62, 40], size: [10, 4], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [64, 42], to: [59, 36], faction: "rome", kind: "attack", label: "uphill, house by house" }],
+      },
+    ],
+  },
+
+  nepheris: {
+    scaleNote: "The fortified camp at Nepheris in the hills above the Oued Miliane, perhaps two kilometres across. The site is not securely identified and the frame is schematic throughout.",
+    orientation: "Broken hill country; Carthage lies to the north-west.",
+    sourceIds: ["appian-hann", "polybius-36-39"],
+    terrain: [
+      { id: "hills", kind: "hill", points: [[6, 12], [34, 6], [66, 10], [92, 8], [94, 56], [60, 62], [24, 58], [8, 48]], label: "broken hill country", labelAt: [50, 64] },
+      { id: "camp", kind: "town", at: [52, 28], size: [22, 12], label: "the Carthaginian camp" },
+    ],
+    stages: [
+      {
+        id: "pinned",
+        title: "The camp attacked in front",
+        description: "Scipio goes at the entrenchments frontally — which is what a position like this is built to resist, and what a Roman army had already failed against here in 149.",
+        certainty: "probable",
+        units: [
+          { id: "pun-camp", faction: "carthage", kind: "works", at: [52, 28], size: [24, 12], label: "entrenched" },
+          { id: "rom-front", faction: "rome", kind: "infantry", at: [52, 46], size: [26, 5] },
+        ],
+        arrows: [{ id: "a1", from: [52, 43], to: [52, 36], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "round",
+        title: "A detachment works round behind",
+        description: "While the defenders are committed to the front, a force goes round through the broken ground with Gulussa's Numidian horse to come at the camp from the rear.",
+        certainty: "probable",
+        units: [
+          { id: "pun-camp", faction: "carthage", kind: "works", at: [52, 28], size: [24, 12] },
+          { id: "rom-front", faction: "rome", kind: "infantry", at: [52, 44], size: [26, 5] },
+          { id: "rom-flank", faction: "rome", kind: "infantry", at: [80, 24], size: [12, 4] },
+          { id: "num-horse", faction: "numidia", kind: "cavalry", at: [82, 34], size: [12, 4], label: "Gulussa" },
+        ],
+        arrows: [{ id: "a1", from: [76, 42], to: [78, 28], faction: "rome", kind: "move", bow: -6, label: "round the flank" }],
+      },
+      {
+        id: "destroyed",
+        title: "The last field army destroyed",
+        description: "Attacked front and rear, the camp falls and the town with it. Nothing outside the walls can relieve Carthage now, and the city has a winter of blockade in front of it.",
+        certainty: "attested",
+        units: [
+          { id: "pun-camp", faction: "carthage", kind: "works", at: [52, 28], size: [24, 12], routed: true, label: "overrun" },
+          { id: "rom-front", faction: "rome", kind: "infantry", at: [52, 42], size: [26, 5] },
+          { id: "rom-flank", faction: "rome", kind: "infantry", at: [58, 16], size: [12, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [52, 39], to: [52, 34], faction: "rome", kind: "attack" },
+          { id: "a2", from: [58, 20], to: [55, 24], faction: "rome", kind: "attack" },
+        ],
+      },
+    ],
+  },
 };
 
 export function getBattleDiagram(slug: string): BattleDiagram | undefined {

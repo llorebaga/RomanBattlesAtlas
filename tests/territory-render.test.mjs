@@ -104,6 +104,18 @@ const OWNERSHIP = [
   // Apamea: the Seleucids go behind the Taurus, and Rome keeps none of it.
   { year: -188, places: { "Seleucid Syria": [37.0, 36.2], "Cilicia Pedias": [35.6, 37.0] }, polity: "seleucid" },
   { year: -188, places: { Ephesus: [27.34, 37.94], Pergamum: [27.18, 39.13], Phrygia: [30.5, 38.6], Lycia: [29.6, 36.6] }, polity: "pergamon" },
+  // Masinissa spent fifty years taking Carthaginian ground while the treaty of 201
+  // forbade Carthage to answer, and took the Tripolitanian emporia around 162. If
+  // Carthage still reads as intact in 160 the Third Punic War looks like a war
+  // against a rival, which is the one thing it was not.
+  { year: -170, places: { Tripolitania: [13.2, 32.7] }, polity: "carthage" },
+  { year: -160, places: { Tripolitania: [13.2, 32.7] }, polity: "numidia" },
+  { year: -160, places: { "Carthage hinterland": [10.17, 36.8], Byzacena: [9.8, 35.2] }, polity: "carthage" },
+  // 146: both settlements land in the same year, at opposite ends of the sea.
+  { year: -146, places: { "Carthage hinterland": [10.17, 36.8], Byzacena: [9.8, 35.2] }, polity: "rome" },
+  { year: -146, places: { Pella: [22.52, 40.76] }, polity: "rome" },
+  { year: -160, places: { Pella: [22.52, 40.76] }, polity: "macedon" },
+  { year: -146, places: { "Numidian interior": [4.0, 35.6] }, polity: "numidia" },
 ];
 
 // Ground that is blank on purpose. These peoples were independent, so colouring

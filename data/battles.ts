@@ -18,6 +18,16 @@ const macedonModern = ["walbank-1940", "eckstein-2008"];
 const seleucidAncient = ["livy-34-37", "appian-syrian"];
 const seleucidModern = ["grainger-2002", "eckstein-2008"];
 
+// The last two wars of the middle Republic sit on opposite sides of the break in
+// the evidence. Livy's fifth decade covers the Macedonian war in full and is the
+// best narrative in the atlas; for the Third Punic War he is lost, and Carthage
+// falls in Appian's much later compilation and in the fragments of Polybius, who
+// was standing next to the man who ordered it.
+const thirdMacedonAncient = ["livy-39-45", "polybius-27-30"];
+const thirdMacedonModern = ["gruen-1984", "eckstein-2008"];
+const thirdPunicAncient = ["appian-hann", "polybius-36-39"];
+const thirdPunicModern = ["astin-1967", "hoyos-2015"];
+
 // ── The Republic conquers Italy, 509–265 BCE ────────────────────────────────
 //
 // A word about certainty in this block. The dates are Rome's own, and several are
@@ -854,6 +864,147 @@ const seleucidWar: Battle[] = [
   },
 ];
 
+const thirdMacedonianWar: Battle[] = [
+  {
+    id: "callinicus", slug: "callinicus", name: "Battle of Callinicus", kind: "land", startYear: -171, endYear: -171, displayDate: "171 BCE", location: "The hill called Callinicus, outside Larissa in Thessaly", coordinates: [22.42, 39.66], uncertainty: { radiusKm: 12, certainty: "disputed", note: "Livy places the action about a mile from the Roman camp near Larissa; the hill has not been identified on the ground." }, major: false,
+    belligerents: ["Roman Republic and allies", "Macedon and Thracian allies"],
+    commanders: [
+      { faction: "rome", names: ["Publius Licinius Crassus (consul)"], certainty: "attested" },
+      { faction: "macedon", names: ["Perseus", "Cotys of the Odrysae"], certainty: "attested" },
+    ],
+    result: "Macedonian victory",
+    summary: "The opening engagement of the war was a cavalry and light-infantry action outside Larissa, and Perseus won it decisively — routing the Roman horse and driving the consul's army back on its camp.",
+    significance: "Perseus followed the victory by offering peace on the same terms he had been refused before it, and Rome refused again. That refusal, made from a position of defeat, is the moment the war stopped being negotiable: the Senate would not treat with a Macedonian king who had beaten a Roman army, and three more years of stalemate followed.",
+    context: "Rome had declared war expecting the pattern of 197 to repeat — a short campaign, a decisive battle, terms dictated. Instead the consul of 171 arrived in Thessaly with an army that had been raised in a hurry and a cavalry arm markedly inferior to Perseus', who had Thessalian and Thracian horse and the Macedonian Sacred Squadron. Both sides had their cavalry out in front of the camps; the action grew out of that contact rather than being sought. What makes it worth drawing is what did not follow. Perseus had the beaten army in front of him and did not press.",
+    forces: [
+      { side: "Rome", estimate: "About 4,000 horse and an equal number of light infantry, screening a consular army", certainty: "probable", note: "The Roman cavalry included Aetolian and Thessalian contingents, whose flight Livy blames for the collapse." },
+      { side: "Macedon", estimate: "Perseus' cavalry with Cretan archers and Thracian horse, the whole about 4,500", certainty: "probable" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "Livy reports about 2,000 foot and 200 horse lost, with 600 captured", certainty: "disputed" },
+      { side: "Macedon", estimate: "Livy reports 20 horse and 40 foot — a figure kept because a lopsided defeat was worth recording honestly for once", certainty: "disputed", note: "Roman sources had no reason to inflate their own losses, which is exactly why this pair is more believable than most in the atlas." },
+    ],
+    moments: [
+      { title: "Cavalry screens meet", description: "The two mounted arms come into contact in front of the camps; neither commander has chosen the ground.", certainty: "probable" },
+      { title: "The allied horse gives way", description: "The Thessalian and Aetolian cavalry on the Roman flank breaks first, uncovering the line.", certainty: "probable" },
+      { title: "The Sacred Squadron drives in", description: "Perseus' heavy horse rolls up the Roman cavalry and rides down the light infantry supporting it.", certainty: "probable" },
+      { title: "Perseus does not follow", description: "The Roman army reaches its camp intact. Perseus offers terms instead of attacking, and is refused.", certainty: "attested" },
+    ],
+    ancientSourceIds: thirdMacedonAncient, modernSourceIds: thirdMacedonModern,
+    uncertaintyNotes: [
+      "The hill is named by Livy and has never been located.",
+      "The casualty figures are one-sided in Macedon's favour, which is unusual enough in a Roman source to be worth noting rather than discounting.",
+      "Whether Perseus could have destroyed the consular army by pressing on is the judgement every later account makes and none can support.",
+    ],
+    nextSlug: "pydna",
+  },
+  {
+    id: "pydna", slug: "pydna", name: "Battle of Pydna", kind: "land", startYear: -168, endYear: -168, displayDate: "22 June 168 BCE", location: "The plain below Pydna, on the Leucus, in Pieria", coordinates: [22.62, 40.36], uncertainty: { radiusKm: 12, certainty: "probable", note: "The action is placed on the coastal plain between Mount Olocrus and the sea; the line of the Leucus stream is used to fix it, and the exact frontage is reconstructed." }, major: true,
+    belligerents: ["Roman Republic and allies", "Macedon"],
+    commanders: [
+      { faction: "rome", names: ["Lucius Aemilius Paullus (consul)", "Publius Cornelius Scipio Nasica"], certainty: "attested" },
+      { faction: "macedon", names: ["Perseus"], certainty: "attested" },
+    ],
+    result: "Decisive Roman victory",
+    summary: "Neither side intended to fight that afternoon. The phalanx advanced and drove the legions back until the broken ground of the plain opened gaps in its front; Paullus fed maniples into the gaps, and an unbeaten formation was destroyed from inside in about an hour.",
+    significance: "Pydna abolished the Antigonid kingdom and, with it, the last power that could put a Hellenistic royal army in the field against Rome. It is also the battle after which Rome stopped pretending the Greek east could govern itself: Macedon was cut into four republics, and when that failed it became a province. The tactical lesson is the one Cynoscephalae had already taught and Pydna made undeniable — the phalanx is unbeatable frontally and cannot survive a broken line.",
+    context: "Perseus had held the Elpeus line all summer and could not be attacked in it. Paullus sent Scipio Nasica with a column over the Olympus range to turn the position, and Perseus, warned, pulled back to the plain below Pydna and drew up there. Both armies then spent a day facing each other without engaging. What started the battle, in every account we have, was an accident involving a pack animal that got loose near the stream between the lines — which is worth stating plainly, because the largest infantry battle of the Hellenistic age began without either commander deciding on it.",
+    forces: [
+      { side: "Rome", estimate: "About 29,000: two legions with Italian and Greek allies, and 22 elephants on the right", certainty: "probable" },
+      { side: "Macedon", estimate: "About 44,000, of which some 21,000 were phalangites in two corps with the guard on the flank", certainty: "probable", note: "The largest force Macedon ever put in the field, and the last." },
+    ],
+    casualties: [
+      { side: "Macedon", estimate: "Reported as about 20,000 killed and 11,000 taken", certainty: "disputed" },
+      { side: "Rome", estimate: "Reported as 80 to 100 dead", certainty: "disputed", note: "Plutarch attributes the lower figure to Nasica, who was there. Even allowing for a rout, a ratio of this order says more about how a broken phalanx died than about how the fighting went while it held." },
+    ],
+    moments: [
+      { title: "The Elpeus line is turned", description: "Nasica takes a column over the mountain by night; Perseus abandons the position rather than be cut off, and forms up on the plain.", certainty: "attested" },
+      { title: "A loose animal starts it", description: "Skirmishing over a stray pack animal near the stream pulls both lines forward before either commander has ordered an attack.", certainty: "probable" },
+      { title: "The phalanx drives the legions back", description: "On level ground the pike front is irresistible; Paullus later said the sight of it was the most frightening thing he had seen.", certainty: "attested" },
+      { title: "The ground opens the front", description: "Advancing over uneven ground the pike line loses its continuity and gaps appear along it.", certainty: "attested" },
+      { title: "Maniples into the gaps", description: "Paullus breaks his line into its parts and sends them into the gaps, where the pike is useless and the sword is not.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["livy-39-45", "polybius-27-30", "plutarch-aemilius"], modernSourceIds: thirdMacedonModern,
+    uncertaintyNotes: [
+      "The exact field is placed from the Leucus and the coastline rather than from any surviving marker.",
+      "The Roman casualty figure is not credible as a measure of the fighting, only of the pursuit.",
+      "The story of the loose animal appears in more than one source but is exactly the kind of detail a tradition invents to explain an unplanned battle.",
+      "Livy's account of the battle itself is damaged in the manuscript, so the fullest narrative is Plutarch's.",
+    ],
+    previousSlug: "callinicus",
+  },
+];
+
+const thirdPunicWar: Battle[] = [
+  {
+    id: "carthage", slug: "carthage", name: "Siege of Carthage", kind: "siege", startYear: -149, endYear: -146, displayDate: "149–146 BCE", location: "Carthage, on the gulf of Tunis", coordinates: [10.323, 36.853], uncertainty: { radiusKm: 5, certainty: "attested", note: "The city, its triple landward wall, the Byrsa citadel and the two harbours are archaeologically established; where individual assaults went in is not." }, major: true,
+    belligerents: ["Roman Republic and Numidia", "Carthage"],
+    commanders: [
+      { faction: "rome", names: ["Manius Manilius", "Lucius Marcius Censorinus", "Publius Cornelius Scipio Aemilianus (from 147)"], certainty: "attested" },
+      { faction: "carthage", names: ["Hasdrubal the Boetharch"], certainty: "attested" },
+    ],
+    result: "Carthage stormed and destroyed",
+    summary: "Rome demanded that Carthage abandon its site and settle inland; the city refused, rearmed behind walls it had been disarmed inside, and held for three years. Scipio Aemilianus sealed the harbour, starved it through a winter, and took it street by street over six days in the spring of 146.",
+    significance: "The end of the power Rome had fought for over a century, and the beginning of the province of Africa. It is also the clearest case in the atlas of a war fought because a state could be destroyed rather than because it was dangerous: Carthage had been disarmed since 201 and its offence was defending itself against a Numidian king Rome had encouraged. What the siege demonstrated militarily is that a Hellenistic-scale fortification could not be stormed, only enclosed — the city fell to a mole across its harbour mouth and a winter without food.",
+    context: "The treaty of 201 forbade Carthage to make war without Roman consent, and Masinissa spent fifty years taking Carthaginian territory in the knowledge that any response would breach it. In 151 the last indemnity payment was made and Carthage, legally free of its debt, finally fought back — and lost to Masinissa as well. Rome declared war on the breach. The city then did everything asked of it: three hundred children of the leading families handed over as hostages, and every weapon in the arsenal surrendered — two hundred thousand sets of armour and two thousand catapults, by Appian's count. Only then was the final demand made, that the population abandon the site and rebuild ten miles from the sea. A city whose wealth was its harbour understood what that meant, and rearmed with nothing.",
+    forces: [
+      { side: "Rome", estimate: "A consular army of about 40,000 to 50,000, with a fleet, and Numidian cavalry", certainty: "probable" },
+      { side: "Carthage", estimate: "The citizen body of a city of several hundred thousand, rearmed from scratch, with Hasdrubal's field army outside", certainty: "disputed", note: "Appian describes the whole population making weapons, including women cutting their hair for catapult cord — a detail that is either a real memory of the improvisation or the standard literary image of a city at bay." },
+    ],
+    casualties: [
+      { side: "Carthage", estimate: "The city destroyed; Appian reports 50,000 surviving to be sold into slavery", certainty: "disputed", note: "The figure implies a death toll in the hundreds of thousands, which no ancient source is in a position to have counted." },
+      { side: "Rome", estimate: "Heavy in the first two years of failed assaults; no usable figures survive", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Disarmed, then told to move", description: "Carthage surrenders its hostages and its entire arsenal, and is then ordered to abandon the site. It refuses and begins making weapons.", certainty: "attested" },
+      { title: "Two years of failed assaults", description: "The landward wall is triple and the ground in front of it narrow. Roman attacks on it achieve nothing and the besiegers suffer more than the besieged.", certainty: "probable" },
+      { title: "The harbour sealed", description: "Scipio builds a mole across the harbour mouth. The Carthaginians cut a new channel and get a fleet out, but the city is cut off from supply.", certainty: "attested" },
+      { title: "Six days in the streets", description: "The final assault goes in from the harbour quarter and fights uphill to the Byrsa house by house, burning as it goes.", certainty: "attested" },
+      { title: "The Byrsa surrenders", description: "The citadel gives in; Hasdrubal surrenders in person, and his wife kills herself and their children in the burning temple rather than do the same.", certainty: "probable" },
+    ],
+    ancientSourceIds: ["appian-hann", "polybius-36-39", "livy-periochae-46-53"], modernSourceIds: thirdPunicModern,
+    uncertaintyNotes: [
+      "Polybius was present at the fall and his account of it survives only in fragments; the connected narrative is Appian's, written nearly three centuries later.",
+      "The Roman decision to destroy the city rather than accept its surrender is reported without an explanation that satisfies anyone.",
+      "The story that the site was ploughed and sown with salt is a modern invention and appears in no ancient source.",
+      "Population and casualty figures are literary throughout.",
+    ],
+    nextSlug: "nepheris",
+  },
+  {
+    id: "nepheris", slug: "nepheris", name: "Battle of Nepheris", kind: "land", startYear: -147, endYear: -147, displayDate: "winter 147/146 BCE", location: "Nepheris, in the hills south-east of Tunis", coordinates: [10.25, 36.6], uncertainty: { radiusKm: 20, certainty: "disputed", note: "Nepheris is placed in the hills above the Oued Miliane on the strength of the ancient itineraries; the site is not securely identified." }, major: false,
+    belligerents: ["Roman Republic and Numidia", "Carthage"],
+    commanders: [
+      { faction: "rome", names: ["Publius Cornelius Scipio Aemilianus"], certainty: "attested" },
+      { faction: "carthage", names: ["Diogenes"], certainty: "probable" },
+    ],
+    result: "Roman victory",
+    summary: "Scipio destroyed the last Carthaginian force in the field, entrenched in a fortified camp at Nepheris, by pinning it frontally and sending a detachment round to attack from behind. With it went any prospect of the city being relieved.",
+    significance: "Nepheris is why Carthage fell in 146 rather than holding on. A besieged city with a field army outside is a blockade that can be broken; without one it is only a question of how long the food lasts. The town had already beaten off a Roman attack in 149, and taking it in a single winter operation is the clearest demonstration of the difference Scipio's command made.",
+    context: "The Carthaginian position at Nepheris had been the standing embarrassment of the war: a fortified camp in broken hill country a day's march from the city, which had wrecked one Roman army in 149 and supplied and encouraged Carthage ever since. Scipio dealt with it in the winter of 147/146, while the city itself was already sealed — the point being that he could now afford to detach a force at all, which his predecessors, unable to close the blockade, could not.",
+    forces: [
+      { side: "Rome", estimate: "A detachment of the besieging army with Numidian cavalry under Gulussa", certainty: "probable" },
+      { side: "Carthage", estimate: "The last field force, reported as some tens of thousands in and around the camp", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Carthage", estimate: "Appian reports the force annihilated, with 70,000 killed and 10,000 captured", certainty: "disputed", note: "A figure larger than any plausible Carthaginian field army at this date, and one of the least credible in the atlas." },
+      { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "The camp pinned in front", description: "Scipio attacks the entrenchments frontally, which is what the position is built to resist.", certainty: "probable" },
+      { title: "A detachment sent round", description: "A force works round the broken ground to come at the camp from the rear while the defenders are committed.", certainty: "probable" },
+      { title: "The last field army destroyed", description: "The camp falls, and with it the town. Nothing outside the walls can relieve Carthage now.", certainty: "attested" },
+    ],
+    ancientSourceIds: thirdPunicAncient, modernSourceIds: thirdPunicModern,
+    uncertaintyNotes: [
+      "The site is fixed only by the itineraries and remains debated.",
+      "Appian's numbers cannot be reconciled with any credible estimate of Carthaginian manpower in 147.",
+      "There were two actions at Nepheris — a Roman defeat in 149 and this victory — and the sources sometimes blur them.",
+    ],
+    previousSlug: "carthage",
+  },
+];
+
 export const battles: Battle[] = [
   // Tagged by hand rather than derived from data/wars.ts: this module is in the
   // test import graph, which can only resolve "@/" aliases as type imports.
@@ -862,6 +1013,8 @@ export const battles: Battle[] = [
   ...secondPunicWar.map((battle) => ({ ...battle, war: "second-punic" })),
   ...macedonianWar.map((battle) => ({ ...battle, war: "macedonian-second" })),
   ...seleucidWar.map((battle) => ({ ...battle, war: "seleucid-war" })),
+  ...thirdMacedonianWar.map((battle) => ({ ...battle, war: "macedonian-third" })),
+  ...thirdPunicWar.map((battle) => ({ ...battle, war: "punic-third" })),
 ];
 
 export function getBattle(slug: string): Battle | undefined {

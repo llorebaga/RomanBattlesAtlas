@@ -179,6 +179,54 @@ export const eras: Era[] = [
     mapView: { center: [26.5, 38.6], zoom: 4.4 },
     factions: ["rome", "seleucid", "pergamon"],
   },
+  {
+    id: "western-wars",
+    name: "The wars nobody counted",
+    shortName: "Liguria & Spain",
+    kind: "interbellum",
+    startYear: -187,
+    endYear: -172,
+    blurb:
+      "Fifteen years in which Rome is at war every single year and none of it has a name. Consular armies grind through Liguria and Istria; praetors fight an annual campaign in both Spanish provinces that nobody at Rome thinks worth a triumph. Meanwhile Philip V rebuilds Macedon's revenues and army, and his son Perseus inherits both.",
+    mapView: { center: [4.0, 42.0], zoom: 4.2 },
+    factions: ["rome"],
+  },
+  {
+    id: "macedonian-third",
+    name: "The Third Macedonian War",
+    shortName: "Third Macedonian",
+    kind: "war",
+    startYear: -171,
+    endYear: -168,
+    blurb:
+      "Rome declares war on Perseus and then spends three years being outmanoeuvred by him — beaten in the opening cavalry action at Callinicus and stalled on the Elpeus line. Aemilius Paullus is sent out in 168 and ends it in an hour at Pydna. The Antigonid kingdom, three centuries old, is abolished.",
+    mapView: { center: [22.6, 40.2], zoom: 5.2 },
+    factions: ["rome", "macedon"],
+  },
+  {
+    id: "after-pydna",
+    name: "After Pydna",
+    shortName: "After Pydna",
+    kind: "interbellum",
+    startYear: -167,
+    endYear: -150,
+    blurb:
+      "Rome has no rival left and no province to show for it. Macedon is cut into four republics forbidden to trade with one another, Epirus is sacked and seventy towns enslaved, a thousand Achaeans — Polybius among them — are deported to Italy without charge. The fighting that continues is in Spain, where it gets worse every year and where in 150 a Roman commander massacres a Lusitanian people who had already surrendered.",
+    mapView: { center: [10.0, 40.0], zoom: 3.6 },
+    factions: ["rome", "macedon"],
+  },
+  {
+    id: "punic-third",
+    name: "The Third Punic War and the year 146",
+    shortName: "Third Punic War",
+    kind: "war",
+    startYear: -149,
+    endYear: -146,
+    blurb:
+      "Carthage, disarmed for fifty years and finally provoked into defending itself against Masinissa, is ordered to abandon its city and refuses. Three years of siege end with the place stormed street by street and razed. In the same summer, at the other end of the Mediterranean, Corinth is sacked and the Achaean League dissolved — and Rome, which had annexed nothing after Magnesia, now takes provinces in Africa and Macedonia.",
+    mapView: { center: [15.0, 38.0], zoom: 3.8 },
+    factions: ["rome", "carthage"],
+  },
 ];
 
 export function eraForYear(year: number): Era | undefined {
