@@ -31,6 +31,11 @@ export default function FiguresIndexPage() {
             {figures.length} commanders, kings and rebels, in the order the atlas meets them. {mappedCount} of them
             fought battles you can open on the map; the rest are signposts to periods still to come, and say so.
           </p>
+          <p className="hp-section-more">
+            <Link href="/figures/connections" className="hp-card-action">
+              How they were connected — family, service, rivalry, and who met whom in the field
+            </Link>
+          </p>
         </header>
 
         {groups.map(({ period, entries }) => (
@@ -66,7 +71,10 @@ export default function FiguresIndexPage() {
           </section>
         ))}
 
-        <p className="hp-section-more"><Link href="/" className="hp-card-action">Back to the atlas home</Link></p>
+        <p className="hp-section-more">
+          <Link href="/figures/connections" className="hp-card-action">See how they were connected</Link> ·{" "}
+          <Link href="/" className="hp-card-action">Back to the atlas home</Link>
+        </p>
       </main>
       <HomepageFooter />
     </>

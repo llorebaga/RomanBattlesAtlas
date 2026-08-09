@@ -8,6 +8,7 @@ import { campaignIndex, FEATURED_CAMPAIGN_ID, getCampaign } from "../data/campai
 import { timelineMilestones } from "../data/timelineMilestones.ts";
 import { exploreOptions, featuredBattleSlugs } from "../data/homepage.ts";
 import { figures, isMapped } from "../data/figures.ts";
+import { relations, RELATION_KINDS, chartNodes, chartArcs, CHART_FRAME } from "../data/figureRelations.ts";
 import { sources, sourceCoversYear } from "../data/sources.ts";
 import { atlasHref, parseAtlasSearch, battleOnMapHref, battleHref, ATLAS_PATH } from "../lib/atlasLinks.ts";
 import { computeCampaignCoverage, computePeriodCoverage, computeTotals } from "../lib/coverageCore.ts";
@@ -255,6 +256,68 @@ test("a mapped figure is sourced, and a signpost claims nothing", () => {
       assert.equal(figure.ancientSourceIds.length, 0, `${figure.slug}: a signpost should cite nothing`);
       assert.equal(figure.modernSourceIds.length, 0, `${figure.slug}: a signpost should cite nothing`);
     }
+  }
+});
+
+test("every connection joins two figures the atlas holds", () => {
+  const slugs = new Set(figures.map((figure) => figure.slug));
+  const kinds = new Set(RELATION_KINDS.map((entry) => entry.kind));
+  assert.ok(relations.length >= 20, "the connections page should be substantial");
+  for (const relation of relations) {
+    assert.ok(slugs.has(relation.from), `relation cites unknown figure ${relation.from}`);
+    assert.ok(slugs.has(relation.to), `relation cites unknown figure ${relation.to}`);
+    assert.notEqual(relation.from, relation.to, `${relation.from}: related to themselves`);
+    assert.ok(kinds.has(relation.kind), `${relation.from}->${relation.to}: unknown kind ${relation.kind}`);
+    assert.ok(relation.label && relation.note, `${relation.from}->${relation.to}: needs a label and a note`);
+    // Two people cannot be connected if they never overlapped in life. This is the
+    // check that stops a plausible-sounding link between the wrong generations —
+    // there are two Aemilius Paulli in this atlas, a father and a son.
+    const from = figures.find((figure) => figure.slug === relation.from);
+    const to = figures.find((figure) => figure.slug === relation.to);
+    const fromBorn = from.bornYear ?? from.activeFrom;
+    const toBorn = to.bornYear ?? to.activeFrom;
+    assert.ok(
+      fromBorn <= to.diedYear && toBorn <= from.diedYear,
+      `${relation.from} and ${relation.to} were never alive at the same time`,
+    );
+  }
+  // Every relation kind advertised in the key must actually have entries, or the
+  // page renders a heading over nothing.
+  for (const { kind } of RELATION_KINDS) {
+    assert.ok(relations.some((relation) => relation.kind === kind), `no relations of kind ${kind}`);
+  }
+});
+
+test("the connection chart fits its frame and does not collide", () => {
+  // The chart is hand-placed and cannot be eyeballed from here, so the geometry is
+  // asserted instead: labels inside the frame, and no two on a row overlapping.
+  const CHAR = 3.6 * 0.58; // rough advance width per character at the chart font size
+  const slugs = new Set(figures.map((figure) => figure.slug));
+  for (const node of chartNodes) {
+    assert.ok(slugs.has(node.slug), `chart node ${node.slug} is not a figure`);
+    const half = (node.label.length * CHAR) / 2;
+    assert.ok(node.x - half >= 0, `${node.slug}: label runs off the left of the frame`);
+    assert.ok(node.x + half <= CHART_FRAME.width, `${node.slug}: label runs off the right of the frame`);
+    assert.ok(node.y === CHART_FRAME.topRow || node.y === CHART_FRAME.bottomRow, `${node.slug}: off-row`);
+  }
+  for (const row of [CHART_FRAME.topRow, CHART_FRAME.bottomRow]) {
+    const inRow = chartNodes.filter((node) => node.y === row).sort((a, b) => a.x - b.x);
+    for (let i = 1; i < inRow.length; i += 1) {
+      const left = inRow[i - 1];
+      const right = inRow[i];
+      const gap = right.x - (right.label.length * CHAR) / 2 - (left.x + (left.label.length * CHAR) / 2);
+      assert.ok(gap >= 0, `${left.slug} and ${right.slug} overlap on the chart by ${Math.abs(gap).toFixed(1)}`);
+    }
+  }
+  // Every arc must join two charted nodes and correspond to a real relation.
+  const charted = new Set(chartNodes.map((node) => node.slug));
+  for (const arc of chartArcs) {
+    assert.ok(charted.has(arc.from) && charted.has(arc.to), `arc ${arc.from}-${arc.to} is not on the chart`);
+    assert.ok(
+      relations.some((r) => (r.from === arc.from && r.to === arc.to) || (r.from === arc.to && r.to === arc.from)),
+      `arc ${arc.from}-${arc.to} has no relation behind it`,
+    );
+    assert.ok(arc.lift >= 0 && arc.lift < CHART_FRAME.topRow, `arc ${arc.from}-${arc.to}: lift outside the frame`);
   }
 });
 

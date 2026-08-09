@@ -4,6 +4,8 @@ Roman Campaign Atlas is an evidence-led interactive historical map of Roman warf
 
 `/figures` carries the commanders, kings and rebels one by one: dates, the battles each fought (linked to the map and graded), the account, and what the sources cannot settle. It follows the same rule as the campaign shelf — an entry may only claim battles the atlas actually holds. Five emperors are listed without any, because the mapped period ends in 44 BCE and the alternative would be writing them up as though it did not.
 
+`/figures/connections` draws how they were related — family, service, rivalry, and who met whom in the field — as a hand-placed chart plus the full list. Two rules are tested: both ends of a link must be figures the atlas already holds, and the two must have been alive at the same time. That second one exists because there are two Aemilius Paulli here, a father who died at Cannae and a son who won Pydna.
+
 > Historical caution: the atlas is a research interface, not a claim to exact reconstruction. Routes and several coordinates are provisional and are explicitly classified as attested, probable, disputed, speculative, or — for the early Republic — traditional.
 
 ## Scope
