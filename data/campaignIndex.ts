@@ -293,31 +293,22 @@ export const campaignIndex: CampaignEntry[] = [
     focus: { location: [20.0, 39.5], zoom: 4.4 },
   },
   {
-    id: "spartacus-war",
-    name: "Sertorius and Spartacus",
+    // Sertorius, Spartacus and Pompey's eastern settlement are three separate eras
+    // on the timeline and one card here, because a card may only claim battles the
+    // map actually holds and the Silarius is the only pitched battle among them.
+    // Splitting them would mean two cards claiming coverage they do not have.
+    id: "spartacus-and-the-east",
+    name: "Sertorius, Spartacus, and Pompey's East",
     startYear: -80,
-    endYear: -71,
-    description: "A Marian officer held Spain for eight years with a Roman army and a senate of exiles; seventy escaped gladiators became an army that beat two consuls and marched the length of Italy twice.",
-    region: "Spain and Italy",
-    status: "available",
-    periodId: "late-republic",
-    eraId: "sertorius-and-spartacus",
-    representativeCommander: "Spartacus",
-    focus: { location: [2.0, 40.0], zoom: 4.2 },
-  },
-  {
-    id: "pompey-east",
-    name: "Pompey, the pirates, and the East",
-    startYear: -71,
     endYear: -63,
-    description: "Crassus destroyed Spartacus and Pompey took the credit. Pompey then cleared the Mediterranean of piracy in a season and spent four years redrawing the East, ending the Seleucid dynasty by administrative decision.",
-    region: "The Mediterranean, Anatolia and Syria",
+    description: "A Marian officer held Spain for eight years with a senate of exiles; seventy escaped gladiators became an army that beat two consuls and marched the length of Italy twice. Crassus destroyed them, Pompey took the credit, cleared the sea of piracy in a season, and spent four years redrawing the East.",
+    region: "Spain, Italy, and the eastern Mediterranean",
     status: "available",
     periodId: "late-republic",
     eraId: "pompey-east",
     representativeBattle: "silarius",
-    representativeCommander: "Pompey the Great",
-    focus: { location: [32.0, 37.0], zoom: 4.2 },
+    representativeCommander: "Spartacus",
+    focus: { location: [15.0, 39.0], zoom: 4.2 },
   },
   {
     id: "gallic-wars",
