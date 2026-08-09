@@ -21,6 +21,23 @@ export function clampTimelineYear(year: number): number {
   return Math.min(TIMELINE_END_YEAR, Math.max(TIMELINE_START_YEAR, Math.round(year)));
 }
 
+/**
+ * "247–183 BCE", or "died 71 BCE" when the birth is not known.
+ *
+ * Lives here rather than beside the figure data because this module is the one
+ * that is deliberately free of runtime imports — the type-stripping test runner
+ * cannot resolve an "@/" alias in a value import, so anything the tests pull in
+ * transitively has to stay clean.
+ */
+export function lifespan(person: { bornYear?: number; diedYear: number }): string {
+  const era = (year: number) => (year < 0 ? "BCE" : "CE");
+  if (person.bornYear === undefined) return `died ${formatHistoricalYear(person.diedYear)}`;
+  if (era(person.bornYear) === era(person.diedYear)) {
+    return `${Math.abs(person.bornYear)}–${Math.abs(person.diedYear)} ${era(person.diedYear)}`;
+  }
+  return `${Math.abs(person.bornYear)} BCE – ${Math.abs(person.diedYear)} CE`;
+}
+
 export function yearProgress(year: number): number {
   return (clampTimelineYear(year) - TIMELINE_START_YEAR) / (TIMELINE_END_YEAR - TIMELINE_START_YEAR);
 }

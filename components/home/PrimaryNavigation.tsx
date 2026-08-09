@@ -9,6 +9,7 @@ const LINKS = [
   { href: "/#periods", label: "Periods" },
   { href: "/#campaigns", label: "Campaigns" },
   { href: "/#battles", label: "Battles" },
+  { href: "/figures", label: "Figures" },
   { href: "/methodology", label: "Methodology" },
   { href: "/about", label: "About" },
 ];
@@ -42,7 +43,7 @@ export function PrimaryNavigation() {
         </button>
       </div>
 
-      {/* Kept deliberately short on small screens: the six sections and one action. */}
+      {/* Kept deliberately short on small screens: the seven sections and one action. */}
       <div id="hp-mobile-nav" className={`hp-nav-mobile ${open ? "open" : ""}`} hidden={!open}>
         <nav aria-label="Main, mobile">
           {LINKS.map((link) => <Link key={link.href} href={link.href} onClick={() => setOpen(false)}>{link.label}</Link>)}

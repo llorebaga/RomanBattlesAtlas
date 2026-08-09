@@ -6,8 +6,8 @@ export interface ExploreOption {
   title: string;
   description: string;
   action: string;
-  /** Resolved by the page: an atlas link, or an anchor to a section below. */
-  target: { kind: "atlas" } | { kind: "section"; id: string };
+  /** Resolved by the page: an atlas link, an anchor below, or another route. */
+  target: { kind: "atlas" } | { kind: "section"; id: string } | { kind: "route"; href: string };
   /** Roman numeral shown instead of a stock icon. */
   numeral: string;
 }
@@ -44,6 +44,14 @@ export const exploreOptions: ExploreOption[] = [
     action: "Browse battles",
     target: { kind: "section", id: "battles" },
     numeral: "IV",
+  },
+  {
+    id: "figures",
+    title: "Explore by Person",
+    description: "The commanders, kings and rebels behind the campaigns — with their dates, the battles they fought, and what the sources cannot settle about them.",
+    action: "Browse figures",
+    target: { kind: "route", href: "/figures" },
+    numeral: "V",
   },
 ];
 

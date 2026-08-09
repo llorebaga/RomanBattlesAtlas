@@ -191,6 +191,33 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .hp-battle-card footer { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 12px; border-top: 1px solid var(--hp-line); }
 .hp-battle-actions { display: flex; gap: 14px; }
 
+/* Figures — the people pages. Built from the same card and swatch vocabulary as
+   the battle grid, so a reader moving between them is not learning a new layout. */
+.figure-card { display: flex; flex-direction: column; gap: 9px; padding: 24px; border: 1px solid var(--hp-line); background: var(--hp-parchment); transition: border-color .2s, transform .2s; }
+.figure-card:hover { border-color: #bcae90; transform: translateY(-2px); }
+/* A signpost is a card you cannot open. It has to read as deliberately inert
+   rather than as a link that failed, so it loses the hover and says why. */
+.figure-card.is-unmapped { background: none; border-style: dashed; }
+.figure-card.is-unmapped:hover { border-color: var(--hp-line); transform: none; }
+.figure-card.is-unmapped .hp-card-action { color: #5c6b66; font-weight: 600; }
+.figure-card h3 { margin: 0; font: 400 1.2rem/1.2 var(--font-display); }
+.figure-card p { margin: 0; color: #56594f; font-size: .85rem; line-height: 1.6; }
+.figure-card p:last-of-type { flex: 1; }
+.figure-swatch { display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid rgba(0,0,0,.25); vertical-align: -1px; }
+.figure-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; color: var(--hp-muted); font-size: .78rem; }
+
+.figure-battles { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.figure-battles li { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 10px; padding: 16px 18px; border: 1px solid var(--hp-line); background: var(--hp-parchment); }
+.figure-battles li > a:first-child { display: grid; gap: 4px; }
+.figure-battles strong { font: 400 1.05rem/1.2 var(--font-display); }
+.figure-battles li a:hover strong { color: var(--hp-bronze-dark); }
+.figure-battle-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; color: var(--hp-muted); font-size: .76rem; }
+.figure-battles li > span { color: #4f544c; font-size: .8rem; }
+
+.figure-caveats { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.figure-caveats li { display: flex; align-items: baseline; gap: 9px; color: #4f544c; font-size: .86rem; line-height: 1.6; }
+.figure-caveats svg { flex: none; color: var(--hp-muted); }
+
 /* Timeline */
 .hp-timeline-track { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(200px, 1fr); gap: 0; margin: 0; padding: 0 0 12px; list-style: none; overflow-x: auto; scroll-snap-type: x proximity; }
 .hp-timeline-track > li { position: relative; padding: 30px 18px 0 0; border-top: 1px solid var(--hp-line); scroll-snap-align: start; }

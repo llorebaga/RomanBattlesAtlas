@@ -4,7 +4,14 @@ import type { ExploreOption } from "@/data/homepage";
 import { atlasHref } from "@/lib/atlasLinks";
 
 export function ExploreOptionCard({ option }: { option: ExploreOption }) {
-  const href = option.target.kind === "atlas" ? atlasHref() : `#${option.target.id}`;
+  // Three shapes: the atlas itself, an anchor to a section further down this page,
+  // or another route entirely. The last was added for /figures, which is a page
+  // rather than a section because there are twenty-seven of them.
+  const href = option.target.kind === "atlas"
+    ? atlasHref()
+    : option.target.kind === "route"
+      ? option.target.href
+      : `#${option.target.id}`;
   return (
     <Link href={href} className="hp-explore-card">
       <span className="hp-numeral" aria-hidden="true">{option.numeral}</span>

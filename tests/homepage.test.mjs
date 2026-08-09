@@ -7,10 +7,12 @@ import { periods, formatYearRange } from "../data/periods.ts";
 import { campaignIndex, FEATURED_CAMPAIGN_ID, getCampaign } from "../data/campaignIndex.ts";
 import { timelineMilestones } from "../data/timelineMilestones.ts";
 import { exploreOptions, featuredBattleSlugs } from "../data/homepage.ts";
+import { figures, isMapped } from "../data/figures.ts";
+import { sources, sourceCoversYear } from "../data/sources.ts";
 import { atlasHref, parseAtlasSearch, battleOnMapHref, battleHref, ATLAS_PATH } from "../lib/atlasLinks.ts";
 import { computeCampaignCoverage, computePeriodCoverage, computeTotals } from "../lib/coverageCore.ts";
 import { campaignRoutes } from "../data/campaigns.ts";
-import { clampTimelineYear, TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "../lib/historicalDates.ts";
+import { clampTimelineYear, lifespan, TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "../lib/historicalDates.ts";
 
 // Bind the real data once, exactly as lib/coverage.ts does for the app.
 const coverageOf = (campaign) => { const core = computeCampaignCoverage(battles, campaignRoutes, campaign); return { ...core, atlasLink: core.link ? atlasHref(core.link) : null }; };
@@ -183,17 +185,83 @@ test("timeline milestones span Roman history and only link where mapped", () => 
 });
 
 // ── Homepage composition ───────────────────────────────────────────────────
-test("the four exploration routes are present and resolvable", () => {
-  assert.equal(exploreOptions.length, 4);
+test("the exploration routes are present and resolvable", () => {
   const ids = exploreOptions.map((option) => option.id);
-  assert.deepEqual(ids, ["atlas", "periods", "campaigns", "battles"]);
+  assert.deepEqual(ids, ["atlas", "periods", "campaigns", "battles", "figures"]);
   for (const option of exploreOptions) {
     assert.ok(option.title && option.description && option.action, `${option.id} needs its copy`);
     if (option.target.kind === "section") {
       // Anchors must name a section the homepage actually renders.
       assert.ok(["periods", "campaigns", "battles"].includes(option.target.id), `${option.id}: unknown section`);
     }
+    // A route target must be an in-site path, not an anchor or an external URL.
+    if (option.target.kind === "route") assert.match(option.target.href, /^\/[a-z-]+$/, `${option.id}: bad route`);
   }
+});
+
+// ── Figures ────────────────────────────────────────────────────────────────
+test("a figure only claims battles the map actually holds", () => {
+  // The same rule the campaign shelf follows. A person page that listed battles
+  // the atlas does not have would be the one thing this project is against.
+  const slugs = new Set(battles.map((battle) => battle.slug));
+  assert.ok(figures.length >= 20, "the figures section should be substantial");
+  assert.equal(new Set(figures.map((figure) => figure.slug)).size, figures.length, "duplicate figure slug");
+  for (const figure of figures) {
+    assert.ok(periods.some((period) => period.id === figure.periodId), `${figure.slug}: unknown period`);
+    assert.ok(figure.knownFor && figure.description.length > 0, `${figure.slug}: needs copy`);
+    assert.ok(figure.activeFrom <= figure.activeTo, `${figure.slug}: inverted active years`);
+    if (figure.bornYear !== undefined) {
+      assert.ok(figure.bornYear < figure.diedYear, `${figure.slug}: born after dying`);
+    }
+    for (const slug of figure.battleSlugs) {
+      assert.ok(slugs.has(slug), `${figure.slug}: cites unknown battle ${slug}`);
+      const battle = battles.find((entry) => entry.slug === slug);
+      // A person cannot fight a battle outside the years they were active.
+      assert.ok(
+        battle.startYear >= figure.activeFrom && battle.startYear <= figure.activeTo,
+        `${figure.slug}: ${slug} (${battle.startYear}) is outside their active years`,
+      );
+    }
+  }
+});
+
+test("a mapped figure is sourced, and a signpost claims nothing", () => {
+  for (const figure of figures) {
+    if (isMapped(figure)) {
+      assert.ok(figure.ancientSourceIds.length >= 1, `${figure.slug}: no ancient testimony`);
+      assert.ok(figure.modernSourceIds.length >= 1, `${figure.slug}: no modern scholarship`);
+      assert.ok(figure.description.length >= 2, `${figure.slug}: a mapped figure needs a real account`);
+      assert.ok(figure.uncertaintyNotes.length >= 1, `${figure.slug}: must say what is not settled`);
+      // Every ancient text must survive for some year this person was active.
+      for (const id of figure.ancientSourceIds) {
+        const source = sources.find((entry) => entry.id === id);
+        assert.ok(source, `${figure.slug}: unknown source ${id}`);
+        assert.equal(source.kind, "ancient", `${figure.slug}: ${id} is not ancient testimony`);
+        const years = [];
+        for (let year = figure.activeFrom; year <= figure.activeTo; year += 1) years.push(year);
+        assert.ok(
+          years.some((year) => sourceCoversYear(source, year)),
+          `${figure.slug}: ${id} survives for no year they were active`,
+        );
+      }
+      for (const id of figure.modernSourceIds) {
+        assert.equal(sources.find((entry) => entry.id === id)?.kind, "modern", `${figure.slug}: ${id} is not modern`);
+      }
+    } else {
+      // A signpost points at a period the atlas has not reached. It must not carry
+      // sources or caveats, because it is not making claims to support.
+      const period = periods.find((entry) => entry.id === figure.periodId);
+      assert.notEqual(period.status, "available", `${figure.slug}: unmapped but its period is available`);
+      assert.equal(figure.ancientSourceIds.length, 0, `${figure.slug}: a signpost should cite nothing`);
+      assert.equal(figure.modernSourceIds.length, 0, `${figure.slug}: a signpost should cite nothing`);
+    }
+  }
+});
+
+test("a lifespan reads correctly whether or not the birth is known", () => {
+  assert.equal(lifespan({ bornYear: -247, diedYear: -183 }), "247–183 BCE");
+  assert.equal(lifespan({ diedYear: -71 }), "died 71 BCE");
+  assert.equal(lifespan({ bornYear: -63, diedYear: 14 }), "63 BCE – 14 CE");
 });
 
 test("headline totals are counted from the atlas data", () => {
