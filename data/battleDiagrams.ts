@@ -3333,8 +3333,10 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
     sourceIds: ["plutarch-sulla"],
     terrain: [
       { id: "hills", kind: "hill", points: [[0, 4], [26, 2], [56, 6], [84, 3], [100, 6], [100, 18], [60, 20], [24, 17], [0, 20]], label: "the Boeotian hills", labelAt: [50, 11] },
-      { id: "ditch-n", kind: "works", at: [24, 26], size: [16, 3], label: "ditches" },
-      { id: "ditch-s", kind: "works", at: [24, 52], size: [16, 3] },
+      // `works` is a unit kind, not a terrain one — entrenchments drawn as terrain
+      // are walls here.
+      { id: "ditch-n", kind: "wall", points: [[16, 26], [32, 26]], label: "ditches" },
+      { id: "ditch-s", kind: "wall", points: [[16, 52], [32, 52]] },
     ],
     stages: [
       {
