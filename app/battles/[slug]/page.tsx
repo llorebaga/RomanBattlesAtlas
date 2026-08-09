@@ -33,6 +33,15 @@ const SIDE_FACTION: Record<string, Faction> = {
   // an enemy’s.
   Numantia: "iberian", "Cimbri and Teutones": "cimbri", Cimbri: "cimbri",
   "Teutones and Ambrones": "cimbri", "Roman Republic and Numidia": "rome",
+  // Civil wars: both sides are Roman, so the swatch has to follow the side rather
+  // than the state. See data/factions.ts on why these labels are conveniences.
+  Caesar: "populares", "Pompey and the Senate": "optimates",
+  "Sulla and the senatorial cause": "optimates",
+  "The Marian government and its Samnite allies": "populares",
+  "The senatorial cause and Numidia": "optimates", "The Pompeian cause in Spain": "optimates",
+  "The Italian confederation": "samnite", Pontus: "pontus", Parthia: "parthia",
+  "Spartacus' army": "servile", "The Nervii and Belgic allies": "gaul",
+  "The Helvetii": "gaul", "The Gallic coalition": "gaul",
 };
 function sideColor(side: string): string {
   const faction = SIDE_FACTION[side];

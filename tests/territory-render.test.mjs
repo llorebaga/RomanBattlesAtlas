@@ -190,7 +190,9 @@ test("every territory ring is valid, closed-able Mediterranean geometry", () => 
       assert.equal(typeof lng, "number", `${period.id}: bad longitude`);
       assert.equal(typeof lat, "number", `${period.id}: bad latitude`);
       assert.ok(lng >= -20 && lng <= 45, `${period.id}: longitude ${lng} outside the map`);
-      assert.ok(lat >= 20 && lat <= 50, `${period.id}: latitude ${lat} outside the map`);
+      // 56° is where the bundled land data stops. Gaul and Britain need the room;
+      // beyond it the clipped straight edge of the basemap would come into frame.
+      assert.ok(lat >= 20 && lat <= 56, `${period.id}: latitude ${lat} outside the map`);
     }
   }
 });

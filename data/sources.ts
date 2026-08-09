@@ -230,6 +230,55 @@ export const sources: HistoricalSource[] = [
   { id: "sampson-2010", kind: "modern", citation: "Gareth C. Sampson, The Crisis of Rome: The Jugurthine and Northern Wars (2010)" },
   { id: "richardson-1986", kind: "modern", citation: "J. S. Richardson, Hispaniae: Spain and the Development of Roman Imperialism (1986)" },
   { id: "harris-1979", kind: "modern", citation: "William V. Harris, War and Imperialism in Republican Rome (1979)", note: "The argument that Roman expansion was driven by the aristocracy's own need for war, rather than by defensive accident." },
+
+  // ── The Social War to the death of Caesar, 91–44 BCE ───────────────────────
+  // The evidence turns over completely here, and improves. For the first time
+  // since Polybius the atlas has a commander writing about his own campaigns while
+  // they are happening — and has to handle a source that is both the best witness
+  // available and a dispatch written to keep its author in command.
+  {
+    id: "caesar-bg", kind: "ancient", citation: "Caesar, Bellum Gallicum",
+    note: "Eight books, seven by Caesar and the last by Hirtius, published year by year as reports to Rome. Nothing else in the atlas is this detailed or this close to the events — and nothing else is this interested in its author's reputation. Numbers of Gauls killed should be read as claims made to a Senate deciding whether to extend his command.",
+    covers: [{ fromYear: -58, toYear: -50 }],
+  },
+  {
+    id: "caesar-bc", kind: "ancient", citation: "Caesar, Bellum Civile",
+    note: "Caesar's own account of the war against Pompey, unfinished and unpublished in his lifetime. More defensive than the Gallic commentaries: its argument throughout is that he was forced into it.",
+    covers: [{ fromYear: -49, toYear: -48 }],
+  },
+  {
+    id: "appian-civil", kind: "ancient", citation: "Appian, The Civil Wars, Books 1–2",
+    note: "The connected narrative from the Gracchi to Caesar's death, written three centuries later and the only continuous account of the Social War and the Sullan years that survives.",
+    covers: [{ fromYear: -133, toYear: -44 }],
+  },
+  {
+    id: "plutarch-sulla", kind: "ancient", citation: "Plutarch, Life of Sulla",
+    note: "Chaeronea and Orchomenus, the march on Rome, and the proscriptions. Plutarch admired the soldier and was appalled by the rest, which makes the life unusually candid about what the man actually did.",
+    covers: [{ fromYear: -138, toYear: -78 }],
+  },
+  {
+    id: "plutarch-crassus", kind: "ancient", citation: "Plutarch, Life of Crassus",
+    note: "The war against Spartacus and the disaster at Carrhae — the fullest account of both. Written to explain how a man who wanted a soldier's reputation destroyed an army getting one.",
+    covers: [{ fromYear: -115, toYear: -53 }],
+  },
+  {
+    id: "plutarch-caesar", kind: "ancient", citation: "Plutarch, Life of Caesar",
+    note: "Independent of Caesar's own commentaries in places, and useful exactly where they are least trustworthy — on what other people thought was happening.",
+    covers: [{ fromYear: -100, toYear: -44 }],
+  },
+  {
+    id: "dio-36-44", kind: "ancient", citation: "Cassius Dio, Roman History, Books 36–44",
+    note: "The first continuous narrative that survives for the 60s and 50s. Dio is writing two and a half centuries later with a senator's interest in constitutional propriety, and supplies motives no contemporary could have known.",
+    covers: [{ fromYear: -69, toYear: -44 }],
+  },
+  {
+    id: "plutarch-lucullus", kind: "ancient", citation: "Plutarch, Life of Lucullus",
+    note: "The Third Mithridatic War from the side of the commander who won it and lost the command anyway — recalled because his troops mutinied and because the tax companies he had protected the provincials from wanted him gone. Dio does not begin until 69, so for the first years of this war Plutarch is effectively alone.",
+    covers: [{ fromYear: -118, toYear: -56 }],
+  },
+  { id: "goldsworthy-2006", kind: "modern", citation: "Adrian Goldsworthy, Caesar: The Life of a Colossus (2006)" },
+  { id: "seager-2002", kind: "modern", citation: "Robin Seager, Pompey the Great: A Political Biography (2002)" },
+  { id: "gelzer-1968", kind: "modern", citation: "Matthias Gelzer, Caesar: Politician and Statesman (1968)" },
 ];
 
 export function sourcesByIds(ids: string[]): HistoricalSource[] {

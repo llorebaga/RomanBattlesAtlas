@@ -10,6 +10,13 @@ export type Faction =
   | "greek"
   | "pergamon"
   | "cimbri"
+  | "pontus"
+  | "parthia"
+  | "servile"
+  // Two Roman armies on one map. See the note in data/factions.ts: these are
+  // labels of convenience for a side in a civil war, not political parties.
+  | "optimates"
+  | "populares"
   | "iberian"
   // The powers of Italy before Rome held it.
   | "etruscan"

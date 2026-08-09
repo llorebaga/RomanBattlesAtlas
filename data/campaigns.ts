@@ -1074,6 +1074,266 @@ const marianRoutes: CampaignRoute[] = [
   },
 ];
 
+// ── The Social War to the Ides of March, 99–44 BCE ────────────────────────
+//
+// Caesar's civil war is drawn as four routes rather than one because it was four
+// campaigns in four theatres with sea crossings between them, and a single line
+// would be an unreadable scribble across the whole map. The two sides carry the
+// two Roman colours; see data/factions.ts for why those labels are conveniences.
+const caesarianRoutes: CampaignRoute[] = [
+  {
+    id: "roman-cilicia", name: "Operations in Cilicia, and the first sight of Parthia",
+    faction: "rome", forceType: "army", startYear: -99, endYear: -92, certainty: "speculative",
+    description: "The quietest stretch on this timeline is not empty: Rome had a standing command in Cilicia against piracy through these years, and in 96 Sulla, governing the province, met a Parthian embassy on the Euphrates — the first contact between the two empires that would face each other across that river for the next seven centuries.",
+    points: [
+      { year: -99, label: "From Ephesus", coordinates: [27.34, 37.94], certainty: "speculative", sourceIds: ["livy-periochae-54-70"] },
+      { year: -96, label: "Into Cilicia", coordinates: [33.6, 37.2], certainty: "probable", sourceIds: ["livy-periochae-54-70"] },
+      { year: -95, label: "Tarsus", coordinates: [34.9, 37.0], certainty: "speculative", sourceIds: ["livy-periochae-54-70"] },
+      { year: -92, label: "The Parthian embassy on the Euphrates", coordinates: [38.2, 37.6], certainty: "probable", sourceIds: ["plutarch-sulla"] },
+    ],
+  },
+  {
+    id: "social-war-italy", name: "The Social War in Italy",
+    faction: "rome", forceType: "army", startYear: -91, endYear: -88, certainty: "probable",
+    description: "A war fought inside Italy against the allies who had supplied half of every Roman army in this atlas. The line joins the places the sources name — Asculum where it began, Corfinium which the allies made their capital, and the Campanian front — rather than any single army's march.",
+    points: [
+      { year: -91, label: "Rome", coordinates: [12.48, 41.9], certainty: "attested", sourceIds: ["appian-civil"] },
+      { year: -90, label: "Asculum", coordinates: [13.58, 42.85], certainty: "attested", sourceIds: ["appian-civil"] },
+      { year: -89, label: "Corfinium, the allied capital", coordinates: [13.85, 42.13], certainty: "attested", sourceIds: ["appian-civil"] },
+      { year: -88, label: "The Campanian front", coordinates: [14.25, 41.08], certainty: "probable", sourceIds: ["appian-civil"] },
+    ],
+  },
+  {
+    id: "sulla-east", name: "Sulla against Mithridates",
+    faction: "rome", forceType: "army", startYear: -87, endYear: -84, certainty: "probable",
+    description: "An army whose commander had been declared a public enemy by his own government, with no fleet, no money and no reinforcements, crossing to Greece to fight a king who had just had eighty thousand Romans and Italians killed in a single day. Sulla sacked Athens, destroyed two Pontic armies, and then made a lenient peace because his real war was at home.",
+    points: [
+      { year: -87, month: 3, label: "Brundisium", coordinates: [17.8, 40.7], certainty: "probable", sourceIds: ["plutarch-sulla"] },
+      { year: -87, month: 5, label: "Landing in Epirus", coordinates: [19.2, 40.45], certainty: "probable", sourceIds: ["plutarch-sulla"], viaSea: true },
+      { year: -86, month: 3, label: "Athens besieged and sacked", coordinates: [23.73, 38.0], certainty: "attested", sourceIds: ["plutarch-sulla", "appian-civil"] },
+      { year: -86, month: 8, label: "Chaeronea", coordinates: [22.85, 38.49], certainty: "attested", sourceIds: ["plutarch-sulla"] },
+      { year: -85, label: "Orchomenus", coordinates: [22.98, 38.55], certainty: "attested", sourceIds: ["plutarch-sulla"] },
+    ],
+  },
+  {
+    id: "sulla-return", name: "Sulla's return to Italy",
+    faction: "optimates", forceType: "army", startYear: -83, endYear: -81, certainty: "probable",
+    description: "Forty thousand men landing at Brundisium against a government that had outlawed their commander, joined on the way by everyone with a reason to fear it — including a twenty-three-year-old private citizen named Pompey who had raised three legions on his own account and was greeted as imperator for it.",
+    points: [
+      { year: -83, month: 3, label: "From Greece", coordinates: [20.2, 39.6], certainty: "probable", sourceIds: ["plutarch-sulla"] },
+      { year: -83, month: 5, label: "Landing at Brundisium", coordinates: [18.1, 40.6], certainty: "attested", sourceIds: ["plutarch-sulla", "appian-civil"], viaSea: true },
+      { year: -82, month: 4, label: "Through Campania", coordinates: [14.6, 41.1], certainty: "probable", sourceIds: ["appian-civil"] },
+      { year: -82, month: 11, label: "The Colline Gate", coordinates: [12.5, 41.91], certainty: "attested", sourceIds: ["plutarch-sulla", "appian-civil"] },
+    ],
+  },
+  {
+    id: "sertorius-spain", name: "Sertorius in Spain",
+    faction: "populares", forceType: "army", startYear: -80, endYear: -72, certainty: "probable",
+    description: "The Sullan settlement's one serious military opponent, holding Spain for eight years with a Roman army, a senate of exiles, a school for the sons of Spanish chieftains, and allies who preferred him to Rome. Pompey was sent against him and could not finish it; it ended when Sertorius was murdered at dinner by his own second in command.",
+    points: [
+      { year: -80, label: "Into Lusitania", coordinates: [-7.2, 39.3], certainty: "probable", sourceIds: ["appian-civil"] },
+      { year: -77, label: "The Tagus", coordinates: [-5.0, 39.6], certainty: "speculative", sourceIds: ["appian-civil"] },
+      { year: -75, label: "Up to the Ebro", coordinates: [-1.0, 41.3], certainty: "probable", sourceIds: ["appian-civil"] },
+      { year: -72, label: "The Sucro, and murder at dinner", coordinates: [-0.5, 39.2], certainty: "probable", sourceIds: ["appian-civil", "plutarch-crassus"] },
+    ],
+  },
+  {
+    id: "spartacus-italy", name: "The march of Spartacus",
+    faction: "servile", forceType: "army", startYear: -73, endYear: -71, certainty: "probable",
+    description: "Seventy escaped gladiators became an army of tens of thousands that beat two consuls, marched the length of Italy to the Alps with the road out open — and then turned round and marched back south. No source explains the turn, and every account of it was written by a man who owned slaves.",
+    points: [
+      { year: -73, label: "Out of the school at Capua", coordinates: [14.25, 41.08], certainty: "attested", sourceIds: ["plutarch-crassus"] },
+      { year: -73, month: 8, label: "Vesuvius", coordinates: [14.43, 40.82], certainty: "attested", sourceIds: ["plutarch-crassus"] },
+      { year: -72, month: 6, label: "North to the Po", coordinates: [10.9, 44.8], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+      { year: -72, month: 9, label: "Back down the peninsula", coordinates: [14.8, 41.3], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+      { year: -71, month: 1, label: "Into Lucania", coordinates: [15.8, 40.0], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+      { year: -71, month: 2, label: "Penned in Bruttium", coordinates: [16.1, 39.4], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+      { year: -71, month: 3, label: "Out through the lines", coordinates: [15.9, 40.1], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+      { year: -71, month: 4, label: "The Silarius", coordinates: [15.1, 40.5], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+    ],
+  },
+  {
+    id: "lucullus-east", name: "Lucullus against Mithridates and Tigranes",
+    faction: "rome", forceType: "army", startYear: -73, endYear: -67, certainty: "probable",
+    description: "Six years of a commander who won every battle and lost the command anyway. Lucullus relieved Cyzicus, drove Mithridates out of Pontus, followed him into Armenia and beat a far larger army at Tigranocerta — and was replaced because his troops mutinied and because the tax companies he had protected the provincials from wanted him gone.",
+    points: [
+      { year: -73, label: "Cyzicus relieved", coordinates: [27.9, 40.3], certainty: "probable", sourceIds: ["plutarch-lucullus"] },
+      { year: -71, label: "Into Pontus", coordinates: [34.5, 40.6], certainty: "probable", sourceIds: ["plutarch-lucullus"] },
+      { year: -69, label: "Over the Taurus", coordinates: [38.5, 38.6], certainty: "probable", sourceIds: ["plutarch-lucullus", "dio-36-44"] },
+      { year: -67, label: "Tigranocerta", coordinates: [41.0, 37.9], certainty: "probable", sourceIds: ["plutarch-lucullus", "dio-36-44"] },
+    ],
+  },
+  {
+    id: "pompey-pirates", name: "Pompey clears the sea",
+    faction: "rome", forceType: "fleet", startYear: -67, endYear: -67, certainty: "probable",
+    description: "Given the whole Mediterranean and fifty miles inland for three years, Pompey divided it into thirteen districts with a squadron in each, swept west to east so that nothing could double back behind him, and finished in about three months. The surrendered pirates were settled inland on farms rather than executed, which is the part of the operation that says most about it.",
+    points: [
+      { year: -67, month: 3, label: "West from Brundisium", coordinates: [17.6, 39.8], certainty: "probable", sourceIds: ["dio-36-44"] },
+      { year: -67, month: 4, label: "The western basin swept", coordinates: [8.0, 38.5], certainty: "probable", sourceIds: ["dio-36-44"] },
+      { year: -67, month: 6, label: "Back east", coordinates: [18.0, 35.6], certainty: "speculative", sourceIds: ["dio-36-44"] },
+      { year: -67, month: 8, label: "Coracesium in Cilicia", coordinates: [32.2, 36.2], certainty: "attested", sourceIds: ["dio-36-44"] },
+    ],
+  },
+  {
+    id: "pompey-east-settlement", name: "Pompey's settlement of the East",
+    faction: "rome", forceType: "army", startYear: -66, endYear: -62, certainty: "probable",
+    description: "Four years in which one man redrew everything between the Black Sea and Judaea on his own authority — annexing Pontus, Cilicia and Syria, ending the Seleucid dynasty by administrative decision, and taking Jerusalem after a three-month siege. He came home with more money than the treasury had, and disbanded the army at Brundisium.",
+    points: [
+      { year: -66, label: "Into Pontus", coordinates: [35.9, 40.3], certainty: "attested", sourceIds: ["dio-36-44"] },
+      { year: -64, label: "South over the Taurus", coordinates: [36.6, 37.6], certainty: "probable", sourceIds: ["dio-36-44"] },
+      { year: -64, month: 9, label: "Antioch, and the end of the Seleucids", coordinates: [36.2, 36.2], certainty: "attested", sourceIds: ["dio-36-44"] },
+      { year: -63, label: "Jerusalem", coordinates: [35.23, 31.78], certainty: "attested", sourceIds: ["dio-36-44"] },
+    ],
+  },
+  {
+    id: "caesar-lusitania", name: "Caesar in Further Spain",
+    faction: "rome", forceType: "army", startYear: -61, endYear: -60, certainty: "probable",
+    description: "Caesar's first independent command, taken to escape his creditors: a campaign in Lusitania that produced enough plunder to pay his debts and enough of a reputation to claim a triumph — which he gave up in order to stand for the consulship instead.",
+    points: [
+      { year: -61, label: "Corduba", coordinates: [-4.78, 37.9], certainty: "probable", sourceIds: ["plutarch-caesar"] },
+      { year: -61, month: 7, label: "Into Lusitania", coordinates: [-7.2, 39.3], certainty: "probable", sourceIds: ["plutarch-caesar"] },
+      { year: -60, label: "The Atlantic coast", coordinates: [-8.4, 40.4], certainty: "probable", sourceIds: ["plutarch-caesar"] },
+    ],
+  },
+  {
+    id: "caesar-gaul", name: "Caesar in Gaul",
+    faction: "rome", forceType: "army", startYear: -59, endYear: -50, certainty: "probable",
+    description: "Nine campaigning seasons compressed into one line. From the province he took up in 59 to the Helvetii at Bibracte, north against the Belgae at the Sambre, twice over the Rhine, and finally to the defeat at Gergovia and the double siege at Alesia. Caesar wrote it up himself each winter, which is why this is the best-documented campaign in the atlas and the one whose numbers deserve the most doubt.",
+    points: [
+      { year: -59, label: "The province taken up", coordinates: [13.37, 45.85], certainty: "attested", sourceIds: ["plutarch-caesar"] },
+      { year: -58, month: 3, label: "Geneva", coordinates: [6.15, 46.2], certainty: "attested", sourceIds: ["caesar-bg"] },
+      { year: -58, month: 6, label: "Bibracte", coordinates: [4.04, 46.92], certainty: "attested", sourceIds: ["caesar-bg"] },
+      { year: -57, label: "North against the Belgae", coordinates: [3.9, 50.1], certainty: "attested", sourceIds: ["caesar-bg"] },
+      { year: -55, label: "The Rhine bridged in ten days", coordinates: [7.4, 50.1], certainty: "attested", sourceIds: ["caesar-bg"] },
+      { year: -52, month: 5, label: "Gergovia", coordinates: [3.12, 45.72], certainty: "attested", sourceIds: ["caesar-bg"] },
+      { year: -52, month: 9, label: "Alesia", coordinates: [4.5, 47.54], certainty: "attested", sourceIds: ["caesar-bg"] },
+      { year: -51, label: "Uxellodunum", coordinates: [1.6, 44.8], certainty: "probable", sourceIds: ["caesar-bg"] },
+    ],
+  },
+  {
+    id: "caesar-britain", name: "The two expeditions to Britain",
+    faction: "rome", forceType: "fleet", startYear: -55, endYear: -54, certainty: "probable",
+    description: "Two crossings of the Channel in successive years, the first with two legions and no cavalry and nearly wrecked by a tide nobody had allowed for, the second with five legions and a march to the Thames. Neither left a garrison and the hostages taken were never sent. What the expeditions achieved was in Rome, not Britain: Caesar had crossed the Ocean, which no Roman had done.",
+    points: [
+      { year: -55, month: 8, label: "Portus Itius", coordinates: [1.45, 50.85], certainty: "probable", sourceIds: ["caesar-bg"] },
+      { year: -55, month: 8, label: "Mid-Channel", coordinates: [1.3, 50.95], certainty: "speculative", sourceIds: ["caesar-bg"] },
+      { year: -54, month: 7, label: "Off the Kentish shore", coordinates: [1.25, 51.1], certainty: "probable", sourceIds: ["caesar-bg"] },
+    ],
+  },
+  {
+    id: "crassus-parthia", name: "Crassus into Parthia",
+    faction: "rome", forceType: "army", startYear: -54, endYear: -53, certainty: "probable",
+    description: "An invasion with no provocation, undertaken by a man who wanted a military reputation to set beside Pompey's and Caesar's. He left the Euphrates on the advice of an Arab chief working for the other side, marched into open desert with no water and no flank cover, and lost seven legions.",
+    points: [
+      { year: -54, label: "Antioch", coordinates: [36.2, 36.2], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+      { year: -53, month: 4, label: "Zeugma on the Euphrates", coordinates: [37.9, 37.05], certainty: "attested", sourceIds: ["plutarch-crassus"] },
+      { year: -53, month: 5, label: "Into the desert", coordinates: [38.6, 36.9], certainty: "probable", sourceIds: ["plutarch-crassus"] },
+      { year: -53, month: 6, label: "Carrhae", coordinates: [39.03, 36.86], certainty: "attested", sourceIds: ["plutarch-crassus"] },
+    ],
+  },
+  {
+    id: "caesar-italy-spain", name: "The Rubicon, and the Spanish campaign",
+    faction: "populares", forceType: "army", startYear: -49, endYear: -49, certainty: "probable",
+    description: "One year, two theatres and no pitched battle. Caesar took Italy in two months because the troops sent to stop him kept joining him, failed to trap Pompey at Brundisium, and then marched the length of Italy and Gaul to Spain to beat Pompey's legions there before turning back east. He said he was going to fight an army without a general, and then a general without an army.",
+    points: [
+      { year: -49, month: 1, label: "The Rubicon", coordinates: [12.4, 44.1], certainty: "attested", sourceIds: ["caesar-bc", "plutarch-caesar"] },
+      { year: -49, month: 2, label: "Rome", coordinates: [12.48, 41.9], certainty: "attested", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 3, label: "Beneventum", coordinates: [14.78, 41.13], certainty: "speculative", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 3, label: "Brundisium — Pompey gone", coordinates: [17.75, 40.72], certainty: "attested", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 4, label: "Back through Campania", coordinates: [14.6, 41.2], certainty: "probable", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 5, label: "North up Italy", coordinates: [11.2, 44.2], certainty: "probable", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 5, label: "Over the Ligurian foot", coordinates: [8.2, 44.6], certainty: "speculative", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 6, label: "Massilia invested", coordinates: [5.4, 43.6], certainty: "attested", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 6, label: "Through the province", coordinates: [4.0, 43.9], certainty: "probable", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 7, label: "Over the Pyrenees", coordinates: [1.6, 42.5], certainty: "probable", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 8, label: "Ilerda", coordinates: [0.62, 41.62], certainty: "attested", sourceIds: ["caesar-bc"] },
+    ],
+  },
+  {
+    id: "pompey-flight", name: "Pompey and the Senate leave Italy",
+    faction: "optimates", forceType: "army", startYear: -49, endYear: -48, certainty: "probable",
+    description: "Pompey's answer to the invasion was to abandon Italy, cross to Greece, and use the fleet and the eastern provinces — where his settlement of 63 had made him the greatest patron in the Mediterranean — to raise an army and starve Caesar out. It was the right strategy, and the senators in his camp would not let him follow it.",
+    points: [
+      { year: -49, month: 1, label: "Rome abandoned", coordinates: [12.48, 41.9], certainty: "attested", sourceIds: ["caesar-bc", "appian-civil"] },
+      { year: -49, month: 3, label: "South to Brundisium", coordinates: [17.75, 40.72], certainty: "attested", sourceIds: ["caesar-bc"] },
+      { year: -49, month: 3, label: "Across to Epirus", coordinates: [19.25, 40.4], certainty: "attested", sourceIds: ["caesar-bc"], viaSea: true },
+      { year: -48, month: 8, label: "Pharsalus", coordinates: [22.38, 39.29], certainty: "attested", sourceIds: ["caesar-bc", "plutarch-caesar"] },
+    ],
+  },
+  {
+    id: "caesar-greece", name: "The Greek campaign",
+    faction: "populares", forceType: "army", startYear: -48, endYear: -48, certainty: "probable",
+    description: "A winter crossing with half his army past a fleet that outnumbered him completely, then months of trying to besiege a larger and better-supplied force against the coast at Dyrrhachium, a bad defeat there, and the retreat inland that led to Pharsalus.",
+    points: [
+      { year: -48, month: 1, label: "Embarking at Brundisium", coordinates: [17.8, 40.7], certainty: "attested", sourceIds: ["caesar-bc"] },
+      { year: -48, month: 1, label: "Landing in Epirus", coordinates: [19.35, 40.6], certainty: "attested", sourceIds: ["caesar-bc"], viaSea: true },
+      { year: -48, month: 5, label: "The lines at Dyrrhachium", coordinates: [19.65, 41.3], certainty: "attested", sourceIds: ["caesar-bc"] },
+      { year: -48, month: 7, label: "Inland to Thessaly", coordinates: [21.4, 39.8], certainty: "attested", sourceIds: ["caesar-bc"] },
+      { year: -48, month: 8, label: "Pharsalus", coordinates: [22.38, 39.29], certainty: "attested", sourceIds: ["caesar-bc", "plutarch-caesar"] },
+    ],
+  },
+  {
+    id: "caesar-egypt-pontus", name: "Egypt and Pontus",
+    faction: "populares", forceType: "army", startYear: -48, endYear: -47, certainty: "probable",
+    description: "Following Pompey to Egypt, Caesar arrived to be handed his head, then spent a winter besieged in one quarter of Alexandria with too few men, settled the Egyptian succession on Cleopatra, and went north to destroy Pharnaces of Pontus at Zela in about four hours — which he reported to Rome in three words.",
+    points: [
+      { year: -48, month: 9, label: "After Pharsalus", coordinates: [22.38, 39.29], certainty: "attested", sourceIds: ["plutarch-caesar"] },
+      { year: -48, month: 10, label: "Alexandria", coordinates: [29.9, 31.6], certainty: "attested", sourceIds: ["plutarch-caesar", "dio-36-44"], viaSea: true },
+      { year: -47, month: 3, label: "Settling Egypt", coordinates: [30.4, 31.1], certainty: "probable", sourceIds: ["dio-36-44"] },
+      { year: -47, month: 6, label: "By sea to Syria", coordinates: [35.75, 35.55], certainty: "probable", sourceIds: ["dio-36-44"], viaSea: true },
+      { year: -47, month: 7, label: "Antioch", coordinates: [36.2, 36.2], certainty: "probable", sourceIds: ["dio-36-44"] },
+      { year: -47, month: 8, label: "Zela", coordinates: [35.9, 40.3], certainty: "attested", sourceIds: ["plutarch-caesar", "dio-36-44"] },
+    ],
+  },
+  {
+    id: "caesar-africa-spain", name: "Africa and the last campaign in Spain",
+    faction: "populares", forceType: "army", startYear: -46, endYear: -45, certainty: "probable",
+    description: "The senatorial cause reassembled twice more and was destroyed twice more — in Africa with Numidian support at Thapsus, and then in Spain by Pompey's sons at Munda, the hardest fighting of Caesar's life. Cato killed himself at Utica rather than accept a pardon, which was the only weapon left against a man whose policy was clemency.",
+    points: [
+      { year: -46, month: 1, label: "From Sicily", coordinates: [15.2, 37.1], certainty: "probable", sourceIds: ["appian-civil"] },
+      { year: -46, month: 1, label: "Landing in Africa", coordinates: [10.7, 35.8], certainty: "attested", sourceIds: ["appian-civil"], viaSea: true },
+      { year: -46, month: 4, label: "Thapsus", coordinates: [10.7, 35.7], certainty: "attested", sourceIds: ["appian-civil", "dio-36-44"] },
+      { year: -46, month: 4, label: "Inland Byzacena", coordinates: [9.6, 36.0], certainty: "speculative", sourceIds: ["appian-civil"] },
+      { year: -46, month: 5, label: "North through the province", coordinates: [9.7, 36.7], certainty: "speculative", sourceIds: ["appian-civil"] },
+      { year: -46, month: 5, label: "Utica, and Cato's death", coordinates: [10.06, 37.06], certainty: "attested", sourceIds: ["appian-civil", "plutarch-caesar"] },
+      { year: -45, month: 1, label: "Across to Spain", coordinates: [-6.9, 37.2], certainty: "attested", sourceIds: ["appian-civil"], viaSea: true },
+      { year: -45, month: 3, label: "Munda", coordinates: [-4.9, 37.35], certainty: "attested", sourceIds: ["appian-civil", "plutarch-caesar"] },
+    ],
+  },
+  {
+    id: "caesar-parthian-plan", name: "The Parthian war that never happened",
+    faction: "rome", forceType: "army", startYear: -45, endYear: -44, certainty: "probable",
+    description: "Sixteen legions and ten thousand cavalry were concentrated in Macedonia for an invasion of Parthia to avenge Carrhae, due to leave three days after the Ides of March. The army was still sitting there when Caesar was killed, and it is the reason the men who inherited his name had one — Octavian was at Apollonia with it, aged eighteen.",
+    points: [
+      { year: -45, label: "Apollonia", coordinates: [19.47, 40.72], certainty: "attested", sourceIds: ["dio-36-44"] },
+      { year: -44, month: 1, label: "Inland into Macedonia", coordinates: [20.6, 41.1], certainty: "probable", sourceIds: ["dio-36-44"] },
+      { year: -44, month: 3, label: "Waiting for a war that never came", coordinates: [21.6, 41.0], certainty: "probable", sourceIds: ["dio-36-44", "plutarch-caesar"] },
+    ],
+  },
+];
+
+const CAESARIAN_ROUTE_ERA: Record<string, string> = {
+  "roman-cilicia": "marian-aftermath",
+  "social-war-italy": "social-war",
+  "sulla-east": "sulla-mithridates",
+  "sulla-return": "sulla-mithridates",
+  "sertorius-spain": "sertorius-and-spartacus",
+  "spartacus-italy": "sertorius-and-spartacus",
+  "lucullus-east": "pompey-east",
+  "pompey-pirates": "pompey-east",
+  "pompey-east-settlement": "pompey-east",
+  "caesar-lusitania": "caesars-rise",
+  "caesar-gaul": "gallic-wars",
+  "caesar-britain": "gallic-wars",
+  "crassus-parthia": "gallic-wars",
+  "caesar-italy-spain": "caesars-civil-war",
+  "pompey-flight": "caesars-civil-war",
+  "caesar-greece": "caesars-civil-war",
+  "caesar-egypt-pontus": "caesars-civil-war",
+  "caesar-africa-spain": "caesars-civil-war",
+  "caesar-parthian-plan": "caesars-civil-war",
+};
+
 // Which era segment each Marian-era route belongs to, matching data/wars.ts.
 const MARIAN_ROUTE_ERA: Record<string, string> = {
   "roman-spain-viriathus": "iberian-wars",
@@ -1124,4 +1384,5 @@ export const campaignRoutes: CampaignRoute[] = [
   // than to a war, and Mummius' march belongs to 146 alongside the African siege.
   ...lateRepublicanRoutes.map((route) => ({ ...route, war: LATE_ROUTE_ERA[route.id] })),
   ...marianRoutes.map((route) => ({ ...route, war: MARIAN_ROUTE_ERA[route.id] })),
+  ...caesarianRoutes.map((route) => ({ ...route, war: CAESARIAN_ROUTE_ERA[route.id] })),
 ];

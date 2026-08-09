@@ -92,6 +92,38 @@ export const factionList: FactionInfo[] = [
   // a homeland they had left and a conquest they never made. They exist here as
   // routes and as the armies in four battle diagrams.
   { id: "cimbri", name: "Cimbri and Teutones", adjective: "Cimbric", color: "#2a78d6", role: "belligerent" },
+  // Mithridates takes the same blue: the Cimbri are gone by 101 and hold no ground
+  // at any point, so nothing can collide with it.
+  { id: "pontus", name: "Pontus under Mithridates", adjective: "Pontic", color: "#2a78d6", role: "belligerent" },
+  // And so does Spartacus' army, which makes three factions on one hue. All three
+  // are legitimate under the rule the test enforces — a shared colour is only a
+  // collision if both hold ground in the same year, and of these three only Pontus
+  // ever holds any. They also never appear in the same frame: the Cimbri are gone
+  // by 101, Spartacus fights in Italy, Mithridates in Asia and Greece.
+  { id: "servile", name: "Spartacus' army", adjective: "Servile", color: "#2a78d6", role: "belligerent" },
+  // Parthia takes the Seleucid magenta, free from 63 when Pompey annexes Syria and
+  // the Seleucid zone leaves the map for good. Parthia enters in the same years, on
+  // the rule the eastern kingdoms have always followed here: a power is drawn from
+  // the year it enters Rome's story, not from its own foundation.
+  { id: "parthia", name: "Parthia", adjective: "Parthian", color: "#a9538c", role: "belligerent" },
+
+  // ── Two Roman armies on one map ──────────────────────────────────────────────
+  // From 88 the atlas has to draw Romans fighting Romans, and `faction` is one id
+  // per side. Splitting Rome is the only way to keep Sulla's army distinguishable
+  // from Cinna's, or Caesar's from Pompey's, without inventing a fake enemy.
+  //
+  // The names are labels of convenience and should be read as nothing more. Modern
+  // scholarship does not accept `optimates` and `populares` as parties with
+  // membership or programmes — they are at most tendencies, and men moved between
+  // them. What the atlas needs is a way to say "this army, not that one", and these
+  // are the terms the sources themselves reach for.
+  //
+  // Neither holds territory, and that is deliberate. Control of Roman ground in a
+  // civil war changed by city and by month, and shading provinces for one side
+  // would claim a front line that did not exist. Rome's own zone stays red
+  // throughout; these two exist as marching routes and as the armies in diagrams.
+  { id: "optimates", name: "The senatorial side", adjective: "Optimate", color: "#4a3aa7", role: "belligerent" },
+  { id: "populares", name: "The popular side", adjective: "Popularis", color: "#7d2b3a", role: "belligerent" },
 
   // ── The powers of Italy, 509–265 BCE ───────────────────────────────────────
   // Each takes a hue already validated against Rome's red, borrowed from a power

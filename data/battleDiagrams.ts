@@ -3321,6 +3321,713 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
       },
     ],
   },
+
+  // ── The Social War to the Ides of March ──────────────────────────────────
+  // From 58 these are drawn from a commander's own account of his own campaigns,
+  // which is a new problem for this atlas. Caesar is the best tactical witness in
+  // the whole file and the most interested party in it: where a stage rests on
+  // his cleverness alone, the caveat says so.
+  chaeronea: {
+    scaleNote: "The plain below Chaeronea, a few kilometres across, with the Roman flanks dug in against ground that suited cavalry.",
+    orientation: "The hills of Boeotia lie north; Sulla faces east towards the Pontic camp.",
+    sourceIds: ["plutarch-sulla"],
+    terrain: [
+      { id: "hills", kind: "hill", points: [[0, 4], [26, 2], [56, 6], [84, 3], [100, 6], [100, 18], [60, 20], [24, 17], [0, 20]], label: "the Boeotian hills", labelAt: [50, 11] },
+      { id: "ditch-n", kind: "works", at: [24, 26], size: [16, 3], label: "ditches" },
+      { id: "ditch-s", kind: "works", at: [24, 52], size: [16, 3] },
+    ],
+    stages: [
+      {
+        id: "dug-in",
+        title: "Flanks dug in against a cavalry army",
+        description: "Outnumbered and far weaker in horse, Sulla entrenches both flanks so the Pontic cavalry cannot get round them. The battle becomes one of frontage rather than of numbers.",
+        certainty: "probable",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [30, 39], size: [10, 22], label: "Sulla" },
+          { id: "pon-line", faction: "pontus", kind: "infantry", at: [66, 39], size: [12, 34], label: "Archelaus" },
+          { id: "pon-horse", faction: "pontus", kind: "cavalry", at: [54, 16], size: [14, 5] },
+          { id: "pon-char", faction: "pontus", kind: "cavalry", at: [52, 39], size: [8, 12], label: "scythed chariots" },
+        ],
+      },
+      {
+        id: "chariots",
+        title: "The chariots broken before contact",
+        description: "Light troops and rows of stakes take the scythed chariots at a distance. They turn back into the line that sent them, as they had at Magnesia a century before.",
+        certainty: "probable",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [32, 39], size: [10, 22] },
+          { id: "rom-light", faction: "rome", kind: "skirmishers", at: [40, 39], size: [4, 18] },
+          { id: "pon-char", faction: "pontus", kind: "cavalry", at: [52, 39], size: [8, 12], routed: true, label: "turned back" },
+          { id: "pon-line", faction: "pontus", kind: "infantry", at: [68, 39], size: [12, 34] },
+        ],
+        arrows: [{ id: "a1", from: [44, 39], to: [48, 39], faction: "rome", kind: "missile" }],
+      },
+      {
+        id: "pressed",
+        title: "The centre nearly gives",
+        description: "Weight of numbers tells where the line is thinnest. Plutarch has Sulla ride to the front himself and ask his men what they intend to tell Rome about where they left their general.",
+        certainty: "probable",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [30, 39], size: [10, 22], routed: true },
+          { id: "pon-line", faction: "pontus", kind: "infantry", at: [50, 39], size: [14, 34] },
+        ],
+        arrows: [{ id: "a1", from: [42, 39], to: [37, 39], faction: "pontus", kind: "attack" }],
+      },
+      {
+        id: "camp",
+        title: "Broken against their own camp",
+        description: "The Pontic army gives way and runs for a camp whose gates cannot take it. Most of the loss happens there rather than in the fighting.",
+        certainty: "probable",
+        units: [
+          { id: "rom-line", faction: "rome", kind: "infantry", at: [44, 39], size: [12, 26] },
+          { id: "pon-line", faction: "pontus", kind: "infantry", at: [70, 39], size: [12, 30], routed: true },
+          { id: "pon-camp", faction: "pontus", kind: "camp", at: [88, 39], size: [10, 12] },
+        ],
+        arrows: [{ id: "a1", from: [54, 39], to: [62, 39], faction: "rome", kind: "attack" }],
+      },
+    ],
+  },
+
+  "colline-gate": {
+    scaleNote: "The ground outside the north-eastern wall of Rome, perhaps two kilometres of front. All of it is under the modern city and none of it can be examined.",
+    orientation: "The Servian wall and the gate run down the left of the frame; the armies face east away from it.",
+    sourceIds: ["plutarch-sulla", "appian-civil"],
+    terrain: [
+      { id: "wall", kind: "wall", points: [[16, 4], [14, 24], [15, 44], [13, 64]], label: "the Servian wall", labelAt: [7, 34] },
+      { id: "gate", kind: "town", at: [15, 34], size: [6, 6], label: "Colline Gate" },
+    ],
+    stages: [
+      {
+        id: "night",
+        title: "Battle joined in the afternoon, fought through the night",
+        description: "An unusual and badly recorded engagement: it begins late and continues in darkness, which is much of why the accounts cannot agree about what happened on which wing.",
+        certainty: "probable",
+        units: [
+          { id: "sul-left", faction: "optimates", kind: "infantry", at: [40, 22], size: [20, 6], label: "Sulla, left" },
+          { id: "sul-right", faction: "optimates", kind: "infantry", at: [40, 48], size: [20, 6], label: "Crassus, right" },
+          { id: "mar-right", faction: "populares", kind: "infantry", at: [70, 22], size: [20, 6], label: "Telesinus" },
+          { id: "mar-left", faction: "populares", kind: "infantry", at: [70, 48], size: [20, 6] },
+        ],
+        caveat: "Which side stood where is inferred. The sources agree only that Sulla commanded on one wing and Crassus on the other, and that the outcomes differed.",
+      },
+      {
+        id: "left-broken",
+        title: "Sulla's wing is broken",
+        description: "The left gives way and is driven back on the gate itself, with men trying to get inside the walls. Sulla is nearly killed rallying it and, Plutarch says, took out a small gold figure of Apollo and prayed in front of the troops.",
+        certainty: "probable",
+        units: [
+          { id: "sul-left", faction: "optimates", kind: "infantry", at: [28, 22], size: [18, 6], routed: true, label: "driven back" },
+          { id: "mar-right", faction: "populares", kind: "infantry", at: [56, 22], size: [22, 6] },
+          { id: "sul-right", faction: "optimates", kind: "infantry", at: [44, 48], size: [20, 6] },
+          { id: "mar-left", faction: "populares", kind: "infantry", at: [70, 48], size: [20, 6] },
+        ],
+        arrows: [{ id: "a1", from: [46, 22], to: [38, 22], faction: "populares", kind: "attack" }],
+      },
+      {
+        id: "right-wins",
+        title: "Crassus wins the other wing",
+        description: "On the right Crassus breaks through, pursues, and sends a message to Sulla asking for supper for his troops — which is how Sulla learns the battle is won.",
+        certainty: "attested",
+        units: [
+          { id: "sul-right", faction: "optimates", kind: "infantry", at: [62, 48], size: [22, 6], label: "Crassus" },
+          { id: "mar-left", faction: "populares", kind: "infantry", at: [84, 48], size: [16, 6], routed: true },
+          { id: "sul-left", faction: "optimates", kind: "infantry", at: [30, 24], size: [18, 6] },
+        ],
+        arrows: [{ id: "a1", from: [74, 48], to: [82, 48], faction: "optimates", kind: "attack" }],
+      },
+      {
+        id: "lists",
+        title: "The prisoners, and the lists",
+        description: "Several thousand prisoners are executed within earshot of a Senate meeting Sulla is addressing. The proscription lists follow: to be named is to be outlawed, killed, and to have one's estate sold at auction.",
+        certainty: "attested",
+        units: [
+          { id: "sul", faction: "optimates", kind: "infantry", at: [50, 40], size: [30, 8], label: "Rome taken" },
+        ],
+      },
+    ],
+  },
+
+  bibracte: {
+    scaleNote: "A hillside a few miles from Bibracte, with the Roman baggage on the summit behind three lines of legionaries. The town is excavated; the field is not located.",
+    orientation: "The Helvetii attack uphill from the bottom of the frame.",
+    sourceIds: ["caesar-bg"],
+    terrain: [
+      { id: "slope", kind: "hill", points: [[6, 8], [40, 4], [72, 7], [96, 5], [98, 30], [64, 34], [30, 31], [4, 34]], label: "the slope", labelAt: [50, 18] },
+    ],
+    stages: [
+      {
+        id: "three-lines",
+        title: "Three lines on the slope, baggage above",
+        description: "Caesar puts four veteran legions in three lines on the hillside, two newly raised ones and the baggage on the summit behind them, and waits to be attacked uphill.",
+        certainty: "attested",
+        units: [
+          { id: "rom-1", faction: "rome", kind: "infantry", at: [50, 26], size: [34, 4] },
+          { id: "rom-2", faction: "rome", kind: "infantry", at: [50, 20], size: [34, 4] },
+          { id: "rom-3", faction: "rome", kind: "infantry", at: [50, 14], size: [34, 4], label: "third line" },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [50, 6], size: [16, 4], label: "baggage" },
+          { id: "hel", faction: "gaul", kind: "infantry", at: [50, 46], size: [40, 6], label: "the Helvetii" },
+        ],
+        arrows: [{ id: "a1", from: [50, 42], to: [50, 32], faction: "gaul", kind: "attack", label: "uphill" }],
+      },
+      {
+        id: "pila",
+        title: "Javelins into a shield wall",
+        description: "Pila thrown downhill pin overlapping shields together. Men who cannot free them have to fight without them, or throw them away.",
+        certainty: "probable",
+        units: [
+          { id: "rom-1", faction: "rome", kind: "infantry", at: [50, 28], size: [34, 4] },
+          { id: "rom-2", faction: "rome", kind: "infantry", at: [50, 20], size: [34, 4] },
+          { id: "hel", faction: "gaul", kind: "infantry", at: [50, 40], size: [38, 6] },
+        ],
+        arrows: [{ id: "a1", from: [50, 32], to: [50, 36], faction: "rome", kind: "missile" }],
+      },
+      {
+        id: "rear",
+        title: "Attacked in the rear as they give ground",
+        description: "As the Helvetii fall back, a fresh contingent — the Boii and Tulingi — arrives on the exposed Roman flank and rear. The third line turns about to meet it while the first two go on with the battle in front.",
+        certainty: "attested",
+        units: [
+          { id: "rom-1", faction: "rome", kind: "infantry", at: [46, 30], size: [30, 4] },
+          { id: "rom-3", faction: "rome", kind: "infantry", at: [78, 18], size: [18, 4], facing: 90, label: "third line, faced about" },
+          { id: "hel", faction: "gaul", kind: "infantry", at: [46, 44], size: [32, 6] },
+          { id: "boii", faction: "gaul", kind: "infantry", at: [88, 30], size: [16, 5], label: "Boii and Tulingi" },
+        ],
+        arrows: [
+          { id: "a1", from: [86, 26], to: [82, 22], faction: "gaul", kind: "attack" },
+          { id: "a2", from: [78, 22], to: [80, 26], faction: "rome", kind: "attack" },
+        ],
+        caveat: "That the army fought in two directions at once is Caesar's claim about his own dispositions, and the neatest possible account of a crisis.",
+      },
+      {
+        id: "wagons",
+        title: "The fighting ends at the wagons",
+        description: "Driven back on their own laager, where the families are, the Helvetii fight on into the night from between the carts.",
+        certainty: "probable",
+        units: [
+          { id: "rom", faction: "rome", kind: "infantry", at: [50, 34], size: [34, 5] },
+          { id: "hel-wagons", faction: "gaul", kind: "camp", at: [50, 54], size: [22, 6], label: "the wagon laager" },
+          { id: "hel", faction: "gaul", kind: "infantry", at: [50, 46], size: [24, 4], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [50, 38], to: [50, 43], faction: "rome", kind: "attack" }],
+      },
+    ],
+  },
+
+  sabis: {
+    scaleNote: "A river valley with woods on the far bank and a half-built camp on the near one. The river is named and the site is disputed between the Sambre and the Selle.",
+    orientation: "The Nervii come out of the woods at the top and across the river; the legions are digging on the near slope.",
+    sourceIds: ["caesar-bg"],
+    terrain: [
+      { id: "woods", kind: "woods", points: [[4, 2], [46, 0], [90, 3], [96, 16], [50, 18], [6, 15]], label: "woods", labelAt: [50, 9] },
+      { id: "river", kind: "river", points: [[0, 26], [30, 28], [62, 27], [100, 29]], label: "the Sabis", labelAt: [12, 33] },
+    ],
+    stages: [
+      {
+        id: "digging",
+        title: "Caught with the tools out",
+        description: "The leading legions are marking out camp with their shields cased when the Nervii come out of the woods at a run, cross the river and are on them before the line can form.",
+        certainty: "attested",
+        units: [
+          { id: "nerv", faction: "gaul", kind: "infantry", at: [50, 20], size: [44, 5], label: "the Nervii" },
+          { id: "rom-work", faction: "rome", kind: "works", at: [50, 44], size: [40, 5], label: "camp being built" },
+          { id: "rom-9", faction: "rome", kind: "infantry", at: [20, 38], size: [14, 4] },
+          { id: "rom-12", faction: "rome", kind: "infantry", at: [56, 38], size: [14, 4] },
+        ],
+        arrows: [{ id: "a1", from: [50, 25], to: [50, 33], faction: "gaul", kind: "attack" }],
+      },
+      {
+        id: "no-line",
+        title: "No line, no orders",
+        description: "Legions form where they stand, under whichever standard is nearest, and fight separate battles. Caesar writes that there was time to do only what the moment itself demanded.",
+        certainty: "probable",
+        units: [
+          { id: "nerv-l", faction: "gaul", kind: "infantry", at: [24, 26], size: [22, 5] },
+          { id: "nerv-c", faction: "gaul", kind: "infantry", at: [56, 28], size: [22, 5] },
+          { id: "rom-9", faction: "rome", kind: "infantry", at: [18, 40], size: [14, 4] },
+          { id: "rom-12", faction: "rome", kind: "infantry", at: [52, 42], size: [14, 4], routed: true },
+          { id: "rom-7", faction: "rome", kind: "infantry", at: [72, 42], size: [14, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [56, 33], to: [54, 38], faction: "gaul", kind: "attack" },
+          { id: "a2", from: [24, 31], to: [20, 36], faction: "gaul", kind: "attack" },
+        ],
+      },
+      {
+        id: "shield",
+        title: "The commander in the fighting line",
+        description: "With the twelfth legion crowded together and its centurions down, Caesar takes a shield from a man in the rear ranks and goes forward into the front line himself.",
+        certainty: "attested",
+        units: [
+          { id: "nerv-c", faction: "gaul", kind: "infantry", at: [54, 30], size: [24, 5] },
+          { id: "rom-12", faction: "rome", kind: "infantry", at: [52, 42], size: [12, 5], label: "the twelfth" },
+          { id: "rom-7", faction: "rome", kind: "infantry", at: [70, 42], size: [14, 4] },
+          { id: "caesar", faction: "rome", kind: "infantry", at: [52, 36], size: [6, 2], label: "Caesar" },
+        ],
+        arrows: [{ id: "a1", from: [52, 39], to: [52, 35], faction: "rome", kind: "move" }],
+      },
+      {
+        id: "tenth-back",
+        title: "The tenth legion comes back across",
+        description: "Labienus has taken the Nervian camp on the far bank. Seeing the crisis behind him, he sends the tenth legion back over the river at a run into the Nervian rear, and the battle turns.",
+        certainty: "attested",
+        units: [
+          { id: "nerv-c", faction: "gaul", kind: "infantry", at: [52, 32], size: [24, 5], routed: true },
+          { id: "rom-10", faction: "rome", kind: "infantry", at: [52, 16], size: [16, 4], label: "the tenth" },
+          { id: "rom-12", faction: "rome", kind: "infantry", at: [52, 44], size: [14, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [52, 20], to: [52, 28], faction: "rome", kind: "attack" },
+          { id: "a2", from: [52, 41], to: [52, 36], faction: "rome", kind: "attack" },
+        ],
+      },
+    ],
+  },
+
+  carrhae: {
+    scaleNote: "Open desert south of Carrhae. There is no terrain to draw and that is the whole point of the battle — no water, no cover, and nothing to anchor a flank on.",
+    orientation: "Schematic. The Parthians ride round the Roman square continuously; no fixed facing survives.",
+    sourceIds: ["plutarch-crassus"],
+    terrain: [],
+    stages: [
+      {
+        id: "square",
+        title: "The legions close into a square",
+        description: "Crassus forms a hollow square, twelve cohorts on each side with cavalry between — a formation that cannot be flanked and cannot reach anything either.",
+        certainty: "attested",
+        units: [
+          { id: "rom-n", faction: "rome", kind: "infantry", at: [50, 24], size: [24, 4] },
+          { id: "rom-s", faction: "rome", kind: "infantry", at: [50, 48], size: [24, 4] },
+          { id: "rom-w", faction: "rome", kind: "infantry", at: [36, 36], size: [4, 20] },
+          { id: "rom-e", faction: "rome", kind: "infantry", at: [64, 36], size: [4, 20] },
+          { id: "par", faction: "parthia", kind: "cavalry", at: [50, 8], size: [30, 4], label: "horse archers" },
+        ],
+        arrows: [{ id: "a1", from: [50, 12], to: [50, 20], faction: "parthia", kind: "missile" }],
+      },
+      {
+        id: "arrows",
+        title: "Arrows that do not run out",
+        description: "The Parthians ride round the square shooting into it and never close. Surena has brought a train of camels loaded with spare shafts, so the one thing the Romans are counting on — that the quivers will empty — does not happen.",
+        certainty: "attested",
+        units: [
+          { id: "rom-sq", faction: "rome", kind: "infantry", at: [50, 36], size: [26, 22], label: "the square" },
+          { id: "par-n", faction: "parthia", kind: "cavalry", at: [50, 10], size: [26, 4] },
+          { id: "par-e", faction: "parthia", kind: "cavalry", at: [82, 36], size: [4, 20] },
+          { id: "par-s", faction: "parthia", kind: "cavalry", at: [50, 62], size: [26, 4] },
+          { id: "par-w", faction: "parthia", kind: "cavalry", at: [18, 36], size: [4, 20] },
+        ],
+        arrows: [
+          { id: "a1", from: [50, 14], to: [50, 22], faction: "parthia", kind: "missile" },
+          { id: "a2", from: [78, 36], to: [66, 36], faction: "parthia", kind: "missile" },
+          { id: "a3", from: [50, 58], to: [50, 50], faction: "parthia", kind: "missile" },
+        ],
+      },
+      {
+        id: "publius",
+        title: "The cavalry drawn off and destroyed",
+        description: "Publius Crassus takes the horse and the best of the light troops after a feigned retreat, is surrounded out of sight of the army, and dies. His head is brought back on a spear and shown to the line.",
+        certainty: "attested",
+        units: [
+          { id: "rom-sq", faction: "rome", kind: "infantry", at: [46, 38], size: [24, 20] },
+          { id: "pub", faction: "rome", kind: "cavalry", at: [86, 20], size: [10, 4], routed: true, label: "Publius" },
+          { id: "par", faction: "parthia", kind: "cavalry", at: [76, 12], size: [20, 4] },
+        ],
+        arrows: [{ id: "a1", from: [62, 32], to: [82, 22], faction: "rome", kind: "attack", bow: -4, label: "drawn off" }],
+      },
+      {
+        id: "night",
+        title: "Away by night, and killed under a truce",
+        description: "The remnant gets to Carrhae in the dark, leaving its wounded behind. Crassus is drawn into a parley the next day and killed there; about ten thousand prisoners are deported to the far east of the Parthian empire and never heard of again.",
+        certainty: "probable",
+        units: [
+          { id: "rom-rest", faction: "rome", kind: "infantry", at: [30, 40], size: [16, 6], routed: true, label: "the remnant" },
+          { id: "par", faction: "parthia", kind: "cavalry", at: [62, 30], size: [24, 5] },
+        ],
+        arrows: [{ id: "a1", from: [26, 36], to: [14, 28], faction: "rome", kind: "retreat", label: "to Carrhae" }],
+      },
+    ],
+  },
+
+  gergovia: {
+    scaleNote: "The plateau of Gergovia with the town on top and the Roman camps below it. The plateau is the accepted site and the camps have been excavated; the course of the assault is reconstructed.",
+    orientation: "The town is on the summit; the Romans come up from the camps at the bottom.",
+    sourceIds: ["caesar-bg"],
+    terrain: [
+      { id: "plateau", kind: "hill", points: [[26, 8], [72, 6], [82, 20], [74, 32], [30, 34], [20, 20]], label: "the plateau", labelAt: [50, 20] },
+      { id: "wall", kind: "wall", points: [[28, 30], [50, 33], [74, 30]], label: "the wall below the town" },
+    ],
+    stages: [
+      {
+        id: "feint",
+        title: "A feint that works too well",
+        description: "Caesar moves a legion visibly along the far side to draw the Gauls off, and takes the camps below the town almost unopposed. The objective was those camps and nothing more.",
+        certainty: "attested",
+        units: [
+          { id: "gal-town", faction: "gaul", kind: "works", at: [50, 18], size: [30, 14], label: "Gergovia" },
+          { id: "gal-moved", faction: "gaul", kind: "infantry", at: [84, 26], size: [12, 4], label: "drawn off" },
+          { id: "rom-main", faction: "rome", kind: "infantry", at: [46, 54], size: [26, 5] },
+          { id: "rom-feint", faction: "rome", kind: "infantry", at: [84, 48], size: [12, 4] },
+        ],
+        arrows: [{ id: "a1", from: [84, 44], to: [84, 32], faction: "rome", kind: "move", label: "the feint" }],
+      },
+      {
+        id: "past-orders",
+        title: "Past the objective and up to the walls",
+        description: "The recall is sounded and either not heard or not heeded. The legions take the camps and keep climbing towards the town itself, strung out on a slope with no formation left.",
+        certainty: "attested",
+        units: [
+          { id: "gal-town", faction: "gaul", kind: "works", at: [50, 18], size: [30, 14] },
+          { id: "rom-a", faction: "rome", kind: "infantry", at: [38, 38], size: [12, 4] },
+          { id: "rom-b", faction: "rome", kind: "infantry", at: [56, 36], size: [12, 4] },
+          { id: "rom-c", faction: "rome", kind: "infantry", at: [46, 46], size: [12, 4] },
+        ],
+        arrows: [{ id: "a1", from: [46, 42], to: [48, 34], faction: "rome", kind: "attack", label: "up to the wall" }],
+        caveat: "That the troops exceeded their orders is Caesar's explanation of his own defeat, and it is the only one that survives.",
+      },
+      {
+        id: "driven-off",
+        title: "Driven back down the slope",
+        description: "The Gauls come back from the far side onto men who are above their supports and out of order, and push them off the hill. Forty-six centurions are killed.",
+        certainty: "probable",
+        units: [
+          { id: "gal", faction: "gaul", kind: "infantry", at: [50, 28], size: [34, 5] },
+          { id: "rom-a", faction: "rome", kind: "infantry", at: [40, 44], size: [14, 4], routed: true },
+          { id: "rom-b", faction: "rome", kind: "infantry", at: [60, 46], size: [14, 4], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [50, 33], to: [50, 40], faction: "gaul", kind: "attack" }],
+      },
+      {
+        id: "aedui",
+        title: "And then the Aedui change sides",
+        description: "Within weeks Rome's oldest allies in Gaul join Vercingetorix. For the first time Caesar faces the whole country, and has to fight his way back to his own province.",
+        certainty: "attested",
+        units: [
+          { id: "gal", faction: "gaul", kind: "infantry", at: [50, 24], size: [40, 6], label: "Gaul united" },
+          { id: "rom", faction: "rome", kind: "infantry", at: [50, 52], size: [24, 5], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [50, 56], to: [50, 64], faction: "rome", kind: "retreat" }],
+      },
+    ],
+  },
+
+  alesia: {
+    scaleNote: "The oppidum on its hill, eighteen kilometres of works facing in and twenty-one facing out. Unusually in this atlas the geometry is evidence: both lines have been traced on the ground.",
+    orientation: "Alesia sits in the centre; the relief army comes from outside the outer ring.",
+    sourceIds: ["caesar-bg"],
+    terrain: [
+      { id: "inner", kind: "wall", points: [[36, 22], [64, 22], [72, 34], [64, 48], [36, 48], [28, 34], [36, 22]], label: "circumvallation", labelAt: [50, 54] },
+      { id: "outer", kind: "wall", points: [[18, 8], [82, 8], [94, 34], [82, 60], [18, 60], [6, 34], [18, 8]], label: "contravallation", labelAt: [50, 66] },
+    ],
+    stages: [
+      {
+        id: "two-walls",
+        title: "Two walls, facing opposite ways",
+        description: "Caesar rings the hill to keep eighty thousand men in, then rings his own siege lines to keep a relief army out — ditches, a flooded trench, buried spikes, towers, and a garrison living between the two.",
+        certainty: "attested",
+        units: [
+          { id: "gal-town", faction: "gaul", kind: "works", at: [50, 34], size: [18, 12], label: "Vercingetorix, inside" },
+          { id: "rom-lines", faction: "rome", kind: "works", at: [50, 34], size: [40, 26], label: "the Roman lines" },
+        ],
+      },
+      {
+        id: "expelled",
+        title: "The non-combatants sent out, and refused",
+        description: "To save food the Mandubii expel their women, children and old people from the town. Caesar will not let them through the lines and will not let them back. They starve between the walls in sight of both armies.",
+        certainty: "attested",
+        units: [
+          { id: "gal-town", faction: "gaul", kind: "works", at: [50, 34], size: [16, 10] },
+          { id: "gal-civ", faction: "gaul", kind: "skirmishers", at: [50, 46], size: [14, 3], routed: true, label: "the Mandubii" },
+          { id: "rom-lines", faction: "rome", kind: "works", at: [50, 34], size: [40, 26] },
+        ],
+        caveat: "Caesar records the decision in a sentence and offers no justification for it. The diagram does not either.",
+      },
+      {
+        id: "both-ways",
+        title: "Attacked from both sides at once",
+        description: "The relief army reaches the outer wall and attacks it at the moment the besieged attack the inner one. Caesar's men fight facing in and facing out along the same works.",
+        certainty: "attested",
+        units: [
+          { id: "gal-town", faction: "gaul", kind: "infantry", at: [50, 34], size: [16, 8] },
+          { id: "rom-lines", faction: "rome", kind: "works", at: [50, 34], size: [40, 26] },
+          { id: "gal-relief", faction: "gaul", kind: "infantry", at: [50, 66], size: [46, 4], label: "the relief army" },
+        ],
+        arrows: [
+          { id: "a1", from: [50, 62], to: [50, 54], faction: "gaul", kind: "attack" },
+          { id: "a2", from: [50, 40], to: [50, 46], faction: "gaul", kind: "attack" },
+        ],
+      },
+      {
+        id: "weak-point",
+        title: "The camp on ground that could not be enclosed",
+        description: "Sixty thousand picked men attack a camp on a slope the works could not properly take in. Caesar feeds in reserves under Labienus and finally takes the last cavalry round the outside himself, appearing behind the attackers.",
+        certainty: "probable",
+        units: [
+          { id: "gal-attack", faction: "gaul", kind: "infantry", at: [26, 14], size: [22, 5], label: "60,000 picked men" },
+          { id: "rom-camp", faction: "rome", kind: "camp", at: [30, 26], size: [12, 5], label: "the weak camp" },
+          { id: "rom-res", faction: "rome", kind: "infantry", at: [50, 30], size: [16, 4], label: "reserves" },
+          { id: "rom-horse", faction: "rome", kind: "cavalry", at: [10, 30], size: [10, 4], label: "Caesar" },
+        ],
+        arrows: [
+          { id: "a1", from: [28, 19], to: [30, 23], faction: "gaul", kind: "attack" },
+          { id: "a2", from: [12, 26], to: [20, 16], faction: "rome", kind: "attack", bow: -5, label: "round the outside" },
+        ],
+      },
+      {
+        id: "surrender",
+        title: "Surrender",
+        description: "The relief army disperses in the night. The next day Vercingetorix rides out, circles Caesar once, and lays down his arms. He is kept six years and then executed at Caesar's triumph.",
+        certainty: "attested",
+        units: [
+          { id: "rom-lines", faction: "rome", kind: "works", at: [50, 34], size: [40, 26] },
+          { id: "gal-town", faction: "gaul", kind: "infantry", at: [50, 34], size: [16, 8], routed: true, label: "surrendered" },
+        ],
+      },
+    ],
+  },
+
+  dyrrhachium: {
+    scaleNote: "Over twenty kilometres of lines along a coastal ridge south of Dyrrhachium, compressed into one frame. The course of the works is not established on the ground.",
+    orientation: "The sea is west, at the left; Pompey's army is penned against it.",
+    sourceIds: ["caesar-bc"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[0, 0], [16, 0], [14, 34], [16, 68], [0, 68]], label: "the sea", labelAt: [7, 34] },
+      { id: "lines", kind: "wall", points: [[46, 4], [42, 22], [44, 40], [40, 62]], label: "Caesar's lines", labelAt: [56, 12] },
+    ],
+    stages: [
+      {
+        id: "penned",
+        title: "The smaller army besieges the larger",
+        description: "Caesar builds lines to pen Pompey against the coast. Pompey is supplied by sea and has the cavalry; Caesar has the ground and no food, and his men are making bread out of roots.",
+        certainty: "attested",
+        units: [
+          { id: "pom", faction: "optimates", kind: "infantry", at: [28, 34], size: [16, 40], label: "Pompey, supplied by sea" },
+          { id: "cae", faction: "populares", kind: "infantry", at: [58, 34], size: [12, 44], label: "Caesar, on short rations" },
+        ],
+      },
+      {
+        id: "deserters",
+        title: "Two deserters",
+        description: "Allobrogian cavalry officers go over to Pompey and tell him where the double line at the southern end is unfinished. It is the only place the works can be forced.",
+        certainty: "probable",
+        units: [
+          { id: "pom", faction: "optimates", kind: "infantry", at: [28, 34], size: [16, 40] },
+          { id: "cae", faction: "populares", kind: "infantry", at: [58, 34], size: [12, 44] },
+          { id: "gap", faction: "populares", kind: "works", at: [44, 58], size: [8, 6], label: "the unfinished end" },
+        ],
+        arrows: [{ id: "a1", from: [36, 56], to: [42, 58], faction: "optimates", kind: "move" }],
+      },
+      {
+        id: "broken",
+        title: "The southern end taken",
+        description: "Pompey attacks the gap by land and from the sea at the same point and carries the works. Caesar's counter-attack goes in over ground nobody has scouted and comes apart in it.",
+        certainty: "probable",
+        units: [
+          { id: "pom-attack", faction: "optimates", kind: "infantry", at: [40, 58], size: [18, 5] },
+          { id: "cae-counter", faction: "populares", kind: "infantry", at: [60, 56], size: [16, 5], routed: true },
+          { id: "cae", faction: "populares", kind: "infantry", at: [58, 26], size: [12, 28] },
+        ],
+        arrows: [{ id: "a1", from: [48, 58], to: [56, 57], faction: "optimates", kind: "attack" }],
+      },
+      {
+        id: "not-pursued",
+        title: "The army runs, and is not followed",
+        description: "Caesar's veterans break — the only time they do. Pompey halts, suspecting a trap. Caesar said afterwards that the enemy would have won the war that day if their commander had known how to win.",
+        certainty: "attested",
+        units: [
+          { id: "cae", faction: "populares", kind: "infantry", at: [66, 40], size: [16, 20], routed: true },
+          { id: "pom", faction: "optimates", kind: "infantry", at: [38, 40], size: [16, 24] },
+        ],
+        arrows: [{ id: "a1", from: [74, 40], to: [88, 34], faction: "populares", kind: "retreat", label: "inland to Thessaly" }],
+      },
+    ],
+  },
+
+  pharsalus: {
+    scaleNote: "The plain of the Enipeus, perhaps four kilometres of front. Which bank the armies stood on is unresolved, which would reverse this whole frame.",
+    orientation: "The river anchors Pompey's left; all his cavalry is on the other wing, facing Caesar's right.",
+    sourceIds: ["caesar-bc"],
+    terrain: [
+      { id: "river", kind: "river", points: [[0, 58], [30, 60], [64, 59], [100, 61]], label: "the Enipeus", labelAt: [16, 65] },
+    ],
+    stages: [
+      {
+        id: "array",
+        title: "Pompey's plan, and the fourth line",
+        description: "Pompey masses all seven thousand horse on one wing to turn Caesar's flank and roll the line up from behind. Caesar, outnumbered two to one, quietly takes six cohorts out of his third line and posts them obliquely behind his own cavalry, out of sight.",
+        certainty: "attested",
+        units: [
+          { id: "pom-line", faction: "optimates", kind: "infantry", at: [52, 24], size: [56, 6], label: "110 cohorts" },
+          { id: "pom-horse", faction: "optimates", kind: "cavalry", at: [86, 32], size: [18, 5], label: "7,000 horse" },
+          { id: "cae-line", faction: "populares", kind: "infantry", at: [52, 44], size: [40, 6], label: "80 cohorts" },
+          { id: "cae-horse", faction: "populares", kind: "cavalry", at: [80, 42], size: [10, 4] },
+          { id: "cae-fourth", faction: "populares", kind: "infantry", at: [84, 52], size: [14, 4], label: "six cohorts, hidden" },
+        ],
+      },
+      {
+        id: "charge",
+        title: "The cavalry charge succeeds",
+        description: "Pompey's horse drive Caesar's off the field exactly as intended and swing inwards to take the legions from behind. Up to this point the plan is working perfectly.",
+        certainty: "probable",
+        units: [
+          { id: "pom-horse", faction: "optimates", kind: "cavalry", at: [80, 40], size: [20, 5] },
+          { id: "cae-horse", faction: "populares", kind: "cavalry", at: [94, 48], size: [8, 4], routed: true },
+          { id: "cae-line", faction: "populares", kind: "infantry", at: [50, 44], size: [40, 6] },
+          { id: "pom-line", faction: "optimates", kind: "infantry", at: [50, 26], size: [54, 6] },
+          { id: "cae-fourth", faction: "populares", kind: "infantry", at: [84, 54], size: [14, 4] },
+        ],
+        arrows: [{ id: "a1", from: [80, 44], to: [74, 48], faction: "optimates", kind: "attack" }],
+      },
+      {
+        id: "faces",
+        title: "Javelins in the face",
+        description: "The hidden cohorts come out at the cavalry with orders not to throw their pila but to use them upwards, at the face. Caesar notes that they were young men of good family, and that they broke and did not come back.",
+        certainty: "attested",
+        units: [
+          { id: "cae-fourth", faction: "populares", kind: "infantry", at: [82, 48], size: [16, 4], label: "six cohorts" },
+          { id: "pom-horse", faction: "optimates", kind: "cavalry", at: [82, 36], size: [20, 5], routed: true },
+          { id: "cae-line", faction: "populares", kind: "infantry", at: [50, 44], size: [40, 6] },
+          { id: "pom-line", faction: "optimates", kind: "infantry", at: [50, 26], size: [54, 6] },
+        ],
+        arrows: [{ id: "a1", from: [82, 45], to: [82, 40], faction: "populares", kind: "attack" }],
+        caveat: "The order about aiming at the face is Caesar's account of his own instruction, and has no independent witness.",
+      },
+      {
+        id: "rolled",
+        title: "The flank rolled up, and the third line in fresh",
+        description: "With the cavalry gone, the same cohorts take Pompey's uncovered left in the rear while Caesar's third line — untouched all day — goes in at the front. Pompey rides to his camp and sits in his tent.",
+        certainty: "attested",
+        units: [
+          { id: "pom-line", faction: "optimates", kind: "infantry", at: [46, 28], size: [50, 6], routed: true },
+          { id: "cae-line", faction: "populares", kind: "infantry", at: [46, 40], size: [40, 5] },
+          { id: "cae-fourth", faction: "populares", kind: "infantry", at: [80, 32], size: [16, 4] },
+        ],
+        arrows: [
+          { id: "a1", from: [46, 37], to: [46, 32], faction: "populares", kind: "attack" },
+          { id: "a2", from: [74, 32], to: [64, 30], faction: "populares", kind: "attack" },
+        ],
+      },
+    ],
+  },
+
+  thapsus: {
+    scaleNote: "The ground between the town and the coastal lagoon, with the senatorial army drawn up outside Caesar's siege lines. The town is identified; the lines are not.",
+    orientation: "The sea and the town lie east, at the right; the relieving army comes from the west.",
+    sourceIds: ["appian-civil", "dio-36-44"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[86, 0], [100, 0], [100, 68], [86, 68]], label: "the sea", labelAt: [93, 10] },
+      { id: "town", kind: "town", at: [80, 34], size: [10, 12], label: "Thapsus" },
+    ],
+    stages: [
+      {
+        id: "siege",
+        title: "A siege laid to force a battle",
+        description: "Caesar invests Thapsus because taking it matters far less than making the enemy come out to relieve it. Metellus Scipio and Juba oblige.",
+        certainty: "probable",
+        units: [
+          { id: "cae-lines", faction: "populares", kind: "works", at: [66, 34], size: [8, 30], label: "siege lines" },
+          { id: "opt", faction: "optimates", kind: "infantry", at: [34, 30], size: [26, 6], label: "Metellus Scipio" },
+          { id: "num", faction: "numidia", kind: "cavalry", at: [34, 46], size: [20, 5], label: "Juba" },
+          { id: "eles", faction: "optimates", kind: "elephants", at: [46, 16], size: [16, 5], label: "60 elephants" },
+        ],
+      },
+      {
+        id: "unordered",
+        title: "The army starts without him",
+        description: "Drawn up and waiting while Caesar hesitates, a trumpeter on the right sounds the advance and the veterans go forward. He can either follow them or lose control of them.",
+        certainty: "probable",
+        units: [
+          { id: "cae-line", faction: "populares", kind: "infantry", at: [58, 34], size: [14, 30] },
+          { id: "opt", faction: "optimates", kind: "infantry", at: [32, 30], size: [26, 6] },
+          { id: "eles", faction: "optimates", kind: "elephants", at: [44, 16], size: [16, 5] },
+        ],
+        arrows: [{ id: "a1", from: [50, 34], to: [42, 32], faction: "populares", kind: "attack", label: "unordered" }],
+      },
+      {
+        id: "elephants",
+        title: "The elephants turned back",
+        description: "Slingers and archers trained for exactly this shoot the elephants at close range. They turn and go back through the Numidian left, which is behind them.",
+        certainty: "probable",
+        units: [
+          { id: "cae-light", faction: "populares", kind: "skirmishers", at: [52, 18], size: [14, 3] },
+          { id: "eles", faction: "optimates", kind: "elephants", at: [40, 16], size: [16, 5], routed: true },
+          { id: "num", faction: "numidia", kind: "cavalry", at: [28, 22], size: [18, 5], routed: true },
+          { id: "cae-line", faction: "populares", kind: "infantry", at: [54, 38], size: [14, 26] },
+        ],
+        arrows: [
+          { id: "a1", from: [48, 18], to: [44, 17], faction: "populares", kind: "missile" },
+          { id: "a2", from: [36, 18], to: [30, 20], faction: "optimates", kind: "retreat" },
+        ],
+      },
+      {
+        id: "no-quarter",
+        title: "The surrender is not accepted",
+        description: "The line breaks and the killing goes on after men have thrown down their arms — the sharpest exception in the war to Caesar's policy of clemency, reported by an officer on his own staff. At Utica, Cato kills himself rather than be pardoned.",
+        certainty: "probable",
+        units: [
+          { id: "cae-line", faction: "populares", kind: "infantry", at: [48, 34], size: [16, 28] },
+          { id: "opt", faction: "optimates", kind: "infantry", at: [26, 32], size: [22, 6], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [40, 34], to: [32, 33], faction: "populares", kind: "attack" }],
+      },
+    ],
+  },
+
+  munda: {
+    scaleNote: "A slope somewhere in southern Baetica, with the Pompeians above and Caesar attacking uphill. Munda has never been located and the frame claims only the shape of the day.",
+    orientation: "The Pompeians hold the high ground; Caesar comes up from the plain below.",
+    sourceIds: ["appian-civil", "plutarch-caesar"],
+    terrain: [
+      { id: "slope", kind: "hill", points: [[2, 6], [36, 3], [70, 6], [98, 4], [98, 26], [66, 30], [32, 27], [2, 30]], label: "the slope", labelAt: [50, 16] },
+    ],
+    stages: [
+      {
+        id: "uphill",
+        title: "Uphill, and neither line moves",
+        description: "The Pompeians hold the slope and will not come down; Caesar's veterans go up at them. Two armies of the same quality lock and stay locked for most of the day.",
+        certainty: "probable",
+        units: [
+          { id: "pom", faction: "optimates", kind: "infantry", at: [50, 26], size: [46, 6], label: "13 legions" },
+          { id: "cae", faction: "populares", kind: "infantry", at: [50, 44], size: [38, 6], label: "8 legions" },
+        ],
+        arrows: [{ id: "a1", from: [50, 40], to: [50, 33], faction: "populares", kind: "attack", label: "uphill" }],
+      },
+      {
+        id: "on-foot",
+        title: "The commander on foot in the front rank",
+        description: "With the line giving, Caesar dismounts, takes a shield and goes into the fighting line — the second time in this atlas he does it. He is said to have thought about killing himself if the day went wrong.",
+        certainty: "probable",
+        units: [
+          { id: "pom", faction: "optimates", kind: "infantry", at: [50, 28], size: [46, 6] },
+          { id: "cae", faction: "populares", kind: "infantry", at: [50, 40], size: [38, 6] },
+          { id: "caesar", faction: "populares", kind: "infantry", at: [50, 34], size: [6, 2], label: "Caesar" },
+        ],
+        arrows: [{ id: "a1", from: [50, 37], to: [50, 33], faction: "populares", kind: "move" }],
+      },
+      {
+        id: "cavalry",
+        title: "The Mauretanian horse decide it",
+        description: "Bogud's cavalry works round towards the Pompeian camp. A legion pulled back to face them is taken for a retreat by the rest of the line, and the line goes.",
+        certainty: "probable",
+        units: [
+          { id: "pom", faction: "optimates", kind: "infantry", at: [46, 28], size: [40, 6], routed: true },
+          { id: "pom-det", faction: "optimates", kind: "infantry", at: [82, 20], size: [12, 4], label: "pulled back" },
+          { id: "cae", faction: "populares", kind: "infantry", at: [46, 40], size: [38, 6] },
+          { id: "bogud", faction: "populares", kind: "cavalry", at: [88, 40], size: [12, 4], label: "Bogud" },
+        ],
+        arrows: [{ id: "a1", from: [88, 36], to: [86, 26], faction: "populares", kind: "attack" }],
+      },
+      {
+        id: "labienus",
+        title: "Labienus dead on the field",
+        description: "Caesar's best officer through eight years in Gaul is killed fighting against him and is buried where he fell. Caesar goes home to be made dictator for life, and has eleven months to live.",
+        certainty: "attested",
+        units: [
+          { id: "cae", faction: "populares", kind: "infantry", at: [50, 34], size: [40, 6] },
+          { id: "pom", faction: "optimates", kind: "infantry", at: [50, 20], size: [30, 5], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [50, 31], to: [50, 25], faction: "populares", kind: "attack" }],
+      },
+    ],
+  },
 };
 
 export function getBattleDiagram(slug: string): BattleDiagram | undefined {
@@ -3347,4 +4054,6 @@ export const NO_DIAGRAM_REASON: Record<string, string> = {
   sulci: "Ancient testimony is a few lines. Date, scale, and location all await review, so any diagram would be invention.",
   "africa-invasion": "A campaign across two years, not a battle. Its stages are on the campaign map.",
   "alps-crossing": "A march of weeks over a route that is itself disputed, shown on the campaign map rather than as a battle.",
+  "asculum-picenum": "A year-long investment of a town whose siege works have never been located, in a war for which almost no tactical detail survives at all. Appian gives the outcome and the reprisals and nothing that could be drawn.",
+  silarius: "What survives of the last battle is its ending — Spartacus killing his own horse so he could not run, and dying somewhere in the press — not its shape. The site is unlocated and no source describes a formation. Drawing one would supply the part every account leaves out.",
 };

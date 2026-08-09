@@ -1219,6 +1219,463 @@ const marianWars: Battle[] = [
   },
 ];
 
+// The Social War to the Ides of March. The evidence improves and changes kind:
+// from 58 the atlas has a commander writing up his own campaigns each winter, and
+// has to handle a source that is simultaneously the best witness available and a
+// dispatch composed to keep its author in command.
+const caesarAncient = ["caesar-bg", "plutarch-caesar"];
+const caesarModern = ["goldsworthy-2006", "gelzer-1968"];
+const civilAncient = ["caesar-bc", "appian-civil", "plutarch-caesar"];
+const civilModern = ["goldsworthy-2006", "seager-2002"];
+
+const CAESARIAN_BATTLE_ERA: Record<string, string> = {
+  "asculum-picenum": "social-war",
+  chaeronea: "sulla-mithridates",
+  "colline-gate": "sulla-mithridates",
+  silarius: "pompey-east",
+  bibracte: "gallic-wars",
+  sabis: "gallic-wars",
+  carrhae: "gallic-wars",
+  gergovia: "gallic-wars",
+  alesia: "gallic-wars",
+  dyrrhachium: "caesars-civil-war",
+  pharsalus: "caesars-civil-war",
+  thapsus: "caesars-civil-war",
+  munda: "caesars-civil-war",
+};
+
+const caesarianWars: Battle[] = [
+  {
+    id: "asculum-picenum", slug: "asculum-picenum", name: "Siege of Asculum Picenum", kind: "siege", startYear: -89, endYear: -89, displayDate: "89 BCE", location: "Asculum Picenum (Ascoli Piceno), in Picenum", coordinates: [13.58, 42.85], uncertainty: { radiusKm: 4, certainty: "probable", note: "The town is certain; the siege works are not located." }, major: true,
+    belligerents: ["Roman Republic", "The Italian confederation"],
+    commanders: [
+      { faction: "rome", names: ["Gnaeus Pompeius Strabo"], certainty: "attested" },
+      { faction: "samnite", names: ["Judacilius"], certainty: "probable" },
+    ],
+    result: "Roman victory; the town taken and its leaders executed",
+    summary: "The town where the revolt had begun with the massacre of a Roman praetor and every Roman in it was besieged for a year and stormed. Its magistrates were executed, its population driven out, and its property sold.",
+    significance: "Asculum ended the northern half of the Social War, but the war was actually won by legislation: Rome offered citizenship first to every allied community that had not revolted and then to almost everyone else, and the confederation dissolved because most of its members had got what they were fighting for. It is the clearest case in the atlas of a war decided by conceding its cause — and the reason that within a generation the army that fought Rome's civil wars was an Italian army.",
+    context: "The allies had furnished more than half of every army in this atlas since the Samnite wars and were still not citizens. When the tribune Drusus was assassinated in 91 while trying to enfranchise them, they stopped asking: they set up a federal state called Italia, with a capital at Corfinium, its own senate of five hundred and its own coinage — some of it showing the Italian bull goring the Roman wolf. Asculum is where it started, and Pompeius Strabo — the father of Pompey the Great — spent a year reducing it while his son learned the trade in the camp.",
+    forces: [
+      { side: "Rome", estimate: "A consular army with Picentine levies; no dependable figure", certainty: "disputed" },
+      { side: "The Italian confederation", estimate: "The town's own population and a relieving force beaten off outside it", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "The Italian confederation", estimate: "The leaders executed and the population expelled; no count survives", certainty: "disputed" },
+      { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "How it began", description: "In 91 the town killed the Roman praetor sent to it and every Roman inside the walls. There was no going back from that for either side.", certainty: "probable" },
+      { title: "A year of investment", description: "Strabo rings the town and beats off the field army that comes to relieve it.", certainty: "probable" },
+      { title: "The town taken", description: "Asculum is stormed, its magistrates executed and its people driven out.", certainty: "attested" },
+      { title: "Won by a law", description: "Citizenship is offered to the allies who did not revolt, then widened again. The confederation comes apart as its members accept it.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["appian-civil"], modernSourceIds: ["harris-1979", "seager-2002"],
+    uncertaintyNotes: [
+      "Almost no tactical detail survives for any action of the Social War.",
+      "Appian is the only continuous narrative and is writing three centuries later.",
+      "The atlas draws the Italian side in the Samnite colour: the Samnites were its hard core and fought on to the Colline Gate, but the confederation was a coalition of many peoples and the label is a convenience.",
+    ],
+  },
+  {
+    id: "chaeronea", slug: "chaeronea", name: "Battle of Chaeronea", kind: "land", startYear: -86, endYear: -86, displayDate: "86 BCE", location: "The plain below Chaeronea, in Boeotia", coordinates: [22.85, 38.49], uncertainty: { radiusKm: 10, certainty: "probable", note: "The town and the plain are known; the Roman position is reconstructed from Plutarch's description of the ground." }, major: true,
+    belligerents: ["Roman Republic", "Pontus"],
+    commanders: [
+      { faction: "rome", names: ["Lucius Cornelius Sulla"], certainty: "attested" },
+      { faction: "pontus", names: ["Archelaus"], certainty: "attested" },
+    ],
+    result: "Decisive Roman victory",
+    summary: "Sulla, outnumbered perhaps three to one and cut off from home by a government that had declared him an outlaw, beat a Pontic army on the same plain where Philip II had beaten Greece — by fortifying his flanks with ditches so the enemy cavalry could not use its numbers.",
+    significance: "Chaeronea saved the Roman position in Greece and made Sulla's return to Italy possible: an army that has won like this will follow its general anywhere, including home. It is also the first battle in the atlas fought by a Roman commander who had been formally outlawed by his own government, and whose soldiers knew it and did not care — which is the Marian settlement working exactly as its critics feared.",
+    context: "Mithridates had taken the province of Asia and had eighty thousand Romans and Italians in it killed on a single coordinated day, then crossed into Greece. Sulla arrived with five legions, no fleet, no money — he melted down the treasures of Delphi and Olympia — and no government behind him: Cinna and Marius had taken Rome and declared him a public enemy. He besieged and sacked Athens, then met Archelaus in Boeotia. The Pontic army had scythed chariots and a great superiority in cavalry, and needed open ground; Sulla's answer was to dig.",
+    forces: [
+      { side: "Rome", estimate: "About 15,000 foot and 1,500 horse", certainty: "probable" },
+      { side: "Pontus", estimate: "Reported as 120,000; perhaps 40,000 in reality, with chariots and much stronger cavalry", certainty: "disputed", note: "Plutarch's total is not credible. What is not in doubt is that Sulla was heavily outnumbered and far weaker in horse." },
+    ],
+    casualties: [
+      { side: "Pontus", estimate: "Plutarch reports all but 10,000 of the army lost", certainty: "disputed" },
+      { side: "Rome", estimate: "Plutarch reports 12 men, and later found two more", certainty: "disputed", note: "Among the least believable figures in the atlas, and preserved here because it shows what the tradition around Sulla was prepared to say." },
+    ],
+    moments: [
+      { title: "Ditches on both flanks", description: "Sulla entrenches his flanks so the Pontic cavalry cannot get round them, converting a battle of numbers into a battle of frontage.", certainty: "probable" },
+      { title: "The chariots broken early", description: "Light troops and stakes take the scythed chariots before contact; they turn back into their own line, as at Magnesia a century before.", certainty: "probable" },
+      { title: "The line pushed back", description: "Weight of numbers tells in the centre until Sulla rides along the front himself to hold it.", certainty: "probable" },
+      { title: "The camp taken", description: "The Pontic army breaks against its own camp gates and is destroyed in the crush.", certainty: "probable" },
+    ],
+    ancientSourceIds: ["plutarch-sulla", "appian-civil"], modernSourceIds: ["seager-2002", "harris-1979"],
+    uncertaintyNotes: [
+      "Both armies' numbers come through Plutarch and are not usable as counts.",
+      "The Roman casualty figure is a literary flourish rather than a report.",
+      "The exact line of Sulla's entrenchments on the plain is reconstructed, not known.",
+    ],
+    nextSlug: "colline-gate",
+  },
+  {
+    id: "colline-gate", slug: "colline-gate", name: "Battle of the Colline Gate", kind: "land", startYear: -82, endYear: -82, displayDate: "1 November 82 BCE", location: "Outside the Colline Gate, at the north-eastern wall of Rome", coordinates: [12.503, 41.906], uncertainty: { radiusKm: 3, certainty: "probable", note: "The gate's position on the Servian wall is known; the ground the fighting covered is now entirely built over." }, major: true,
+    belligerents: ["Sulla and the senatorial cause", "The Marian government and its Samnite allies"],
+    commanders: [
+      { faction: "optimates", names: ["Lucius Cornelius Sulla", "Marcus Licinius Crassus"], certainty: "attested" },
+      { faction: "populares", names: ["Pontius Telesinus", "Gaius Marius the Younger"], certainty: "attested" },
+    ],
+    result: "Sullan victory; Rome taken",
+    summary: "The last Marian army, reinforced by Samnites who understood exactly what a Sullan victory meant for them, fought through a night in front of the walls of Rome. Sulla's own left was broken and he was nearly killed; Crassus won on the right and the battle with it.",
+    significance: "The end of the first civil war and the beginning of the practice that ends the Republic: a Roman army settling who governs Rome. What followed was worse than the battle — Sulla published lists of names, and to be on one was to be outlawed, killed, and to have one's estate auctioned. The proscriptions made several fortunes, Crassus' among them, and established that political defeat could now be fatal.",
+    context: "This is the first battle in the atlas fought by Romans against Romans, and the atlas has to draw it with two Roman colours because a single one would make it unreadable. The labels are conveniences: Sulla's side is drawn as the senatorial cause and his opponents as the popular one, but men moved between them and neither was a party. The Samnite contingent matters more than the labels do — Telesinus is said to have told his men that the wolves that preyed on Italian liberty would never go while the wood that sheltered them stood, and that Rome had to be destroyed. Sulla's reprisals afterwards fell hardest on Samnium.",
+    forces: [
+      { side: "Sulla and the senatorial cause", estimate: "Perhaps 40,000, with Crassus commanding the right", certainty: "disputed" },
+      { side: "The Marian government and its Samnite allies", estimate: "A comparable force; the Samnite contingent reported at 40,000 alone", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "The Marian government and its Samnite allies", estimate: "Reported as 50,000 dead across both sides; several thousand prisoners were executed afterwards in earshot of a Senate meeting", certainty: "disputed", note: "The mass execution of prisoners is reported by more than one source and is not the kind of detail a friendly tradition invents." },
+      { side: "Sulla and the senatorial cause", estimate: "Heavy on the left, which broke; no figure survives", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "A night action outside the walls", description: "The fighting begins in the afternoon and runs on through the night — unusual, and part of why the accounts disagree about what happened where.", certainty: "probable" },
+      { title: "Sulla's left broken", description: "The left wing gives way and is driven back against the gate; Sulla is nearly killed rallying it.", certainty: "probable" },
+      { title: "Crassus wins the right", description: "On the other wing Crassus breaks through and pursues, and sends to Sulla for supper — the message that tells Sulla he has won.", certainty: "attested" },
+      { title: "The lists", description: "Prisoners are executed en masse, and the proscription lists go up. Political defeat is now fatal, and profitable to somebody.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["plutarch-sulla", "appian-civil", "plutarch-crassus"], modernSourceIds: ["seager-2002", "goldsworthy-2006"],
+    uncertaintyNotes: [
+      "The ground is under modern Rome and nothing of the field can be examined.",
+      "The accounts disagree about which wing did what, partly because much of it was fought in darkness.",
+      "All figures are literary; the scale of the proscriptions that followed is better attested than the battle.",
+    ],
+    previousSlug: "chaeronea",
+  },
+  {
+    id: "silarius", slug: "silarius", name: "Battle of the Silarius", kind: "land", startYear: -71, endYear: -71, displayDate: "71 BCE", location: "Near the river Silarus (Sele), in Lucania", coordinates: [15.1, 40.5], uncertainty: { radiusKm: 35, certainty: "disputed", note: "The sources place the final battle in Lucania near the Silarus; no site is identified." }, major: true,
+    belligerents: ["Roman Republic", "Spartacus' army"],
+    commanders: [
+      { faction: "rome", names: ["Marcus Licinius Crassus"], certainty: "attested" },
+      { faction: "servile", names: ["Spartacus"], certainty: "attested" },
+    ],
+    result: "Roman victory; the slave army destroyed",
+    summary: "Seventy escaped gladiators had become an army of tens of thousands that beat two consular armies and marched the length of Italy twice. Crassus cornered what was left of it in Lucania and destroyed it. Spartacus was killed in the fighting and his body was never found.",
+    significance: "The last and largest of the three slave wars, and the one that shows what the Republic's Italy had become: a countryside worked by chained labour on estates whose owners lived in Rome, and which could produce an army of that size from its own workforce. Crassus crucified six thousand prisoners along the Appian Way from Capua to Rome — one every forty yards for a hundred and thirty miles — and the point of that was not deterrence of slaves alone.",
+    context: "The war had already destroyed the reputations of several commanders when Crassus took it on and revived decimation to make his own troops afraid of him rather than of Spartacus. What the sources cannot explain is the strategy of the other side: the army reached the Alps in 72 with the road out of Italy open and turned back south. Whether Spartacus could not hold his followers to a plan, or never had one beyond survival, is the central unanswerable question of the war — and every ancient account, written by men who owned slaves, has a reason to prefer the answer that he had no plan.",
+    forces: [
+      { side: "Rome", estimate: "Eight to ten legions under Crassus, with Pompey's army approaching from Spain", certainty: "probable" },
+      { side: "Spartacus' army", estimate: "Reported in the tens of thousands, already reduced by the defection of a large contingent that was destroyed separately", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Spartacus' army", estimate: "The army destroyed; 6,000 prisoners crucified along the Appian Way", certainty: "probable", note: "The crucifixions are attested and specific, which is unusual — they were meant to be seen and remembered." },
+      { side: "Rome", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Penned in the toe of Italy", description: "Crassus digs a ditch and rampart across the peninsula to trap the army in Bruttium; Spartacus breaks out through it in a snowstorm.", certainty: "probable" },
+      { title: "The army splits", description: "A large contingent separates and is destroyed on its own, which is what makes the final battle winnable.", certainty: "probable" },
+      { title: "Brought to battle", description: "Cornered in Lucania and unable to avoid an engagement, the slave army fights a pitched battle on Roman terms for the first time.", certainty: "probable" },
+      { title: "The Appian Way", description: "Six thousand prisoners are crucified along the road from Capua to Rome. Pompey, arriving late, cuts down fugitives and writes to the Senate claiming he ended the war.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["plutarch-crassus", "appian-civil"], modernSourceIds: ["seager-2002", "harris-1979"],
+    uncertaintyNotes: [
+      "The battlefield is not located.",
+      "Every surviving account was written by a member of the class the revolt threatened.",
+      "Why the army turned back from the Alps in 72 is not explained by any source.",
+    ],
+  },
+  {
+    id: "bibracte", slug: "bibracte", name: "Battle of Bibracte", kind: "land", startYear: -58, endYear: -58, displayDate: "58 BCE", location: "Near Bibracte (Mont Beuvray), in Aeduan territory", coordinates: [4.04, 46.92], uncertainty: { radiusKm: 25, certainty: "disputed", note: "Bibracte itself is securely identified and excavated; Caesar says the battle was fought some miles from it and the field is not fixed." }, major: true,
+    belligerents: ["Roman Republic", "The Helvetii"],
+    commanders: [
+      { faction: "rome", names: ["Gaius Julius Caesar"], certainty: "attested" },
+      { faction: "gaul", names: ["Divico"], certainty: "probable" },
+    ],
+    result: "Decisive Roman victory",
+    summary: "An entire people on the move — with its wagons, families and stores — was brought to battle against a hillside and destroyed. Caesar drew up on a slope with his legions in three lines and his baggage behind them on the summit, and let the Helvetii come uphill.",
+    significance: "The first battle of the Gallic wars and the one that set the terms of all of them: Caesar had no instruction from Rome to fight the Helvetii, found a reason, and won a victory large enough that nobody in Rome would ask about the reason. It also establishes the pattern of the commentaries — a campaign explained as a response to a threat, in a book written by the man who chose to respond.",
+    context: "The Helvetii had decided to leave their homeland in what is now Switzerland and settle in western Gaul, and they burned their own towns behind them so nobody could turn back. Their route lay through the Roman province or through Aeduan territory; Caesar refused the first and then treated the second as an attack on Rome's allies. He had one legion in the province when the migration began and four more within weeks, three of them raised on his own authority. Everything about the campaign is legally doubtful and militarily decisive, which is the Gallic wars in miniature.",
+    forces: [
+      { side: "Rome", estimate: "Six legions, perhaps 30,000 legionaries with Gallic auxiliary cavalry", certainty: "probable" },
+      { side: "The Helvetii", estimate: "Caesar reports a census tablet in Greek found in their camp giving 368,000 people, of whom 92,000 were fighting men", certainty: "disputed", note: "The tablet is one of the most quoted figures in ancient history and one of the least checkable. It is also exactly the sort of document that makes a migration sound like an invasion." },
+    ],
+    casualties: [
+      { side: "The Helvetii", estimate: "Caesar reports 130,000 survivors of 368,000, sent home to rebuild the towns they had burned", certainty: "disputed" },
+      { side: "Rome", estimate: "Not given — Caesar rarely gives his own", certainty: "disputed", note: "The silence is consistent and deliberate throughout the commentaries." },
+    ],
+    moments: [
+      { title: "Uphill against three lines", description: "Caesar forms four veteran legions in three lines on the slope with two new ones and the baggage above; the Helvetii attack uphill.", certainty: "attested" },
+      { title: "Pila into a shield wall", description: "Javelins pin overlapping shields together and make them unusable, and the Gauls have to fight without them.", certainty: "probable" },
+      { title: "Attacked in the rear", description: "As the Helvetii give ground, a fresh contingent arrives on the Roman flank and rear and the third line has to turn about to meet it.", certainty: "attested" },
+      { title: "The wagon laager", description: "The fighting ends at the wagons, where the non-combatants are, and goes on into the night.", certainty: "probable" },
+    ],
+    ancientSourceIds: caesarAncient, modernSourceIds: caesarModern,
+    uncertaintyNotes: [
+      "The field is not located; only Bibracte itself is.",
+      "Every figure comes from Caesar, reporting to the body deciding whether to extend his command.",
+      "Archaeology at Helvetian sites has not supported abandonment on the scale Caesar describes.",
+    ],
+    nextSlug: "sabis",
+  },
+  {
+    id: "sabis", slug: "sabis", name: "Battle of the Sabis", kind: "land", startYear: -57, endYear: -57, displayDate: "57 BCE", location: "On the river Sabis in Belgic territory — the Sambre or the Selle", coordinates: [3.9, 50.2], uncertainty: { radiusKm: 45, certainty: "disputed", note: "Caesar names the river Sabis and the site has been argued over for centuries; the Selle near Saulzoir now has better support than the traditional Sambre." }, major: true,
+    belligerents: ["Roman Republic", "The Nervii and Belgic allies"],
+    commanders: [
+      { faction: "rome", names: ["Gaius Julius Caesar", "Titus Labienus"], certainty: "attested" },
+      { faction: "gaul", names: ["Boduognatus"], certainty: "probable" },
+    ],
+    result: "Roman victory, very nearly a disaster",
+    summary: "The Nervii attacked out of woods across a river while the legions were unarmed and building camp. The Roman army fought the battle with no line, no orders and no commander's plan — Caesar took a shield from a man in the ranks and fought in the front line himself.",
+    significance: "The most dangerous moment of the Gallic wars, and the best evidence in the atlas for what the Republican army could do when its command structure had ceased to function. What saved it was not generalship but the training of individual legions and the initiative of officers who could see one part of the field. Rome voted fifteen days of public thanksgiving — the longest ever granted, and a measure of how the war was being sold at home.",
+    context: "Caesar had turned north against the Belgic peoples, whom he describes as the bravest in Gaul because they were furthest from the traders who brought in the goods that made men soft. The Nervii had prepared for exactly this campaign: they had no cavalry, so they had spent years cutting and interweaving hedges to make their country impassable to horse, and they waited in cover until the Roman column was strung out and the leading legions were digging. The account is Caesar's, and it is unusually candid about how close he came to losing everything — which is itself a rhetorical choice.",
+    forces: [
+      { side: "Rome", estimate: "Eight legions, of which two were still on the march when the attack came", certainty: "probable" },
+      { side: "The Nervii and Belgic allies", estimate: "Caesar reports 60,000 Nervii with Atrebates and Viromandui", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "The Nervii and Belgic allies", estimate: "Caesar reports the Nervii reduced from 60,000 fighting men to 500, and their council from 600 to 3", certainty: "disputed", note: "He then accepts their surrender and restores them, which is hard to reconcile with annihilation — and they are fighting again by 54." },
+      { side: "Rome", estimate: "Not given; heavy in the legions caught unformed", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Attacked while building", description: "The Nervii come out of the woods and across the river at a run, into an army that has its tools out and its shields cased.", certainty: "attested" },
+      { title: "No line, no orders", description: "Legions form where they stand, under whichever standard is nearest. Caesar says he had time to do only what the moment demanded.", certainty: "attested" },
+      { title: "The commander in the ranks", description: "Caesar takes a shield from a soldier in the rear and goes forward into the fighting line on the endangered wing.", certainty: "attested" },
+      { title: "The tenth legion turns back", description: "Labienus, having taken the enemy camp across the river, sees the crisis and sends the tenth legion back at a run into the Nervian rear.", certainty: "attested" },
+    ],
+    ancientSourceIds: caesarAncient, modernSourceIds: caesarModern,
+    uncertaintyNotes: [
+      "The river and the site are disputed; the traditional Sambre identification is now doubted.",
+      "The annihilation figures cannot be reconciled with the Nervii fighting again three years later.",
+      "The narrative's candour about near-disaster is a deliberate effect, not an accident of reporting.",
+    ],
+    previousSlug: "bibracte", nextSlug: "gergovia",
+  },
+  {
+    id: "carrhae", slug: "carrhae", name: "Battle of Carrhae", kind: "land", startYear: -53, endYear: -53, displayDate: "53 BCE", location: "Near Carrhae (Harran), in northern Mesopotamia", coordinates: [39.03, 36.86], uncertainty: { radiusKm: 30, certainty: "disputed", note: "The town is known; the battle was fought in open country south of it and the site is not fixed." }, major: true,
+    belligerents: ["Roman Republic", "Parthia"],
+    commanders: [
+      { faction: "rome", names: ["Marcus Licinius Crassus", "Publius Crassus"], certainty: "attested" },
+      { faction: "parthia", names: ["Surena"], certainty: "attested" },
+    ],
+    result: "Catastrophic Roman defeat",
+    summary: "Seven legions marched into open desert against an army of horse archers and heavy cavalry that never closed and never ran out of arrows — Surena had brought a camel train of spare shafts. The legions formed square, could not reach the enemy, and were shot to pieces over a day and a night.",
+    significance: "The worst Roman defeat since Arausio and the one that mattered most politically: it killed Crassus, and with him the only thing balancing Caesar against Pompey. Militarily it is the clearest demonstration in the atlas of what the legion could not do — against mobile missile cavalry in open country with no water and no cavalry of its own, discipline and heavy infantry were not an answer. The captured standards were not recovered for thirty years.",
+    context: "There was no war to fight. Crassus wanted a military reputation to set beside Pompey's and Caesar's, and Parthia was available; the invasion had no provocation and the tribunes cursed him publicly as he left. He then made every avoidable error — took the desert route on the advice of an Arab chief who was working for the other side, refused to follow the Euphrates where his flank would be covered, and let his son take the cavalry off after a feigned retreat. Publius' head was brought back to the army on a spear.",
+    forces: [
+      { side: "Rome", estimate: "Seven legions, about 35,000 foot, with 4,000 cavalry and 4,000 light troops", certainty: "probable" },
+      { side: "Parthia", estimate: "About 9,000 horse archers and 1,000 cataphracts, with a camel train carrying spare arrows", certainty: "probable", note: "The disparity is the point: a force a quarter the size destroyed the army because the Romans could not make it fight." },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "About 20,000 killed and 10,000 taken; the survivors got out under Cassius", certainty: "probable", note: "The prisoners were settled on the far eastern frontier of the Parthian empire and are not heard of again." },
+      { side: "Parthia", estimate: "Very light", certainty: "probable" },
+    ],
+    moments: [
+      { title: "Into the desert", description: "Crassus leaves the Euphrates on local advice and marches into open country with no water and no flank cover.", certainty: "probable" },
+      { title: "The square, and the arrows that do not stop", description: "The legions close up into a hollow square, which makes them a better target. The Parthians ride round it shooting, resupplied from the camel train.", certainty: "attested" },
+      { title: "Publius drawn off", description: "The cavalry pursues a feigned retreat, is surrounded and destroyed, and its commander's head is displayed to the army.", certainty: "attested" },
+      { title: "Killed under a truce", description: "The remnant retreats to Carrhae by night; Crassus is drawn into a parley and killed there.", certainty: "probable" },
+    ],
+    ancientSourceIds: ["plutarch-crassus", "dio-36-44"], modernSourceIds: ["seager-2002", "goldsworthy-2006"],
+    uncertaintyNotes: [
+      "The site south of Carrhae is not identified.",
+      "Plutarch's account is shaped to make Crassus' greed the cause of everything that happened.",
+      "The fate of the ten thousand prisoners is unknown beyond their deportation east.",
+    ],
+  },
+  {
+    id: "gergovia", slug: "gergovia", name: "Battle of Gergovia", kind: "land", startYear: -52, endYear: -52, displayDate: "52 BCE", location: "The plateau of Gergovia, above the Allier in Arvernian country", coordinates: [3.12, 45.72], uncertainty: { radiusKm: 6, certainty: "probable", note: "The plateau south of Clermont-Ferrand is the accepted site and Roman camps have been excavated below it." }, major: true,
+    belligerents: ["Roman Republic", "The Gallic coalition"],
+    commanders: [
+      { faction: "rome", names: ["Gaius Julius Caesar"], certainty: "attested" },
+      { faction: "gaul", names: ["Vercingetorix"], certainty: "attested" },
+    ],
+    result: "Gallic victory",
+    summary: "Caesar attacked a fortified hill town he had already decided he could not take, intending a limited raid on one camp. The legions went past their orders, kept climbing to the walls, and were driven back down with the loss of forty-six centurions.",
+    significance: "The only unambiguous defeat Caesar suffered in Gaul, and its consequences were immediate: the Aedui, Rome's oldest allies in the country, went over to Vercingetorix, and for the first time the whole of Gaul was against him. It is also the clearest evidence that his army's aggression was a liability as well as an asset — the commentaries blame the soldiers' eagerness, which is both plausible and exactly what a commander would write.",
+    context: "Vercingetorix had understood something no previous Gallic leader had: Caesar's army was invincible in battle and entirely dependent on supply, so the way to beat it was to burn the country and refuse to fight. He had already forced Caesar to abandon one siege. At Gergovia the Gauls held a plateau with the town on top, and Caesar admits in the commentaries that he had given up on taking it and was manoeuvring to withdraw without looking beaten. The attack that followed was meant to be a feint.",
+    forces: [
+      { side: "Rome", estimate: "Six legions, with the Aeduan contingent already wavering", certainty: "probable" },
+      { side: "The Gallic coalition", estimate: "The Arverni and allies holding the plateau and the wall below it", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "Caesar reports nearly 700 legionaries and 46 centurions killed", certainty: "probable", note: "One of the very few occasions he gives his own losses, and the centurion count says what the bare total does not — this fell on the men who led from the front." },
+      { side: "The Gallic coalition", estimate: "Not recorded", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "A feint that succeeds", description: "Caesar moves a legion visibly to draw the Gauls to the far side of the plateau, and takes the camps below the town almost unopposed.", certainty: "attested" },
+      { title: "Past the objective", description: "The recall is sounded and not heard, or not heeded. The legions keep going up to the wall of the town itself.", certainty: "attested" },
+      { title: "Driven off the slope", description: "The Gauls return from the other side and come down on troops strung out on a hillside with no formation.", certainty: "probable" },
+      { title: "The Aedui change sides", description: "Within weeks Rome's oldest allies in Gaul join the coalition, and Caesar is left facing the whole country.", certainty: "attested" },
+    ],
+    ancientSourceIds: caesarAncient, modernSourceIds: caesarModern,
+    uncertaintyNotes: [
+      "That the defeat was caused by indiscipline rather than by Caesar's plan is Caesar's own explanation.",
+      "Gallic numbers and losses are not given at all.",
+      "The excavated camps fix the Roman positions; the course of the assault up the slope is reconstructed.",
+    ],
+    previousSlug: "sabis", nextSlug: "alesia",
+  },
+  {
+    id: "alesia", slug: "alesia", name: "Siege of Alesia", kind: "siege", startYear: -52, endYear: -52, displayDate: "52 BCE", location: "The oppidum of Alesia (Alise-Sainte-Reine), in Burgundy", coordinates: [4.5, 47.54], uncertainty: { radiusKm: 4, certainty: "attested", note: "The site was disputed for centuries and is now settled: Napoleon III's excavations and modern aerial survey have traced both lines of Roman works on the ground at Alise-Sainte-Reine." }, major: true,
+    belligerents: ["Roman Republic", "The Gallic coalition"],
+    commanders: [
+      { faction: "rome", names: ["Gaius Julius Caesar", "Titus Labienus", "Mark Antony"], certainty: "attested" },
+      { faction: "gaul", names: ["Vercingetorix", "Commius"], certainty: "attested" },
+    ],
+    result: "Decisive Roman victory; Gaul surrenders",
+    summary: "Caesar penned Vercingetorix's army in a hilltop town behind eighteen kilometres of siege works, and then — knowing a relief army was coming — built a second line of twenty-one kilometres facing outwards and fought both at once. He was outnumbered on both sides of his own wall.",
+    significance: "The end of Gallic independence and the most complete siege operation the ancient world records. Its lasting significance is not tactical but political: it left Caesar with eleven legions who had done this, and who were his. Eight years later they crossed the Rubicon. Alesia is where the Republic's last war of conquest and its last civil war meet.",
+    context: "Vercingetorix's strategy had been working — burn the country, refuse battle, starve the legions out — and it broke down when he let his cavalry be beaten in the open and withdrew into Alesia with eighty thousand men. That was the one mistake Caesar needed. Trapping an army in a fortress only works if nobody relieves it, and the whole of Gaul was raising one; Caesar's answer was to build a second wall the other way round and fight facing both directions. The works are the most thoroughly excavated Roman siege in existence: ditches, a flooded trench, lilies, spurs and towers, all of it traced on the ground.",
+    forces: [
+      { side: "Rome", estimate: "Ten to twelve legions, perhaps 50,000 men, with German auxiliary cavalry", certainty: "probable" },
+      { side: "The Gallic coalition", estimate: "Caesar reports 80,000 inside Alesia and a relief army of a quarter of a million", certainty: "disputed", note: "The relief figure is not credible and the internal one is questionable. The strategic situation — besieged and besieger both outnumbered — is not in doubt." },
+    ],
+    casualties: [
+      { side: "The Gallic coalition", estimate: "The relief army dispersed, the besieged army surrendered entire; Vercingetorix handed over and later executed in Rome", certainty: "attested", note: "The non-combatants expelled from the town and refused passage through the Roman lines starved between the walls. Caesar records the decision without comment." },
+      { side: "Rome", estimate: "Not given", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Two walls, facing opposite ways", description: "Eighteen kilometres of circumvallation facing in, twenty-one of contravallation facing out, with ditches, towers and traps between.", certainty: "attested" },
+      { title: "The town's non-combatants expelled", description: "To save food, the Mandubii send out their women, children and old people. Caesar will not let them through, and they die between the lines.", certainty: "attested" },
+      { title: "The relief army arrives", description: "A coalition force reaches the outer wall and attacks it while the besieged attack the inner one at the same moment.", certainty: "attested" },
+      { title: "The weak point at the north-west", description: "A camp on ground that could not be enclosed is attacked by 60,000 picked men; Caesar feeds in reserves and finally leads the last cavalry round behind them himself.", certainty: "attested" },
+      { title: "Surrender", description: "The relief army disperses overnight. Vercingetorix rides out and lays his arms at Caesar's feet; Gaul is finished.", certainty: "attested" },
+    ],
+    ancientSourceIds: caesarAncient, modernSourceIds: caesarModern,
+    uncertaintyNotes: [
+      "The site is settled and the works are excavated — unusually for this atlas, the geometry is evidence rather than reconstruction.",
+      "The relief army's reported size is not credible and is the single most doubted figure in the commentaries.",
+      "Everything about the course of the fighting comes from the man who won it.",
+    ],
+    previousSlug: "gergovia",
+  },
+  {
+    id: "dyrrhachium", slug: "dyrrhachium", name: "Battle of Dyrrhachium", kind: "land", startYear: -48, endYear: -48, displayDate: "July 48 BCE", location: "The lines south of Dyrrhachium (Durrës), on the Illyrian coast", coordinates: [19.5, 41.25], uncertainty: { radiusKm: 15, certainty: "disputed", note: "The town is known and the lines ran south of it along the coast; their course is not established on the ground." }, major: false,
+    belligerents: ["Caesar", "Pompey and the Senate"],
+    commanders: [
+      { faction: "populares", names: ["Gaius Julius Caesar", "Mark Antony"], certainty: "attested" },
+      { faction: "optimates", names: ["Gnaeus Pompeius Magnus", "Titus Labienus"], certainty: "attested" },
+    ],
+    result: "Pompeian victory",
+    summary: "Caesar tried to besiege a larger and better-supplied army against the sea, building lines round it for over twenty kilometres. Pompey broke out at the southern end, rolled up the works, and Caesar's army ran.",
+    significance: "The moment the civil war could have ended the other way. Caesar wrote afterwards that the enemy would have finished the war that day if their commander had known how to win — and Pompey, who had the beaten army in front of him, did not pursue. It is also the only time Caesar's veterans broke and ran, and he had to abandon the whole strategy and march inland, which is how Pharsalus came to be fought at all.",
+    context: "Caesar had crossed the Adriatic in winter with half his force, evading a fleet that outnumbered him completely, and then could not get the other half over for months. He was outnumbered roughly two to one, cut off from supply by sea, and his men were eating bread made from roots. The decision to besiege a larger army in that position was a gamble on Pompey's caution, and it very nearly worked: the Pompeians were penned against the coast and running out of water and fodder. Then two deserters told Pompey exactly where the lines were weakest.",
+    forces: [
+      { side: "Caesar", estimate: "About 22,000 in the lines, on short rations", certainty: "probable" },
+      { side: "Pompey and the Senate", estimate: "Perhaps 45,000, supplied by sea and much stronger in cavalry", certainty: "probable" },
+    ],
+    casualties: [
+      { side: "Caesar", estimate: "Caesar reports 960 legionaries and 32 tribunes and centurions lost, and 32 standards taken", certainty: "probable", note: "He gives his own losses here, which he almost never does — the candour is part of the argument that the defeat was not decisive." },
+      { side: "Pompey and the Senate", estimate: "Light", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "Lines against the sea", description: "Caesar builds over twenty kilometres of works to pen a larger army against the coast, and is himself short of everything.", certainty: "attested" },
+      { title: "Two deserters", description: "Allobrogian cavalry officers desert and tell Pompey where the double line is unfinished.", certainty: "probable" },
+      { title: "The southern end broken", description: "An attack by land and from the sea at the same point takes the works; Caesar's counter-attack goes wrong in ground nobody has scouted.", certainty: "probable" },
+      { title: "The army runs, and is not pursued", description: "Caesar's troops break. Pompey halts, suspecting a trap, and Caesar gets away to Thessaly.", certainty: "attested" },
+    ],
+    ancientSourceIds: civilAncient, modernSourceIds: civilModern,
+    uncertaintyNotes: [
+      "The line of the siege works has not been established on the ground.",
+      "Both principal accounts descend from Caesar, including on the question of why Pompey did not pursue.",
+      "Casualty figures for the Pompeian side are not given by anyone.",
+    ],
+    nextSlug: "pharsalus",
+  },
+  {
+    id: "pharsalus", slug: "pharsalus", name: "Battle of Pharsalus", kind: "land", startYear: -48, endYear: -48, displayDate: "9 August 48 BCE", location: "The plain of Pharsalus, on the Enipeus in Thessaly", coordinates: [22.38, 39.29], uncertainty: { radiusKm: 18, certainty: "disputed", note: "The battle is placed on the Enipeus near Pharsalus; which bank, and therefore which way the armies faced, has been argued for a century." }, major: true,
+    belligerents: ["Caesar", "Pompey and the Senate"],
+    commanders: [
+      { faction: "populares", names: ["Gaius Julius Caesar", "Mark Antony", "Publius Sulla"], certainty: "attested" },
+      { faction: "optimates", names: ["Gnaeus Pompeius Magnus", "Titus Labienus"], certainty: "attested" },
+    ],
+    result: "Decisive Caesarian victory",
+    summary: "Pompey's plan was to turn Caesar's right with a cavalry arm seven times larger. Caesar saw it coming, hid six cohorts behind his own cavalry, and sent them into the horsemen's faces with their javelins used as thrusting spears. The cavalry broke, the flank they had uncovered was rolled up, and the war was decided in an afternoon.",
+    significance: "The battle that ended the Republic as a functioning system, though nobody could have said so on the day. Pompey escaped to Egypt and was murdered stepping ashore; the senatorial cause fought on for three more years in Africa and Spain without ever again having the advantage. What Pharsalus demonstrates militarily is that a smaller army of long-service veterans commanded by one man beat a larger one commanded by a committee of senators who overruled their general into fighting.",
+    context: "Pompey did not want this battle. His plan — supply superiority, cavalry superiority, and time — was working, and Caesar's army was the one starving. What forced him was his own side: the senators in his camp were already arguing about who would get which priesthood after the victory and accused him of prolonging the war to keep his command. He drew up with his left on the river and every one of his 7,000 cavalry on the other wing, intending to turn the flank and roll Caesar's line up from behind. It was the correct plan against any army that had not guessed it.",
+    forces: [
+      { side: "Caesar", estimate: "About 22,000 in eighty cohorts, with 1,000 cavalry", certainty: "probable" },
+      { side: "Pompey and the Senate", estimate: "About 45,000 in one hundred and ten cohorts, with 7,000 cavalry", certainty: "probable", note: "Caesar's own figures, and unusually plausible: he had reason to state the odds accurately." },
+    ],
+    casualties: [
+      { side: "Pompey and the Senate", estimate: "Caesar reports 15,000 killed and 24,000 surrendered", certainty: "disputed", note: "The surrender total is more interesting than the deaths: most of the army was pardoned and much of it enlisted, which is how Caesar fought the next three years." },
+      { side: "Caesar", estimate: "Caesar reports 200 legionaries and 30 centurions", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "A fourth line, hidden", description: "Caesar takes six cohorts out of his third line and posts them obliquely behind his cavalry, out of sight, with orders not to throw their javelins.", certainty: "attested" },
+      { title: "The cavalry charge succeeds", description: "Pompey's 7,000 horse drive Caesar's 1,000 off the field, exactly as intended, and swing in to take the legions from behind.", certainty: "attested" },
+      { title: "Javelins in the face", description: "The hidden cohorts come out at them and use their pila as thrusting weapons aimed at the face. The cavalry — young men of good family, Caesar notes — break and do not come back.", certainty: "attested" },
+      { title: "The flank rolled up", description: "With the cavalry gone, the same cohorts take Pompey's exposed left wing in the rear while the third line goes in fresh at the front.", certainty: "attested" },
+      { title: "Pompey leaves", description: "Pompey rides to his camp, sits in his tent, and then leaves when the works are stormed. He is dead within two months.", certainty: "attested" },
+    ],
+    ancientSourceIds: civilAncient, modernSourceIds: civilModern,
+    uncertaintyNotes: [
+      "Which bank of the Enipeus the armies stood on is unresolved, which reverses the whole map of the battle.",
+      "The tactic of the hidden cohorts is Caesar's own account of his own cleverness and has no independent witness.",
+      "The casualty figures are his as well, and the disparity is not credible.",
+    ],
+    previousSlug: "dyrrhachium", nextSlug: "thapsus",
+  },
+  {
+    id: "thapsus", slug: "thapsus", name: "Battle of Thapsus", kind: "land", startYear: -46, endYear: -46, displayDate: "6 April 46 BCE", location: "Outside Thapsus, on the Byzacene coast", coordinates: [11.04, 35.63], uncertainty: { radiusKm: 12, certainty: "probable", note: "The town is identified; the lines outside it are not fixed." }, major: true,
+    belligerents: ["Caesar", "The senatorial cause and Numidia"],
+    commanders: [
+      { faction: "populares", names: ["Gaius Julius Caesar"], certainty: "attested" },
+      { faction: "optimates", names: ["Quintus Caecilius Metellus Scipio", "Marcus Petreius"], certainty: "attested" },
+      { faction: "numidia", names: ["Juba I"], certainty: "attested" },
+    ],
+    result: "Decisive Caesarian victory",
+    summary: "The senatorial cause reassembled in Africa with a Numidian king, sixty elephants and fourteen legions. Caesar besieged Thapsus to force a battle; when it came his veterans started it themselves, without waiting for the order, and it was over in a few hours.",
+    significance: "Thapsus destroyed the last coherent senatorial army and produced the death that mattered more than the battle: Cato killed himself at Utica rather than accept a pardon, which was the only weapon left against a man whose entire political method was clemency. A living Cato would have been a pardoned man; a dead one became the argument that killed Caesar two years later.",
+    context: "After Pharsalus, Caesar had spent a year in Egypt and Asia while the survivors rebuilt in the one province they could hold. Juba of Numidia brought them cavalry, elephants and money, which also made the cause look like a foreign war to Italian opinion — something Caesar exploited. The battle itself is the least characteristic of his career: he did not order it. His army, drawn up and waiting while he hesitated, took a trumpeter's signal on the right and went forward, and he could either follow them or lose control of them.",
+    forces: [
+      { side: "Caesar", estimate: "Eight to ten legions with archers and slingers trained against elephants", certainty: "probable" },
+      { side: "The senatorial cause and Numidia", estimate: "Perhaps fourteen legions with Numidian cavalry and about sixty elephants", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "The senatorial cause and Numidia", estimate: "Reported at 10,000; the surrender was not accepted and much of the army was killed after it had given up", certainty: "disputed", note: "The massacre of men trying to surrender is reported by the author of the African War, who was on Caesar's side, and is the sharpest exception to Caesar's policy of clemency." },
+      { side: "Caesar", estimate: "Reported at 50", certainty: "disputed" },
+    ],
+    moments: [
+      { title: "A siege to force a battle", description: "Caesar invests Thapsus because taking the town matters less than making the enemy come to relieve it.", certainty: "probable" },
+      { title: "The army starts without him", description: "A trumpeter on the right sounds the advance, the veterans go forward, and Caesar has to ride after his own line.", certainty: "probable" },
+      { title: "The elephants turned", description: "Slingers and archers shoot the elephants at close range; they turn back through the Numidian left.", certainty: "probable" },
+      { title: "No quarter", description: "The enemy army breaks and the surrender is not accepted. Cato, at Utica, kills himself rather than be pardoned.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["appian-civil", "plutarch-caesar", "dio-36-44"], modernSourceIds: civilModern,
+    uncertaintyNotes: [
+      "The main narrative is the anonymous African War, written by an officer on Caesar's staff.",
+      "Casualty figures on both sides are not usable.",
+      "Whether Caesar lost control of his army or later found it convenient to say so cannot be settled.",
+    ],
+    previousSlug: "pharsalus", nextSlug: "munda",
+  },
+  {
+    id: "munda", slug: "munda", name: "Battle of Munda", kind: "land", startYear: -45, endYear: -45, displayDate: "17 March 45 BCE", location: "Near Munda, in southern Baetica", coordinates: [-4.9, 37.35], uncertainty: { radiusKm: 40, certainty: "disputed", note: "Munda has never been securely located; sites near Osuna and Montilla are both proposed and the battle's ground is unknown." }, major: true,
+    belligerents: ["Caesar", "The Pompeian cause in Spain"],
+    commanders: [
+      { faction: "populares", names: ["Gaius Julius Caesar"], certainty: "attested" },
+      { faction: "optimates", names: ["Gnaeus Pompeius the Younger", "Titus Labienus"], certainty: "attested" },
+    ],
+    result: "Caesarian victory",
+    summary: "The last battle of the civil war and the hardest of Caesar's life. Two veteran armies fought uphill and downhill on the same slope for most of a day with neither giving way, and Caesar said afterwards that he had often fought for victory but at Munda he had fought for his life.",
+    significance: "Munda ended organised resistance and left nobody able to oppose him. He returned to Rome, was made dictator for life, and was killed eleven months later — which is the real significance of the battle: it removed every external check and left only the internal one, and sixty senators supplied that with daggers. Labienus, who had been Caesar's best officer through eight years in Gaul, died on the field fighting against him.",
+    context: "Spain had been Pompeian ground since the 70s and had been badly governed by Caesar's men since. Pompey's sons raised thirteen legions there, many of them Roman settlers and veterans rather than provincials, and this time there was no question of an army of inferior quality. The fighting is the only occasion in the commentaries where the account admits the line came close to breaking and the commander went into it on foot — Caesar is said to have thought about killing himself if it went wrong.",
+    forces: [
+      { side: "Caesar", estimate: "Eight legions with Mauretanian cavalry, about 40,000", certainty: "probable" },
+      { side: "The Pompeian cause in Spain", estimate: "Thirteen legions, about 70,000, though many below strength", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "The Pompeian cause in Spain", estimate: "Reported at about 30,000, with Labienus among the dead", certainty: "disputed" },
+      { side: "Caesar", estimate: "Reported at about 1,000 — far higher than any of his other victories", certainty: "disputed", note: "Even a literary figure this high says something true: this was not a rout, it was a fight between two armies of the same quality." },
+    ],
+    moments: [
+      { title: "Uphill, and neither side moves", description: "The Pompeians hold the slope and will not come down; Caesar's veterans attack it and the fighting locks for hours.", certainty: "probable" },
+      { title: "The commander on foot in the line", description: "With the line wavering, Caesar dismounts, takes a shield and goes into the front rank — the second time in the atlas he does this.", certainty: "probable" },
+      { title: "The cavalry decides it", description: "Mauretanian horse under Bogud work round towards the Pompeian camp; a legion pulled back to face them is mistaken for a retreat and the line goes.", certainty: "probable" },
+      { title: "Labienus dead", description: "Caesar's best officer from the Gallic wars is killed fighting against him, and is buried on the field.", certainty: "attested" },
+    ],
+    ancientSourceIds: ["appian-civil", "plutarch-caesar", "dio-36-44"], modernSourceIds: ["goldsworthy-2006", "gelzer-1968"],
+    uncertaintyNotes: [
+      "Munda's location is genuinely unknown; the marker is a best guess among several proposals.",
+      "The principal narrative is the anonymous Spanish War, the crudest of the Caesarian continuations.",
+      "The casualty figures are not usable, though the Roman total being unusually high is itself informative.",
+    ],
+    previousSlug: "thapsus",
+  },
+];
+
 export const battles: Battle[] = [
   // Tagged by hand rather than derived from data/wars.ts: this module is in the
   // test import graph, which can only resolve "@/" aliases as type imports.
@@ -1232,6 +1689,9 @@ export const battles: Battle[] = [
   // Noreia and Arausio fall inside the Jugurthine era but belong to the Cimbric
   // war: the two ran concurrently, and the era can only name one of them per year.
   ...marianWars.map((battle) => ({ ...battle, war: MARIAN_BATTLE_ERA[battle.slug] })),
+  // Carrhae falls inside the Gallic years and is not a Gallic battle; it is filed
+  // there because an era owns a stretch of the timeline, not a theatre.
+  ...caesarianWars.map((battle) => ({ ...battle, war: CAESARIAN_BATTLE_ERA[battle.slug] })),
 ];
 
 export function getBattle(slug: string): Battle | undefined {

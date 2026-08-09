@@ -13,7 +13,15 @@ export function projectPoint(point: number[] | readonly number[], scale = MAP_SC
 // The atlas's world, in degrees. The view is confined to this box: you cannot
 // zoom out past it or pan beyond it. Chosen a little inside the bundled land
 // data so the straight edges where that data was clipped never come into frame.
-export const ATLAS_EXTENT = { west: -12, east: 41, south: 25, north: 50 };
+//
+// The northern limit was 50° while the atlas stopped at 100 BCE, which was
+// exactly enough for a Mediterranean war. Caesar's Gaul is not a Mediterranean
+// war: Alesia is at 47°, the Rhine crossings at 50°, and the two expeditions to
+// Britain end north of 51°. Raised to 56°, which is as far as the bundled land
+// data goes — beyond that the clipped straight edge would come into frame, and a
+// ruled line across northern Britain would read as a coastline that isn't there.
+// East went to 44° for Carrhae and the Parthian frontier.
+export const ATLAS_EXTENT = { west: -12, east: 44, south: 25, north: 56 };
 export const EXTENT_BOX = {
   minX: ATLAS_EXTENT.west * MAP_SCALE,
   maxX: ATLAS_EXTENT.east * MAP_SCALE,

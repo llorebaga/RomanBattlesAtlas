@@ -117,14 +117,12 @@ test("the diagram agrees with the battle it describes", () => {
     const battle = battles.find((entry) => entry.slug === slug);
     // The sides on the field must be the sides that fought.
     const factions = new Set(diagram.stages.flatMap((stage) => stage.units.map((unit) => unit.faction)));
-    // The Seleucids join this list because the atlas now maps a war they fought.
-    // The Eurymedon is the case that forced it: Rhodes against a fleet Hannibal
-    // raised for Antiochus, with no Roman ship present — a battle of this war in
-    // which neither principal is Rome.
-    assert.ok(
-      ["rome", "carthage", "macedon", "seleucid"].some((id) => factions.has(id)),
-      `${slug}: no principal on the field`,
-    );
+    // Derived from the registry rather than listed by hand. The list version had
+    // to be edited every time the atlas reached a war fought by somebody new — the
+    // Eurymedon (Rhodes against Hannibal's fleet, no Roman ship present) forced it
+    // once, and the civil wars, where both sides are Roman, would force it again.
+    const belligerents = new Set(factionList.filter((info) => info.role === "belligerent").map((info) => info.id));
+    assert.ok([...factions].some((id) => belligerents.has(id)), `${slug}: no principal on the field`);
     // A naval battle is fought in ships; a land battle is not.
     const kinds = new Set(diagram.stages.flatMap((stage) => stage.units.map((unit) => unit.kind)));
     if (battle.kind === "naval") assert.ok(kinds.has("ships"), `${slug}: a naval battle should show ships`);

@@ -275,6 +275,102 @@ export const eras: Era[] = [
     mapView: { center: [6.5, 44.5], zoom: 4.6 },
     factions: ["rome", "cimbri"],
   },
+  {
+    id: "marian-aftermath",
+    name: "After the Cimbri",
+    shortName: "Aftermath",
+    kind: "interbellum",
+    startYear: -99,
+    endYear: -92,
+    blurb:
+      "Marius is six times consul and has nothing left to command. The veterans of the Cimbric war want land and the Senate will not vote it; the Italian allies who supplied half the army want citizenship and are refused it twice. Nothing is fought in these years and everything that follows is decided in them.",
+    mapView: { center: [12.5, 42.0], zoom: 5.2 },
+    factions: ["rome"],
+  },
+  {
+    id: "social-war",
+    name: "The Social War",
+    shortName: "Social War",
+    kind: "war",
+    startYear: -91,
+    endYear: -88,
+    blurb:
+      "The Italian allies who had fought every war on this map alongside Rome, and were still not citizens, set up their own state with its own capital and coinage and beat Roman armies for two years. Rome won it by conceding the thing the war was about — citizenship for everyone who had not taken up arms, and then for almost everyone else. It ends with Sulla marching an army on Rome itself, which no Roman had done.",
+    mapView: { center: [14.0, 42.0], zoom: 5.4 },
+    factions: ["rome", "populares", "optimates"],
+  },
+  {
+    id: "sulla-mithridates",
+    name: "Mithridates, and Sulla's return",
+    shortName: "Sulla",
+    kind: "war",
+    startYear: -87,
+    endYear: -81,
+    blurb:
+      "Mithridates of Pontus overruns the province of Asia and has eighty thousand Romans and Italians in it killed in a single coordinated day, then takes Greece. Sulla beats him at Chaeronea and Orchomenus with an army the government at Rome has declared outlaw, makes peace on lenient terms so he can come home, and fights his way back into Italy. The proscriptions that follow are the first time Rome kills its own citizens from a published list.",
+    mapView: { center: [20.0, 39.5], zoom: 4.4 },
+    factions: ["rome", "pontus", "optimates", "populares"],
+  },
+  {
+    id: "sertorius-and-spartacus",
+    name: "Sertorius and Spartacus",
+    shortName: "Sertorius",
+    kind: "war",
+    startYear: -80,
+    endYear: -72,
+    blurb:
+      "A Marian officer who would not accept the settlement held Spain for eight years with a Roman army, a Roman-style senate of exiles, and Spanish allies who preferred him to Rome — and was murdered at dinner by his own second. In the same years seventy escaped gladiators became an army of tens of thousands that beat consular forces twice and marched the length of Italy.",
+    mapView: { center: [2.0, 40.0], zoom: 4.2 },
+    factions: ["rome", "populares"],
+  },
+  {
+    id: "pompey-east",
+    name: "Pompey, the pirates, and the East",
+    shortName: "Pompey",
+    kind: "war",
+    startYear: -71,
+    endYear: -63,
+    blurb:
+      "Crassus destroys Spartacus and Pompey takes the credit. Pompey is then given the Mediterranean and clears it of piracy in a single season, takes over the war against Mithridates, and spends four years redrawing the East: Pontus, Cilicia, Syria and Judaea annexed or made client, the Seleucid dynasty ended by administrative decision. Rome's eastern frontier becomes Parthia's.",
+    mapView: { center: [32.0, 37.0], zoom: 4.2 },
+    factions: ["rome", "pontus"],
+  },
+  {
+    id: "caesars-rise",
+    name: "The years of the three men",
+    shortName: "Triumvirate",
+    kind: "interbellum",
+    startYear: -62,
+    endYear: -59,
+    blurb:
+      "Catiline is destroyed at Pistoria and the Senate discovers it has no answer to Pompey's veterans, Crassus' money, or Caesar's debts except to obstruct all three. So the three of them agree privately to stop obstructing each other, and Caesar's consulship in 59 delivers what each of them wanted — including a five-year command in Gaul.",
+    mapView: { center: [12.5, 42.0], zoom: 5.0 },
+    factions: ["rome"],
+  },
+  {
+    id: "gallic-wars",
+    name: "The Gallic Wars",
+    shortName: "Gaul",
+    kind: "war",
+    startYear: -58,
+    endYear: -50,
+    blurb:
+      "Eight years in which Caesar conquered a country the size of Italy and France together, crossed the Rhine twice and the Channel twice, and wrote the account of it himself in dispatches sent home each winter. It ends at Alesia, where he besieged a fortified hilltop and a relieving army at the same time by building two walls, one facing each way — and it ends with him holding an army of eleven legions that answered to him.",
+    mapView: { center: [3.5, 47.0], zoom: 4.6 },
+    factions: ["rome", "gaul", "parthia"],
+  },
+  {
+    id: "caesars-civil-war",
+    name: "Caesar's civil war",
+    shortName: "Civil War",
+    kind: "war",
+    startYear: -49,
+    endYear: -44,
+    blurb:
+      "Ordered to give up his command and stand trial, Caesar crossed the Rubicon with one legion and took Italy in two months without a battle. Four years took him to Greece, Egypt, Pontus, Africa and Spain, and left nobody able to oppose him. He was made dictator for life and killed five months later by sixty men who believed that would restore the Republic.",
+    mapView: { center: [14.0, 40.0], zoom: 3.8 },
+    factions: ["rome", "populares", "optimates"],
+  },
 ];
 
 export function eraForYear(year: number): Era | undefined {

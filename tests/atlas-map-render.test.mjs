@@ -4,7 +4,7 @@ import { landPolygons } from "../data/geo/mediterranean-land.ts";
 import { territoriesForYear } from "../data/territories.ts";
 import { campaignRoutes } from "../data/campaigns.ts";
 import { splitRouteAtYear, isRouteActive } from "../lib/routeInterpolation.ts";
-import { clampView, EXTENT_BOX, EXTENT_WIDTH, EXTENT_HEIGHT, sampleOpenCurve } from "../lib/mapGeometry.ts";
+import { clampView, ATLAS_EXTENT, EXTENT_BOX, EXTENT_WIDTH, EXTENT_HEIGHT, sampleOpenCurve } from "../lib/mapGeometry.ts";
 import { eras } from "../data/wars.ts";
 
 // Mirrors AtlasMap's projection exactly. If these drift, the map is wrong.
@@ -50,6 +50,26 @@ test("each era's view frames that war's theatre", () => {
   assert.ok(inView([15.55, 38.19], punic), "Messana visible in the First Punic War view");
   const macedonian = viewBoxFor([21, 39.6], 5.1);
   assert.ok(inView([22.55, 39.42], macedonian), "Cynoscephalae visible in the Macedonian view");
+});
+
+test("the extent reaches the theatres the atlas now maps", () => {
+  // The northern limit was 50° while the atlas stopped at 100 BCE, which is enough
+  // for a Mediterranean war and not enough for Caesar's. Each of these is a place
+  // an army actually went, and each has to be inside the box the view is clamped to.
+  const inExtent = ([lng, lat]) => {
+    const [x, y] = project([lng, lat]);
+    return x >= EXTENT_BOX.minX && x <= EXTENT_BOX.maxX && y >= EXTENT_BOX.minY && y <= EXTENT_BOX.maxY;
+  };
+  for (const [name, point] of Object.entries({
+    Alesia: [4.5, 47.54], "the Rhine at Mainz": [8.27, 50.0], "the Kentish landing": [1.0, 51.2],
+    Carrhae: [39.0, 36.9], Alexandria: [29.9, 31.2], Munda: [-5.0, 37.4], Gades: [-6.3, 36.5],
+  })) {
+    assert.ok(inExtent(point), `${name} must be inside the atlas extent`);
+  }
+  // And the box must not run past the bundled land data, or the clipped straight
+  // edge shows up as a coastline that does not exist.
+  const lats = landPolygons.flatMap((rings) => rings.flatMap((ring) => ring.map((p) => p[1])));
+  assert.ok(ATLAS_EXTENT.north <= Math.max(...lats), "the extent must stay inside the land data");
 });
 
 test("territory zones project to non-degenerate paths", () => {

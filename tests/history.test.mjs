@@ -24,7 +24,8 @@ test("clamps the continuous timeline across every era", () => {
   assert.equal(clampTimelineYear(-190), -190);
   assert.equal(clampTimelineYear(-160), -160);
   assert.equal(clampTimelineYear(-101), -101);
-  assert.equal(clampTimelineYear(-50), -100);
+  assert.equal(clampTimelineYear(-52), -52);
+  assert.equal(clampTimelineYear(-30), -44);
 });
 
 test("interpolates only active campaign routes", () => {
@@ -121,6 +122,27 @@ test("reaches the wars of Marius, and the army that stops belonging to the state
   assert.equal(getFactionInfo("cimbri")?.role, "belligerent");
   assert.ok(!territoriesForYear(-103).some((zone) => zone.polity === "cimbri"));
   assert.ok(activeCampaigns(campaignRoutes, -103).some((route) => route.id === "cimbri-migration"));
+});
+
+test("reaches Caesar, and can draw Romans fighting Romans", () => {
+  assert.ok(battlesForYear(battles, -52).some((battle) => battle.slug === "alesia"));
+  assert.ok(battlesForYear(battles, -48).some((battle) => battle.slug === "pharsalus"));
+  assert.ok(battlesForYear(battles, -45).some((battle) => battle.slug === "munda"));
+  assert.equal(eraForYear(-52)?.id, "gallic-wars");
+  assert.equal(eraForYear(-44)?.id, "caesars-civil-war");
+  // A civil war needs two Roman sides. `faction` is one id per side, so Rome is
+  // split for the wars where Romans fight each other — and neither half holds any
+  // territory, because control of Roman ground changed by city and by month.
+  const pharsalus = battles.find((battle) => battle.slug === "pharsalus");
+  assert.deepEqual(pharsalus.commanders.map((group) => group.faction), ["populares", "optimates"]);
+  assert.equal(getFactionInfo("optimates")?.role, "belligerent");
+  for (const year of [-82, -48, -45]) {
+    assert.ok(!territoriesForYear(year).some((zone) => zone.polity === "optimates" || zone.polity === "populares"),
+      `${year}: the civil-war sides must not hold territory`);
+  }
+  // Britain and the Rhine are why the extent had to grow.
+  assert.ok(activeCampaigns(campaignRoutes, -55).some((route) => route.id === "caesar-britain"));
+  assert.ok(campaignRoutes.find((route) => route.id === "caesar-gaul")?.points.some((point) => point.coordinates[1] > 49));
 });
 
 test("territory zones evolve with the timeline", () => {
