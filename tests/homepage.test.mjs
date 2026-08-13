@@ -107,9 +107,12 @@ test("periods are chronological, continuous, and honestly labelled", () => {
     assert.ok(period.shortName.length <= 16, `${period.id}: shortName is for compact selectors`);
     assert.match(formatYearRange(period.startYear, period.endYear), /\d/);
   }
-  // The atlas covers the middle Republic; everything else must not claim to be ready.
+  // The Republic is now mapped end to end; the imperial periods must not claim
+  // to be ready. Late Republic moved from `partial` to `available` when the
+  // fourteen years after the Ides were added — the Republic ends at Alexandria,
+  // not at the murder that failed to restore it.
   const available = periods.filter((period) => period.status === "available");
-  assert.deepEqual(available.map((period) => period.id), ["early-rome", "middle-republic"]);
+  assert.deepEqual(available.map((period) => period.id), ["early-rome", "middle-republic", "late-republic"]);
 });
 
 test("period links open the atlas at a year it can show", () => {

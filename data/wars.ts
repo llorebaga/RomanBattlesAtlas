@@ -371,6 +371,61 @@ export const eras: Era[] = [
     mapView: { center: [14.0, 40.0], zoom: 3.8 },
     factions: ["rome", "populares", "optimates"],
   },
+
+  // ── After the Ides, 44–30 BCE ──────────────────────────────────────────────
+  // The killing of Caesar did not restore the Republic; it started the last and
+  // longest of its civil wars. These four eras carry it to the end, and the
+  // atlas stops where the Republic actually stops — not at the Ides, which
+  // settled nothing, but at Alexandria, after which there is one man, one army
+  // and no rival left to draw.
+  {
+    id: "mutina-war",
+    name: "The war of Mutina",
+    shortName: "Mutina",
+    kind: "war",
+    startYear: -43,
+    endYear: -43,
+    blurb:
+      "Nobody had planned for what to do the day after. Antony took the army and went for Cisalpine Gaul; the senate, with Cicero speaking, declared him a public enemy and sent both consuls and Caesar's nineteen-year-old heir against him. Antony was beaten at Forum Gallorum and again outside Mutina, and both consuls died — which left the boy with the only intact army in Italy and no one above him. Within six months he had marched on Rome, taken the consulship at nineteen, and made terms with the man he had just been sent to destroy.",
+    mapView: { center: [11.5, 44.3], zoom: 5.6 },
+    factions: ["rome", "optimates", "populares"],
+  },
+  {
+    id: "philippi-war",
+    name: "The triumvirate and Philippi",
+    shortName: "Philippi",
+    kind: "war",
+    startYear: -42,
+    endYear: -41,
+    blurb:
+      "Antony, Octavian and Lepidus divided the state between them by law, and opened with a proscription that killed perhaps three hundred senators and two thousand equites — Cicero among them, his head and hands nailed to the rostra he had spoken from. Then they took nineteen legions across to Macedonia after the men who had killed Caesar. Philippi was fought twice on the same ground in three weeks; Cassius killed himself after the first on a false report, Brutus after the second, and the Republic had no one left to command an army for it.",
+    mapView: { center: [23.6, 40.4], zoom: 5.0 },
+    factions: ["rome", "optimates", "populares"],
+  },
+  {
+    id: "sextus-war",
+    name: "Perusia, Parthia and the war at sea",
+    shortName: "Sextus Pompeius",
+    kind: "war",
+    startYear: -40,
+    endYear: -36,
+    blurb:
+      "The victors turned on each other almost at once: Octavian starved his colleague's brother out of Perusia in the winter of 41, and the two sides were pulled back from war by their own armies at Brundisium. Meanwhile Pompey's surviving son held Sicily with a fleet and cut the grain off from Rome, and a Parthian army with a Roman renegade at its head overran Syria and Judaea. Ventidius drove the Parthians out and killed Pacorus on the anniversary of Carrhae; Agrippa built a new navy in a lake and destroyed Sextus at Naulochus.",
+    mapView: { center: [22.0, 37.0], zoom: 3.6 },
+    factions: ["rome", "optimates", "populares", "parthia"],
+  },
+  {
+    id: "actium-war",
+    name: "Antony, Cleopatra and Actium",
+    shortName: "Actium",
+    kind: "war",
+    startYear: -35,
+    endYear: -30,
+    blurb:
+      "Antony had the East, the better army and Egypt's money; Octavian had Italy, Agrippa, and the argument. The propaganda war was won first — a will read aloud in the senate, an oath of allegiance taken by the whole of Italy, and a declaration of war against a foreign queen rather than a Roman colleague. At Actium the fleet was blockaded into a battle it fought to escape rather than to win, and Antony's army surrendered without one. A year later Alexandria fell, Egypt became a province, and the Republic was over.",
+    mapView: { center: [24.0, 35.0], zoom: 3.9 },
+    factions: ["rome", "optimates", "populares", "ptolemaic"],
+  },
 ];
 
 export function eraForYear(year: number): Era | undefined {

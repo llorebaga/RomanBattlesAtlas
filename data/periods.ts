@@ -47,20 +47,19 @@ export const periods: HistoricalPeriod[] = [
     id: "late-republic",
     name: "Late Republic and the civil wars", shortName: "Civil Wars",
     startYear: -145,
-    endYear: -31,
+    endYear: -30,
     description: "Conquest abroad and armies loyal to their commanders at home, from Numidia and Gaul to Pharsalus and Actium.",
-    // Mapped from 145 to the Ides of March. What remains of this period is the
-    // fourteen years after Caesar's death — the second triumvirate, Philippi and
-    // Actium — which is a different constitution and a different atlas problem, so
-    // this stays `partial`.
+    // Complete: 145 to the annexation of Egypt. The fourteen years after the Ides
+    // used to be missing, which is why this said `partial` — the Republic does not
+    // end when Caesar is killed, it ends when there is nobody left to fight.
     representativeYear: -52,
-    status: "partial",
+    status: "available",
     focus: { location: [3.5, 47.0], zoom: 4.6 },
   },
   {
     id: "augustan",
     name: "Augustan and Julio-Claudian age", shortName: "Early Empire",
-    startYear: -30,
+    startYear: -29,
     endYear: 68,
     description: "The frontier settles on the Rhine and Danube, Germany is lost at the Teutoburg, and Britain is invaded.",
     representativeYear: -9,

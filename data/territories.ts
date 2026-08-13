@@ -21,7 +21,7 @@ import type { TerritoryPeriod } from "@/types/history";
 export const territories: TerritoryPeriod[] = [
   // ── Rome ──────────────────────────────────────────────────────────────────
   {
-    id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -272, toYear: -44, certainty: "attested", labelAt: [13.0, 42.3],
+    id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -272, toYear: -30, certainty: "attested", labelAt: [13.0, 42.3],
     ring: [
       // Northern limit, carried a little past the watershed: the Cisalpine zone
       // is drawn after Rome and takes the overlap, so the visible frontier is the
@@ -45,16 +45,16 @@ export const territories: TerritoryPeriod[] = [
     ring: [[12.1, 38.1], [12.3, 38.5], [13.0, 38.4], [13.7, 38.4], [14.3, 38.35], [14.6, 38.1], [14.7, 37.6], [14.6, 37.1], [14.3, 36.6], [13.5, 36.5], [12.7, 36.6], [12.2, 37.3]],
   },
   {
-    id: "rome-sicily-whole", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -212, toYear: -44, certainty: "attested", labelAt: [14.0, 37.6],
+    id: "rome-sicily-whole", polity: "rome", name: "Roman Sicily", mapLabel: "SICILY", fromYear: -212, toYear: -30, certainty: "attested", labelAt: [14.0, 37.6],
     ring: [[12.1, 38.1], [12.3, 38.5], [13.2, 38.45], [14.2, 38.4], [15.0, 38.4], [15.5, 38.35], [15.6, 37.8], [15.4, 37.1], [15.1, 36.5], [14.2, 36.4], [13.2, 36.5], [12.2, 37.3]],
   },
   {
-    id: "rome-sardinia", polity: "rome", name: "Sardinia & Corsica", mapLabel: "SARDINIA", fromYear: -238, toYear: -44, certainty: "attested", labelAt: [9.1, 40.1],
+    id: "rome-sardinia", polity: "rome", name: "Sardinia & Corsica", mapLabel: "SARDINIA", fromYear: -238, toYear: -30, certainty: "attested", labelAt: [9.1, 40.1],
     ring: [[8.3, 43.3], [9.0, 43.4], [9.7, 43.2], [9.9, 42.5], [9.6, 41.6], [10.0, 41.0], [10.0, 40.2], [9.8, 39.4], [9.4, 38.7], [8.6, 38.6], [8.1, 39.2], [8.0, 40.2], [8.2, 41.0], [8.1, 42.0], [8.2, 42.8]],
   },
   {
     // 206 onwards Rome inherits the Barcid province: the same Ebro frontier.
-    id: "rome-iberia", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -206, toYear: -44, certainty: "probable", labelAt: [-3.4, 38.4],
+    id: "rome-iberia", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -206, toYear: -30, certainty: "probable", labelAt: [-3.4, 38.4],
     ring: [
       // Up the Mediterranean coast, offshore, to the Ebro delta.
       [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.1, 40.9],
@@ -69,7 +69,7 @@ export const territories: TerritoryPeriod[] = [
 
   // ── Gauls: the two zones part along the Alpine arc ────────────────────────
   {
-    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -395, toYear: -44, certainty: "probable", labelAt: [10.0, 45.2],
+    id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -395, toYear: -30, certainty: "probable", labelAt: [10.0, 45.2],
     ring: [
       // The Alpine crest from the Maritime Alps round to the Carnic Alps, carried
       // a little west of the crest so it overlaps the Transalpine zone rather than
@@ -136,7 +136,7 @@ export const territories: TerritoryPeriod[] = [
     //
     // Drawn after the Gallic zones so the province takes the overlap: Rome is a
     // principal and this is the seam a reader actually sees.
-    id: "rome-narbonensis", polity: "rome", name: "Gallia Transalpina", mapLabel: "NARBONENSIS", fromYear: -121, toYear: -44, certainty: "probable", labelAt: [4.2, 43.8],
+    id: "rome-narbonensis", polity: "rome", name: "Gallia Transalpina", mapLabel: "NARBONENSIS", fromYear: -121, toYear: -30, certainty: "probable", labelAt: [4.2, 43.8],
     ring: [
       // The Pyrenean frontier with Spain, then north up the western edge.
       [3.4, 42.3], [2.4, 42.35], [1.4, 42.5], [0.4, 42.6],
@@ -235,7 +235,7 @@ export const territories: TerritoryPeriod[] = [
     // 146: the province of Africa, on the ground Carthage held at the end and
     // inside the ditch Rome dug to mark it off from Numidia. The city itself was
     // destroyed and its site left out of the settlement entirely.
-    id: "rome-africa", polity: "rome", name: "Province of Africa", mapLabel: "AFRICA", fromYear: -146, toYear: -44, certainty: "attested", labelAt: [9.9, 36.2],
+    id: "rome-africa", polity: "rome", name: "Province of Africa", mapLabel: "AFRICA", fromYear: -146, toYear: -30, certainty: "attested", labelAt: [9.9, 36.2],
     ring: [
       [7.2, 37.2], [7.1, 36.4], [7.4, 35.6], [7.8, 34.8],
       [8.8, 34.2], [9.6, 33.8], [10.4, 33.2],
@@ -327,7 +327,7 @@ export const territories: TerritoryPeriod[] = [
   {
     // After Cynoscephalae Rome declared the Greek cities free — nominally
     // independent, under Roman oversight. Bounded by Olympus and the Pindus.
-    id: "greek-states", polity: "greek", name: "Greek states", mapLabel: "GREEK STATES", fromYear: -197, toYear: -44, certainty: "probable", labelAt: [22.4, 38.6],
+    id: "greek-states", polity: "greek", name: "Greek states", mapLabel: "GREEK STATES", fromYear: -197, toYear: -30, certainty: "probable", labelAt: [22.4, 38.6],
     ring: [
       // The northern edge is carried a little past Olympus and the Macedonian
       // frontier rather than stopping short of it. Macedon is a principal and the
@@ -393,7 +393,7 @@ export const territories: TerritoryPeriod[] = [
     // rebellion, so Rome stopped delegating. Macedonia becomes the first Roman
     // province east of the Adriatic, and its governor is given the oversight of
     // Greece as well — which is why Corinth is a Roman matter two years later.
-    id: "rome-macedonia", polity: "rome", name: "Province of Macedonia", mapLabel: "MACEDONIA", fromYear: -148, toYear: -44, certainty: "attested", labelAt: [22.2, 41.2],
+    id: "rome-macedonia", polity: "rome", name: "Province of Macedonia", mapLabel: "MACEDONIA", fromYear: -148, toYear: -30, certainty: "attested", labelAt: [22.2, 41.2],
     ring: [
       [19.3, 41.4], [20.0, 42.0], [21.0, 42.3], [22.0, 42.3], [23.0, 42.0], [24.0, 41.6], [24.9, 41.4],
       [24.9, 40.7], [24.2, 40.4], [23.2, 40.2], [22.2, 40.1], [21.2, 40.1], [20.2, 40.1], [19.2, 40.3],
@@ -532,7 +532,7 @@ export const territories: TerritoryPeriod[] = [
     // 84 onwards: the province restored, and made to pay for the four years it was
     // not Roman. Sulla fined it twenty thousand talents, which the cities borrowed
     // from Roman financiers at rates that had them still paying in Caesar's day.
-    id: "rome-asia-restored", polity: "rome", name: "Province of Asia", mapLabel: "ASIA", fromYear: -84, toYear: -44, certainty: "attested", labelAt: [28.5, 38.6],
+    id: "rome-asia-restored", polity: "rome", name: "Province of Asia", mapLabel: "ASIA", fromYear: -84, toYear: -30, certainty: "attested", labelAt: [28.5, 38.6],
     ring: [
       [25.8, 40.4], [27.0, 40.7], [28.4, 40.6], [29.6, 40.6],
       [30.4, 40.0], [31.0, 39.4], [31.2, 38.6],
@@ -556,7 +556,7 @@ export const territories: TerritoryPeriod[] = [
     // 63: Pompey annexes the kingdom he did not conquer — Lucullus had beaten
     // Mithridates and been recalled — and joins it to Bithynia, which Rome had also
     // been left in a will. The Black Sea coast is Roman from here to the Empire.
-    id: "rome-pontus", polity: "rome", name: "Bithynia and Pontus", mapLabel: "PONTUS", fromYear: -63, toYear: -44, certainty: "attested", labelAt: [36.5, 40.6],
+    id: "rome-pontus", polity: "rome", name: "Bithynia and Pontus", mapLabel: "PONTUS", fromYear: -63, toYear: -30, certainty: "attested", labelAt: [36.5, 40.6],
     ring: [
       [33.6, 42.4], [35.2, 42.6], [36.8, 42.4], [38.4, 41.8], [39.8, 41.6],
       [40.4, 40.6], [39.4, 39.8], [37.8, 39.6], [36.2, 39.8], [34.8, 40.2], [33.8, 41.0],
@@ -567,7 +567,7 @@ export const territories: TerritoryPeriod[] = [
     // restoring — the last king was simply told the settlement did not include him —
     // and organised the kingdom as a province. It is the least violent annexation in
     // the atlas and the end of one of Alexander's successor states.
-    id: "rome-syria", polity: "rome", name: "Province of Syria", mapLabel: "SYRIA", fromYear: -63, toYear: -44, certainty: "attested", labelAt: [37.0, 35.4],
+    id: "rome-syria", polity: "rome", name: "Province of Syria", mapLabel: "SYRIA", fromYear: -63, toYear: -30, certainty: "attested", labelAt: [37.0, 35.4],
     // The frontier is the Seleucid one, because that is what Pompey took: a
     // kingdom reorganised as a province, not a conquest with its own limits.
     // Drawn smaller than the kingdom it replaced, it opened a band of blank
@@ -591,7 +591,7 @@ export const territories: TerritoryPeriod[] = [
     // Drawn as its own zone rather than folded into Syria because that is what it
     // was — two provinces, two governors — and because the alternative was the
     // shape the map had before: Antiochus' Cilicia in 64 and nobody's in 63.
-    id: "rome-cilicia", polity: "rome", name: "Province of Cilicia", mapLabel: "CILICIA", fromYear: -63, toYear: -44, certainty: "attested", labelAt: [34.4, 36.9],
+    id: "rome-cilicia", polity: "rome", name: "Province of Cilicia", mapLabel: "CILICIA", fromYear: -63, toYear: -30, certainty: "attested", labelAt: [34.4, 36.9],
     ring: [
       // The Taurus, from the rough coast east to the Amanus and the Syrian gates.
       [33.0, 36.4], [33.6, 37.0], [34.6, 37.6], [35.8, 37.9],
@@ -606,7 +606,7 @@ export const territories: TerritoryPeriod[] = [
     // across the Euphrates; ten years later Crassus crosses it and loses seven
     // legions in a week. Only the western edge of the empire is drawn — the rest of
     // it lies beyond this map, which is itself worth knowing.
-    id: "parthia", polity: "parthia", name: "Parthia", mapLabel: "PARTHIA", fromYear: -63, toYear: -44, certainty: "probable", labelAt: [42.0, 34.6],
+    id: "parthia", polity: "parthia", name: "Parthia", mapLabel: "PARTHIA", fromYear: -63, toYear: -30, certainty: "probable", labelAt: [42.0, 34.6],
     ring: [
       [40.4, 37.4], [42.0, 37.6], [43.8, 37.2], [44.0, 30.0],
       [42.4, 30.4], [40.6, 32.0], [39.6, 33.6], [39.8, 35.4],
@@ -617,7 +617,7 @@ export const territories: TerritoryPeriod[] = [
     // because that is how the conquest resolved — there was no partial Roman Gaul
     // to show. The northern and western limits are the same schematic edges the
     // Gallic zones have always carried; what has changed is who holds the ground.
-    id: "rome-gaul", polity: "rome", name: "Gaul", mapLabel: "GAUL", fromYear: -50, toYear: -44, certainty: "attested", labelAt: [1.6, 45.4],
+    id: "rome-gaul", polity: "rome", name: "Gaul", mapLabel: "GAUL", fromYear: -50, toYear: -30, certainty: "attested", labelAt: [1.6, 45.4],
     ring: [
       [-2.0, 43.6],
       [-1.8, 44.8], [-2.4, 46.2], [-3.4, 47.4], [-5.2, 48.3], [-3.4, 49.0], [-1.6, 49.6], [0.4, 50.0], [2.0, 50.6],
@@ -632,7 +632,7 @@ export const territories: TerritoryPeriod[] = [
     // annexed for it — the last of the North African powers on this map to go, a
     // century after Carthage and by the same mechanism: choosing wrongly in a Roman
     // quarrel. The Emporia go with it.
-    id: "rome-africa-nova", polity: "rome", name: "Africa Nova", mapLabel: "AFRICA NOVA", fromYear: -46, toYear: -44, certainty: "attested", labelAt: [4.4, 35.6],
+    id: "rome-africa-nova", polity: "rome", name: "Africa Nova", mapLabel: "AFRICA NOVA", fromYear: -46, toYear: -30, certainty: "attested", labelAt: [4.4, 35.6],
     ring: [
       [-1.8, 35.4], [-1.0, 36.2], [0.2, 36.9], [1.6, 37.1], [3.0, 37.2], [4.6, 37.3], [6.0, 37.4], [7.2, 37.4],
       [7.8, 36.6], [7.9, 35.6], [8.4, 34.6], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
@@ -644,7 +644,7 @@ export const territories: TerritoryPeriod[] = [
     // kingdom in one zone left the Tripolitanian shore — Roman ground from the
     // same settlement — blank from 46. It is the same detached strip Masinissa
     // took in 162, changing hands again by the same mechanism.
-    id: "rome-emporia", polity: "rome", name: "The Emporia", mapLabel: "EMPORIA", fromYear: -46, toYear: -44, certainty: "probable", labelAt: [13.2, 32.6],
+    id: "rome-emporia", polity: "rome", name: "The Emporia", mapLabel: "EMPORIA", fromYear: -46, toYear: -30, certainty: "probable", labelAt: [13.2, 32.6],
     ring: [
       [9.8, 33.7], [10.4, 32.95], [11.6, 32.4], [13.0, 31.8], [14.6, 31.8], [15.6, 31.7],
       [15.8, 32.5], [14.6, 32.9], [13.2, 33.2], [10.8, 34.1],
@@ -676,7 +676,7 @@ export const territories: TerritoryPeriod[] = [
     // 200 onwards: Panium. Antiochus takes Coele-Syria and Egypt is the Nile and
     // Cyrenaica again — the victory that freed him to turn west, and so the other
     // half of why the year 200 is a hinge on this map.
-    id: "ptolemaic-egypt", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -200, toYear: -44, certainty: "probable", labelAt: [29.5, 28.0],
+    id: "ptolemaic-egypt", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -200, toYear: -31, certainty: "probable", labelAt: [29.5, 28.0],
     ring: [
       [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.6, 31.6],
       // The Sinai edge is the one the earlier zone also uses, so losing Coele-Syria
@@ -820,6 +820,59 @@ export const territories: TerritoryPeriod[] = [
       // Etruscan zone it replaces in 290 so no strip of the upper Arno is left
       // between them.
       [12.60, 43.90], [11.90, 44.00], [10.80, 44.00],
+    ],
+  },
+
+  // ── After the Ides, 44–30 BCE ─────────────────────────────────────────────
+  //
+  // Three changes, and only three. The triumvirs divided the Roman world between
+  // them twice over and none of it is drawn, for the reason the civil-war
+  // factions have never held ground here: control of Roman provinces in those
+  // years turned on which governor had changed sides that month, and shading
+  // Italy for one triumvir would claim a frontier nobody could have walked to.
+  // What is drawn is the ground that genuinely stopped being Rome's.
+  {
+    // Sextus Pompeius held Sicily for six years with a fleet, and used it to cut
+    // the grain off from Rome whenever the city's politics needed pressure. This
+    // is the exception to the rule that the civil-war factions hold no territory,
+    // and it earns the exception by lasting: a stable island under one man for
+    // six years is a frontier, not a front line that moved by the month. Drawn
+    // over the Roman province, which it supersedes.
+    id: "sextus-sicily", polity: "optimates", name: "Sicily under Sextus Pompeius", mapLabel: "SEXTUS POMPEIUS", fromYear: -42, toYear: -37, certainty: "attested", labelAt: [14.0, 37.6],
+    ring: [[12.1, 38.1], [12.3, 38.5], [13.2, 38.45], [14.2, 38.4], [15.0, 38.4], [15.5, 38.35], [15.6, 37.8], [15.4, 37.1], [15.1, 36.5], [14.2, 36.4], [13.2, 36.5], [12.2, 37.3]],
+  },
+  {
+    // 40–39: the deepest Parthian penetration into Roman territory there ever
+    // was. A Parthian army with a Roman renegade at its head — Quintus Labienus,
+    // son of the Labienus who died at Munda, styling himself Parthicus on his own
+    // coins — took Syria and Judaea and held them for two campaigning seasons.
+    // Ventidius cleared them out in 39 and killed Pacorus at Gindarus in 38.
+    //
+    // Drawn over the province, which it supersedes: for those two years Syria was
+    // not Roman ground, and a map that showed it Roman throughout would make
+    // Gindarus look like a frontier skirmish instead of a recovery.
+    id: "parthia-syria", polity: "parthia", name: "Syria under Parthian occupation", mapLabel: "PARTHIAN SYRIA", fromYear: -40, toYear: -39, certainty: "probable", labelAt: [36.4, 34.2],
+    // Held inside the province it overlays on every edge, so that clearing the
+    // Parthians out in 38 gives Syria back to Rome rather than to nobody.
+    ring: [
+      [35.9, 36.9], [37.2, 36.8], [38.6, 36.4],
+      [38.2, 34.6], [36.4, 32.9], [35.2, 31.9], [34.6, 31.9],
+      [34.9, 33.0], [35.5, 34.6], [35.6, 36.0],
+    ],
+  },
+  {
+    // 30: Egypt. Not a province like the others — Octavian took it as a personal
+    // possession, governed by a prefect of his own choosing, and forbade senators
+    // to set foot in it without permission. The grain and the treasure of the
+    // richest country in the Mediterranean paid off every legion in the empire,
+    // which is the practical reason the civil wars stopped.
+    //
+    // It is the last change on this map, and the end of the atlas: the last of
+    // Alexander's successor kingdoms, gone three centuries after his death.
+    id: "rome-egypt", polity: "rome", name: "Egypt", mapLabel: "EGYPT", fromYear: -30, toYear: -30, certainty: "attested", labelAt: [29.5, 28.0],
+    ring: [
+      [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.6, 31.6],
+      [34.6, 30.0], [34.0, 28.4], [33.4, 27.0], [33.0, 25.4], [32.6, 23.8], [31.0, 23.8], [29.0, 24.0], [26.6, 24.6], [24.2, 25.6], [22.0, 27.0], [20.4, 29.0],
     ],
   },
 ];

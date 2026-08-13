@@ -365,7 +365,15 @@ const firstPunicWar: Battle[] = [
   {
     id: "africa-invasion", slug: "africa-invasion", name: "Roman invasion of Africa", kind: "campaign", startYear: -256, endYear: -255, displayDate: "256–255 BCE", location: "Cap Bon and Carthaginian hinterland", coordinates: [10.8, 36.75], uncertainty: { radiusKm: 70, certainty: "disputed", note: "This marker summarizes a broad campaign rather than one event site." }, major: true,
     belligerents: ["Roman Republic", "Carthage"], commanders: [{ faction: "rome", names: ["Marcus Atilius Regulus"], certainty: "attested" }, { faction: "carthage", names: ["Multiple commanders"], certainty: "probable" }], result: "Initial Roman gains; eventual Roman defeat",
-    context: "Rome had won at sea and could not win in Sicily, so it tried to end the war by threatening Carthage directly — the strategy Scipio would use successfully fifty years later. The landing worked: Regulus beat a Carthaginian army at Adys, took Tunis, and Carthage opened negotiations. What followed is the lesson of the campaign. Rome sent most of the fleet and half the army home for the winter, leaving a force too small to besiege the city and too large to feed off the country; Carthage hired a Spartan professional and destroyed it in the field. Then the returning fleet was wrecked in a storm.", summary: "Roman forces landed near Aspis and campaigned inland before the expedition collapsed in 255 BCE.", significance: "The campaign came close to forcing terms but ultimately exposed the hazards of sustaining an army overseas.", ancientSourceIds: commonAncient, modernSourceIds: commonModern, uncertaintyNotes: ["Campaign routes and several place identifications are disputed; Aspis, Adys and the Bagradas field are all placed by argument rather than evidence.", "Polybius gives the size of the landing force only indirectly, through the fleet that carried it.", "Whether the senate ordered the fleet and half the army home, or Regulus agreed to it, is not stated — and it is the decision the campaign turned on.", "The terms Carthage offered and Regulus refused are reported only in later, moralising versions of the story."], previousSlug: "cape-ecnomus", nextSlug: "adys"
+    context: "Rome had won at sea and could not win in Sicily, so it tried to end the war by threatening Carthage directly — the strategy Scipio would use successfully fifty years later. The landing worked: Regulus beat a Carthaginian army at Adys, took Tunis, and Carthage opened negotiations. What followed is the lesson of the campaign. Rome sent most of the fleet and half the army home for the winter, leaving a force too small to besiege the city and too large to feed off the country; Carthage hired a Spartan professional and destroyed it in the field. Then the returning fleet was wrecked in a storm.", summary: "Roman forces landed near Aspis and campaigned inland before the expedition collapsed in 255 BCE.", significance: "The campaign came close to forcing terms but ultimately exposed the hazards of sustaining an army overseas.",     forces: [
+      { side: "Rome", estimate: "About 15,000 foot and 500 horse left ashore for the winter, after the fleet and half the army were sent home", certainty: "probable", note: "The landing force had been far larger; the winter garrison is the number that matters, because it is the one that had to fight." },
+      { side: "Carthage", estimate: "A field army rebuilt over the winter under Xanthippus, with about 100 elephants and 4,000 cavalry", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Rome", estimate: "The army destroyed on the Bagradas the following spring; about 2,000 reached Aspis and some 500 were taken with Regulus", certainty: "disputed" },
+      { side: "Carthage", estimate: "Not preserved; described as light", certainty: "disputed" },
+    ],
+    ancientSourceIds: commonAncient, modernSourceIds: commonModern, uncertaintyNotes: ["Campaign routes and several place identifications are disputed; Aspis, Adys and the Bagradas field are all placed by argument rather than evidence.", "Polybius gives the size of the landing force only indirectly, through the fleet that carried it.", "Whether the senate ordered the fleet and half the army home, or Regulus agreed to it, is not stated — and it is the decision the campaign turned on.", "The terms Carthage offered and Regulus refused are reported only in later, moralising versions of the story."], previousSlug: "cape-ecnomus", nextSlug: "adys"
   },
   {
     id: "adys", slug: "adys", name: "Battle of Adys", kind: "land", startYear: -255, endYear: -255, displayDate: "255 BCE", location: "Adys, traditionally placed near Uthina, Tunisia", coordinates: [10.47, 36.55], uncertainty: { radiusKm: 35, certainty: "disputed", note: "The ancient toponym has no universally accepted modern identification." }, major: false,
@@ -471,7 +479,15 @@ const secondPunicWar: Battle[] = [
   {
     id: "alps-crossing", slug: "alps-crossing", name: "Hannibal’s crossing of the Alps", kind: "campaign", startYear: -218, endYear: -218, displayDate: "late 218 BCE", location: "Western Alps (exact pass disputed)", coordinates: [6.95, 45.08], uncertainty: { radiusKm: 60, certainty: "disputed", note: "No proposed pass commands scholarly consensus; this marker summarizes a long route." }, major: true,
     belligerents: ["Carthage", "Alpine Gallic peoples"], commanders: [{ faction: "carthage", names: ["Hannibal"], certainty: "attested" }], result: "The army reaches Italy after heavy losses",
-    context: "The march was not an adventure but the only way to fight Rome on Rome's ground. Carthage had lost command of the sea in the first war and could not ship an army to Italy; Hannibal therefore had to walk from Iberia, which meant crossing the Pyrenees, the Rhône against opposition, and the Alps in autumn with elephants. Polybius walked part of the route himself and is scathing about writers who made the crossing miraculous, insisting Hannibal had guides and knew where he was going. The cost was still enormous: the army that came down into the Po valley was perhaps half the one that left the Ebro.", summary: "Hannibal led a mixed army, with elephants, over the Alps into the Po valley in late 218, absorbing severe losses to weather, terrain, and hostile tribes.", significance: "The march carried the war into Italy itself and made Hannibal a direct threat to Rome for over a decade.", ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The identity of the pass (Traversette, Clapier, Mont Cenis, and others) is unresolved.", "Ancient casualty and elephant figures are literary estimates.", "The plotted point represents the crossing, not one location."], previousSlug: "saguntum", nextSlug: "ticinus"
+    context: "The march was not an adventure but the only way to fight Rome on Rome's ground. Carthage had lost command of the sea in the first war and could not ship an army to Italy; Hannibal therefore had to walk from Iberia, which meant crossing the Pyrenees, the Rhône against opposition, and the Alps in autumn with elephants. Polybius walked part of the route himself and is scathing about writers who made the crossing miraculous, insisting Hannibal had guides and knew where he was going. The cost was still enormous: the army that came down into the Po valley was perhaps half the one that left the Ebro.", summary: "Hannibal led a mixed army, with elephants, over the Alps into the Po valley in late 218, absorbing severe losses to weather, terrain, and hostile tribes.", significance: "The march carried the war into Italy itself and made Hannibal a direct threat to Rome for over a decade.",     forces: [
+      { side: "Carthage", estimate: "Polybius gives 38,000 foot and 8,000 horse setting out from the Rhône, and 20,000 foot and 6,000 horse coming down into the Po valley", certainty: "probable", note: "He says he took the figures from an inscription Hannibal left at Lacinium, which is the best provenance any number in this atlas has." },
+      { side: "The Alpine peoples", estimate: "Allobroges and others harassing the column at the passes; no figures survive", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Carthage", estimate: "Roughly half the army between the Rhône and the plain — about 18,000 foot and 2,000 horse — to weather, terrain and ambush", certainty: "probable" },
+      { side: "Carthage", estimate: "All but one of the elephants dead within months of reaching Italy", certainty: "disputed", note: "The survivor is said to have been the one Hannibal rode through the marshes of the Arno, where he lost an eye to infection." },
+    ],
+    ancientSourceIds: secondAncient, modernSourceIds: secondModern, uncertaintyNotes: ["The identity of the pass (Traversette, Clapier, Mont Cenis, and others) is unresolved.", "Ancient casualty and elephant figures are literary estimates.", "The plotted point represents the crossing, not one location."], previousSlug: "saguntum", nextSlug: "ticinus"
   },
   {
     id: "ticinus", slug: "ticinus", name: "Battle of the Ticinus", kind: "land", startYear: -218, endYear: -218, displayDate: "November 218 BCE", location: "Near the river Ticinus, north of the Po", coordinates: [8.95, 45.28], uncertainty: { radiusKm: 20, certainty: "disputed", note: "A cavalry skirmish whose exact site is not fixed." }, major: false,
@@ -1232,6 +1248,9 @@ const CAESARIAN_BATTLE_ERA: Record<string, string> = {
   "asculum-picenum": "social-war",
   chaeronea: "sulla-mithridates",
   "colline-gate": "sulla-mithridates",
+  // The Sertorian war had been the one era of kind "war" in this atlas with no
+  // battle of its own — eight years of fighting carried by campaign routes alone.
+  sucro: "sertorius-and-spartacus",
   silarius: "pompey-east",
   bibracte: "gallic-wars",
   sabis: "gallic-wars",
@@ -1341,7 +1360,34 @@ const caesarianWars: Battle[] = [
       "The accounts disagree about which wing did what, partly because much of it was fought in darkness.",
       "All figures are literary; the scale of the proscriptions that followed is better attested than the battle.",
     ],
-    previousSlug: "chaeronea",
+    previousSlug: "chaeronea", nextSlug: "sucro",
+  },
+  {
+    id: "sucro", slug: "sucro", name: "Battle of the Sucro", kind: "land", startYear: -75, endYear: -75, displayDate: "75 BCE", location: "On the river Sucro (Júcar), south of Valentia", coordinates: [-0.45, 39.18], uncertainty: { radiusKm: 25, certainty: "disputed", note: "The sources place it on the Sucro without naming a crossing; the river runs some sixty miles and no site is fixed." }, major: true,
+    belligerents: ["The Roman government", "Sertorius and the Marian exiles"],
+    commanders: [
+      { faction: "rome", names: ["Gnaeus Pompeius Magnus"], certainty: "attested" },
+      { faction: "populares", names: ["Quintus Sertorius"], certainty: "attested" },
+    ],
+    result: "Indecisive; Pompey's wing broken, Sertorius withdrawn on Metellus' arrival",
+    summary: "Sertorius attacked in the evening to fight Pompey before Metellus could join him, broke Pompey's wing and wounded him. The other Roman wing held, Metellus came up the next day, and Sertorius withdrew rather than fight both armies at once.",
+    significance: "The battle that showed the Sertorian war could not be won in the field, and would have to be won by outlasting him. Sertorius had beaten one of the two Roman armies sent against him and could still not destroy either; Rome could replace both. He said afterwards that if the old woman had not turned up he would have whipped the boy and sent him back to Rome — Metellus was fifty-five and Pompey thirty.",
+    context: "Sertorius was a Marian officer who had refused Sulla's settlement and taken Spain instead, and held it for eight years with a Roman army, a senate of three hundred exiles, a school at Osca for the sons of Spanish nobles, and a white fawn he let people believe carried messages from Diana. What made him dangerous was not the mysticism but the method: he fought a war of movement in country he knew, avoided pitched battles he could not win, and had local support Rome could not detach. Rome sent Metellus Pius, then Pompey with proconsular power at twenty-eight, and for four years neither could finish it.",
+    forces: [
+      { side: "The Roman government", estimate: "Pompey's army alone, perhaps 30,000; Metellus a day's march away with a comparable force", certainty: "disputed" },
+      { side: "Sertorius and the Marian exiles", estimate: "Roman exiles, Spanish levies and light troops; no dependable total", certainty: "disputed", note: "The proportion of Romans to Spaniards in his army is one of the real questions about the war, and the sources do not answer it." },
+    ],
+    casualties: [
+      { side: "The Roman government", estimate: "Heavy on the broken wing; Pompey wounded and his horse lost", certainty: "probable" },
+      { side: "Sertorius and the Marian exiles", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    ancientSourceIds: ["plutarch-sertorius", "appian-civil"], modernSourceIds: ["spann-1987", "seager-2002"],
+    uncertaintyNotes: [
+      "Plutarch is the only sustained narrative and is working from sources sympathetic to Sertorius.",
+      "The site on the Sucro is not identified, and the marker carries a wide radius.",
+      "Which wing broke, and whether Pompey or his officer Afranius held the other, is told differently in different sources.",
+    ],
+    previousSlug: "colline-gate", nextSlug: "silarius"
   },
   {
     id: "silarius", slug: "silarius", name: "Battle of the Silarius", kind: "land", startYear: -71, endYear: -71, displayDate: "71 BCE", location: "Near the river Silarus (Sele), in Lucania", coordinates: [15.1, 40.5], uncertainty: { radiusKm: 35, certainty: "disputed", note: "The sources place the final battle in Lucania near the Silarus; no site is identified." }, major: true,
@@ -1374,6 +1420,7 @@ const caesarianWars: Battle[] = [
       "Every surviving account was written by a member of the class the revolt threatened.",
       "Why the army turned back from the Alps in 72 is not explained by any source.",
     ],
+    previousSlug: "sucro",
   },
   {
     id: "bibracte", slug: "bibracte", name: "Battle of Bibracte", kind: "land", startYear: -58, endYear: -58, displayDate: "58 BCE", location: "Near Bibracte (Mont Beuvray), in Aeduan territory", coordinates: [4.04, 46.92], uncertainty: { radiusKm: 25, certainty: "disputed", note: "Bibracte itself is securely identified and excavated; Caesar says the battle was fought some miles from it and the field is not fixed." }, major: true,
@@ -1445,7 +1492,7 @@ const caesarianWars: Battle[] = [
     id: "carrhae", slug: "carrhae", name: "Battle of Carrhae", kind: "land", startYear: -53, endYear: -53, displayDate: "53 BCE", location: "Near Carrhae (Harran), in northern Mesopotamia", coordinates: [39.03, 36.86], uncertainty: { radiusKm: 30, certainty: "disputed", note: "The town is known; the battle was fought in open country south of it and the site is not fixed." }, major: true,
     belligerents: ["Roman Republic", "Parthia"],
     commanders: [
-      { faction: "rome", names: ["Marcus Licinius Crassus", "Publius Crassus"], certainty: "attested" },
+      { faction: "rome", names: ["Marcus Licinius Crassus", "Publius Crassus", "Gaius Cassius Longinus"], certainty: "attested" },
       { faction: "parthia", names: ["Surena"], certainty: "attested" },
     ],
     result: "Catastrophic Roman defeat",
@@ -1672,7 +1719,256 @@ const caesarianWars: Battle[] = [
       "The principal narrative is the anonymous Spanish War, the crudest of the Caesarian continuations.",
       "The casualty figures are not usable, though the Roman total being unusually high is itself informative.",
     ],
-    previousSlug: "thapsus",
+    previousSlug: "thapsus", nextSlug: "forum-gallorum",
+  },
+];
+
+// ── After the Ides, 44–30 BCE ───────────────────────────────────────────────
+//
+// The evidence changes character here and the records say so. There is no
+// Caesar writing his own dispatches and no Polybius; the narrative is Appian to
+// 35 and Dio after that, both at two centuries' distance, with Plutarch's Antony
+// supplying the detail and the hostility. Almost everything about Actium comes
+// through the propaganda of the man who won it, which is why the grades in this
+// block run to `disputed` more often than anywhere since the fifth century.
+const triumviralAncient = ["appian-civil-3-5", "dio-45-51"];
+const triumviralModern = ["syme-1939", "osgood-2006"];
+const actiumAncient = ["dio-45-51", "plutarch-antony", "velleius"];
+const actiumModern = ["goldsworthy-2010", "syme-1939"];
+
+const TRIUMVIRAL_BATTLE_ERA: Record<string, string> = {
+  "forum-gallorum": "mutina-war",
+  mutina: "mutina-war",
+  philippi: "philippi-war",
+  perusia: "sextus-war",
+  gindarus: "sextus-war",
+  naulochus: "sextus-war",
+  actium: "actium-war",
+  alexandria: "actium-war",
+};
+
+const triumviralWars: Battle[] = [
+  {
+    id: "forum-gallorum", slug: "forum-gallorum", name: "Battle of Forum Gallorum", kind: "land", startYear: -43, endYear: -43, displayDate: "14 April 43 BCE", location: "On the Via Aemilia between Bononia and Mutina", coordinates: [11.15, 44.68], uncertainty: { radiusKm: 12, certainty: "probable", note: "The road and the marshes on either side of it are known; the exact place where the columns met is not." }, major: true,
+    belligerents: ["The senate's armies", "Antony"],
+    commanders: [
+      { faction: "optimates", names: ["Gaius Vibius Pansa", "Aulus Hirtius"], certainty: "attested" },
+      { faction: "populares", names: ["Marcus Antonius"], certainty: "attested" },
+    ],
+    result: "Antony beats Pansa, then is beaten by Hirtius the same day",
+    summary: "Antony ambushed the consul Pansa's column on a causeway through marshland, broke it and mortally wounded him — and then met Hirtius' fresh legions coming up the same road at the end of the day and lost everything he had gained.",
+    significance: "The first battle fought by Roman armies over Caesar's inheritance, and the one that made his heir. Both consuls were dead within a week of it, and the nineteen-year-old with the third army was the only man left in the field. Cicero had built the whole strategy on using him and then discarding him — *laudandum adulescentem, ornandum, tollendum* — and Antony's reply, that the boy owed everything to a name, was the truer reading of what happened next.",
+    context: "Caesar's assassins had not planned past the killing, and within a year the man in possession of Caesar's papers, money and veterans was Antony as consul. When he moved on Cisalpine Gaul to take it from Decimus Brutus — one of the conspirators — the senate under Cicero declared him a public enemy and sent both consuls of 43 against him, with Caesar's adopted heir given a propraetorian command at nineteen to make up the numbers. The ground is the Via Aemilia, running dead straight across the Po plain between marshes, where a column cannot deploy off the road.",
+    forces: [
+      { side: "The senate's armies", estimate: "Pansa with four legions of recruits and the veteran Martian legion; Hirtius following with two more", certainty: "probable" },
+      { side: "Antony", estimate: "Two veteran legions and cavalry, with the rest of his force left investing Mutina", certainty: "probable" },
+    ],
+    casualties: [
+      { side: "The senate's armies", estimate: "Heavy among the recruits; Pansa carried off with a wound he died of days later", certainty: "attested" },
+      { side: "Antony", estimate: "Not preserved, but his own account admits the day ended badly", certainty: "disputed" },
+    ],
+    ancientSourceIds: triumviralAncient, modernSourceIds: triumviralModern,
+    uncertaintyNotes: [
+      "A letter written the next day by Servius Sulpicius Galba, who fought in it, survives in Cicero's correspondence — the closest thing to an eyewitness report in this whole atlas, and it is confused about its own battle.",
+      "Whether the veteran legions on either side deliberately avoided each other is asserted by later sources and cannot be checked.",
+      "The site is fixed only by the road.",
+    ],
+    previousSlug: "munda", nextSlug: "mutina",
+  },
+  {
+    id: "mutina", slug: "mutina", name: "Battle of Mutina", kind: "siege", startYear: -43, endYear: -43, displayDate: "21 April 43 BCE", location: "Mutina (Modena), in Cisalpine Gaul", coordinates: [10.925, 44.647], uncertainty: { radiusKm: 5, certainty: "attested", note: "The city is certain; the lines of investment are not located." }, major: true,
+    belligerents: ["The senate's armies", "Antony"],
+    commanders: [
+      { faction: "optimates", names: ["Aulus Hirtius", "Gaius Octavius"], certainty: "attested" },
+      { faction: "populares", names: ["Marcus Antonius"], certainty: "attested" },
+    ],
+    result: "Antony driven off; both consuls dead within days",
+    summary: "A week after Forum Gallorum the relieving armies attacked Antony's siege lines around Mutina and broke through to Decimus Brutus inside. Hirtius was killed in Antony's camp in the moment of winning it, and Antony retreated over the Alps with his army intact.",
+    significance: "It is the last battle in this atlas fought on the senate's authority, and it destroyed the senate's position completely. Both consuls were dead, the Republic's armies were left in the hands of a nineteen-year-old who had not been given the consulship he then marched on Rome to take, and the man declared a public enemy walked over the Alps and came back with Lepidus' legions behind him. Within six months the three of them had divided the state by law.",
+    context: "Decimus Brutus — one of Caesar's assassins and one of his generals — had shut himself in Mutina with two legions and Antony had ringed the town. Relieving him meant fighting through prepared lines, which is why the fighting at Forum Gallorum happened on the road first. What nobody in the senate had planned for was winning: the strategy assumed the consuls would survive to hold the armies, and both died inside eight days. The tradition that Octavian arranged it is old, unprovable and was believed at the time.",
+    forces: [
+      { side: "The senate's armies", estimate: "Hirtius and Octavian with perhaps six legions after the losses on the road", certainty: "disputed" },
+      { side: "Antony", estimate: "The siege force, weakened by Forum Gallorum; no dependable total", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "The senate's armies", estimate: "The consul Hirtius killed inside Antony's camp; Pansa dead of his wound the same week", certainty: "attested" },
+      { side: "Antony", estimate: "His camp taken and his siege abandoned; the army withdrawn over the Alps in order", certainty: "probable" },
+    ],
+    ancientSourceIds: triumviralAncient, modernSourceIds: triumviralModern,
+    uncertaintyNotes: [
+      "Two consuls dying in eight days was thought suspicious immediately, and no source can establish anything either way.",
+      "The lines of circumvallation are not located and the diagram's frame is schematic.",
+      "Decimus Brutus was killed in flight within months, which removed the only witness with a reason to contradict the victors.",
+    ],
+    previousSlug: "forum-gallorum", nextSlug: "philippi",
+  },
+  {
+    id: "philippi", slug: "philippi", name: "Battles of Philippi", kind: "land", startYear: -42, endYear: -42, displayDate: "3 and 23 October 42 BCE", location: "The plain west of Philippi, in eastern Macedonia", coordinates: [24.29, 41.01], uncertainty: { radiusKm: 8, certainty: "probable", note: "The city, the marsh and the Via Egnatia are known; the camps are placed from the ground rather than from survey." }, major: true,
+    belligerents: ["The triumvirs", "The Liberators"],
+    commanders: [
+      { faction: "populares", names: ["Marcus Antonius", "Gaius Octavius"], certainty: "attested" },
+      { faction: "optimates", names: ["Marcus Junius Brutus", "Gaius Cassius Longinus"], certainty: "attested" },
+    ],
+    result: "Triumviral victory; both Liberators dead by their own hands",
+    summary: "Two battles three weeks apart on the same ground. In the first, Brutus overran Octavian's camp while Antony overran Cassius', and Cassius — who could not see that Brutus had won — had himself killed on a false report. In the second, Brutus was beaten and did the same.",
+    significance: "The end of the Republic as a cause anyone could raise an army for. Nineteen legions on each side is the largest concentration of Roman troops in this atlas, and after it there was no senatorial army left anywhere. What the battle also settled was which triumvir was the soldier: Antony did the fighting at Philippi and Octavian, ill, is said to have spent the first battle hiding in a marsh — a story his own memoirs conceded and his enemies never let go of.",
+    context: "The proscription had already killed the opposition at Rome; Brutus and Cassius had spent two years taking the eastern provinces, their armies and their money, and had twenty-two legions between them but not enough veterans. Their strategy was correct and they abandoned it: sitting behind fortified lines astride the Via Egnatia with the sea at their backs, they could be supplied by fleet while the triumvirs starved, and Antony could not force a battle. They fought anyway, twice, and both times because their own armies wanted it.",
+    forces: [
+      { side: "The triumvirs", estimate: "Nineteen legions engaged, perhaps 100,000 with cavalry", certainty: "disputed" },
+      { side: "The Liberators", estimate: "Nineteen legions engaged of twenty-two raised, with stronger cavalry and a fleet", certainty: "disputed", note: "Both totals come from Appian and are round; what is better attested is that the Liberators were the better supplied and the worse manned." },
+    ],
+    casualties: [
+      { side: "The Liberators", estimate: "About 8,000 in the first battle and far more in the second; Cassius and Brutus both suicides", certainty: "disputed" },
+      { side: "The triumvirs", estimate: "About 16,000 in the first battle — the heavier loss on the day they are said to have won", certainty: "disputed" },
+    ],
+    ancientSourceIds: ["appian-civil-3-5", "plutarch-brutus", "dio-45-51"], modernSourceIds: triumviralModern,
+    uncertaintyNotes: [
+      "The Liberators' fleet destroyed the triumvirs' reinforcement convoy on the same day as the first battle, and neither side learned of it in time — a fact that would have changed the campaign.",
+      "Appian's figures are the only ones and are not usable as counts.",
+      "Whether Octavian was absent from the first battle through illness, cowardice or a warning dream is reported three ways, one of them by himself.",
+    ],
+    previousSlug: "mutina", nextSlug: "perusia",
+  },
+  {
+    id: "perusia", slug: "perusia", name: "Siege of Perusia", kind: "siege", startYear: -41, endYear: -40, displayDate: "winter 41–40 BCE", location: "Perusia (Perugia), in Etruria", coordinates: [12.388, 43.112], uncertainty: { radiusKm: 3, certainty: "attested", note: "The hill town is certain and stretches of the siege works have been identified; the full circuit has not." }, major: false,
+    belligerents: ["Octavian", "Lucius Antonius and Fulvia"],
+    commanders: [
+      { faction: "populares", names: ["Gaius Octavius", "Marcus Vipsanius Agrippa"], certainty: "attested" },
+      { faction: "optimates", names: ["Lucius Antonius", "Fulvia"], certainty: "attested" },
+    ],
+    result: "Perusia starved out and burned",
+    summary: "Antony's brother and his wife raised Italy against Octavian over the land being confiscated for veterans, were shut up in Perusia, and were starved out through the winter. The town was burned and its council executed.",
+    significance: "The moment the triumvirate nearly broke four years early, and the clearest sight in this atlas of what the civil wars cost people who were not in them: the land for the veterans of Philippi was taken from Italian smallholders, and the resulting war was fought in the middle of Italy by Romans on both sides. It ended with the treaty of Brundisium, the two men reconciled, and Antony married to Octavian's sister — an arrangement that lasted until he left her for a queen.",
+    context: "Two hundred thousand veterans had been promised land, and eighteen Italian cities were designated to provide it. The dispossessed had nowhere to go and Lucius Antonius took up their case, whether out of conviction or to embarrass a colleague. The sling bullets fired in the siege survive in quantity and carry messages scratched into the lead — obscene, personal and aimed by name at Octavian, Lucius and Fulvia. They are among the very few things in this part of the atlas written by people who were actually there.",
+    forces: [
+      { side: "Octavian", estimate: "A field army with Agrippa and Salvidienus closing the roads; no total preserved", certainty: "disputed" },
+      { side: "Lucius Antonius and Fulvia", estimate: "Perhaps six legions, shut in with the town's population", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Lucius Antonius and Fulvia", estimate: "The garrison surrendered; the town council executed and Perusia burned", certainty: "probable", note: "A later tradition has three hundred senators and knights sacrificed at an altar to the deified Caesar. It is hostile, isolated and probably false, and it was believed." },
+      { side: "Octavian", estimate: "Not preserved", certainty: "disputed" },
+    ],
+    ancientSourceIds: ["appian-civil-3-5", "dio-45-51", "velleius"], modernSourceIds: triumviralModern,
+    uncertaintyNotes: [
+      "Whether Antony authorised his brother's war is the central question and no source can settle it; he was in Egypt and said nothing useful afterwards.",
+      "The human sacrifice story appears in Suetonius and Dio and is rejected by most modern accounts.",
+      "The siege works are only partly traced, so the drawn circuit is schematic.",
+    ],
+    previousSlug: "philippi", nextSlug: "gindarus",
+  },
+  {
+    id: "gindarus", slug: "gindarus", name: "Battle of Mount Gindarus", kind: "land", startYear: -38, endYear: -38, displayDate: "9 June 38 BCE", location: "Near Gindarus, in the Cyrrhestica north-east of Antioch", coordinates: [36.93, 36.41], uncertainty: { radiusKm: 18, certainty: "probable", note: "The town site is known; the hill the Romans held is placed from the description of the action rather than identified." }, major: true,
+    belligerents: ["Rome", "Parthia"],
+    commanders: [
+      { faction: "rome", names: ["Publius Ventidius Bassus"], certainty: "attested" },
+      { faction: "parthia", names: ["Pacorus"], certainty: "attested" },
+    ],
+    result: "Roman victory; Pacorus killed",
+    summary: "Ventidius held a hill, let the Parthian cataphracts charge up it, and released his slingers at close range into horses and riders who had lost their momentum. Pacorus, the king's son, was killed with most of his household, on the anniversary of Carrhae.",
+    significance: "The answer to Carrhae, fifteen years late, and the only battle in this atlas in which a Roman army beats Parthian heavy cavalry in the open. The method was not new — hold high ground so the charge has to come uphill, use slingers whose range and impact outmatch the bow, close only when the horses are blown — but it worked three times in two years. Ventidius had been a muleteer's son led through Rome as a captive in a triumph as a child, and he was the first Roman ever to triumph over Parthia.",
+    context: "A Parthian army had overrun Syria and Judaea in 40, with a Roman renegade — Quintus Labienus, son of the Labienus who died at Munda — commanding a column of it and styling himself Parthicus on his coins. It was the deepest Parthian penetration into Roman territory there ever was. Antony was in Egypt and Athens; the recovery was done by his legate over two campaigning seasons, and Antony arrived in time to take over the siege that followed and, on the tradition, to resent the credit.",
+    forces: [
+      { side: "Rome", estimate: "Eleven legions in the theatre; the force engaged was smaller and heavy in slingers", certainty: "disputed" },
+      { side: "Parthia", estimate: "A cataphract army under the king's son; no dependable total", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Parthia", estimate: "Pacorus killed with the flower of the nobility; the army broken and driven back over the Euphrates", certainty: "probable" },
+      { side: "Rome", estimate: "Not preserved; described as light", certainty: "disputed" },
+    ],
+    ancientSourceIds: ["dio-45-51", "plutarch-antony"], modernSourceIds: triumviralModern,
+    uncertaintyNotes: [
+      "Dio is the fullest account and is writing two and a half centuries later.",
+      "The battle falling on the exact anniversary of Carrhae is reported by Dio and is the kind of detail that improves in the telling.",
+      "The hill is not identified, and the marker carries a wide radius.",
+    ],
+    previousSlug: "perusia", nextSlug: "naulochus",
+  },
+  {
+    id: "naulochus", slug: "naulochus", name: "Battle of Naulochus", kind: "naval", startYear: -36, endYear: -36, displayDate: "3 September 36 BCE", location: "Off Naulochus, on the north coast of Sicily", coordinates: [15.24, 38.22], uncertainty: { radiusKm: 10, certainty: "probable", note: "The stretch of coast is known from the ancient name; the action was fought offshore and has no fixed point." }, major: true,
+    belligerents: ["Octavian", "Sextus Pompeius"],
+    commanders: [
+      { faction: "populares", names: ["Marcus Vipsanius Agrippa", "Gaius Octavius"], certainty: "attested" },
+      { faction: "optimates", names: ["Sextus Pompeius"], certainty: "attested" },
+    ],
+    result: "Sextus' fleet destroyed; Sicily taken",
+    summary: "Three hundred ships a side in the straits, fought with a weapon Agrippa had invented for it: the *harpax*, a grapnel shot from a catapult that let a heavier ship haul in a faster one and board it. Sextus lost all but seventeen ships and the war with them.",
+    significance: "It ended the last armed opposition that was not one of the triumvirs, cleared the sea route that fed Rome, and made Agrippa. It also finished Lepidus, who landed in Sicily, claimed the island, and found his legions walking away to Octavian in front of him — he was stripped of the triumvirate, left as chief priest, and lived another twenty-four years in irrelevance. After Naulochus there were two men left.",
+    context: "Pompey's younger son had survived Munda, taken Sicily with a fleet of exiles, escaped slaves and the proscribed, and for six years cut the grain off from Rome whenever the city's politics required pressure. He called himself the son of Neptune and wore a blue cloak. Octavian had already lost two fleets to him — one to battle and one to a storm off Cape Palinurus — and the third was built in a lagoon behind Cumae, connected to the sea by a cut canal, where the crews could be trained out of reach.",
+    forces: [
+      { side: "Octavian", estimate: "About 300 ships under Agrippa, heavier and fitted with the harpax", certainty: "probable" },
+      { side: "Sextus Pompeius", estimate: "About 300 ships, lighter and better handled", certainty: "probable" },
+    ],
+    casualties: [
+      { side: "Sextus Pompeius", estimate: "Twenty-eight ships sunk and the rest taken or burned; seventeen escaped with him", certainty: "probable" },
+      { side: "Octavian", estimate: "Three ships lost", certainty: "disputed", note: "The figure is Appian's and is too clean; what is not in doubt is that the disparity was enormous." },
+    ],
+    ancientSourceIds: ["appian-civil-3-5", "dio-45-51", "velleius"], modernSourceIds: triumviralModern,
+    uncertaintyNotes: [
+      "Appian's account is the fullest and stops being available for anything after 35.",
+      "The harpax is described only for this campaign and no example has been found.",
+      "Sextus' own case — that he was the last defender of his father's Republic — survives only in the words of the men who hunted him down and killed him in Asia the next year.",
+    ],
+    previousSlug: "gindarus", nextSlug: "actium",
+  },
+  {
+    id: "actium", slug: "actium", name: "Battle of Actium", kind: "naval", startYear: -31, endYear: -31, displayDate: "2 September 31 BCE", location: "Off the promontory of Actium, at the mouth of the Ambracian Gulf", coordinates: [20.74, 38.94], uncertainty: { radiusKm: 8, certainty: "attested", note: "The promontory and the gulf are certain; the fleets fought in the open water outside the strait and the action has no fixed point." }, major: true,
+    belligerents: ["Octavian", "Antony and Cleopatra"],
+    commanders: [
+      { faction: "populares", names: ["Gaius Octavius", "Marcus Vipsanius Agrippa"], certainty: "attested" },
+      { faction: "optimates", names: ["Marcus Antonius", "Cleopatra VII"], certainty: "attested" },
+    ],
+    result: "Antony's fleet broken; he and Cleopatra escape to Egypt",
+    summary: "Antony's fleet, blockaded inside the gulf and losing men to disease and desertion, came out to break through rather than to win. Part of it got away with Cleopatra's squadron and the war chest; the rest was burned, and the army ashore surrendered without fighting.",
+    significance: "The battle that ended the Republic, and one of the most misrepresented in ancient history — because the man who won it spent the next forty years telling people what it had meant. It was presented as Rome against the East, a foreign queen and her Roman consort against Italy and its gods; what it actually was is the last engagement of a blockade that Antony had already lost. Octavian became the only man in the empire with an army, and four years later took the name Augustus.",
+    context: "The two had divided the Roman world for a decade and spent 33 and 32 dismantling each other's reputation in public. Octavian's move was the better one: he seized Antony's will from the Vestals, read it in the senate, and declared war not on a Roman colleague but on Cleopatra — which made it a foreign war and made every man who followed Antony a traitor by choice. Through the summer of 31 Agrippa took the supply stations one by one until Antony's fleet was penned in the gulf, unable to feed itself and unable to row properly for want of oarsmen.",
+    forces: [
+      { side: "Octavian", estimate: "About 400 ships, lighter and fully manned, with eight legions ashore", certainty: "probable" },
+      { side: "Antony and Cleopatra", estimate: "About 230 ships engaged of 500 built — the rest burned for lack of crews — with Cleopatra's 60 held in reserve with the treasure", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Antony and Cleopatra", estimate: "Perhaps 5,000 dead and the fleet lost; nineteen legions ashore surrendered intact a week later", certainty: "disputed" },
+      { side: "Octavian", estimate: "Not preserved; light", certainty: "disputed" },
+    ],
+    ancientSourceIds: actiumAncient, modernSourceIds: actiumModern,
+    uncertaintyNotes: [
+      "Every surviving account descends from the victor's version, in which the flight is treachery and infatuation rather than a breakout that half-worked.",
+      "Whether Antony intended to fight or to escape from the start is the central argument, and the sails carried aboard — useless in a battle, essential in a flight — are the strongest evidence for escape.",
+      "Cleopatra's withdrawal is presented as desertion; on the breakout reading it was the plan.",
+    ],
+    previousSlug: "naulochus", nextSlug: "alexandria",
+  },
+  {
+    id: "alexandria", slug: "alexandria", name: "The fall of Alexandria", kind: "campaign", startYear: -30, endYear: -30, displayDate: "1 August 30 BCE", location: "Alexandria, in Egypt", coordinates: [29.92, 31.2], uncertainty: { radiusKm: 6, certainty: "attested", note: "The city is certain; the ancient shoreline and harbour have moved, and the ground of the skirmishing outside the walls is gone." }, major: true,
+    belligerents: ["Octavian", "Antony and Cleopatra"],
+    commanders: [
+      { faction: "populares", names: ["Gaius Octavius"], certainty: "attested" },
+      { faction: "optimates", names: ["Marcus Antonius", "Cleopatra VII"], certainty: "attested" },
+    ],
+    result: "Egypt annexed; Antony and Cleopatra dead",
+    summary: "There was no battle. Antony won a cavalry skirmish outside the walls on the last day of July; the next morning his fleet rowed out to meet Octavian's and joined it, and his cavalry went over in the same hour. He killed himself on a false report of Cleopatra's death, and she killed herself nine days later.",
+    significance: "The end of the atlas, and the reason it ends here rather than at the Ides or at Actium. With Egypt annexed as the personal possession of the victor, the last of Alexander's successor kingdoms was gone, the grain and the treasure of the richest country in the Mediterranean paid off every legion, and there was no longer any power, Roman or foreign, in a position to fight. What follows is a settlement, not a war.",
+    context: "Octavian had taken a year to come after them, and spent it settling Italy and the army. Antony's position after Actium was a fiction maintained by nobody: the legions in Cyrenaica went over, the ones in Syria went over, and the client kings had already changed sides. Cleopatra had a treasure large enough to buy an army and no army to buy, and spent part of the last year trying to have her fleet dragged across the isthmus to the Red Sea to escape east. The Nabataeans burned the ships.",
+    forces: [
+      { side: "Octavian", estimate: "Some eleven legions converging from Syria and Cyrenaica", certainty: "probable" },
+      { side: "Antony and Cleopatra", estimate: "What remained in Egypt: a fleet, a few thousand horse, and the ships' crews", certainty: "disputed" },
+    ],
+    casualties: [
+      { side: "Antony and Cleopatra", estimate: "Almost none in the field. Both principals dead by their own hand, and Caesarion killed on Octavian's order", certainty: "probable" },
+      { side: "Octavian", estimate: "Negligible", certainty: "probable" },
+    ],
+    moments: [
+      { title: "The last cavalry action", description: "Antony leads his horse out on 31 July and drives Octavian's back to their camp — the final Roman victory of the Republic, won by the losing side the day before it ended.", certainty: "probable" },
+      { title: "The fleet changes sides", description: "On 1 August the Egyptian fleet rows out as if to engage, raises its oars in salute to Octavian's line, and joins it. The cavalry goes over in the same hour.", certainty: "probable" },
+      { title: "A false report", description: "Told that Cleopatra is dead, Antony has himself run through, and is then carried dying to the mausoleum where she is not.", certainty: "disputed" },
+      { title: "Nine days", description: "Cleopatra outlives him by nine days, negotiating and then refusing to be led in a triumph. The manner of her death is not recoverable; the asp is a later certainty, not a contemporary one.", certainty: "disputed" },
+    ],
+    ancientSourceIds: actiumAncient, modernSourceIds: actiumModern,
+    uncertaintyNotes: [
+      "The whole sequence comes through Plutarch, who is writing a tragedy, and Dio, who is writing two centuries later from the official version.",
+      "How Cleopatra died is unknown. The snake appears in the tradition early but no contemporary states it, and Octavian had every reason to prefer a story that removed him from it.",
+      "Nothing here is a battle, which is why the atlas draws it as a campaign marker and gives it no tactical diagram.",
+    ],
+    previousSlug: "actium",
   },
 ];
 
@@ -1692,6 +1988,7 @@ export const battles: Battle[] = [
   // Carrhae falls inside the Gallic years and is not a Gallic battle; it is filed
   // there because an era owns a stretch of the timeline, not a theatre.
   ...caesarianWars.map((battle) => ({ ...battle, war: CAESARIAN_BATTLE_ERA[battle.slug] })),
+  ...triumviralWars.map((battle) => ({ ...battle, war: TRIUMVIRAL_BATTLE_ERA[battle.slug] })),
 ];
 
 export function getBattle(slug: string): Battle | undefined {

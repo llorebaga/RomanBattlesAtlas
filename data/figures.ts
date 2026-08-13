@@ -784,6 +784,25 @@ export const figures: HistoricalFigure[] = [
     ],
   },
   {
+    id: "sertorius", slug: "sertorius", name: "Sertorius", fullName: "Quintus Sertorius",
+    title: "Marian proconsul in Spain", faction: "populares",
+    bornYear: -126, diedYear: -72, lifeCertainty: "probable",
+    activeFrom: -97, activeTo: -72, periodId: "late-republic",
+    knownFor: "Held Spain against Rome for eight years with a Roman army and a senate of exiles.",
+    description: [
+      "A Sabine from Nursia who lost an eye in the Cimbric war, refused Sulla's settlement, and took the one province where a Marian could still command an army. What he built in Spain was not a rebellion but a rival government: three hundred exiled senators sitting as a senate, a school at Osca teaching the sons of Spanish nobles Latin and Greek, and a white fawn he let people believe brought him messages from Diana — which was politics rather than mysticism, and worked.",
+      "Militarily he is the best guerrilla commander in this atlas. He avoided the pitched battles he could not win, fought in country he knew, and had local support Rome could not detach. At the Sucro in 75 he broke Pompey's wing and wounded him, and could still not destroy either Roman army. Rome could replace them; he could not replace Spain's willingness. He was murdered at dinner in 72 by Perperna, his own second, who then lost the war in a fortnight.",
+    ],
+    battleSlugs: ["sucro"],
+    ancientSourceIds: ["plutarch-sertorius", "appian-civil"],
+    modernSourceIds: ["spann-1987", "seager-2002"],
+    uncertaintyNotes: [
+      "Plutarch is the only sustained account and works from sources sympathetic to him.",
+      "The proportion of Romans to Spaniards in his army — and so whether this was a Roman civil war or a provincial revolt — is the real question and the sources do not answer it.",
+      "His birth year is inferred from his career rather than recorded.",
+    ],
+  },
+  {
     id: "mithridates", slug: "mithridates", name: "Mithridates VI", title: "King of Pontus", faction: "pontus",
     bornYear: -135, diedYear: -63, lifeCertainty: "attested",
     activeFrom: -88, activeTo: -63, periodId: "late-republic",
@@ -944,21 +963,22 @@ export const figures: HistoricalFigure[] = [
   {
     id: "mark-antony", slug: "mark-antony", name: "Mark Antony",
     fullName: "Marcus Antonius",
-    title: "Caesar's lieutenant, consul 44", faction: "populares",
+    title: "Caesar's lieutenant, then triumvir", faction: "populares",
     bornYear: -83, diedYear: -30, lifeCertainty: "attested",
-    activeFrom: -52, activeTo: -44, periodId: "late-republic",
-    knownFor: "Held Caesar's left at Pharsalus, and after the Ides was the only man left who could hold the army.",
+    activeFrom: -52, activeTo: -30, periodId: "late-republic",
+    knownFor: "Held Caesar's left at Pharsalus, took half the empire after the Ides, and lost it at Actium.",
     description: [
       "He appears in this atlas three times and the third one decides a war. At Alesia in 52 he was one of the officers holding the double lines while the relieving army attacked from outside and Vercingetorix from inside. At Dyrrhachium in 48 he brought the reinforcements across the Adriatic that Caesar had been waiting on for months, through a blockade, and was still beaten in the siege lines. At Pharsalus a few weeks later Caesar gave him the left wing — the safe wing, resting on the river — while the battle was won on the right by the fourth line Caesar had hidden behind his cavalry.",
-      "The atlas stops at the Ides of March, which is where he becomes the most important man in Rome and where his own story properly starts: the funeral speech, the alliance with Octavian and Lepidus, the proscriptions, Philippi, Egypt, and Actium fourteen years later. None of that is mapped here, for the same reason the emperors are not. What is here is the decade in which he was a competent subordinate to a better general, which is the part of his life he was never allowed to be judged on afterwards.",
+      "After the Ides he was the consul in possession of Caesar's papers, money and veterans, and the funeral speech was the moment the assassins lost control of the city. Beaten at Mutina and declared a public enemy, he walked his army over the Alps, came back with Lepidus' legions, and made himself one of three men who divided the state by law. He did the fighting at Philippi, took the East, and spent the next decade there — the Parthian campaign that failed in Media, the marriage to Cleopatra, and the ceremony in Alexandria that handed Roman provinces to her children.",
+      "Actium was lost before it was fought: penned in the gulf, short of rowers, he came out to break through rather than to win, and the nineteen legions he left ashore surrendered without a fight. He killed himself in Alexandria the following August on a false report. Everything written about him afterwards was written under the man who beat him, which is worth remembering — the decade in which he was a competent subordinate to a better general is the part of his life he was never allowed to be judged on.",
     ],
-    battleSlugs: ["alesia", "dyrrhachium", "pharsalus"],
-    ancientSourceIds: ["caesar-bg", "caesar-bc", "plutarch-caesar", "appian-civil"],
-    modernSourceIds: ["goldsworthy-2006", "seager-2002"],
+    battleSlugs: ["alesia", "dyrrhachium", "pharsalus", "forum-gallorum", "mutina", "philippi", "actium", "alexandria"],
+    ancientSourceIds: ["caesar-bg", "caesar-bc", "plutarch-antony", "appian-civil-3-5", "dio-45-51"],
+    modernSourceIds: ["goldsworthy-2010", "syme-1939"],
     uncertaintyNotes: [
       "Two of the sources for his Gallic and civil-war service are Caesar's own dispatches, written to be read at Rome.",
       "Almost everything written about him after 44 is by the side that beat him, and colours the earlier record backwards.",
-      "His role at Alesia is mentioned only in passing and his sector cannot be placed.",
+      "Whether he meant to fight at Actium or to break out is the central question about the last battle, and the sails carried aboard are the strongest evidence either way.",
     ],
   },
   {
@@ -981,24 +1001,174 @@ export const figures: HistoricalFigure[] = [
     ],
   },
 
-  // ── Beyond the mapped period ──────────────────────────────────────────────
+  // ── After the Ides, 44–30 BCE ─────────────────────────────────────────────
   // These five have no battles here because the atlas stops in 44 BCE, four
   // decades before the first of them held power. They are listed as signposts to
   // periods still to come, on the same rule the campaign shelf follows: an entry
   // may point forward, but it may not claim coverage that does not exist.
   {
-    id: "augustus", slug: "augustus", name: "Augustus", fullName: "Gaius Octavius Thurinus",
-    title: "First emperor", faction: "rome",
+    // Moved out of the signpost list when the atlas reached 30 BCE. He is here as
+    // Octavian, the man who fought the last civil war of the Republic; Augustus,
+    // who spent forty years building something else on top of the wreckage, is
+    // still beyond this map and always will be — the atlas stops at Alexandria.
+    id: "augustus", slug: "augustus", name: "Octavian",
+    fullName: "Gaius Julius Caesar Octavianus, afterwards Augustus",
+    title: "Triumvir, and the last man standing", faction: "populares",
     bornYear: -63, diedYear: 14, lifeCertainty: "attested",
-    activeFrom: -44, activeTo: 14, periodId: "augustan",
-    knownFor: "Won the last civil war of the Republic and replaced it with something else.",
+    activeFrom: -43, activeTo: -30, periodId: "late-republic",
+    knownFor: "Was nineteen when he took his first consulship by marching on Rome, and thirty-two when there was nobody left to fight.",
     description: [
-      "Caesar's great-nephew was eighteen and at Apollonia with the army massed for the Parthian expedition when the news of the murder reached him. Fourteen years later he was the only man left standing, having outlasted Antony, Lepidus, Brutus and Cassius, and had turned an army loyal to a general into a standing professional force loyal to the state — with himself as the state. The frontier settled on the Rhine and the Danube during his reign, and stayed there.",
+      "Caesar's great-nephew was eighteen and at Apollonia with the army massed for the Parthian expedition when the news of the murder reached him. Everyone underestimated the inheritance: Antony treated the adoption as a formality and the senate treated the boy as a counterweight to be used and dropped — Cicero's phrase was that the young man should be praised, decorated and disposed of. Within a year of Mutina he had marched on Rome, taken the consulship at nineteen, and made terms with the man he had been sent to destroy.",
+      "As a soldier he was mediocre and knew it; what he had was Agrippa, who won Naulochus and Actium for him, and an unmatched instinct for the argument. The move that decided the last war was not fought at all — seizing Antony's will from the Vestals, reading it aloud in the senate, and declaring war on Cleopatra rather than on a Roman colleague, so that every man who stayed with Antony chose to be a traitor. He was thirty-two when Alexandria fell and there was nobody left to fight, which is where this atlas leaves him and where the other half of his life begins.",
     ],
-    battleSlugs: [], ancientSourceIds: [], modernSourceIds: [],
-    uncertaintyNotes: [],
+    battleSlugs: ["mutina", "philippi", "perusia", "naulochus", "actium", "alexandria"],
+    ancientSourceIds: ["appian-civil-3-5", "dio-45-51", "velleius"],
+    modernSourceIds: ["syme-1939", "osgood-2006"],
+    uncertaintyNotes: [
+      "Almost every narrative of these years was written after he had won and under the settlement he built, including his own account of them, which is lost but was used by everyone who is not.",
+      "Whether he was ill, warned by a dream, or hiding during the first battle at Philippi is reported three ways and one of them is his.",
+      "The deaths of both consuls at Mutina within eight days was thought convenient at the time and cannot be investigated now.",
+    ],
   },
   {
+    id: "agrippa", slug: "agrippa", name: "Agrippa", fullName: "Marcus Vipsanius Agrippa",
+    title: "Admiral, and the man who won the battles", faction: "populares",
+    bornYear: -63, diedYear: -12, lifeCertainty: "attested",
+    activeFrom: -41, activeTo: -30, periodId: "late-republic",
+    knownFor: "Built two fleets and won both of the naval battles that ended the Republic.",
+    description: [
+      "The same age as Octavian and at Apollonia with him when the news came. What he was for is visible in the two battles that mattered: at Naulochus he beat a better sailor with a heavier ship and a new weapon — the *harpax*, a grapnel shot from a catapult, which cancelled the advantage of speed — and at Actium he did not fight a battle at all until he had spent a summer taking the supply stations one by one and reduced the enemy fleet to something that had to come out.",
+      "Before Naulochus he did the thing that says most about him. Octavian had lost two fleets and had nowhere safe to build a third, so Agrippa cut a channel from the sea into the lagoons behind Cumae and trained crews inside them where they could not be attacked. It is engineering as strategy, and he did the same afterwards for a city rather than an army — the aqueducts, the drains and the first public baths in Rome are his. He never held a command against Octavian's interest and was never suspected of wanting to.",
+    ],
+    battleSlugs: ["perusia", "naulochus", "actium"],
+    ancientSourceIds: ["appian-civil-3-5", "dio-45-51"],
+    modernSourceIds: ["syme-1939", "osgood-2006"],
+    uncertaintyNotes: [
+      "His own memoirs are lost, so he survives in accounts written to praise the man he served.",
+      "The harpax is described for one campaign only and no example has been found.",
+      "How much of the strategy at Actium was his and how much Octavian's cannot be separated, and the sources had no interest in separating it.",
+    ],
+  },
+  {
+    id: "brutus", slug: "brutus", name: "Brutus", fullName: "Marcus Junius Brutus",
+    title: "Assassin of Caesar", faction: "optimates",
+    bornYear: -85, diedYear: -42, lifeCertainty: "attested",
+    activeFrom: -44, activeTo: -42, periodId: "late-republic",
+    knownFor: "Killed Caesar to restore the Republic, and had no plan for the day after.",
+    description: [
+      "He had fought for Pompey at Pharsalus, been pardoned, and been promoted; Caesar is said to have given orders that he was not to be harmed. The killing was his by reputation rather than by organisation — Cassius did the assembling, and what Brutus supplied was the name of the family that had thrown out the last king five centuries earlier, which is precisely why the conspirators wanted him. He then insisted that Antony be spared and allowed to speak at the funeral, which was the decision the whole thing turned on.",
+      "The two years afterwards were spent doing competently what should have been done first: taking the eastern provinces, their armies and their money. At Philippi he held the stronger position twice and gave it up twice, both times because his own army would not sit still. Antiquity made him the model of the honourable man who does the wrong thing well, and the atlas can only draw the second half of that — the battles a Republic already lost was still able to fight.",
+    ],
+    battleSlugs: ["philippi"],
+    ancientSourceIds: ["plutarch-brutus", "appian-civil-3-5"],
+    modernSourceIds: ["syme-1939", "osgood-2006"],
+    uncertaintyNotes: [
+      "Plutarch admired him and is the fullest source; the hostile tradition survives mainly in what the victors' writers imply.",
+      "How far the conspiracy extended beyond the sixty men in the room was never established and was useful to leave vague.",
+      "The famous last words and the ghost at Philippi are literary, not reported.",
+    ],
+  },
+  {
+    id: "cassius", slug: "cassius", name: "Cassius", fullName: "Gaius Cassius Longinus",
+    title: "Assassin of Caesar", faction: "optimates",
+    bornYear: -86, diedYear: -42, lifeCertainty: "probable",
+    activeFrom: -53, activeTo: -42, periodId: "late-republic",
+    knownFor: "Organised the conspiracy, held the East for it, and killed himself on a battlefield he had not lost.",
+    description: [
+      "The competent one. He had been quaestor with Crassus at Carrhae, got out of the disaster alive, and then held Syria against the Parthians for two years with the remnant — the only man in this atlas to be beaten at Carrhae and still hold the province afterwards. It was Cassius who assembled the conspiracy and Cassius who argued for killing Antony too, and being overruled on that is the reason the assassins had a war to fight rather than a Republic to run.",
+      "His end is the cruellest thing in the atlas. At the first battle of Philippi his camp was overrun while Brutus, on the other wing, was overrunning Octavian's. Unable to see through the dust, he sent a rider to identify an approaching column; when the man was met with cheering, Cassius took it for the enemy and had his freedman kill him. The horsemen were Brutus' men, coming to tell him they had won.",
+    ],
+    battleSlugs: ["carrhae", "philippi"],
+    ancientSourceIds: ["plutarch-brutus", "appian-civil-3-5", "plutarch-crassus"],
+    modernSourceIds: ["syme-1939", "osgood-2006"],
+    uncertaintyNotes: [
+      "His birth year is inferred from his career, not recorded.",
+      "The story of his death turns on dust, distance and a misread cheer, and is exactly the shape a tragic tradition gives a defeat.",
+      "His defence of Syria after Carrhae is reported briefly and its scale is not recoverable.",
+    ],
+  },
+  {
+    id: "sextus-pompeius", slug: "sextus-pompeius", name: "Sextus Pompeius",
+    fullName: "Sextus Pompeius Magnus Pius",
+    title: "Master of Sicily and the sea", faction: "optimates",
+    bornYear: -67, diedYear: -35, lifeCertainty: "probable",
+    activeFrom: -45, activeTo: -36, periodId: "late-republic",
+    knownFor: "Held Sicily with a fleet for six years and starved Rome whenever it suited him.",
+    description: [
+      "Pompey's younger son survived Munda, went to sea, and made himself the last power in the Mediterranean that was not a triumvir. He took Sicily in 42 and used it as the sources say his father had used the corn supply — as leverage — cutting the grain off from Rome whenever the city's politics needed pressure. His fleet was crewed by exiles, by the proscribed, and by escaped slaves, which is what made him unforgivable to the class writing the histories and formidable to everyone else. He called himself the son of Neptune and wore a blue cloak.",
+      "The triumvirs bought him off at Misenum in 39 with Sicily, Sardinia and a promised consulship, and the agreement lasted about a year. Octavian lost two fleets before Agrippa built the third in a lagoon and destroyed him at Naulochus. He escaped east with seventeen ships, was taken in Asia the next year, and was executed without trial — on whose order was never established, which suited everyone.",
+    ],
+    battleSlugs: ["naulochus"],
+    ancientSourceIds: ["appian-civil-3-5", "dio-45-51"],
+    modernSourceIds: ["syme-1939", "osgood-2006"],
+    uncertaintyNotes: [
+      "Every surviving account is written by the side that hunted him down, and calls him a pirate rather than a commander.",
+      "Whether he had a political aim beyond survival — restoring his father's Republic, as his coins claimed — cannot be recovered.",
+      "Who ordered his execution was left unclear at the time and has stayed that way.",
+    ],
+  },
+  {
+    id: "ventidius", slug: "ventidius", name: "Ventidius", fullName: "Publius Ventidius Bassus",
+    title: "Antony's legate in Syria", faction: "rome",
+    bornYear: -95, diedYear: -38, lifeCertainty: "probable",
+    activeFrom: -43, activeTo: -38, periodId: "late-republic",
+    knownFor: "Beat Parthian heavy cavalry three times in two years, and answered Carrhae fifteen years late.",
+    description: [
+      "He had been carried through Rome as a small child in somebody else's triumph — a captive from the Social War, from a family in Asculum, the town Pompeius Strabo destroyed. He worked his way up supplying mules to the army, which the Roman upper class found funny for the rest of his life, and ended as the first Roman ever to triumph over Parthia. Nothing else in this atlas is that unlikely.",
+      "The military point is that he had solved the problem that killed Crassus. Parthian cataphracts win by charging a line that cannot get away, and horse archers win by shooting a line that cannot reach them; Ventidius took high ground so that any charge arrived slow, and used slingers, whose lead shot outranges a bow at close quarters and goes through armour a bow will not. He did it at the Cilician Gates, at Amanus and at Gindarus, where Pacorus was killed with most of the Parthian nobility. Antony arrived in time to take over the siege that followed and, on the tradition, to resent him for it.",
+    ],
+    battleSlugs: ["gindarus"],
+    ancientSourceIds: ["dio-45-51", "plutarch-antony"],
+    modernSourceIds: ["syme-1939", "osgood-2006"],
+    uncertaintyNotes: [
+      "Dio is the fullest account and is writing two and a half centuries later.",
+      "The muleteer story is repeated because it was a joke at Rome, and its details are unverifiable.",
+      "No birth year is recorded. The one here is inferred from his being a small child in Asculum when the town fell in 89, and the year of his death is approximate.",
+    ],
+  },
+  {
+    id: "pacorus", slug: "pacorus", name: "Pacorus",
+    title: "Parthian prince and heir", faction: "parthia",
+    diedYear: -38, lifeCertainty: "probable",
+    activeFrom: -40, activeTo: -38, periodId: "late-republic",
+    knownFor: "Took Syria and Judaea from Rome, and held them for two years.",
+    description: [
+      "The son of Orodes, the king who had had Surena executed for winning Carrhae too well. In 40 he came over the Euphrates with a Roman renegade beside him — Quintus Labienus, son of the Labienus who died at Munda, calling himself Parthicus on his own coins — and took Syria, Judaea and much of Asia Minor while Rome's commanders were busy with each other. It is the deepest Parthian penetration of Roman territory there ever was, and Roman sources deal with it briefly.",
+      "He was popular in Syria, which the sources concede while disliking the fact, and the recovery took Ventidius two campaigning seasons rather than one. At Gindarus in 38 he charged uphill into slingers and was killed with the household round him. His father is said to have refused to believe it and then never recovered; the succession that followed killed Orodes too. The atlas draws Syria as Parthian for those two years because for those two years it was.",
+    ],
+    battleSlugs: ["gindarus"],
+    ancientSourceIds: ["dio-45-51"],
+    modernSourceIds: ["syme-1939", "osgood-2006"],
+    uncertaintyNotes: [
+      "There is no Parthian account of any of this; everything comes from Romans describing a defeat and then a recovery.",
+      "How far south and west the occupation actually reached is reported loosely and the zone drawn for it is schematic.",
+      "His birth year is unknown.",
+    ],
+  },
+  {
+    id: "cleopatra", slug: "cleopatra", name: "Cleopatra VII",
+    title: "Queen of Egypt", faction: "ptolemaic",
+    bornYear: -69, diedYear: -30, lifeCertainty: "attested",
+    activeFrom: -48, activeTo: -30, periodId: "late-republic",
+    knownFor: "Ruled the richest country in the Mediterranean for twenty-two years, and lost it in one campaign.",
+    description: [
+      "The last of the Macedonian dynasty Ptolemy founded three centuries earlier, and the only one of them who is said to have learned Egyptian. What she inherited was a kingdom that had survived by not being worth the trouble of annexing, in a Mediterranean where Rome had annexed everything else, and her policy for twenty-two years was the only one available: attach herself to whichever Roman was winning. It worked with Caesar and it worked with Antony until Antony stopped winning.",
+      "Almost everything written about her was written by the men who beat her, and the portrait is consistent enough to be suspicious: the foreign queen, the seductress, the Roman general unmanned. The atlas can only draw what she did — the fleet at Actium, sixty ships held back with the war chest aboard, and the squadron that took the wind and went through the gap while the wings were engaged, which is either desertion or the plan depending on which account you believe. She outlived Antony by nine days and refused to be led through Rome in a triumph. How she died is not recoverable.",
+    ],
+    battleSlugs: ["actium", "alexandria"],
+    ancientSourceIds: ["plutarch-antony", "dio-45-51"],
+    modernSourceIds: ["goldsworthy-2010", "syme-1939"],
+    uncertaintyNotes: [
+      "There is no Egyptian account and no friendly one; the tradition descends from the propaganda of the war against her.",
+      "Whether her withdrawal at Actium was flight, treachery or the agreed plan is the central argument, and the sources were written to settle it one way.",
+      "The asp is a later certainty rather than a contemporary one, and Octavian had every reason to prefer a version that removed him from her death.",
+    ],
+  },
+  {
+    // ── Beyond the mapped period ────────────────────────────────────────────
+    // Signposts, not entries: the atlas ends in 30 BCE and these four have no
+    // battle it can show. Augustus used to be here too, and moved out when the
+    // atlas reached the wars he actually fought.
     id: "trajan", slug: "trajan", name: "Trajan", fullName: "Marcus Ulpius Traianus",
     title: "Emperor, 98–117 CE", faction: "rome",
     bornYear: 53, diedYear: 117, lifeCertainty: "attested",

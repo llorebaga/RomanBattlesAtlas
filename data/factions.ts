@@ -118,10 +118,16 @@ export const factionList: FactionInfo[] = [
   // them. What the atlas needs is a way to say "this army, not that one", and these
   // are the terms the sources themselves reach for.
   //
-  // Neither holds territory, and that is deliberate. Control of Roman ground in a
-  // civil war changed by city and by month, and shading provinces for one side
-  // would claim a front line that did not exist. Rome's own zone stays red
-  // throughout; these two exist as marching routes and as the armies in diagrams.
+  // They hold almost no territory, and that is deliberate. Control of Roman
+  // ground in a civil war changed by city and by month, and shading provinces for
+  // one side would claim a front line that did not exist. Rome's own zone stays
+  // red throughout; these two exist mostly as marching routes and as the armies
+  // in diagrams.
+  //
+  // The one exception is Sextus Pompeius' Sicily, 42–37, and it earns the
+  // exception by lasting: an island held by one man with a fleet for six years,
+  // used to starve Rome at will, is a frontier rather than a front line that
+  // moved. Nothing else in these wars stayed still long enough to draw.
   { id: "optimates", name: "The senatorial side", adjective: "Optimate", color: "#4a3aa7", role: "belligerent" },
   { id: "populares", name: "The popular side", adjective: "Popularis", color: "#7d2b3a", role: "belligerent" },
 

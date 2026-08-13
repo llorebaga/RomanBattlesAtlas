@@ -4030,6 +4030,479 @@ export const battleDiagrams: Record<string, BattleDiagram> = {
       },
     ],
   },
+
+  // ── After the Ides, 44–30 BCE ─────────────────────────────────────────────
+  sucro: {
+    scaleNote: "The ground south of the Sucro, drawn as two lines meeting late in the day. No crossing is named in the sources and the river's course here is schematic.",
+    orientation: "The river lies behind the Roman position; Sertorius comes from the west with the light left.",
+    sourceIds: ["plutarch-sertorius"],
+    terrain: [
+      { id: "sucro", kind: "river", points: [[4, 12], [34, 16], [66, 14], [98, 18]], label: "the Sucro", labelAt: [18, 8] },
+    ],
+    stages: [
+      {
+        id: "evening",
+        title: "An attack timed to beat the other army",
+        description: "Sertorius offers battle late in the afternoon, which is the whole of his plan: Metellus is a day's march away, and a fight begun near dusk cannot last long enough for him to arrive. Pompey, twenty-nine and wanting the war finished before his colleague can share it, accepts.",
+        certainty: "probable",
+        units: [
+          { id: "ser-line", faction: "populares", kind: "infantry", at: [34, 34], size: [30, 6], label: "Sertorius" },
+          { id: "ser-light", faction: "populares", kind: "skirmishers", at: [34, 44], size: [26, 4], label: "Spanish light troops" },
+          { id: "pom-line", faction: "rome", kind: "infantry", at: [66, 34], size: [30, 6], label: "Pompey" },
+          { id: "pom-horse", faction: "rome", kind: "cavalry", at: [86, 42], size: [12, 4] },
+        ],
+      },
+      {
+        id: "wing",
+        title: "Pompey's wing broken, and Pompey wounded",
+        description: "Sertorius takes the wing Pompey commands in person, breaks it, and comes close enough to wound him. Pompey gets away by letting go of his horse — the escort stop to fight over the gold on its harness.",
+        certainty: "probable",
+        units: [
+          { id: "ser-line", faction: "populares", kind: "infantry", at: [46, 34], size: [30, 6] },
+          { id: "pom-line", faction: "rome", kind: "infantry", at: [72, 36], size: [22, 6], routed: true, label: "Pompey's wing goes" },
+          { id: "afr-line", faction: "rome", kind: "infantry", at: [66, 24], size: [22, 6], label: "the other wing holds" },
+        ],
+        arrows: [{ id: "a1", from: [58, 34], to: [68, 36], faction: "populares", kind: "attack" }],
+        caveat: "Which of the two Roman wings held, and whether Afranius commanded it, is told differently in different sources.",
+      },
+      {
+        id: "night",
+        title: "The other wing takes the camp, and stops",
+        description: "On the far side the Romans break through and plunder Sertorius' camp instead of turning inwards. He comes back across the field in the dark, catches them scattered among the baggage, and drives them out. The fighting ends with neither side beaten.",
+        certainty: "disputed",
+        units: [
+          { id: "ser-line", faction: "populares", kind: "infantry", at: [40, 30], size: [26, 6] },
+          { id: "ser-camp", faction: "populares", kind: "camp", at: [20, 40], size: [16, 12], label: "the camp, retaken" },
+          { id: "afr-line", faction: "rome", kind: "infantry", at: [34, 46], size: [20, 5], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [40, 34], to: [28, 40], faction: "populares", kind: "move" }],
+      },
+      {
+        id: "metellus",
+        title: "The old woman turns up",
+        description: "Metellus arrives the next day and Sertorius withdraws rather than fight two armies. He is said to have remarked that if the old woman had not come he would have whipped the boy and sent him back to Rome — Metellus was fifty-five, Pompey thirty.",
+        certainty: "probable",
+        units: [
+          { id: "met-line", faction: "rome", kind: "infantry", at: [76, 30], size: [30, 6], label: "Metellus comes up" },
+          { id: "pom-line", faction: "rome", kind: "infantry", at: [66, 42], size: [22, 5] },
+          { id: "ser-line", faction: "populares", kind: "infantry", at: [26, 34], size: [26, 6], label: "withdrawn in order" },
+        ],
+        arrows: [{ id: "a1", from: [40, 34], to: [22, 34], faction: "populares", kind: "move" }],
+      },
+    ],
+  },
+
+  "forum-gallorum": {
+    scaleNote: "The Via Aemilia running dead straight across the Po plain, with marsh on both sides. The road is the whole battle: a column on it cannot deploy, and everything here happens along a few hundred metres of causeway.",
+    orientation: "Mutina lies off to the west; Antony comes from it, the consuls' armies from the east.",
+    sourceIds: ["appian-civil-3-5"],
+    terrain: [
+      { id: "road", kind: "road", points: [[2, 34], [98, 34]], label: "the Via Aemilia", labelAt: [50, 28] },
+      { id: "marsh-n", kind: "marsh", points: [[2, 10], [98, 10], [98, 28], [2, 28]], label: "marsh" },
+      { id: "marsh-s", kind: "marsh", points: [[2, 40], [98, 40], [98, 60], [2, 60]], label: "marsh" },
+    ],
+    stages: [
+      {
+        id: "ambush",
+        title: "Antony catches a column on a causeway",
+        description: "Pansa is bringing four legions of recruits up the road with the veteran Martian legion at their head. Antony hides his cavalry in the villages and ditches beside the causeway and lets the column come on. The recruits behind have no room to come up and no ground to form on.",
+        certainty: "probable",
+        units: [
+          { id: "pan-mart", faction: "optimates", kind: "infantry", at: [58, 34], size: [16, 4], label: "the Martian legion" },
+          { id: "pan-recruits", faction: "optimates", kind: "infantry", at: [82, 34], size: [26, 4], label: "four legions of recruits" },
+          { id: "ant-foot", faction: "populares", kind: "infantry", at: [32, 34], size: [18, 4], label: "Antony, two veteran legions" },
+          { id: "ant-horse", faction: "populares", kind: "cavalry", at: [44, 46], size: [12, 4], label: "horse in the ditches" },
+        ],
+      },
+      {
+        id: "silence",
+        title: "Veterans against veterans, without a sound",
+        description: "The Martian legion and Antony's veterans fight along the causeway in silence, without war-cries — men who had served in the same army in Gaul, and knew it. Appian's account of this is one of the strangest passages about a Roman battle that survives.",
+        certainty: "disputed",
+        units: [
+          { id: "pan-mart", faction: "optimates", kind: "infantry", at: [50, 34], size: [16, 4] },
+          { id: "ant-foot", faction: "populares", kind: "infantry", at: [34, 34], size: [18, 4] },
+          { id: "ant-horse", faction: "populares", kind: "cavalry", at: [46, 44], size: [12, 4] },
+        ],
+        arrows: [{ id: "a1", from: [42, 40], to: [52, 36], faction: "populares", kind: "attack" }],
+        caveat: "The silence is Appian's detail and is the kind of thing a later writer supplies to make a civil war legible. It may be true.",
+      },
+      {
+        id: "pansa",
+        title: "The recruits break; the consul is hit",
+        description: "The Martians are forced back down the road and the recruits behind them go. Pansa takes a wound and is carried off to Bononia, where he dies of it within days. Antony has the field and starts back towards his lines at Mutina.",
+        certainty: "attested",
+        units: [
+          { id: "pan-mart", faction: "optimates", kind: "infantry", at: [62, 34], size: [14, 4], routed: true },
+          { id: "pan-recruits", faction: "optimates", kind: "infantry", at: [84, 34], size: [24, 4], routed: true, label: "Pansa carried off" },
+          { id: "ant-foot", faction: "populares", kind: "infantry", at: [44, 34], size: [18, 4] },
+        ],
+        arrows: [{ id: "a1", from: [54, 34], to: [70, 34], faction: "populares", kind: "attack" }],
+      },
+      {
+        id: "hirtius",
+        title: "The same road, the other end of the day",
+        description: "Antony's men are strung out and returning when Hirtius meets them on the causeway with two fresh legions. The veterans who had won at midday lose everything they had gained by dusk, and Antony is back inside his lines with nothing.",
+        certainty: "probable",
+        units: [
+          { id: "hir-line", faction: "optimates", kind: "infantry", at: [70, 34], size: [22, 4], label: "Hirtius, fresh" },
+          { id: "ant-foot", faction: "populares", kind: "infantry", at: [40, 34], size: [20, 4], routed: true },
+        ],
+        arrows: [{ id: "a1", from: [60, 34], to: [46, 34], faction: "optimates", kind: "attack" }],
+      },
+    ],
+  },
+
+  mutina: {
+    scaleNote: "The town and the ring around it. Stretches of the siege works are not located, so the circuit is drawn as the shape of the operation rather than as a survey.",
+    orientation: "Decimus Brutus is shut inside; the relieving armies come from the east.",
+    sourceIds: ["appian-civil-3-5"],
+    terrain: [
+      { id: "town", kind: "town", at: [42, 32], size: [22, 14], label: "Mutina" },
+    ],
+    stages: [
+      {
+        id: "invest",
+        title: "A conspirator besieged by a consul",
+        description: "Decimus Brutus, one of the men who killed Caesar, holds Mutina with two legions and is running out of food — he is said to have been eating the pack animals. Antony's lines ring the town, and the senate's armies have to break them from outside.",
+        certainty: "probable",
+        units: [
+          { id: "ant-works", faction: "populares", kind: "works", at: [42, 32], size: [56, 34], label: "Antony's lines" },
+          { id: "dec-gar", faction: "optimates", kind: "infantry", at: [42, 26], size: [16, 3], label: "Decimus Brutus, two legions" },
+        ],
+      },
+      {
+        id: "assault",
+        title: "Attacked from outside, a week after the road",
+        description: "Hirtius and Octavian come at the lines on the far side from the town, where Antony's works are thinnest, and force them. Antony has to fight facing outwards with a hostile garrison behind him.",
+        certainty: "probable",
+        units: [
+          { id: "ant-works", faction: "populares", kind: "works", at: [42, 32], size: [56, 34] },
+          { id: "ant-foot", faction: "populares", kind: "infantry", at: [72, 34], size: [16, 4], label: "Antony" },
+          { id: "hir-line", faction: "optimates", kind: "infantry", at: [88, 34], size: [14, 5], label: "Hirtius and Octavian" },
+          { id: "dec-gar", faction: "optimates", kind: "infantry", at: [42, 26], size: [16, 3] },
+        ],
+        arrows: [{ id: "a1", from: [84, 34], to: [76, 34], faction: "optimates", kind: "attack" }],
+      },
+      {
+        id: "camp",
+        title: "A consul killed inside the camp he is taking",
+        description: "Hirtius breaks into Antony's camp and is killed in it. Octavian is said to have recovered the body. Both consuls of the year are now dead within eight days of each other, and the tradition that this was too convenient to be accidental is as old as the event.",
+        certainty: "disputed",
+        units: [
+          { id: "ant-camp", faction: "populares", kind: "camp", at: [66, 34], size: [18, 14], label: "Antony's camp" },
+          { id: "hir-line", faction: "optimates", kind: "infantry", at: [80, 34], size: [14, 5], label: "Hirtius killed here" },
+          { id: "ant-foot", faction: "populares", kind: "infantry", at: [50, 40], size: [14, 4] },
+        ],
+        arrows: [{ id: "a1", from: [76, 34], to: [68, 34], faction: "optimates", kind: "attack" }],
+        caveat: "Whether Hirtius fell to the fighting or to something else was asked at the time and cannot be answered.",
+      },
+      {
+        id: "alps",
+        title: "The retreat that decided everything",
+        description: "Antony abandons the siege and takes his army west over the Alps in good order — the one thing that mattered, because he arrives with it intact and Lepidus' legions join him. The senate has won the battle and lost the war: both consuls are dead and the only army in Italy belongs to a nineteen-year-old it has no further use for.",
+        certainty: "probable",
+        units: [
+          { id: "ant-foot", faction: "populares", kind: "infantry", at: [22, 34], size: [20, 5], label: "over the Alps, intact" },
+          { id: "dec-gar", faction: "optimates", kind: "infantry", at: [42, 26], size: [16, 3], label: "relieved" },
+          { id: "oct-line", faction: "optimates", kind: "infantry", at: [76, 34], size: [16, 5], label: "Octavian, nineteen" },
+        ],
+        arrows: [{ id: "a1", from: [34, 34], to: [16, 34], faction: "populares", kind: "move" }],
+      },
+    ],
+  },
+
+  philippi: {
+    scaleNote: "Two battles on one frame, three weeks apart. The marsh on the southern flank and the Via Egnatia through the middle are the fixed features; the camps are placed from the ground and not from survey.",
+    orientation: "The Liberators hold the high ground east, astride the road, with the sea behind them; the triumvirs come from the west.",
+    sourceIds: ["appian-civil-3-5", "plutarch-brutus"],
+    terrain: [
+      { id: "road", kind: "road", points: [[2, 30], [98, 30]], label: "the Via Egnatia", labelAt: [16, 24] },
+      { id: "marsh", kind: "marsh", points: [[8, 44], [70, 44], [70, 62], [8, 62]], label: "the marsh" },
+      { id: "hills", kind: "hill", points: [[76, 8], [98, 8], [98, 40], [76, 40]], label: "the hills" },
+    ],
+    stages: [
+      {
+        id: "lines",
+        title: "A position that did not need to fight",
+        description: "Brutus and Cassius hold two fortified camps astride the road with a rampart between them, the sea and their fleet behind, and no reason to give battle at all — the triumvirs are the ones who cannot feed themselves. Antony works a causeway through the marsh to get at Cassius' flank.",
+        certainty: "probable",
+        units: [
+          { id: "bru-camp", faction: "optimates", kind: "camp", at: [86, 20], size: [16, 12], label: "Brutus" },
+          { id: "cas-camp", faction: "optimates", kind: "camp", at: [86, 40], size: [16, 12], label: "Cassius" },
+          { id: "lib-works", faction: "optimates", kind: "works", at: [76, 30], size: [8, 34] },
+          { id: "ant-line", faction: "populares", kind: "infantry", at: [40, 38], size: [24, 6], label: "Antony" },
+          { id: "oct-line", faction: "populares", kind: "infantry", at: [40, 20], size: [24, 6], label: "Octavian" },
+        ],
+      },
+      {
+        id: "first",
+        title: "Both sides win, on opposite wings",
+        description: "Brutus' wing goes forward without a proper order and overruns Octavian's camp — Octavian is not in it, being ill, or warned, or hiding, depending on who is telling it. On the other side Antony storms Cassius' camp at the same hour. Neither commander can see the other half of the field.",
+        certainty: "probable",
+        units: [
+          { id: "bru-line", faction: "optimates", kind: "infantry", at: [56, 20], size: [24, 6] },
+          { id: "oct-camp", faction: "populares", kind: "camp", at: [34, 18], size: [16, 12], label: "overrun" },
+          { id: "ant-line", faction: "populares", kind: "infantry", at: [64, 40], size: [22, 6] },
+          { id: "cas-camp", faction: "optimates", kind: "camp", at: [86, 40], size: [16, 12], label: "stormed" },
+        ],
+        arrows: [
+          { id: "a1", from: [58, 20], to: [42, 19], faction: "optimates", kind: "attack" },
+          { id: "a2", from: [70, 40], to: [80, 40], faction: "populares", kind: "attack" },
+        ],
+      },
+      {
+        id: "cassius",
+        title: "A false report, and a suicide",
+        description: "Cassius, driven off and unable to see through the dust, sends a rider to find out whose cavalry is approaching. When the man is met with cheers Cassius takes it for the enemy, and has his freedman kill him. The horsemen were Brutus' men bringing news that he had won.",
+        certainty: "disputed",
+        units: [
+          { id: "cas-rem", faction: "optimates", kind: "infantry", at: [72, 46], size: [14, 4], routed: true, label: "Cassius dead" },
+          { id: "bru-horse", faction: "optimates", kind: "cavalry", at: [84, 30], size: [12, 4], label: "Brutus' riders" },
+          { id: "ant-line", faction: "populares", kind: "infantry", at: [56, 42], size: [22, 6] },
+        ],
+        caveat: "The story turns on eyesight, dust and a misread cheer, and it is exactly the shape a tragic tradition gives a defeat. Plutarch is the source and admired him.",
+      },
+      {
+        id: "second",
+        title: "Three weeks later, on the same ground",
+        description: "Brutus holds the stronger position again and again is pushed into fighting by his own army, which will not sit still. This time the line breaks properly. He gets away with a handful of friends, finds the position hopeless, and has himself run through.",
+        certainty: "probable",
+        units: [
+          { id: "bru-line", faction: "optimates", kind: "infantry", at: [70, 28], size: [26, 6], routed: true },
+          { id: "ant-line", faction: "populares", kind: "infantry", at: [44, 32], size: [26, 6] },
+          { id: "oct-line", faction: "populares", kind: "infantry", at: [44, 20], size: [22, 6] },
+        ],
+        arrows: [{ id: "a1", from: [58, 28], to: [72, 28], faction: "populares", kind: "attack" }],
+      },
+    ],
+  },
+
+  perusia: {
+    scaleNote: "A hill town and a ring of works through a winter. Parts of the circuit have been identified on the ground; most has not, and the frame stands for the operation.",
+    orientation: "Perusia sits on its hill; Octavian's lines close every road out.",
+    sourceIds: ["appian-civil-3-5"],
+    terrain: [
+      { id: "hill", kind: "hill", points: [[30, 18], [70, 18], [76, 38], [50, 48], [24, 38]], label: "the hill", labelAt: [50, 54] },
+      { id: "town", kind: "town", at: [50, 30], size: [22, 12], label: "Perusia" },
+    ],
+    stages: [
+      {
+        id: "rising",
+        title: "A war about land, fought by nobody who owned any",
+        description: "Two hundred thousand veterans have been promised farms and eighteen Italian towns have been designated to supply them. Lucius Antonius takes up the case of the dispossessed, raises Italy, and is caught in Perusia before he can join the armies in Gaul.",
+        certainty: "probable",
+        units: [
+          { id: "luc-foot", faction: "optimates", kind: "infantry", at: [50, 26], size: [20, 4], label: "Lucius Antonius" },
+          { id: "oct-foot", faction: "populares", kind: "infantry", at: [16, 34], size: [14, 5], label: "Octavian" },
+          { id: "agr-foot", faction: "populares", kind: "infantry", at: [84, 34], size: [14, 5], label: "Agrippa" },
+        ],
+      },
+      {
+        id: "lines",
+        title: "Shut in for the winter",
+        description: "Octavian rings the hill with a ditch and rampart rather than assault it, and settles down to starve the town out. Agrippa and Salvidienus close the roads by which Antony's other legates might come south. None of them comes.",
+        certainty: "probable",
+        units: [
+          { id: "oct-works", faction: "populares", kind: "works", at: [50, 32], size: [72, 46], label: "circumvallation" },
+          { id: "luc-foot", faction: "optimates", kind: "infantry", at: [50, 26], size: [20, 4] },
+        ],
+      },
+      {
+        id: "bullets",
+        title: "Messages scratched into lead",
+        description: "The sling bullets from the siege survive by the hundred and carry insults cut into the metal before firing — aimed by name at Octavian, at Lucius, at Fulvia, and mostly obscene. They are among the very few things from this part of the atlas written by the people who were actually there.",
+        certainty: "attested",
+        units: [
+          { id: "oct-works", faction: "populares", kind: "works", at: [50, 32], size: [72, 46] },
+          { id: "oct-sling", faction: "populares", kind: "skirmishers", at: [50, 52], size: [22, 3], label: "slingers" },
+          { id: "luc-sling", faction: "optimates", kind: "skirmishers", at: [50, 22], size: [18, 3], label: "and answering" },
+        ],
+      },
+      {
+        id: "fall",
+        title: "The town surrenders and burns",
+        description: "Hunger ends it in the early spring. Lucius is spared and sent to govern Spain; the town council is executed and Perusia burns, by accident on one account and not on others. A hostile later tradition adds three hundred senators and knights sacrificed at an altar to the deified Caesar, which is probably untrue and was widely believed.",
+        certainty: "disputed",
+        units: [
+          { id: "luc-foot", faction: "optimates", kind: "infantry", at: [50, 26], size: [16, 3], routed: true, label: "surrendered" },
+          { id: "oct-foot", faction: "populares", kind: "infantry", at: [50, 44], size: [22, 5] },
+        ],
+        arrows: [{ id: "a1", from: [50, 40], to: [50, 32], faction: "populares", kind: "move" }],
+        caveat: "The human sacrifice appears in Suetonius and Dio, is rejected by most modern accounts, and is impossible to disprove.",
+      },
+    ],
+  },
+
+  gindarus: {
+    scaleNote: "A hill and the ground below it. The Roman position is the whole point of the battle; the hill itself is placed from the description of the action, not identified.",
+    orientation: "The Romans hold the height; the Parthian horse must come up at them.",
+    sourceIds: ["dio-45-51"],
+    terrain: [
+      { id: "hill", kind: "hill", points: [[26, 16], [74, 16], [80, 34], [50, 44], [20, 34]], label: "the hill", labelAt: [50, 50] },
+    ],
+    stages: [
+      {
+        id: "bait",
+        title: "A camp pitched where it can be charged",
+        description: "Ventidius puts his army on a hill and keeps it there. He had learned in two previous actions that Parthian cataphracts will charge a Roman line they think is weak, and that a charge uphill arrives slow. Pacorus has beaten Romans before and comes on.",
+        certainty: "probable",
+        units: [
+          { id: "ven-line", faction: "rome", kind: "infantry", at: [50, 26], size: [30, 6], label: "Ventidius, on the height" },
+          { id: "ven-sling", faction: "rome", kind: "skirmishers", at: [50, 34], size: [26, 3], label: "slingers" },
+          { id: "par-cat", faction: "parthia", kind: "cavalry", at: [50, 56], size: [34, 6], label: "Pacorus, cataphracts" },
+        ],
+      },
+      {
+        id: "charge",
+        title: "Uphill, into slings",
+        description: "The cataphracts come up the slope and lose their momentum on it. Ventidius holds his slingers until the range is short — a lead bullet at close quarters carries further and hits harder than an arrow, and armour that stops a bow does not stop it.",
+        certainty: "probable",
+        units: [
+          { id: "ven-line", faction: "rome", kind: "infantry", at: [50, 26], size: [30, 6] },
+          { id: "ven-sling", faction: "rome", kind: "skirmishers", at: [50, 36], size: [26, 3] },
+          { id: "par-cat", faction: "parthia", kind: "cavalry", at: [50, 46], size: [32, 6] },
+        ],
+        arrows: [{ id: "a1", from: [50, 44], to: [50, 38], faction: "parthia", kind: "attack" }],
+      },
+      {
+        id: "downhill",
+        title: "The legions come down on blown horses",
+        description: "With the charge stalled, Ventidius sends the legions down the slope into cavalry that has lost its speed and cannot turn on the incline. Pacorus is killed with the household round him.",
+        certainty: "probable",
+        units: [
+          { id: "ven-line", faction: "rome", kind: "infantry", at: [50, 38], size: [30, 6] },
+          { id: "par-cat", faction: "parthia", kind: "cavalry", at: [50, 50], size: [30, 6], routed: true, label: "Pacorus killed" },
+        ],
+        arrows: [{ id: "a1", from: [50, 42], to: [50, 48], faction: "rome", kind: "attack" }],
+      },
+      {
+        id: "after",
+        title: "Fifteen years late",
+        description: "Dio puts the battle on the anniversary of Carrhae, which is the kind of detail that improves in the telling and may still be true. Ventidius drove the Parthians back over the Euphrates and became the first Roman ever to triumph over them — a muleteer's son who had been carried through Rome as a child in somebody else's triumph.",
+        certainty: "disputed",
+        units: [
+          { id: "ven-line", faction: "rome", kind: "infantry", at: [40, 34], size: [26, 6], label: "over the Euphrates" },
+          { id: "par-rem", faction: "parthia", kind: "cavalry", at: [80, 40], size: [16, 5], routed: true },
+        ],
+      },
+    ],
+  },
+
+  naulochus: {
+    scaleNote: "Three hundred ships a side in the straits off the north Sicilian coast. Positions are relative; no source places any squadron.",
+    orientation: "The Sicilian shore lies south; Agrippa's heavier line comes from the north.",
+    sourceIds: ["appian-civil-3-5"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[0, 0], [100, 0], [100, 48], [0, 48]] },
+      { id: "shore", kind: "town", at: [50, 60], size: [80, 10], label: "the Sicilian shore" },
+    ],
+    stages: [
+      {
+        id: "lines",
+        title: "Heavy against handy",
+        description: "Sextus has the better sailors and the lighter hulls; Agrippa has the heavier ships and a new weapon. Both fleets form in line across the strait with the armies of each side watching from the beaches.",
+        certainty: "probable",
+        units: [
+          { id: "agr-fleet", faction: "populares", kind: "ships", at: [50, 20], size: [64, 7], label: "Agrippa, 300 ships" },
+          { id: "sex-fleet", faction: "optimates", kind: "ships", at: [50, 38], size: [62, 7], label: "Sextus, 300 ships" },
+        ],
+      },
+      {
+        id: "harpax",
+        title: "A grapnel shot from a catapult",
+        description: "The *harpax* is a grapnel on a line fired from a catapult: it outranges a boarding bridge, sticks where it lands, and lets a heavy ship winch a fast one in. The advantage Sextus' seamanship gave him — staying out of reach — stops working.",
+        certainty: "probable",
+        units: [
+          { id: "agr-fleet", faction: "populares", kind: "ships", at: [50, 24], size: [64, 7] },
+          { id: "sex-fleet", faction: "optimates", kind: "ships", at: [50, 34], size: [62, 7] },
+        ],
+        arrows: [{ id: "a1", from: [50, 28], to: [50, 32], faction: "populares", kind: "attack" }],
+        caveat: "The harpax is described for this campaign and no other, and no example has ever been found.",
+      },
+      {
+        id: "boarded",
+        title: "Hauled in and boarded",
+        description: "Once the ships are held together the fighting is infantry work on decks, which is the arm Octavian's fleet is strong in. Sextus loses all but seventeen of three hundred ships.",
+        certainty: "attested",
+        units: [
+          { id: "agr-fleet", faction: "populares", kind: "ships", at: [50, 28], size: [64, 7] },
+          { id: "sex-fleet", faction: "optimates", kind: "ships", at: [50, 38], size: [40, 6], routed: true },
+        ],
+      },
+      {
+        id: "lepidus",
+        title: "And then there were two",
+        description: "Lepidus lands in Sicily, takes the surrender of Sextus' legions and claims the island as his own. Octavian walks into his camp and the legions leave Lepidus standing there. He is stripped of the triumvirate, left as chief priest, and lives another twenty-four years without power.",
+        certainty: "probable",
+        units: [
+          { id: "sex-rem", faction: "optimates", kind: "ships", at: [86, 34], size: [12, 5], routed: true, label: "seventeen ships away" },
+          { id: "lep-foot", faction: "populares", kind: "infantry", at: [40, 58], size: [22, 4], label: "Lepidus' legions change sides" },
+        ],
+      },
+    ],
+  },
+
+  actium: {
+    scaleNote: "The mouth of the Ambracian Gulf and the open water outside it. The strait is about a kilometre across; the fleets fought beyond it, and no source places a squadron.",
+    orientation: "The gulf and Antony's camp lie east, behind the strait; Agrippa's line waits in the open sea to the west.",
+    sourceIds: ["dio-45-51", "plutarch-antony"],
+    terrain: [
+      { id: "sea", kind: "sea", points: [[0, 0], [100, 0], [100, 68], [0, 68]] },
+      { id: "north", kind: "town", at: [70, 8], size: [56, 10], label: "Actium promontory" },
+      { id: "south", kind: "town", at: [70, 60], size: [56, 10], label: "the southern shore" },
+      { id: "gulf", kind: "sea", points: [[78, 20], [100, 20], [100, 48], [78, 48]], label: "the Ambracian Gulf", labelAt: [90, 34] },
+    ],
+    stages: [
+      {
+        id: "blockade",
+        title: "Beaten before the battle",
+        description: "Agrippa has spent the summer taking the supply stations one by one. Antony's fleet is penned inside the gulf, short of food, losing rowers to malaria and desertion, and has already burned a third of its ships for want of crews to man them. The battle is fought because the position is untenable, not because it is winnable.",
+        certainty: "probable",
+        units: [
+          { id: "ant-fleet", faction: "optimates", kind: "ships", at: [84, 34], size: [24, 24], label: "penned in the gulf" },
+          { id: "agr-fleet", faction: "populares", kind: "ships", at: [34, 34], size: [16, 34], label: "Agrippa, blockading" },
+          { id: "ant-camp", faction: "optimates", kind: "camp", at: [70, 58], size: [16, 8], label: "nineteen legions ashore" },
+        ],
+      },
+      {
+        id: "out",
+        title: "Out through the strait, with the sails aboard",
+        description: "Antony brings the fleet out in line with Cleopatra's sixty ships and the war chest behind it. The ships carry their sails, which are left ashore before a battle and taken only for a voyage — the single strongest piece of evidence that this was a breakout rather than an engagement.",
+        certainty: "probable",
+        units: [
+          { id: "ant-fleet", faction: "optimates", kind: "ships", at: [64, 34], size: [10, 30] },
+          { id: "cle-fleet", faction: "ptolemaic", kind: "ships", at: [78, 34], size: [8, 16], label: "Cleopatra, in reserve" },
+          { id: "agr-fleet", faction: "populares", kind: "ships", at: [34, 34], size: [12, 34] },
+        ],
+        arrows: [{ id: "a1", from: [60, 34], to: [50, 34], faction: "optimates", kind: "move" }],
+      },
+      {
+        id: "gap",
+        title: "The line opens and the squadron goes through",
+        description: "The wings engage and the centre thins. Cleopatra's squadron takes the wind, passes through the gap and runs south; Antony leaves his flagship for a lighter one and follows. Perhaps a quarter of the fleet gets away with them.",
+        certainty: "disputed",
+        units: [
+          { id: "ant-fleet", faction: "optimates", kind: "ships", at: [48, 20], size: [10, 22] },
+          { id: "agr-fleet", faction: "populares", kind: "ships", at: [34, 40], size: [12, 30] },
+          { id: "cle-fleet", faction: "ptolemaic", kind: "ships", at: [40, 52], size: [8, 12], label: "through the gap" },
+        ],
+        arrows: [{ id: "a1", from: [50, 44], to: [30, 58], faction: "ptolemaic", kind: "move" }],
+        caveat: "Whether the gap was made for her or found by her is the whole argument about Actium, and every surviving account was written under the man who won.",
+      },
+      {
+        id: "left",
+        title: "What was left burned, and an army surrendered",
+        description: "The ships that did not get out were burned or taken. The nineteen legions in the camp ashore — never engaged, never beaten — waited a week and then surrendered on terms. That, and not the fighting at sea, is what ended the war.",
+        certainty: "probable",
+        units: [
+          { id: "ant-rem", faction: "optimates", kind: "ships", at: [56, 30], size: [16, 12], routed: true },
+          { id: "agr-fleet", faction: "populares", kind: "ships", at: [36, 34], size: [12, 30] },
+          { id: "ant-camp", faction: "optimates", kind: "camp", at: [70, 58], size: [16, 8], label: "surrendered intact" },
+        ],
+      },
+    ],
+  },
 };
 
 export function getBattleDiagram(slug: string): BattleDiagram | undefined {
@@ -4043,6 +4516,8 @@ export function getBattleDiagram(slug: string): BattleDiagram | undefined {
 // is schematic can carry that honestly. What cannot be drawn is an action nobody
 // described, or a campaign of months that was never one action at all.
 export const NO_DIAGRAM_REASON: Record<string, string> = {
+  alexandria:
+    "There was no battle. Antony's fleet rowed out on the morning of 1 August, raised its oars in salute to Octavian's line and joined it; his cavalry went over in the same hour; and what the sources describe after that is not an action but two suicides. A tactical diagram would have to invent a fight in order to have something to draw.",
   // For the early Republic the bar bites harder than elsewhere. An unlocated site is
   // still no reason to refuse — the Caudine Forks and Sentinum are drawn. What cannot
   // be drawn is a battle whose tactical account is demonstrably the historian's own

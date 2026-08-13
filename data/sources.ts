@@ -279,6 +279,49 @@ export const sources: HistoricalSource[] = [
   { id: "goldsworthy-2006", kind: "modern", citation: "Adrian Goldsworthy, Caesar: The Life of a Colossus (2006)" },
   { id: "seager-2002", kind: "modern", citation: "Robin Seager, Pompey the Great: A Political Biography (2002)" },
   { id: "gelzer-1968", kind: "modern", citation: "Matthias Gelzer, Caesar: Politician and Statesman (1968)" },
+
+  // ── The Sertorian war ─────────────────────────────────────────────────────
+  {
+    id: "plutarch-sertorius", kind: "ancient", citation: "Plutarch, Life of Sertorius",
+    note: "The only sustained account of the eight years Spain was held against Rome by a Roman. Plutarch is working from sources sympathetic to Sertorius and pairs him with Eumenes of Cardia, which shapes what he chooses to tell; Livy's books for the war are lost and Appian is brief.",
+    covers: [{ fromYear: -123, toYear: -72 }],
+  },
+  { id: "spann-1987", kind: "modern", citation: "Philip O. Spann, Quintus Sertorius and the Legacy of Sulla (1987)" },
+
+  // ── After the Ides: the triumviral period ─────────────────────────────────
+  //
+  // The evidence changes character here. There is no Polybius and no Caesar
+  // writing his own dispatches; what there is instead is a set of narratives
+  // written under the man who won, and a biographical tradition about Antony
+  // that had every reason to make him a warning.
+  {
+    id: "appian-civil-3-5", kind: "ancient", citation: "Appian, The Civil Wars, Books 3–5",
+    note: "The fullest continuous narrative of the years from the Ides to the settlement with Sextus Pompeius, and the only one for much of it. Appian is writing two centuries later from lost sources — Asinius Pollio among them, who was present — and stops before Actium, so the last five years of the atlas lose him.",
+    covers: [{ fromYear: -44, toYear: -35 }],
+  },
+  {
+    id: "dio-45-51", kind: "ancient", citation: "Cassius Dio, Roman History, Books 45–51",
+    note: "The only continuous account that runs all the way from the Ides to the annexation of Egypt. Dio is writing around 220 CE, is fond of invented speeches, and works within a tradition already settled on what Actium had to mean — but for 34 to 30 BCE there is very little else.",
+    covers: [{ fromYear: -44, toYear: -29 }],
+  },
+  {
+    id: "plutarch-antony", kind: "ancient", citation: "Plutarch, Life of Antony",
+    note: "The richest source for the eastern years and the least neutral. Plutarch's Antony is a study in a good soldier ruined, paired with Demetrius as a cautionary life, and much of its detail on Cleopatra descends from the propaganda of the men who beat them. His great-grandfather's account of the Actium campaign gives him one genuinely local source.",
+    covers: [{ fromYear: -83, toYear: -30 }],
+  },
+  {
+    id: "plutarch-brutus", kind: "ancient", citation: "Plutarch, Life of Brutus",
+    note: "The conspiracy and Philippi from the side that lost, written by an author who plainly admired him. It preserves the detail of the two battles at Philippi more fully than anything else, including the second one being fought because neither side could feed itself where it stood.",
+    covers: [{ fromYear: -85, toYear: -42 }],
+  },
+  {
+    id: "velleius", kind: "ancient", citation: "Velleius Paterculus, Roman History, Book 2",
+    note: "A short, fast, partisan account by a serving officer under Tiberius, written within eighty years of the events. He is closer in time to the triumviral period than any other narrative source in this atlas and correspondingly more useful for chronology than for judgement.",
+    covers: [{ fromYear: -44, toYear: -30 }],
+  },
+  { id: "syme-1939", kind: "modern", citation: "Ronald Syme, The Roman Revolution (1939)" },
+  { id: "osgood-2006", kind: "modern", citation: "Josiah Osgood, Caesar's Legacy: Civil War and the Emergence of the Roman Empire (2006)" },
+  { id: "goldsworthy-2010", kind: "modern", citation: "Adrian Goldsworthy, Antony and Cleopatra (2010)" },
 ];
 
 export function sourcesByIds(ids: string[]): HistoricalSource[] {

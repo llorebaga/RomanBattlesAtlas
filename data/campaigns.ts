@@ -1332,7 +1332,83 @@ const CAESARIAN_ROUTE_ERA: Record<string, string> = {
   "caesar-egypt-pontus": "caesars-civil-war",
   "caesar-africa-spain": "caesars-civil-war",
   "caesar-parthian-plan": "caesars-civil-war",
+  "ventidius-syria": "sextus-war",
+  "agrippa-fleet": "sextus-war",
+  "octavian-illyria": "actium-war",
+  "actium-campaign": "actium-war",
 };
+
+// ── After the Ides, 39–31 BCE ───────────────────────────────────────────────
+// Four routes carrying the years between the battles: the recovery of Syria, the
+// fleet built where it could not be attacked, the campaign Octavian fought to
+// keep an army in practice, and the concentration that ended at Actium.
+const triumviralRoutes: CampaignRoute[] = [
+  {
+    id: "ventidius-syria",
+    name: "Ventidius clears Syria",
+    faction: "rome",
+    forceType: "army",
+    startYear: -39,
+    endYear: -38,
+    certainty: "probable",
+    description: "Antony's legate recovered the province in two campaigning seasons while Antony was in Athens and Alexandria. The method was the same each time — hold high ground, let the cataphracts come up it, and release the slingers at close range — and it worked at the Cilician Gates, at Amanus and finally at Gindarus, where Pacorus was killed. The line between the named actions is inference along the road.",
+    points: [
+      { year: -39, label: "Out of Cilicia", coordinates: [34.0, 37.0], certainty: "probable", sourceIds: ["dio-45-51"] },
+      { year: -39, month: 6, label: "The Amanus pass", coordinates: [36.4, 36.9], certainty: "probable", sourceIds: ["dio-45-51"] },
+      { year: -38, month: 6, label: "Gindarus", coordinates: [36.93, 36.41], certainty: "attested", sourceIds: ["dio-45-51", "plutarch-antony"] },
+      { year: -38, month: 9, label: "To the Euphrates", coordinates: [38.6, 36.2], certainty: "probable", sourceIds: ["dio-45-51"] },
+    ],
+  },
+  {
+    id: "agrippa-fleet",
+    name: "Agrippa's fleet, and the war for Sicily",
+    faction: "rome",
+    forceType: "fleet",
+    startYear: -37,
+    endYear: -36,
+    certainty: "probable",
+    description: "Octavian had lost two fleets to Sextus Pompeius, one to battle and one to a storm. The third was built and trained in a lagoon behind Cumae cut through to the sea, where it could not be attacked, and brought round to Sicily in 36. Drawn as a sea route because that is the whole point of it.",
+    points: [
+      { year: -37, label: "Portus Julius, behind Cumae", coordinates: [14.05, 40.82], certainty: "attested", sourceIds: ["appian-civil-3-5"] },
+      { year: -36, month: 7, label: "Across to the strait", coordinates: [14.6, 39.4], certainty: "probable", sourceIds: ["appian-civil-3-5"] },
+      { year: -36, month: 9, label: "Naulochus", coordinates: [15.24, 38.22], certainty: "attested", sourceIds: ["appian-civil-3-5", "dio-45-51"] },
+    ],
+  },
+  {
+    id: "octavian-illyria",
+    name: "Octavian in Illyria",
+    faction: "rome",
+    forceType: "army",
+    startYear: -35,
+    endYear: -33,
+    certainty: "probable",
+    description: "Three years of campaigning up the Dalmatian coast and into the interior against peoples who had raided Italy for a century. It secured a frontier that needed securing, and it also did what it was probably meant to do: kept an army in the field within reach of Italy, gave its commander wounds he could show, and answered the charge that he had never fought a battle himself.",
+    points: [
+      { year: -35, label: "Across from Italy", coordinates: [15.2, 44.3], certainty: "probable", sourceIds: ["dio-45-51"] },
+      { year: -34, label: "Into the Dalmatian interior", coordinates: [16.6, 43.9], certainty: "probable", sourceIds: ["dio-45-51"] },
+      { year: -33, label: "Siscia and the Sava country", coordinates: [16.4, 45.4], certainty: "probable", sourceIds: ["dio-45-51"] },
+    ],
+  },
+  {
+    id: "actium-campaign",
+    name: "The concentration at Actium",
+    faction: "rome",
+    forceType: "fleet",
+    startYear: -32,
+    endYear: -31,
+    certainty: "probable",
+    description: "Antony brought the eastern fleet and the army it carried west from Ephesus to Athens, then round Cape Malea and up the western coast into the Ambracian Gulf, where he waited through the summer of 31 while Agrippa took his supply stations one by one. It is a concentration rather than a campaign: the position was chosen to invite a battle and became the trap that made one unavoidable.",
+    points: [
+      { year: -32, label: "Off Ephesus", coordinates: [27.05, 37.9], certainty: "attested", sourceIds: ["plutarch-antony", "dio-45-51"] },
+      { year: -32, month: 6, label: "Off Athens", coordinates: [23.6, 37.85], certainty: "attested", sourceIds: ["plutarch-antony"] },
+      { year: -32, month: 8, label: "Through the Myrtoan Sea", coordinates: [23.9, 37.1], certainty: "speculative", sourceIds: ["plutarch-antony"] },
+      { year: -32, month: 9, label: "Round Cape Malea", coordinates: [23.15, 36.35], certainty: "probable", sourceIds: ["plutarch-antony"] },
+      { year: -31, month: 3, label: "West of the Peloponnese", coordinates: [20.9, 37.3], certainty: "speculative", sourceIds: ["plutarch-antony"] },
+      { year: -31, month: 6, label: "Past the Ionian islands", coordinates: [20.15, 38.6], certainty: "speculative", sourceIds: ["plutarch-antony"] },
+      { year: -31, month: 9, label: "Actium", coordinates: [20.74, 38.94], certainty: "attested", sourceIds: ["dio-45-51", "velleius"] },
+    ],
+  },
+];
 
 // Which era segment each Marian-era route belongs to, matching data/wars.ts.
 const MARIAN_ROUTE_ERA: Record<string, string> = {
@@ -1385,4 +1461,5 @@ export const campaignRoutes: CampaignRoute[] = [
   ...lateRepublicanRoutes.map((route) => ({ ...route, war: LATE_ROUTE_ERA[route.id] })),
   ...marianRoutes.map((route) => ({ ...route, war: MARIAN_ROUTE_ERA[route.id] })),
   ...caesarianRoutes.map((route) => ({ ...route, war: CAESARIAN_ROUTE_ERA[route.id] })),
+  ...triumviralRoutes.map((route) => ({ ...route, war: CAESARIAN_ROUTE_ERA[route.id] })),
 ];

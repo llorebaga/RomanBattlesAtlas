@@ -41,10 +41,12 @@ test("the mapped period is the one we think it is", () => {
   // 509 BCE because that is where the Republic — and any usable narrative — begins.
   // The regal period is covered in prose on the methodology page and nowhere else.
   assert.equal(TIMELINE_START_YEAR, -509);
-  // 44 BCE: the Ides of March. What follows is the second triumvirate and a
-  // different constitution, so the atlas stops where the Republic effectively does.
-  assert.equal(TIMELINE_END_YEAR, -44);
-  assert.equal(YEARS.length, 466);
+  // 30 BCE: Alexandria. Not the Ides, which settled nothing — Caesar's killers
+  // had not planned past the killing and the wars ran another fourteen years.
+  // The atlas stops where the Republic actually stops: one man, one army, Egypt
+  // annexed, and nobody left in a position to fight anybody.
+  assert.equal(TIMELINE_END_YEAR, -30);
+  assert.equal(YEARS.length, 480);
 });
 
 test("every year in the mapped period has a focus event", () => {
@@ -176,6 +178,16 @@ const TRANSITIONS = [
   { year: -63, gained: ["rome-pontus", "rome-syria", "rome-cilicia", "parthia"], lost: ["pontus-kingdom", "seleucid-apamea"], why: "Pompey annexes Pontus, Syria and Cilicia, ends the Seleucid dynasty by administrative decision, and leaves Rome facing Parthia across the Euphrates" },
   { year: -50, gained: ["rome-gaul"], lost: ["gaul-transalpine-reduced"], why: "eight years of campaigning end with Gaul Roman and Caesar holding eleven legions" },
   { year: -46, gained: ["rome-africa-nova", "rome-emporia"], lost: ["numidia-kingdom", "numidia-emporia"], why: "Juba backed the losing side at Thapsus and Numidia is annexed for it, the detached Tripolitanian Emporia with it" },
+
+  // ── After the Ides ──────────────────────────────────────────────────────────
+  // Three changes in fourteen years, and none of them is the triumvirs dividing
+  // the Roman world — that was done twice on paper and is not drawable. What
+  // moves is the ground that genuinely stopped being Rome's.
+  { year: -42, gained: ["sextus-sicily"], lost: [], why: "Pompey's surviving son takes Sicily with a fleet and begins cutting the grain off from Rome" },
+  { year: -40, gained: ["parthia-syria"], lost: [], why: "a Parthian army with a Roman renegade at its head overruns Syria and Judaea — the deepest penetration of Roman territory Parthia ever made" },
+  { year: -38, gained: [], lost: ["parthia-syria"], why: "Gindarus kills the king's son and ends the occupation; the zone runs through 39 because clearing Syria took that whole campaigning season" },
+  { year: -36, gained: [], lost: ["sextus-sicily"], why: "Naulochus destroys Sextus' fleet and Sicily is Roman again" },
+  { year: -30, gained: ["rome-egypt"], lost: ["ptolemaic-egypt"], why: "Alexandria falls and Egypt is annexed as the personal possession of the victor — the last of Alexander's successor kingdoms" },
 ];
 
 test("territory changes hands in the year it changed hands", () => {
@@ -332,7 +344,7 @@ test("a battle that is drawn is also described in full", () => {
 test("only actions that cannot be drawn are left undrawn", () => {
   // Long sieges and unlocated fields are drawable as schematic shapes; campaigns
   // spanning months and battles nobody described are not. Keep that line explicit.
-  assert.deepEqual(Object.keys(NO_DIAGRAM_REASON).sort(), ["africa-invasion", "alps-crossing", "aquilonia", "asculum-picenum", "lake-regillus", "silarius", "sulci", "tarentum", "trifanum", "vesuvius"]);
+  assert.deepEqual(Object.keys(NO_DIAGRAM_REASON).sort(), ["africa-invasion", "alexandria", "alps-crossing", "aquilonia", "asculum-picenum", "lake-regillus", "silarius", "sulci", "tarentum", "trifanum", "vesuvius"]);
   for (const battle of battles) {
     if (NO_DIAGRAM_REASON[battle.slug]) continue;
     assert.ok(battleDiagrams[battle.slug], `${battle.slug}: no diagram and no stated reason`);

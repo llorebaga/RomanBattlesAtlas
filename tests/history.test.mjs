@@ -25,7 +25,10 @@ test("clamps the continuous timeline across every era", () => {
   assert.equal(clampTimelineYear(-160), -160);
   assert.equal(clampTimelineYear(-101), -101);
   assert.equal(clampTimelineYear(-52), -52);
-  assert.equal(clampTimelineYear(-30), -44);
+  assert.equal(clampTimelineYear(-42), -42);
+  assert.equal(clampTimelineYear(-31), -31);
+  assert.equal(clampTimelineYear(-30), -30);
+  assert.equal(clampTimelineYear(-27), -30);
 });
 
 test("interpolates only active campaign routes", () => {

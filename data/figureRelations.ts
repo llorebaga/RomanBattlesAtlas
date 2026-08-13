@@ -363,6 +363,115 @@ export const relations: FigureRelation[] = [
     label: "served in the same army as",
     note: "Cato was a consular serving as a legate at Thermopylae and took the mountain path that turned Antiochus out of Greece. Within five years he was prosecuting the brothers he had campaigned with.",
   },
+
+  // ── After the Ides ────────────────────────────────────────────────────────
+  // The last fourteen years of the Republic are the densest part of this chart,
+  // because everyone in them had already been on the other side of somebody.
+  {
+    from: "caesar", to: "augustus", kind: "family", certainty: "attested", year: -44, // the will read after the murder
+    label: "adopted, in his will,",
+    note: "The great-nephew was eighteen and at Apollonia when the news came. Antony treated the adoption as a formality and the senate treated the boy as a counterweight to be used and dropped; both were wrong about what the name was worth.",
+  },
+  {
+    from: "caesar", to: "brutus", kind: "family", certainty: "disputed", year: -44, // the Ides
+    label: "was rumoured to be the father of",
+    note: "Caesar had a long affair with Servilia, Brutus' mother, and the rumour is ancient. The arithmetic makes it very unlikely — Caesar was fifteen when Brutus was born — but the story was told in antiquity and is part of why the killing was written as a parricide.",
+  },
+  {
+    from: "cleopatra", to: "caesar", kind: "family", certainty: "disputed", year: -47, // Caesarion
+    label: "had a son she named for",
+    note: "Caesarion was presented as Caesar's son and Antony had him formally acknowledged as such in Alexandria in 34, which is precisely why Octavian had him killed in 30: two heirs to the same name was one too many.",
+  },
+  {
+    from: "pompeius-strabo", to: "ventidius", kind: "rivalry", certainty: "probable", year: -89, // Asculum
+    label: "destroyed the town of",
+    note: "Ventidius was a small child in Asculum when Pompeius Strabo took it, and was carried through Rome in the triumph as a captive. He ended as the first Roman ever to triumph over Parthia.",
+  },
+  {
+    from: "augustus", to: "agrippa", kind: "service", certainty: "attested", year: -37, // the fleet at Portus Julius
+    label: "had every battle won for him by",
+    note: "The same age, and at Apollonia together when Caesar was killed. Agrippa built two fleets, won Naulochus and Actium, and never once held a command against his friend's interest — which in this atlas makes him unique.",
+  },
+  {
+    from: "mark-antony", to: "ventidius", kind: "service", certainty: "attested", year: -39, // the Syrian command
+    label: "was the commander of",
+    note: "Ventidius recovered Syria for him in two campaigning seasons while he was in Athens and Alexandria. Antony arrived in time to take over the siege that followed, and the tradition says he resented the credit.",
+  },
+  {
+    from: "cassius", to: "brutus", kind: "rivalry", certainty: "attested", year: -44, // the conspiracy
+    label: "organised the conspiracy with",
+    note: "Cassius did the assembling; Brutus supplied the name of the family that had thrown out the last king. Cassius argued for killing Antony as well and was overruled, which is the decision the next two years turned on.",
+  },
+  {
+    from: "augustus", to: "mark-antony", kind: "rivalry", certainty: "attested", year: -32, // the will, and the declaration of war
+    label: "declared war on the queen of",
+    note: "Seizing Antony's will from the Vestals and reading it in the senate, then declaring war on Cleopatra rather than on a Roman colleague, made every man who stayed with Antony a traitor by his own choice. It was the move that won the war.",
+  },
+  {
+    from: "sextus-pompeius", to: "augustus", kind: "rivalry", certainty: "attested", year: -39, // the treaty of Misenum
+    label: "starved Rome to make terms with",
+    note: "Sicily, Sardinia and a promised consulship, agreed at Misenum in 39 because the grain fleet mattered more than the principle. The agreement lasted about a year.",
+  },
+  {
+    from: "pompey", to: "sextus-pompeius", kind: "family", certainty: "attested", year: -48, // the flight after Pharsalus
+    label: "was the father of",
+    note: "The younger son survived Pharsalus, Thapsus and Munda, went to sea, and made himself the last power in the Mediterranean that was not a triumvir. His coins claimed he was restoring his father's Republic.",
+  },
+  {
+    from: "mark-antony", to: "brutus", kind: "battlefield", certainty: "attested",
+    label: "beat",
+    note: "Twice at Philippi in three weeks. Antony did the fighting on both days; Brutus held the stronger position each time and gave it up each time because his own army would not sit still.",
+  },
+  {
+    from: "mark-antony", to: "cassius", kind: "battlefield", certainty: "attested",
+    label: "overran the camp of",
+    note: "In the first battle, at the same hour that Brutus was overrunning Octavian's on the other wing. Neither commander could see the other half of the field, and Cassius killed himself believing all was lost.",
+  },
+  {
+    from: "crassus", to: "cassius", kind: "service", certainty: "attested", year: -53, // Carrhae
+    label: "took his quaestor to Carrhae,",
+    note: "Cassius got out of the disaster alive and then held Syria against the Parthians for two years with what was left — the only man in this atlas beaten at Carrhae who kept the province afterwards.",
+  },
+  {
+    from: "agrippa", to: "sextus-pompeius", kind: "battlefield", certainty: "attested",
+    label: "destroyed the fleet of",
+    note: "At Naulochus, with a grapnel shot from a catapult that cancelled the advantage of the better sailor. Sextus lost all but seventeen of three hundred ships.",
+  },
+  {
+    from: "ventidius", to: "pacorus", kind: "battlefield", certainty: "attested",
+    label: "killed",
+    note: "At Gindarus, by holding high ground so the cataphract charge arrived slow and releasing slingers into it at close range. It was the answer to Carrhae, fifteen years late.",
+  },
+  {
+    from: "agrippa", to: "mark-antony", kind: "battlefield", certainty: "attested",
+    label: "blockaded and broke",
+    note: "Actium was won over a summer rather than in an afternoon: Agrippa took the supply stations one by one until the fleet in the gulf was starving and short of rowers, and had to come out.",
+  },
+  {
+    from: "augustus", to: "cleopatra", kind: "battlefield", certainty: "attested",
+    label: "took Egypt from",
+    note: "She outlived Antony by nine days, negotiating and then refusing to be led through Rome in a triumph. How she died is not recoverable; the asp is a later certainty rather than a contemporary one.",
+  },
+  {
+    from: "mark-antony", to: "cleopatra", kind: "alliance", certainty: "attested", year: -41, // Tarsus
+    label: "took the East with",
+    note: "Summoned to Tarsus to answer for Egypt's conduct in the war, she arrived on a barge and he wintered in Alexandria instead of preparing the Parthian campaign the East had been given him to fight. Her money and her grain paid for the last eleven years of his career.",
+  },
+  {
+    from: "augustus", to: "mark-antony", kind: "alliance", certainty: "attested", year: -43, // the triumvirate, established by law
+    label: "divided the state with",
+    note: "Six months after being sent to destroy him. The triumvirate was established by law in November 43, and opened with a proscription that killed perhaps three hundred senators — Cicero among them, at Antony's insistence and with Octavian's consent.",
+  },
+  {
+    from: "sertorius", to: "pompey", kind: "battlefield", certainty: "attested",
+    label: "broke the wing of",
+    note: "At the Sucro in 75, where he wounded Pompey and nearly finished him before the other Roman army came up. He is said to have remarked that if the old woman had not turned up he would have whipped the boy and sent him back to Rome.",
+  },
+  {
+    from: "marius", to: "sertorius", kind: "service", certainty: "probable", year: -102, // the Cimbric war
+    label: "had serving under him",
+    note: "Sertorius lost an eye against the Cimbri and is said to have gone into their camp in disguise to scout it. He took the Marian side in the civil war that followed and would not accept Sulla's settlement, which is how he ended up governing Spain against Rome.",
+  },
 ];
 
 export function relationsFor(slug: string): FigureRelation[] {
