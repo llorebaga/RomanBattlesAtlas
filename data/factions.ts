@@ -189,6 +189,15 @@ export function factionRole(id: Faction): FactionInfo["role"] {
   return byId.get(id)?.role ?? "context";
 }
 
+// The strength the map actually paints this power's ground at. The key and the
+// sidebar read it from here rather than picking a swatch opacity that looks
+// about right, because a key whose chip is more saturated than the zone it
+// stands for is a key you have to translate.
+export function territoryFillOpacity(id: Faction): number {
+  const role = factionRole(id);
+  return TERRITORY_LAYERS.find((layer) => layer.roles.includes(role))?.opacity ?? 1;
+}
+
 // Flattened [value, color, value, color, …] pairs for a MapLibre "match"
 // expression, e.g. ["match", ["get","faction"], ...factionColorMatch, fallback].
 export const factionColorMatch: string[] = factionList.flatMap((info) => [info.id, info.color]);

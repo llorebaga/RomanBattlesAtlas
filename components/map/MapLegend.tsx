@@ -1,5 +1,5 @@
 import { EvidenceBadge } from "@/components/EvidenceBadge";
-import type { FactionInfo } from "@/data/factions";
+import { territoryFillOpacity, type FactionInfo } from "@/data/factions";
 
 export function MapLegend({ powers }: { powers: FactionInfo[] }) {
   return (
@@ -8,7 +8,7 @@ export function MapLegend({ powers }: { powers: FactionInfo[] }) {
       {powers.length > 0 && (
         <div className="legend-powers" aria-label="Powers on the map">
           {powers.map((info) => (
-            <span key={info.id} className={info.role === "context" ? "context" : undefined}><i className="legend-territory" style={{ background: info.color }} /> {info.name}</span>
+            <span key={info.id} className={info.role === "context" ? "context" : undefined}><i className="power-swatch" style={{ background: info.color, opacity: territoryFillOpacity(info.id) }} /> {info.name}</span>
           ))}
         </div>
       )}

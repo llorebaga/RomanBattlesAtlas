@@ -74,8 +74,9 @@ export default function MethodologyPage() {
           <p>
             Where a frontier is known to have followed a real feature, the map follows that feature: the Ebro for the
             treaty limit in Iberia, the Apennine watershed for Rome&rsquo;s northern edge, the Alpine crest between the
-            Gallic peoples. Land held by independent peoples is left uncoloured on purpose — the Celtiberian interior,
-            Liguria, Gaul beyond the Loire — because colouring it would be the error.
+            Gallic peoples, the Rhine for the limit of Caesar&rsquo;s Gaul. Land held by independent peoples is left
+            uncoloured on purpose — the Celtiberian interior, Liguria, Germany beyond the Rhine, and the Anatolian
+            kingdoms Rome settled by making kings rather than provinces — because colouring it would be the error.
           </p>
         </section>
 

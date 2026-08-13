@@ -18,9 +18,10 @@ export interface HistoricalPeriod {
   focus?: { location: Coordinates; zoom: number };
 }
 
-// The full arc of Roman warfare. Coverage is stated honestly: only the middle
-// Republic is mapped today, and the later periods say so rather than implying
-// depth the atlas does not have. Years are negative for BCE.
+// The full arc of Roman warfare. Coverage is stated honestly: the Republic is
+// mapped — early Rome and the middle Republic in full, the late Republic as far
+// as the Ides of March — and the imperial periods say `planned` rather than
+// implying depth the atlas does not have. Years are negative for BCE.
 export const periods: HistoricalPeriod[] = [
   {
     id: "early-rome",

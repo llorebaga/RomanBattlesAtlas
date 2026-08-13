@@ -5,7 +5,7 @@ import { Anchor, ChevronLeft, Info, LandPlot, ListFilter, Menu, X } from "lucide
 import { EvidenceBadge } from "@/components/EvidenceBadge";
 import { battles, getBattle } from "@/data/battles"; import { historicalEvents } from "@/data/events";
 import { territoriesForYear } from "@/data/territories";
-import { getFactionInfo, factionList } from "@/data/factions";
+import { getFactionInfo, factionList, factionColor, territoryFillOpacity } from "@/data/factions";
 import { battlesForYear, eventForYear } from "@/lib/historySelectors"; import { clampTimelineYear, formatHistoricalYear, TIMELINE_END_YEAR, TIMELINE_START_YEAR } from "@/lib/historicalDates";
 import { eraForYear, getEra } from "@/data/wars";
 import { parseAtlasSearch } from "@/lib/atlasLinks";
@@ -77,7 +77,7 @@ export function HistoricalMap() {
     { key: "fleet", label: "Naval campaigns", icon: <Anchor size={15} /> },
     { key: "battles", label: "Battles", icon: <span>⚔</span> },
     { key: "sieges", label: "Sieges", icon: <span>◎</span> },
-    { key: "territories", label: "Territory control", icon: <span className="territory-swatch" aria-hidden="true" /> },
+    { key: "territories", label: "Territory control", icon: <span className="territory-swatch" aria-hidden="true" style={{ background: factionColor("rome") }} /> },
   ];
 
   return <main className="atlas-shell">
@@ -99,7 +99,7 @@ export function HistoricalMap() {
         <p>{selectedEvent?.summary ?? "The surviving sources record no major set-piece event for this year."}</p>
         {selectedEvent && <EvidenceBadge certainty={selectedEvent.certainty} />}
       </div>
-      {layers.territories && powers.length > 0 && <div className="powers-list"><div className="active-list-title"><span>Powers on the map</span><span>{powers.length}</span></div><div className="powers-grid">{powers.map((info) => <span key={info.id} className="power-chip"><span className="faction-swatch" style={{ background: info.color }} />{info.name}</span>)}</div></div>}
+      {layers.territories && powers.length > 0 && <div className="powers-list"><div className="active-list-title"><span>Powers on the map</span><span>{powers.length}</span></div><div className="powers-grid">{powers.map((info) => <span key={info.id} className="power-chip"><span className="power-swatch" style={{ background: info.color, opacity: territoryFillOpacity(info.id) }} />{info.name}</span>)}</div></div>}
       <div className="active-list"><div className="active-list-title"><span>Visible events</span><span>{activeBattles.length}</span></div>{activeBattles.length ? activeBattles.map((battle) => <button key={battle.id} onClick={() => { setSelectedBattle(battle); setSidebarOpen(false); }}><span className={`mini-kind ${battle.kind}`}>{battle.kind === "naval" ? "≋" : battle.kind === "siege" ? "◎" : "⚔"}</span><span><strong>{battle.name}</strong><small>{battle.location}</small></span><ChevronLeft size={15} className="event-arrow" /></button>) : <p className="empty-state">No battle marker is active. Campaign routes may still be visible.</p>}</div>
       <p className="reconstruction-disclaimer">Ancient evidence is incomplete. Territory zones, positions, and routes are schematic reconstructions, not surveyed borders or exact tracks.</p></aside>
       <section className="map-stage" aria-label={`Interactive map — ${currentEra ? currentEra.name : "Roman military campaigns"}`}>

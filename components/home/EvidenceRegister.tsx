@@ -11,8 +11,8 @@ import type { HistoricalSource } from "@/types/history";
 //
 // A flat list of titles hides the two things a reader of this atlas most needs to
 // know: how much of it rests on any one text, and which centuries a text is even
-// able to speak for. Polybius' Book 1 carries eleven battles; Livy's Periochae
-// carries four, and is a paragraph per book. Both facts are computed from the same
+// able to speak for. Polybius' Book 1 carries thirteen battles; Livy's Periochae
+// carries five, and is a paragraph per book. Both facts are computed from the same
 // data the pages cite, so this cannot drift out of step with them.
 
 function coverage(source: HistoricalSource): string | null {

@@ -55,7 +55,7 @@ export const exploreOptions: ExploreOption[] = [
   },
 ];
 
-// Curated for the battle section: the two decisive naval actions of the first
+// Curated for the battle section: the three naval actions that decided the first
 // war, the catastrophe and the revenge of the second, and the eastern turn.
 // Every slug must exist in data/battles.ts — a test enforces it.
 export const featuredBattleSlugs = ["mylae", "cape-ecnomus", "cannae", "zama", "cynoscephalae", "aegates"];

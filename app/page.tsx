@@ -51,7 +51,10 @@ export default function Home() {
         <section className="hp-section" id="explore" aria-labelledby="hp-explore-title">
           <header className="hp-section-head">
             <h2 id="hp-explore-title">Choose how to explore</h2>
-            <p>Four ways in. Every one of them opens the same map at the moment you asked for.</p>
+            {/* Counted, not written out: this said "four ways in" for as long as
+                there were five, because the figures card was added here and the
+                sentence above it was not. */}
+            <p>{exploreOptions.length} ways in. Each opens the atlas at the moment you asked for — or, for the people, at the battles they fought.</p>
           </header>
           <div className="hp-explore-grid">
             {exploreOptions.map((option) => <ExploreOptionCard key={option.id} option={option} />)}
@@ -62,8 +65,8 @@ export default function Home() {
           <header className="hp-section-head">
             <h2 id="hp-periods-title">Explore by historical period</h2>
             <p>
-              Roman warfare spans a thousand years. The middle Republic is mapped in detail; the rest of the arc is
-              laid out here so you can see where the atlas is going.
+              Roman warfare spans a thousand years. The Republic is mapped in detail, from its first wars to the Ides
+              of March; the empire that follows is laid out here so you can see where the atlas is going.
             </p>
           </header>
           <div className="hp-period-grid">

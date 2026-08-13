@@ -399,5 +399,10 @@ export function getCampaign(id: string): CampaignEntry | undefined {
   return campaignIndex.find((campaign) => campaign.id === id);
 }
 
-/** The campaign the homepage features as its most developed. */
+/**
+ * The campaign the homepage leads with. An editorial choice rather than a count:
+ * the Second Punic War now holds one battle more, but the first is the war that
+ * explains what the atlas is for — Rome fighting at sea for the first time, over
+ * twenty-three years, with a naval history most readers have never been told.
+ */
 export const FEATURED_CAMPAIGN_ID = "first-punic-war";
