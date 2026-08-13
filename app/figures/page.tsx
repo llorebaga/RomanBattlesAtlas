@@ -48,14 +48,16 @@ export default function FiguresIndexPage() {
                 const mapped = isMapped(figure);
                 const card = (
                   <>
-                    <span className="figure-swatch" aria-hidden="true" style={{ background: factionColor(figure.faction) }} />
+                    <span className="power-swatch figure-swatch" aria-hidden="true" style={{ background: factionColor(figure.faction) }} />
                     <h3>{figure.name}</h3>
                     <p className="figure-meta">
                       {figure.title} · {lifespan(figure)}
                     </p>
                     <p>{figure.knownFor}</p>
                     <span className="hp-card-action">
-                      {mapped ? `Read the account · ${figure.battleSlugs.length} battles` : "Not yet mapped"}
+                      {mapped
+                        ? `Read the account · ${figure.battleSlugs.length} ${figure.battleSlugs.length === 1 ? "battle" : "battles"}`
+                        : "Not yet mapped"}
                     </span>
                   </>
                 );

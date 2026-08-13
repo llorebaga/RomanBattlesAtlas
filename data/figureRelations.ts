@@ -20,19 +20,32 @@ export interface FigureRelation {
   label: string;
   note: string;
   certainty: Certainty;
+  /**
+   * The year to draw it at, where one year is the right answer — a wedding, a
+   * campaign, a handover. Left off, the chart infers it: the battle both fought,
+   * if the atlas holds one, and otherwise the middle of the years both were
+   * campaigning or, failing that, both alive. Do not invent one to tidy the
+   * picture; an inferred anchor is drawn as an open ring so a reader can tell.
+   */
+  year?: number;
 }
 
-export const RELATION_KINDS: { kind: RelationKind; title: string; blurb: string }[] = [
-  { kind: "family", title: "Blood, marriage and adoption", blurb: "Roman politics ran on families, and adoption counted as fully as birth." },
-  { kind: "service", title: "Served under, or brought on", blurb: "Who learned the trade from whom — usually before falling out with them." },
-  { kind: "rivalry", title: "Rivals and partners", blurb: "The same pairs, in both roles, often in the same decade." },
-  { kind: "battlefield", title: "Met in the field", blurb: "Where two people in this atlas faced each other across a battle it holds." },
+// Title, blurb and colour together, because the chart draws the colour and the
+// key names it, and those two lived in different files until they disagreed.
+export const RELATION_KINDS: { kind: RelationKind; title: string; blurb: string; color: string }[] = [
+  { kind: "family", title: "Blood, marriage and adoption", blurb: "Roman politics ran on families, and adoption counted as fully as birth.", color: "#8a6a2f" },
+  { kind: "service", title: "Served under, or brought on", blurb: "Who learned the trade from whom — usually before falling out with them.", color: "#3f6b52" },
+  { kind: "rivalry", title: "Rivals and partners", blurb: "The same pairs, in both roles, often in the same decade.", color: "#a33d33" },
+  { kind: "battlefield", title: "Met in the field", blurb: "Where two people in this atlas faced each other across a battle it holds.", color: "#7b7466" },
 ];
+
+export const relationColor = (kind: string): string =>
+  RELATION_KINDS.find((entry) => entry.kind === kind)?.color ?? "#7b7466";
 
 export const relations: FigureRelation[] = [
   // ── Family ────────────────────────────────────────────────────────────────
   {
-    from: "aemilius-paullus", to: "scipio-aemilianus", kind: "family", certainty: "attested",
+    from: "aemilius-paullus", to: "scipio-aemilianus", kind: "family", certainty: "attested", year: -185, // the year the son who would destroy Carthage was born
     label: "was the father of",
     note: "Aemilianus was born a Paullus and given in adoption to the son of Scipio Africanus. One man therefore carried the names of the victors of both Zama and Pydna — and went on to destroy Carthage himself.",
   },
@@ -52,61 +65,61 @@ export const relations: FigureRelation[] = [
     note: "Marius married Julia, the sister of Caesar's father. Caesar was seventeen when Marius died, was married to Cinna's daughter, and refused Sulla's order to divorce her — which nearly cost him his life and made his politics for him.",
   },
   {
-    from: "caesar", to: "pompey", kind: "family", certainty: "attested",
+    from: "caesar", to: "pompey", kind: "family", certainty: "attested", year: -59, // Julia's marriage, in the year of Caesar's first consulship
     label: "was the father-in-law of",
     note: "Caesar's daughter Julia married Pompey in 59, and by every account the marriage was a happy one that held the political arrangement together. She died in childbirth in 54. Crassus died at Carrhae the next year, and the two survivors had nothing left binding them.",
   },
 
   // ── Service ───────────────────────────────────────────────────────────────
   {
-    from: "scipio-aemilianus", to: "jugurtha", kind: "service", certainty: "attested",
+    from: "scipio-aemilianus", to: "jugurtha", kind: "service", certainty: "attested", year: -134, // the siege lines at Numantia
     label: "commanded",
     note: "Jugurtha led the Numidian cavalry at Numantia. He learned there how a Roman army worked from inside it, and — Sallust says — how much of Rome could be bought.",
   },
   {
-    from: "scipio-aemilianus", to: "marius", kind: "service", certainty: "probable",
+    from: "scipio-aemilianus", to: "marius", kind: "service", certainty: "probable", year: -134, // the same camp, the same year
     label: "commanded",
     note: "Marius served as a young officer in the same camp. Asked at dinner who could replace him, Scipio is said to have clapped Marius on the shoulder. The story is only told because of what Marius became, which is exactly why it should be held loosely.",
   },
   {
-    from: "marius", to: "sulla", kind: "service", certainty: "attested",
+    from: "marius", to: "sulla", kind: "service", certainty: "attested", year: -107, // Sulla joins him as quaestor for the African command
     label: "was the commander of",
     note: "Sulla was Marius' quaestor in Africa and took Jugurtha's surrender in person. Marius' supporters said the credit was Marius'; Sulla had a signet ring cut showing the surrender and wore it for the rest of his life. The quarrel ran thirty years and ended in civil war.",
   },
   {
-    from: "sulla", to: "pompey", kind: "service", certainty: "probable",
+    from: "sulla", to: "pompey", kind: "service", certainty: "probable", year: -83, // Pompey brings three private legions to Brundisium
     label: "was the patron of",
     note: "Pompey raised three legions privately at twenty-three and brought them to Sulla, who came out to meet him and greeted him as imperator before he had held any office at all.",
   },
   {
-    from: "caesar", to: "labienus", kind: "service", certainty: "attested",
+    from: "caesar", to: "labienus", kind: "service", certainty: "attested", year: -58, // the first year in Gaul
     label: "was the commander of",
     note: "Labienus was the senior legate in Gaul for eight years and the only subordinate Caesar trusted with an independent army. In 49 he was the one senior officer who went over to Pompey, and no source explains why.",
   },
   {
-    from: "antiochus-iii", to: "hannibal", kind: "service", certainty: "attested",
+    from: "antiochus-iii", to: "hannibal", kind: "service", certainty: "attested", year: -195, // the year Hannibal reached the Seleucid court
     label: "gave refuge to",
     note: "Hannibal spent his exile at Antiochus' court, consulted for his name rather than his advice. The one command he was given was a fleet — and he lost it, off the Eurymedon, to the Rhodians.",
   },
 
   // ── Rivalry ───────────────────────────────────────────────────────────────
   {
-    from: "crassus", to: "pompey", kind: "rivalry", certainty: "attested",
+    from: "crassus", to: "pompey", kind: "rivalry", certainty: "attested", year: -70, // the consulship they held together and barely spoke through
     label: "was the rival of",
     note: "Crassus destroyed Spartacus; Pompey, arriving from Spain in time to cut down fugitives, wrote to the Senate claiming to have ended the war. They held the consulship together in 70 and barely spoke.",
   },
   {
-    from: "crassus", to: "caesar", kind: "rivalry", certainty: "probable",
+    from: "crassus", to: "caesar", kind: "rivalry", certainty: "probable", year: -61, // the debts covered before Caesar could leave for his province
     label: "financed",
     note: "Crassus covered debts large enough to stop Caesar leaving Rome for his province. The private arrangement between the three of them ran the Republic for a decade and had no legal existence at all.",
   },
   {
-    from: "pompey", to: "caesar", kind: "rivalry", certainty: "attested",
+    from: "pompey", to: "caesar", kind: "rivalry", certainty: "attested", year: -48, // Pharsalus
     label: "was the rival of",
     note: "Allies, then father-in-law and son-in-law, then the two sides of a civil war. Pompey was murdered stepping ashore in Egypt eight weeks after Pharsalus, and Caesar is said to have wept when he was handed the head.",
   },
   {
-    from: "marius", to: "sulla", kind: "rivalry", certainty: "attested",
+    from: "marius", to: "sulla", kind: "rivalry", certainty: "attested", year: -88, // the year Sulla first marched an army on Rome
     label: "was the lifelong enemy of",
     note: "It began over who deserved credit for capturing Jugurtha and ended with both men marching armies on Rome, proscription lists, and Sulla having Marius' remains dug up and thrown in the Anio.",
   },
@@ -128,7 +141,7 @@ export const relations: FigureRelation[] = [
     note: "At Cynoscephalae in 197, in a battle that began by accident in fog on ridges neither commander had scouted.",
   },
   {
-    from: "flamininus", to: "hannibal", kind: "battlefield", certainty: "probable",
+    from: "flamininus", to: "hannibal", kind: "battlefield", certainty: "probable", year: -183, // the embassy to Prusias, and Hannibal's suicide
     label: "hunted down",
     note: "Sent in 183 to demand Hannibal's surrender from Prusias of Bithynia. Hannibal took poison rather than be handed over. Scipio Africanus died in the same year, in self-imposed exile from the city he had saved.",
   },
@@ -138,7 +151,7 @@ export const relations: FigureRelation[] = [
     note: "At Pydna in 168. Perseus walked in the triumph and died in Roman custody; Paullus lost both his own young sons in the same weeks, and said so publicly at the triumph.",
   },
   {
-    from: "marius", to: "jugurtha", kind: "battlefield", certainty: "attested",
+    from: "marius", to: "jugurtha", kind: "battlefield", certainty: "attested", year: -105, // the surrender, arranged by Jugurtha's own father-in-law
     label: "captured",
     note: "Handed over by his own father-in-law rather than beaten. Jugurtha walked in Marius' triumph on the first day of 104 and was starved to death in the Tullianum.",
   },
@@ -148,7 +161,7 @@ export const relations: FigureRelation[] = [
     note: "At Chaeronea in 86, with an army his own government had outlawed. He then made a lenient peace, because his real war was at home.",
   },
   {
-    from: "pompey", to: "mithridates", kind: "battlefield", certainty: "attested",
+    from: "pompey", to: "mithridates", kind: "battlefield", certainty: "attested", year: -63, // the king's death, cornered by his own son
     label: "finished",
     note: "Pompey took over a war Lucullus had effectively won and drove Mithridates out for good. The king, cornered by his own son, could not poison himself — a lifetime of small doses had seen to that — and had a bodyguard kill him.",
   },
@@ -167,61 +180,6 @@ export const relations: FigureRelation[] = [
     label: "finally killed",
     note: "Labienus died at Munda in 45, fighting against the man he had served for eight years in Gaul, and was buried on the field.",
   },
-];
-
-/**
- * The curated chart.
- *
- * Not every relation above is drawn — a graph with twenty-six edges is a mess
- * rather than a picture. What is drawn is the spine: Romans along the top in
- * chronological order, the enemies they faced below them, and the family, service
- * and rivalry links arcing over the top row. Coordinates are hand-placed in a
- * 168 × 76 frame, and a test checks that no label runs outside it or collides
- * with its neighbour.
- *
- * The thing the chart is really for is the middle of it. Scipio Aemilianus,
- * Marius and Jugurtha were all in the same camp at Numantia in 134, and the two
- * clusters of this atlas — the Scipios and their Punic wars, and the men who
- * pulled the Republic apart — meet at that one node.
- */
-export interface ChartNode {
-  slug: string;
-  label: string;
-  x: number;
-  y: number;
-}
-
-export const CHART_FRAME = { width: 168, height: 76, topRow: 24, bottomRow: 56 };
-
-export const chartNodes: ChartNode[] = [
-  { slug: "scipio-africanus", label: "Africanus", x: 14, y: 24 },
-  { slug: "aemilius-paullus", label: "Paullus", x: 38, y: 24 },
-  { slug: "scipio-aemilianus", label: "Aemilianus", x: 62, y: 24 },
-  { slug: "marius", label: "Marius", x: 86, y: 24 },
-  { slug: "sulla", label: "Sulla", x: 104, y: 24 },
-  { slug: "crassus", label: "Crassus", x: 120, y: 24 },
-  { slug: "pompey", label: "Pompey", x: 137, y: 24 },
-  { slug: "caesar", label: "Caesar", x: 155, y: 24 },
-
-  { slug: "hannibal", label: "Hannibal", x: 14, y: 56 },
-  { slug: "perseus", label: "Perseus", x: 38, y: 56 },
-  { slug: "jugurtha", label: "Jugurtha", x: 74, y: 56 },
-  { slug: "mithridates", label: "Mithridates", x: 104, y: 56 },
-  { slug: "spartacus", label: "Spartacus", x: 126, y: 56 },
-  { slug: "vercingetorix", label: "Vercingetorix", x: 150, y: 56 },
-];
-
-/** How high each top-row arc rises. Longer spans go higher so they do not overlap. */
-export const chartArcs: { from: string; to: string; lift: number }[] = [
-  { from: "marius", to: "caesar", lift: 2 },
-  { from: "scipio-africanus", to: "scipio-aemilianus", lift: 6 },
-  { from: "sulla", to: "pompey", lift: 10 },
-  { from: "crassus", to: "caesar", lift: 10 },
-  { from: "aemilius-paullus", to: "scipio-aemilianus", lift: 15 },
-  { from: "scipio-aemilianus", to: "marius", lift: 15 },
-  { from: "marius", to: "sulla", lift: 17 },
-  { from: "crassus", to: "pompey", lift: 17 },
-  { from: "pompey", to: "caesar", lift: 17 },
 ];
 
 export function relationsFor(slug: string): FigureRelation[] {

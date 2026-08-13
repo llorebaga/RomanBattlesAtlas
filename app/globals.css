@@ -203,7 +203,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .figure-card h3 { margin: 0; font: 400 1.2rem/1.2 var(--font-display); }
 .figure-card p { margin: 0; color: #56594f; font-size: .85rem; line-height: 1.6; }
 .figure-card p:last-of-type { flex: 1; }
-.figure-swatch { display: inline-block; width: 12px; height: 12px; margin-right: 8px; border: 1px solid rgba(0,0,0,.25); vertical-align: -1px; }
+/* Composed with .power-swatch rather than restated, so a person's side cannot
+   come to look like a different kind of thing from the same side on the map. */
+.figure-swatch { margin-right: 8px; }
 .figure-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; color: var(--hp-muted); font-size: .78rem; }
 
 .figure-battles { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
@@ -218,14 +220,84 @@ button:focus-visible, a:focus-visible, input:focus-visible, summary:focus-visibl
 .figure-caveats li { display: flex; align-items: baseline; gap: 9px; color: #4f544c; font-size: .86rem; line-height: 1.6; }
 .figure-caveats svg { flex: none; color: var(--hp-muted); }
 
-/* Connections — the relationship chart and the list beneath it. */
-.connection-chart { margin: 0 0 34px; }
-.connection-chart svg { display: block; width: 100%; height: auto; overflow: visible; background: var(--hp-parchment); border: 1px solid var(--hp-line); padding: 12px 8px; }
-.connection-chart text { fill: #3a3f39; font-family: var(--font-display); letter-spacing: .01em; }
-.connection-chart figcaption { margin-top: 12px; color: #56594f; font-size: .85rem; line-height: 1.6; }
-.chart-key { display: flex; flex-wrap: wrap; gap: 6px 18px; margin: 0 0 10px; padding: 0; list-style: none; }
-.chart-key li { display: flex; align-items: center; gap: 7px; color: var(--hp-muted); font-size: .68rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-.chart-key i { width: 16px; height: 3px; }
+/* Connections — the timeline chart, its key, and the panel beside it.
+   Positions all come from lib/connectionLayout.ts; nothing here moves anything,
+   it only decides what a thing looks like once it is placed. */
+.ct { margin: 0 0 34px; }
+.ct-controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+.ct-key { display: flex; flex-wrap: wrap; gap: 6px; }
+.ct-key-item { display: flex; align-items: center; gap: 7px; padding: 5px 10px; border: 1px solid var(--hp-line); background: var(--hp-parchment); color: #4c4d47; font: 700 .62rem/1 var(--font-body); letter-spacing: .07em; text-transform: uppercase; cursor: pointer; transition: opacity .15s, border-color .15s; }
+.ct-key-item svg { width: 22px; height: 6px; overflow: visible; }
+.ct-key-item:hover { border-color: #bcae90; }
+/* A hidden kind reads as switched off rather than as missing. */
+.ct-key-item.is-off { opacity: .42; }
+.ct-key-item.is-off svg { filter: grayscale(1); }
+.ct-count { color: var(--hp-muted); font-weight: 400; }
+.ct-clear { padding: 5px 11px; border: 1px solid var(--hp-line); background: none; color: var(--hp-muted); font: 700 .62rem/1 var(--font-body); letter-spacing: .07em; text-transform: uppercase; cursor: pointer; }
+
+/* Below about 760px the chart stops being readable at any scale, so it scrolls
+   sideways instead of shrinking into a smear. */
+.ct-scroll { overflow-x: auto; border: 1px solid var(--hp-line); background: var(--hp-parchment); }
+.ct-svg { display: block; width: 100%; min-width: 760px; height: auto; }
+
+.ct-band { fill: #ded5c1; }
+.ct-band.alt { fill: #e7dfcd; }
+.ct-band-label { fill: #6a6355; font: 700 8px/1 var(--font-body); letter-spacing: .14em; text-anchor: middle; text-transform: uppercase; }
+.ct-grid line { stroke: #cfc6b4; stroke-width: .6; }
+.ct-tick { fill: var(--hp-muted); font: 400 8.5px/1 var(--font-body); text-anchor: middle; }
+.ct-divider { stroke: #a89e8b; stroke-width: 1; stroke-dasharray: 5 4; }
+.ct-side-label { fill: #8c8371; font: 700 7.5px/1 var(--font-body); letter-spacing: .18em; }
+
+.ct-edges path { stroke-width: 1.6; }
+.ct-hit { cursor: help; }
+/* The marker rides over the names, so it carries a halo of its own to keep its
+   edge readable against a letter. */
+.ct-markers circle { stroke-width: 1.4; paint-order: stroke; }
+.ct-edge { transition: opacity .18s; }
+.ct-edge.is-dim { opacity: .07; }
+
+.ct-person { cursor: pointer; transition: opacity .18s; }
+.ct-person.is-dim { opacity: .16; }
+/* Someone the atlas records no connection for. Present, because they were, and
+   quiet, because there is no line to follow. */
+.ct-person.is-alone rect { fill-opacity: .34; }
+.ct-person.is-alone .ct-name { fill: #8c8371; }
+/* Names sit over the lines, so they carry a paper halo the way the map labels
+   do — the connection still reads as continuous underneath. */
+.ct-name { fill: #3a3f39; font: 400 11px/1 var(--font-display); paint-order: stroke; stroke: var(--hp-parchment); stroke-width: 3px; stroke-linejoin: round; }
+.ct-person:hover .ct-name, .ct-person.is-active .ct-name { fill: var(--hp-bronze-dark); font-weight: 700; }
+.ct-person.is-active rect:nth-of-type(2) { stroke: #2b2f2a; stroke-width: 1.4; }
+.ct-person:focus-visible { outline: none; }
+.ct-person:focus-visible rect:nth-of-type(2) { stroke: #c47f33; stroke-width: 2.4; }
+
+.ct-panel { margin-top: 14px; padding: 20px 22px; border: 1px solid var(--hp-line); background: var(--hp-parchment); }
+.ct-panel h3 { margin: 4px 0 6px; font: 400 1.35rem/1.2 var(--font-display); }
+.ct-panel h3 a:hover { color: var(--hp-bronze-dark); }
+.ct-panel > p { margin: 0; color: #56594f; font-size: .86rem; line-height: 1.65; }
+.ct-panel-kicker { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; color: var(--hp-muted); font-size: .72rem; letter-spacing: .04em; }
+.ct-caveat { color: #8c8371; }
+.ct-known { margin-bottom: 14px !important; font-style: italic; }
+.ct-empty { margin-top: 12px !important; color: #6a6355; font-size: .8rem !important; }
+.ct-relations { display: grid; gap: 13px; margin: 0; padding: 0; list-style: none; }
+.ct-relations li { padding-left: 14px; border-left: 2px solid var(--hp-line); }
+.ct-relations p { margin: 0; }
+.ct-relations li > p:last-child { margin-top: 4px; color: #56594f; font-size: .82rem; line-height: 1.6; }
+.ct-relation-claim { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; font: 400 .98rem/1.4 var(--font-display); }
+.ct-relation-claim em { color: var(--hp-bronze-dark); font-style: normal; }
+.ct-relation-when { margin-top: 3px !important; color: var(--hp-muted); font-size: .7rem; letter-spacing: .04em; }
+.ct-relation-when a { text-decoration: underline; text-underline-offset: 2px; }
+.ct-dot { display: inline-block; width: 8px; height: 8px; flex: none; border-radius: 50%; }
+/* The same claim, on the person's own page — one list rather than a chart. */
+.figure-connections { display: grid; gap: 13px; margin: 0; padding: 0; list-style: none; }
+.figure-connections li { padding: 15px 18px; border: 1px solid var(--hp-line); background: var(--hp-parchment); }
+.figure-connections p { margin: 0; }
+.figure-connections li > p:last-child { margin-top: 5px; color: #56594f; font-size: .83rem; line-height: 1.6; }
+.ct-jump { padding: 2px 7px; border: 1px solid var(--hp-line); background: none; color: var(--hp-muted); font: 700 .55rem/1 var(--font-body); letter-spacing: .09em; text-transform: uppercase; cursor: pointer; }
+.ct-jump:hover { border-color: #bcae90; color: var(--hp-bronze-dark); }
+
+@media (prefers-reduced-motion: reduce) {
+  .ct-edge, .ct-person, .ct-key-item { transition: none; }
+}
 
 .relation-list { display: grid; gap: 14px; margin: 0; padding: 0; list-style: none; }
 .relation-list li { padding: 18px 20px; border: 1px solid var(--hp-line); background: var(--hp-parchment); }
@@ -396,16 +468,31 @@ a.hp-timeline-entry:hover ~ .hp-timeline-dot, a.hp-timeline-entry:focus-visible 
 .filter-label { display: flex; align-items: center; gap: 9px; }.filter-row input { position: absolute; opacity: 0; pointer-events: none; }
 .toggle { position: relative; width: 27px; height: 15px; border: 1px solid #a49e91; border-radius: 99px; background: #d8d2c7; transition: .2s; }.toggle::after { position: absolute; top: 2px; left: 2px; width: 9px; height: 9px; content: ""; border-radius: 50%; background: white; transition: .2s; }
 .filter-row input:checked + .toggle { background: #565d52; }.filter-row input:checked + .toggle::after { transform: translateX(12px); }.filter-row input:focus-visible + .toggle { outline: 2px solid #c47f33; outline-offset: 2px; }
-.faction-swatch { width: 9px; height: 9px; border-radius: 50%; background: var(--muted); }.faction-swatch.rome { background: var(--roman); }.faction-swatch.carthage { background: var(--carthage); }
+/* A power's colour is one object wherever it appears: the shape of a territory
+   zone, over the same hairline, at the strength the map paints that zone. There
+   used to be four of these — a bordered rectangle in the layer list, an
+   unbordered one in the map key, an unbordered dot in the sidebar and a
+   black-edged square on the people pages — so the same faction was a different
+   kind of mark on every surface that named it. The hairline is neutral rather
+   than tinted because these sit on parchment and the pale hues (amber, olive)
+   otherwise dissolve into it. */
+.power-swatch { display: inline-block; width: 12px; height: 9px; flex: none; border: 1px solid rgb(0 0 0 / .22); border-radius: 2px; }
+/* Forces, not ground: a marching army is a mark on the map, not a shaded
+   country, so the filter rows keep a dot. Same hairline, different shape —
+   the distinction is the point. */
+.faction-swatch { width: 9px; height: 9px; flex: none; border: 1px solid rgb(0 0 0 / .22); border-radius: 50%; background: var(--muted); }
 .filter-divider { height: 1px; margin: 6px 2px; background: var(--line); }
-.territory-swatch { width: 13px; height: 10px; border-radius: 2px; background: #e3494833; border: 1px solid #e3494899; }
+/* The layer toggle stands for territory in general rather than any one power, so
+   it borrows Rome's hue — passed in from the faction registry, not written out
+   here, where it drifted out of step with the map once already. */
+.territory-swatch { width: 13px; height: 10px; border-radius: 2px; border: 1px solid rgb(0 0 0 / .22); opacity: .52; }
 /* Territory name labels: the secondary encoding beside the fill color. The
    paper-colored halo keeps them legible over any zone or basemap detail. */
 .territory-label { pointer-events: none; white-space: nowrap; font: 700 .58rem/1 var(--font-body); letter-spacing: .15em; text-transform: uppercase; text-shadow: 0 0 3px #f8f5edcc, 0 0 2px #f8f5ed, 1px 1px 0 #f8f5ed, -1px -1px 0 #f8f5ed, 1px -1px 0 #f8f5ed, -1px 1px 0 #f8f5ed; }
 .territory-label.context { font-weight: 600; opacity: .72; letter-spacing: .12em; }
 .powers-list { padding: 14px 0 4px; border-top: 1px solid var(--line); }.powers-grid { display: flex; flex-wrap: wrap; gap: 6px 10px; margin-top: 9px; }.power-chip { display: flex; align-items: center; gap: 6px; font-size: .68rem; color: #4c4d47; }
 .legend-routes { display: flex; flex-wrap: wrap; gap: 4px 12px; margin-top: 10px; color: #4c4d47; font-size: .58rem; }.legend-routes span { display: flex; align-items: center; gap: 6px; }.legend-routes svg { width: 26px; height: 6px; overflow: visible; }
-.legend-powers { display: flex; flex-wrap: wrap; gap: 5px 11px; margin-top: 11px; font-size: .58rem; }.legend-powers span { display: flex; align-items: center; gap: 6px; }.legend-powers span.context { opacity: .62; }.legend-territory { display: inline-block; width: 12px; height: 9px; border-radius: 2px; opacity: .9; }
+.legend-powers { display: flex; flex-wrap: wrap; gap: 5px 11px; margin-top: 11px; font-size: .58rem; }.legend-powers span { display: flex; align-items: center; gap: 6px; }.legend-powers span.context { opacity: .62; }
 .year-events { padding: 21px 19px; border-bottom: 1px solid var(--line); background: #eae4d7; }
 .year-events h2 { margin: 9px 0 7px; font: 400 1.18rem/1.2 var(--font-display); }.year-events > p:not(.eyebrow) { margin: 0 0 13px; color: #5e6059; font: 400 .78rem/1.48 Georgia, serif; }
 /* The span of a phase entry, so a reader is never told a decade is one year. */

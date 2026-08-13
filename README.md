@@ -4,13 +4,13 @@ Roman Campaign Atlas is an evidence-led interactive historical map of Roman warf
 
 `/figures` carries the commanders, kings and rebels one by one: dates, the battles each fought (linked to the map and graded), the account, and what the sources cannot settle. It follows the same rule as the campaign shelf — an entry may only claim battles the atlas actually holds. Five emperors are listed without any, because the mapped period ends in 44 BCE and the alternative would be writing them up as though it did not.
 
-`/figures/connections` draws how they were related — family, service, rivalry, and who met whom in the field — as a hand-placed chart plus the full list. Two rules are tested: both ends of a link must be figures the atlas already holds, and the two must have been alive at the same time. That second one exists because there are two Aemilius Paulli here, a father who died at Cannae and a son who won Pydna.
+`/figures/connections` draws how they were related — family, service, rivalry, and who met whom in the field — on the timeline they lived on. Two rules are tested: both ends of a link must be figures the atlas already holds, and the two must have been alive at the same time. That second one exists because there are two Aemilius Paulli here, a father who died at Cannae and a son who won Pydna.
 
 > Historical caution: the atlas is a research interface, not a claim to exact reconstruction. Routes and several coordinates are provisional and are explicitly classified as attested, probable, disputed, speculative, or — for the early Republic — traditional.
 
 ## Scope
 
-- An editorial home page at `/` that presents the whole arc of Roman warfare and offers four ways in: the atlas, a period, a campaign, or a single battle
+- An editorial home page at `/` that presents the whole arc of Roman warfare and offers five ways in: the atlas, a period, a campaign, a single battle, or a person
 - The interactive atlas at `/atlas` (legacy `/map` preserved), openable at any year, campaign, battle, location, or zoom through query parameters
 - Supporting pages: a battle index at `/battles`, `/methodology`, and `/about`
 - A single continuous BCE timeline across every era, with play, pause, previous/next year, and three playback speeds
@@ -94,7 +94,7 @@ The reusable template gives every record a concise detail page. Any battle that 
 
 ## Battle diagrams
 
-Thirty-three battles carry stage-by-stage tactical diagrams in `data/battleDiagrams.ts`, keyed by slug and rendered by `components/battles/BattleDiagram.tsx` — 132 stages in all. They are diagrams, not pictures: no source gives unit positions, so each stage is an interpretation carrying its own certainty label, and `caveat` records what the drawing is deliberately not claiming.
+Fifty-nine battles carry stage-by-stage tactical diagrams in `data/battleDiagrams.ts`, keyed by slug and rendered by `components/battles/BattleDiagram.tsx` — 234 stages in all. They are diagrams, not pictures: no source gives unit positions, so each stage is an interpretation carrying its own certainty label, and `caveat` records what the drawing is deliberately not claiming.
 
 The frame is abstract — 100 x 68, x rightward, y downward — never latitude and longitude. Frontages are relative; depth means something only where a source makes a point of it, such as the Roman mass at Cannae or the pike blocks at Cynoscephalae. Every stage of every diagram is rendered into the page, so the whole battle is present without JavaScript.
 
@@ -104,7 +104,7 @@ Units are `infantry`, `phalanx`, `skirmishers`, `cavalry`, `elephants`, `ships`,
 
 ### Labels place themselves
 
-Hand-placing labels does not survive thirty-three diagrams: move one unit and three captions collide. The data says *what* is labelled and `lib/diagramLabels.ts` decides *where*, trying the natural positions around each unit, area, or arrow and taking the first that clears the solid unit blocks, the drawn arrows, the stage caption, the faction key, and every label already placed. It is pure and deterministic, so the server and the client agree and the whole figure is in the HTML. An explicit `labelAt` in the data always wins, for the cases where the author knows something the solver does not.
+Hand-placing labels does not survive fifty-nine diagrams: move one unit and three captions collide. The data says *what* is labelled and `lib/diagramLabels.ts` decides *where*, trying the natural positions around each unit, area, or arrow and taking the first that clears the solid unit blocks, the drawn arrows, the stage caption, the faction key, and every label already placed. It is pure and deterministic, so the server and the client agree and the whole figure is in the HTML. An explicit `labelAt` in the data always wins, for the cases where the author knows something the solver does not.
 
 ### Adding one
 
@@ -112,9 +112,25 @@ Write the stages, cite sources the battle record already lists, and run `npm tes
 
 A battle with no diagram must have an entry in `NO_DIAGRAM_REASON` explaining why, and a test asserts that every battle has exactly one of the two. The bar is deliberately narrow: an unlocated site or a nine-year siege is *not* a reason to refuse, because what the sources give in those cases is the shape of the action and a frame that says it is schematic can carry that honestly. What cannot be drawn is an action nobody described (Sulci) or a campaign of months that was never one action at all (the African expedition, the Alpine crossing).
 
+## The connections chart
+
+`/figures/connections` used to be fourteen names hand-placed on two rows in the data file, with a test to stop them colliding. That works until you add a fifteenth, and it could not say *when* anything happened: Sulla and Hannibal sat the same distance apart as Sulla and Pompey.
+
+It is now computed from the dates by `lib/connectionLayout.ts`, which is pure and takes its data as arguments — the same shape as `lib/coverageCore.ts`, so the test runner can load it without resolving the `@/` alias. Time runs left to right on the atlas's own scale, each person is the span of their life with the years they campaigned picked out solid inside it, Rome is packed into lanes above the axis and everyone she fought below it, and lanes are assigned by greedy first-fit — where "occupied" includes the name written above the bar, because Spartacus is two years long and nine characters wide.
+
+A relation is drawn at the year it belongs to, and where that year comes from is visible in the mark:
+
+- an authored `year` on the relation wins, for the cases where one year is the right answer — a wedding, a handover, a surrender;
+- failing that, for a battlefield meeting, the **latest** battle both fought that the atlas holds. Latest, not earliest, because Caesar and Labienus share three: the first makes them commander and legate, the last makes them enemies;
+- failing that, the middle of the years both were campaigning, or of the years both were alive. These are the only inferred anchors, and they draw as an **open** ring rather than a filled dot so a reader can tell.
+
+Everything positional is computed on the server, so the whole graph is in the HTML and the page works without JavaScript; the client component only adds the dimming, the filters and the panel. Four tests cover it: that everyone inside the mapped period is on it and nobody outside is, that no two entries in a lane collide and nothing leaves the frame, that every line starts and ends on the two bars it joins, and that no relation is anchored to a year one of the two was not alive for.
+
+The five emperors are deliberately off the chart, for the same reason they carry no battles: stretching the axis to Constantine would flatten four centuries of Republic into its first inch.
+
 ## Adding a war or era
 
-Timeline segments live in `data/wars.ts` as an `eras` list (wars and the interbellum periods between them). Each era sets its year span, a header label, and a `mapView` the map eases to when the timeline enters it. The overall scrubber bounds are derived from this list; if you add an era outside 264–201 BCE, also update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` — a unit test asserts the two stay in sync. Tag each battle, route, and event with the matching `war` id.
+Timeline segments live in `data/wars.ts` as an `eras` list (wars and the interbellum periods between them). Each era sets its year span, a header label, and a `mapView` the map eases to when the timeline enters it. The overall scrubber bounds are derived from this list; if you add an era outside 509–44 BCE, also update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` — a unit test asserts the two stay in sync. Tag each battle, route, and event with the matching `war` id.
 
 ## Adding a campaign route
 
@@ -167,7 +183,7 @@ the range.
 `/methodology` renders this as an evidence register: every ancient text in the order
 of the earliest year it can speak for, what it survives for, and how much of the
 atlas leans on it — plus how many battles rest on a single ancient text, which is
-currently eleven. Every figure there is counted from the citation data rather than
+currently thirteen. Every figure there is counted from the citation data rather than
 written out, and a test guards against anyone hardcoding them back.
 
 ## Year-by-year coverage
@@ -177,9 +193,12 @@ The atlas is read a year at a time, so the year is the unit that has to be compl
 - every year resolves to exactly one focus event (a phase entry may cover many years, and a single-year entry inside a phase wins);
 - every year from 264 has something drawn — a battle marker, a campaign route, or both; before that, every era does;
 - every year has territory to colour, with Rome and Carthage always present;
-- the coloured zones change hands **only** in the nineteen documented transition years, each named with the settlement, conquest or defection that caused it, and are otherwise still.
+- the coloured zones change hands **only** in the thirty-four documented transition years, each named with the settlement, conquest or defection that caused it, and are otherwise still;
+- and no settlement leaves ground blank that was coloured the year before, unless the test says in words why that ground stopped being anybody's.
 
-That last one runs both ways: a transition that fails to happen and a zone that quietly appears in an undocumented year both fail. The table in the test is the record of when the map is supposed to move, so add to it deliberately.
+The third one runs both ways: a transition that fails to happen and a zone that quietly appears in an undocumented year both fail. The table in the test is the record of when the map is supposed to move, so add to it deliberately.
+
+The fourth exists because the third cannot see it. A settlement is authored as two edits — one zone ends, another begins — and if the second is drawn smaller than the first, the zone *set* changes exactly as documented while a band of country quietly goes uncoloured. That is how Pompey's annexation of Syria came to shrink the map, how the Emporia vanished in the year Rome annexed them, and how Aquitania stopped being Gallic when the province of Narbonensis was created next door. Ground is only allowed to go blank where a power really was left out of a settlement — Bithynia and Cappadocia after Apamea, the eastern districts handed to client kings in 129 — and those are listed by name.
 
 If you add an era outside 509–44 BCE, update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` too — the bounds are literals there so the module stays free of runtime imports for the type-stripping test runner, and a test asserts the two stay in sync.
 
@@ -221,7 +240,7 @@ The repository includes `.openai/hosting.json` and the Vinext/Sites build config
 - Route geometry is deliberately simplified and several legs remain provisional.
 - The campaign map's basemap is deliberately apolitical: sea, land, and coastline only, drawn from bundled Natural Earth data (public domain, `data/geo/mediterranean-land.json`, regenerate with `build/make-basemap.mjs`). It carries no modern borders or place names, so every political statement on the map comes from the territory layer. Coastlines are simplified for a regional view, which is why the map caps at zoom 7.
 - Battle detail pages keep a labeled modern basemap on purpose: that locator answers "where is this place today", so modern names are the point.
-- Thirty-three of the forty-one battles have stage-by-stage tactical diagrams; the eight that do not carry a stated reason. Sieges and unlocated fields are drawn schematically, with the frame saying so.
+- Fifty-nine of the sixty-nine battles have stage-by-stage tactical diagrams; the ten that do not carry a stated reason. Sieges and unlocated fields are drawn schematically, with the frame saying so.
 - Second Punic War coordinates for the Alpine crossing, Baecula, the Great Plains, and Zama are provisional and await scholarly review.
 - Monthly dating is sparse, so marker interpolation communicates campaign sequence rather than continuous measured travel.
 - The campaign map needs no tile service; battle detail pages still load CARTO tiles and so require an internet connection.

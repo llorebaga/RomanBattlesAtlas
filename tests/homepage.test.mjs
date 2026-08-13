@@ -8,7 +8,9 @@ import { campaignIndex, FEATURED_CAMPAIGN_ID, getCampaign } from "../data/campai
 import { timelineMilestones } from "../data/timelineMilestones.ts";
 import { exploreOptions, featuredBattleSlugs } from "../data/homepage.ts";
 import { figures, isMapped } from "../data/figures.ts";
-import { relations, RELATION_KINDS, chartNodes, chartArcs, CHART_FRAME } from "../data/figureRelations.ts";
+import { relations, RELATION_KINDS } from "../data/figureRelations.ts";
+import { factionColor } from "../data/factions.ts";
+import { buildConnectionChart, CHART, sideOf, startYearOf } from "../lib/connectionLayout.ts";
 import { sources, sourceCoversYear } from "../data/sources.ts";
 import { atlasHref, parseAtlasSearch, battleOnMapHref, battleHref, ATLAS_PATH } from "../lib/atlasLinks.ts";
 import { computeCampaignCoverage, computePeriodCoverage, computeTotals } from "../lib/coverageCore.ts";
@@ -155,7 +157,7 @@ test("campaign links open the atlas in the right war and year", () => {
   }
 });
 
-test("the featured campaign is the most developed one", () => {
+test("the featured campaign is one the atlas can carry", () => {
   const featured = getCampaign(FEATURED_CAMPAIGN_ID);
   assert.ok(featured, "the featured campaign must exist");
   const coverage = campaignCoverage(featured);
@@ -288,36 +290,130 @@ test("every connection joins two figures the atlas holds", () => {
   }
 });
 
-test("the connection chart fits its frame and does not collide", () => {
-  // The chart is hand-placed and cannot be eyeballed from here, so the geometry is
-  // asserted instead: labels inside the frame, and no two on a row overlapping.
-  const CHAR = 3.6 * 0.58; // rough advance width per character at the chart font size
-  const slugs = new Set(figures.map((figure) => figure.slug));
-  for (const node of chartNodes) {
-    assert.ok(slugs.has(node.slug), `chart node ${node.slug} is not a figure`);
-    const half = (node.label.length * CHAR) / 2;
-    assert.ok(node.x - half >= 0, `${node.slug}: label runs off the left of the frame`);
-    assert.ok(node.x + half <= CHART_FRAME.width, `${node.slug}: label runs off the right of the frame`);
-    assert.ok(node.y === CHART_FRAME.topRow || node.y === CHART_FRAME.bottomRow, `${node.slug}: off-row`);
+// ── The connections chart ──────────────────────────────────────────────────
+// Bound exactly as app/figures/connections/page.tsx binds it, so the test and
+// the page are looking at the same picture.
+const onChart = figures.filter((figure) => figure.diedYear <= TIMELINE_END_YEAR);
+const connectionChart = () => buildConnectionChart({
+  figures: onChart.map((figure) => ({
+    slug: figure.slug, name: figure.name, title: figure.title, faction: figure.faction,
+    color: factionColor(figure.faction), bornYear: figure.bornYear, diedYear: figure.diedYear,
+    activeFrom: figure.activeFrom, activeTo: figure.activeTo, battleSlugs: figure.battleSlugs,
+    lifespan: lifespan(figure), knownFor: figure.knownFor, mapped: isMapped(figure),
+  })),
+  relations,
+  battles: battles.map((battle) => ({ slug: battle.slug, name: battle.name, startYear: battle.startYear })),
+  bands: periods.map((period) => ({ id: period.id, shortName: period.shortName, startYear: period.startYear, endYear: period.endYear })),
+});
+const labelWidth = (name) => name.length * CHART.labelSize * CHART.charAdvance;
+
+test("the connections chart holds everyone the mapped period does", () => {
+  const chart = connectionChart();
+  assert.equal(chart.entries.length, onChart.length, "every figure inside the timeline is on the chart");
+  // The emperors are deliberately off it: the atlas stops at the Ides of March,
+  // and stretching the axis to Constantine would flatten the Republic.
+  const charted = new Set(chart.entries.map((entry) => entry.slug));
+  for (const figure of figures) {
+    assert.equal(charted.has(figure.slug), figure.diedYear <= TIMELINE_END_YEAR, `${figure.slug}: on the chart when it should not be, or missing`);
   }
-  for (const row of [CHART_FRAME.topRow, CHART_FRAME.bottomRow]) {
-    const inRow = chartNodes.filter((node) => node.y === row).sort((a, b) => a.x - b.x);
-    for (let i = 1; i < inRow.length; i += 1) {
-      const left = inRow[i - 1];
-      const right = inRow[i];
-      const gap = right.x - (right.label.length * CHAR) / 2 - (left.x + (left.label.length * CHAR) / 2);
-      assert.ok(gap >= 0, `${left.slug} and ${right.slug} overlap on the chart by ${Math.abs(gap).toFixed(1)}`);
+  assert.equal(chart.edges.length, relations.length, "every relation is drawn");
+  for (const entry of chart.entries) {
+    assert.equal(entry.side, sideOf(entry.faction), `${entry.slug}: on the wrong side`);
+    // Rome above the line, the powers she fought below it.
+    assert.equal(entry.y < chart.axisY, entry.side === "rome", `${entry.slug}: drawn on the wrong side of the axis`);
+  }
+});
+
+test("nothing on the connections chart overlaps or leaves the frame", () => {
+  // The layout is computed rather than hand-placed now, so what has to be
+  // asserted is the packing: labels inside the frame, and no two entries sharing
+  // a lane close enough for their names to run together. Spartacus is the case
+  // that matters — two years of life and nine characters of name.
+  const chart = connectionChart();
+  for (const entry of chart.entries) {
+    assert.ok(entry.labelX >= 0, `${entry.slug}: name runs off the left`);
+    assert.ok(entry.labelX + labelWidth(entry.name) <= chart.width, `${entry.slug}: name runs off the right`);
+    assert.ok(entry.y >= 0 && entry.y + entry.height <= chart.height, `${entry.slug}: bar outside the frame`);
+    assert.ok(entry.x1 >= entry.x0, `${entry.slug}: life runs backwards`);
+    assert.ok(entry.activeX0 >= entry.x0 - 0.01 && entry.activeX1 <= entry.x1 + 0.01, `${entry.slug}: campaigned outside their own life`);
+  }
+  for (const side of ["rome", "other"]) {
+    const lanes = new Map();
+    for (const entry of chart.entries.filter((e) => e.side === side)) {
+      if (!lanes.has(entry.lane)) lanes.set(entry.lane, []);
+      lanes.get(entry.lane).push(entry);
+    }
+    for (const [lane, row] of lanes) {
+      row.sort((a, b) => a.x0 - b.x0);
+      for (let i = 1; i < row.length; i += 1) {
+        const left = row[i - 1];
+        const right = row[i];
+        assert.equal(left.y, right.y, `${side} lane ${lane}: entries are not level`);
+        const occupied = Math.max(left.x1, left.x0 + labelWidth(left.name));
+        assert.ok(right.x0 >= occupied, `${left.slug} and ${right.slug} collide in ${side} lane ${lane}`);
+      }
     }
   }
-  // Every arc must join two charted nodes and correspond to a real relation.
-  const charted = new Set(chartNodes.map((node) => node.slug));
-  for (const arc of chartArcs) {
-    assert.ok(charted.has(arc.from) && charted.has(arc.to), `arc ${arc.from}-${arc.to} is not on the chart`);
+});
+
+test("every connection is drawn between the two lives it joins", () => {
+  // A link has to touch both people at a moment both of them were there. This is
+  // the check that would catch an anchor year outside somebody's life, which is
+  // how a line ends up floating in open space.
+  const chart = connectionChart();
+  const bySlug = new Map(chart.entries.map((entry) => [entry.slug, entry]));
+  for (const edge of chart.edges) {
+    const a = bySlug.get(edge.from);
+    const b = bySlug.get(edge.to);
+    assert.ok(a && b, `${edge.id}: an end is not on the chart`);
+    const numbers = edge.path.match(/-?[\d.]+/g).map(Number);
+    assert.equal(numbers.length, 8, `${edge.id}: not a single cubic`);
+    const [ax, ay, , , , , bx, by] = numbers;
+    assert.ok(ax >= a.x0 - 0.6 && ax <= a.x1 + 0.6, `${edge.id}: starts off ${edge.from}'s life`);
+    assert.ok(bx >= b.x0 - 0.6 && bx <= b.x1 + 0.6, `${edge.id}: ends off ${edge.to}'s life`);
+    // Each end leaves from the face of the bar that looks at the other person.
+    const faces = (entry, y) => Math.abs(y - entry.y) < 0.05 || Math.abs(y - (entry.y + entry.height)) < 0.05;
+    assert.ok(faces(a, ay) && faces(b, by), `${edge.id}: does not start and end on the bars`);
     assert.ok(
-      relations.some((r) => (r.from === arc.from && r.to === arc.to) || (r.from === arc.to && r.to === arc.from)),
-      `arc ${arc.from}-${arc.to} has no relation behind it`,
+      edge.midX >= 0 && edge.midX <= chart.width && edge.midY >= 0 && edge.midY <= chart.height,
+      `${edge.id}: its marker is outside the frame`,
     );
-    assert.ok(arc.lift >= 0 && arc.lift < CHART_FRAME.topRow, `arc ${arc.from}-${arc.to}: lift outside the frame`);
+    assert.ok(edge.year >= chart.domain.from && edge.year <= chart.domain.to, `${edge.id}: anchored outside the timeline`);
+  }
+});
+
+test("a connection is dated from the record, not from the drawing", () => {
+  // An authored year wins; then the battle both fought, if the atlas holds one;
+  // and only then the overlap of two lives — which the chart admits to by
+  // drawing an open marker instead of a filled one.
+  const chart = connectionChart();
+  const byId = new Map(chart.edges.map((edge) => [edge.id, edge]));
+  for (const relation of relations) {
+    const edge = byId.get(`${relation.from}-${relation.to}-${relation.kind}`);
+    assert.ok(edge, `${relation.from}->${relation.to} (${relation.kind}) is not drawn`);
+    if (relation.year !== undefined) {
+      assert.equal(edge.year, relation.year, `${edge.id}: ignored its authored year`);
+      assert.equal(edge.datedExactly, true);
+    }
+    // A battle anchor may only be claimed where both really fought it.
+    if (edge.battleSlug) {
+      const from = figures.find((figure) => figure.slug === relation.from);
+      const to = figures.find((figure) => figure.slug === relation.to);
+      assert.ok(
+        from.battleSlugs.includes(edge.battleSlug) && to.battleSlugs.includes(edge.battleSlug),
+        `${edge.id}: anchored to ${edge.battleSlug}, which they did not both fight`,
+      );
+      assert.equal(relation.kind, "battlefield", `${edge.id}: only a battlefield meeting may be anchored to a battle`);
+    }
+    // Inferred or not, the year has to fall inside both lives, or the line is
+    // drawn at a moment one of them was not alive for.
+    const ends = [relation.from, relation.to].map((slug) => figures.find((figure) => figure.slug === slug));
+    for (const person of ends) {
+      assert.ok(
+        edge.year >= startYearOf(person) && edge.year <= person.diedYear,
+        `${edge.id}: ${Math.abs(edge.year)} BCE is outside ${person.slug}'s life`,
+      );
+    }
   }
 });
 
