@@ -4,20 +4,11 @@ import { readFile } from "node:fs/promises";
 import { territories, territoriesForYear } from "../data/territories.ts";
 import { factionColor, factionList, isContextPower, factionRole, roleRank, TERRITORY_LAYERS } from "../data/factions.ts";
 import { landPolygons } from "../data/geo/mediterranean-land.ts";
-import { densifyClosedRing } from "../lib/mapGeometry.ts";
+import { densifyClosedRing, pointInRing } from "../lib/mapGeometry.ts";
 import { TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "../lib/historicalDates.ts";
 
 const land = { features: [{ properties: {}, geometry: { coordinates: landPolygons } }] };
 
-function pointInRing(point, ring) {
-  let inside = false;
-  for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
-    const [xi, yi] = ring[i];
-    const [xj, yj] = ring[j];
-    if (yi > point[1] !== yj > point[1] && point[0] < ((xj - xi) * (point[1] - yi)) / (yj - yi) + xi) inside = !inside;
-  }
-  return inside;
-}
 const isLand = (point) => land.features[0].geometry.coordinates.some((rings) => pointInRing(point, rings[0]) && !rings.slice(1).some((hole) => pointInRing(point, hole)));
 
 test("the bundled basemap puts land and sea in the right places", () => {
@@ -126,6 +117,30 @@ const OWNERSHIP = [
   { year: -105, places: { Narbo: [3.0, 43.2], Arausio: [4.81, 44.14] }, polity: "rome" },
   { year: -105, places: { "free Gaul": [2.0, 45.6] }, polity: "gaul" },
   { year: -101, places: { "Numidian interior": [4.0, 35.6] }, polity: "numidia" },
+  // Mithridates takes Asia in a season and holds it for four years, and Sulla's
+  // peace gives it back. The province is the same ground under both.
+  { year: -86, places: { Ephesus: [27.34, 37.94], Pergamum: [27.18, 39.13] }, polity: "pontus" },
+  { year: -80, places: { Ephesus: [27.34, 37.94] }, polity: "rome" },
+  { year: -80, places: { "Amasia, in Pontus": [35.83, 40.65] }, polity: "pontus" },
+  // Pompey's settlement of the East, and the frontier it left. Syria and Cilicia
+  // are two provinces out of one kingdom, so both are checked: drawn as one, or
+  // as Syria alone, Cilicia goes blank in the year Rome acquired it.
+  { year: -60, places: { "Amasia, in Pontus": [35.83, 40.65] }, polity: "rome" },
+  { year: -60, places: { Antioch: [36.2, 36.2], Damascus: [36.3, 33.5] }, polity: "rome" },
+  { year: -60, places: { "Tarsus, in Cilicia": [34.9, 36.92] }, polity: "rome" },
+  { year: -60, places: { "Mesopotamia beyond the Euphrates": [41.5, 35.0] }, polity: "parthia" },
+  // Gaul, before and after the eight years.
+  { year: -55, places: { "central Gaul": [2.0, 46.5], Aquitania: [-0.4, 43.3] }, polity: "gaul" },
+  { year: -45, places: { "central Gaul": [2.0, 46.5], Aquitania: [-0.4, 43.3], Narbo: [3.0, 43.2] }, polity: "rome" },
+  // Thapsus. The Emporia are detached from Numidia proper, with the province of
+  // Africa lying between, so they have to be checked separately or the annexation
+  // of Juba's kingdom quietly leaves the Tripolitanian shore belonging to nobody.
+  { year: -50, places: { "Numidian interior": [4.0, 35.6], "Lepcis, in the Emporia": [14.29, 32.64] }, polity: "numidia" },
+  { year: -45, places: { "Numidian interior": [4.0, 35.6], "Lepcis, in the Emporia": [14.29, 32.64] }, polity: "rome" },
+  // Greece stays a minor power under Roman oversight to the end of the atlas,
+  // while Macedonia is a province: the two must not have merged.
+  { year: -45, places: { Corinth: [22.9, 37.94] }, polity: "greek" },
+  { year: -45, places: { Pella: [22.52, 40.76] }, polity: "rome" },
 ];
 
 // Ground that is blank on purpose. These peoples were independent, so colouring
@@ -138,6 +153,10 @@ const UNCLAIMED_BY_DESIGN = [
   // were never Antiochus' to lose or Rome's to give, so the grant must stop short of
   // them rather than sweeping across the peninsula.
   { year: -188, places: { Bithynia: [30.5, 40.5], "Galatia (Ancyra)": [32.85, 39.93], Cappadocia: [35.5, 38.7] } },
+  // And they are still nobody's after Pompey. He reorganised the East by making
+  // kings as much as by making provinces, and the map says so by leaving the
+  // client kingdoms uncoloured rather than shading them Roman.
+  { year: -60, places: { "Galatia (Ancyra)": [32.85, 39.93], Cappadocia: [35.5, 38.7] } },
 ];
 
 test("land held by independent peoples stays unclaimed", () => {

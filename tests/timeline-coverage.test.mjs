@@ -4,6 +4,8 @@ import { battles } from "../data/battles.ts";
 import { campaignRoutes } from "../data/campaigns.ts";
 import { historicalEvents } from "../data/events.ts";
 import { territoriesForYear } from "../data/territories.ts";
+import { landPolygons } from "../data/geo/mediterranean-land.ts";
+import { densifyClosedRing, pointInRing } from "../lib/mapGeometry.ts";
 import { battleDiagrams, NO_DIAGRAM_REASON } from "../data/battleDiagrams.ts";
 import { sources, sourceCoversYear } from "../data/sources.ts";
 import { eras } from "../data/wars.ts";
@@ -21,6 +23,19 @@ import { TIMELINE_START_YEAR, TIMELINE_END_YEAR } from "../lib/historicalDates.t
 const YEARS = [];
 for (let year = TIMELINE_START_YEAR; year <= TIMELINE_END_YEAR; year += 1) YEARS.push(year);
 const bce = (year) => `${Math.abs(year)} BCE`;
+
+// Territory fills are clipped to the coastline, so only land can go blank. The
+// bounding boxes are worth the twenty lines: without them this walks every
+// vertex of every Natural Earth polygon for every sample point, and the check
+// below takes minutes instead of a second.
+const boxOf = (points) => points.reduce(
+  (b, [x, y]) => ({ minX: Math.min(b.minX, x), maxX: Math.max(b.maxX, x), minY: Math.min(b.minY, y), maxY: Math.max(b.maxY, y) }),
+  { minX: Infinity, maxX: -Infinity, minY: Infinity, maxY: -Infinity },
+);
+const inBox = (point, b) => point[0] >= b.minX && point[0] <= b.maxX && point[1] >= b.minY && point[1] <= b.maxY;
+const LAND_SHAPES = landPolygons.map((rings) => ({ rings, box: boxOf(rings[0]) }));
+const isLand = (point) => LAND_SHAPES.some(({ rings, box }) =>
+  inBox(point, box) && pointInRing(point, rings[0]) && !rings.slice(1).some((hole) => pointInRing(point, hole)));
 
 test("the mapped period is the one we think it is", () => {
   // 509 BCE because that is where the Republic — and any usable narrative — begins.
@@ -158,9 +173,9 @@ const TRANSITIONS = [
   // ── The Social War to the Ides of March ─────────────────────────────────────
   { year: -88, gained: ["pontus-kingdom", "pontus-asia"], lost: ["rome-asia"], why: "Mithridates overruns the province of Asia and has every Roman and Italian in it killed on one coordinated day" },
   { year: -84, gained: ["rome-asia-restored"], lost: ["pontus-asia"], why: "Sulla's peace restores the province, and fines it twenty thousand talents for the four years it was not Roman" },
-  { year: -63, gained: ["rome-pontus", "rome-syria", "parthia"], lost: ["pontus-kingdom", "seleucid-apamea"], why: "Pompey annexes Pontus and Syria, ends the Seleucid dynasty by administrative decision, and leaves Rome facing Parthia across the Euphrates" },
+  { year: -63, gained: ["rome-pontus", "rome-syria", "rome-cilicia", "parthia"], lost: ["pontus-kingdom", "seleucid-apamea"], why: "Pompey annexes Pontus, Syria and Cilicia, ends the Seleucid dynasty by administrative decision, and leaves Rome facing Parthia across the Euphrates" },
   { year: -50, gained: ["rome-gaul"], lost: ["gaul-transalpine-reduced"], why: "eight years of campaigning end with Gaul Roman and Caesar holding eleven legions" },
-  { year: -46, gained: ["rome-africa-nova"], lost: ["numidia-kingdom", "numidia-emporia"], why: "Juba backed the losing side at Thapsus and Numidia is annexed for it" },
+  { year: -46, gained: ["rome-africa-nova", "rome-emporia"], lost: ["numidia-kingdom", "numidia-emporia"], why: "Juba backed the losing side at Thapsus and Numidia is annexed for it, the detached Tripolitanian Emporia with it" },
 ];
 
 test("territory changes hands in the year it changed hands", () => {
@@ -188,6 +203,89 @@ test("the map is otherwise still between transitions", () => {
     if (before === after) continue;
     assert.ok(expected.has(year), `${bce(year)}: the territory set changes here but no transition is documented`);
   }
+});
+
+// Ground a settlement is allowed to leave uncoloured, because the settlement
+// really did leave it out. Everything else that goes blank is a data slip: two
+// zones authored in separate passes, the second drawn smaller than the first.
+const BLANK_BY_DESIGN = {
+  [-188]: "Apamea gave the Seleucid west to Rome's allies, and Bithynia, Galatia, Paphlagonia, Pontus and Cappadocia were never Antiochus' to lose or Rome's to give",
+  [-129]: "the Attalid bequest was organised as a province smaller than the kingdom: the eastern districts went to client kings and Rhodes' old share had been detached long before",
+};
+
+test("no settlement leaves ground belonging to nobody", () => {
+  // The test above watches the set of zones. It cannot see the failure that
+  // actually kept happening, because that failure keeps the set correct: one
+  // zone ends and another begins exactly as documented, but the second is drawn
+  // smaller, and a band of country quietly stops being anybody's. Pompey's Syria
+  // did it along its whole northern and eastern edge, the annexation of Numidia
+  // did it to the Emporia, and the province of Narbonensis did it to Aquitania.
+  //
+  // Sampled over the ground the changing zones actually cover, and reasoning
+  // about the drawn curve rather than the waypoints, as the ownership tests do.
+  const STEP = 0.15; // ~16 km; the seams this found ran from 20 to 90 km wide
+  // Judged on the largest connected patch rather than the raw count, because the
+  // two kinds of blank look nothing alike. Where two smoothed curves part company
+  // at a headland you get one or two loose cells; a zone drawn short of the one it
+  // replaces leaves a band. Every real fault this found was 11 cells or more and
+  // every artifact left behind is 3 or fewer, so the line sits between them.
+  const TOLERANCE = 6;
+  const drawn = (year) => territoriesForYear(year).map((zone) => {
+    const curve = densifyClosedRing(zone.ring);
+    return { zone, curve, box: boxOf(curve) };
+  });
+  const held = (zones, point) => zones.some(({ curve, box }) => inBox(point, box) && pointInRing(point, curve));
+  // Largest 8-connected group of blank cells on the sample lattice.
+  function largestPatch(cells) {
+    const blank = new Set(cells.map(({ col, row }) => `${col},${row}`));
+    const seen = new Set();
+    let biggest = 0;
+    let where = null;
+    for (const cell of cells) {
+      const key = `${cell.col},${cell.row}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      const queue = [cell];
+      let size = 0;
+      while (queue.length) {
+        const { col, row } = queue.pop();
+        size += 1;
+        for (let dc = -1; dc <= 1; dc += 1) {
+          for (let dr = -1; dr <= 1; dr += 1) {
+            const next = `${col + dc},${row + dr}`;
+            if (blank.has(next) && !seen.has(next)) { seen.add(next); queue.push({ col: col + dc, row: row + dr }); }
+          }
+        }
+      }
+      if (size > biggest) { biggest = size; where = cell.point; }
+    }
+    return { biggest, where };
+  }
+
+  const problems = [];
+  for (const { year } of TRANSITIONS) {
+    if (BLANK_BY_DESIGN[year]) continue;
+    const before = drawn(year - 1);
+    const after = drawn(year);
+    const beforeIds = new Set(before.map(({ zone }) => zone.id));
+    const afterIds = new Set(after.map(({ zone }) => zone.id));
+    const moved = [...before, ...after].filter(({ zone }) => !beforeIds.has(zone.id) || !afterIds.has(zone.id));
+    const area = boxOf(moved.flatMap(({ box }) => [[box.minX, box.minY], [box.maxX, box.maxY]]));
+    const blank = [];
+    let col = 0;
+    for (let x = area.minX; x <= area.maxX; x += STEP, col += 1) {
+      let row = 0;
+      for (let y = area.minY; y <= area.maxY; y += STEP, row += 1) {
+        const point = [Math.round(x * 1000) / 1000, Math.round(y * 1000) / 1000];
+        if (!isLand(point)) continue;
+        if (held(before, point) && !held(after, point)) blank.push({ col, row, point });
+      }
+    }
+    const { biggest, where } = largestPatch(blank);
+    if (biggest <= TOLERANCE) continue;
+    problems.push(`${bce(year)}: a patch of ${biggest} sampled points stops being anybody's, around ${where.map((n) => n.toFixed(1)).join(", ")}`);
+  }
+  assert.deepEqual(problems, [], "a zone that replaces another must cover the ground it replaces, or the year must be listed in BLANK_BY_DESIGN");
 });
 
 test("an event that points at a battle points at one that was being fought", () => {

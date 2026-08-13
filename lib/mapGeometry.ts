@@ -130,6 +130,19 @@ export function sampleOpenCurve(points: number[][], samplesPerSegment = 14, tens
   return out;
 }
 
+// Even-odd containment, for the checks that ask who holds a place and whether a
+// place is on land. Kept here rather than in each test that wants it, because
+// two copies of a winding rule is two chances to get the boundary case wrong.
+export function pointInRing(point: readonly number[], ring: readonly (readonly number[])[]): boolean {
+  let inside = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i, i += 1) {
+    const [xi, yi] = ring[i];
+    const [xj, yj] = ring[j];
+    if (yi > point[1] !== yj > point[1] && point[0] < ((xj - xi) * (point[1] - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
 // The same curve as a dense ring of lng/lat points, for geometric checks such as
 // "do two powers overlap" that must reason about what is actually drawn.
 export function densifyClosedRing(ring: number[][], samplesPerSegment = 8, tension = TERRITORY_TENSION): Point[] {
