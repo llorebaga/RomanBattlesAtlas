@@ -116,7 +116,7 @@ A battle with no diagram must have an entry in `NO_DIAGRAM_REASON` explaining wh
 
 `/figures/connections` used to be fourteen names hand-placed on two rows in the data file, with a test to stop them colliding. That works until you add a fifteenth, and it could not say *when* anything happened: Sulla and Hannibal sat the same distance apart as Sulla and Pompey.
 
-It is now computed from the dates by `lib/connectionLayout.ts`, which is pure and takes its data as arguments — the same shape as `lib/coverageCore.ts`, so the test runner can load it without resolving the `@/` alias. Time runs left to right on the atlas's own scale, each person is the span of their life with the years they campaigned picked out solid inside it, Rome is packed into lanes above the axis and everyone she fought below it, and lanes are assigned by greedy first-fit — where "occupied" includes the name written above the bar, because Spartacus is two years long and nine characters wide.
+It is now computed from the dates by `lib/connectionLayout.ts`, which is pure and takes its data as arguments — the same shape as `lib/coverageCore.ts`, so the test runner can load it without resolving the `@/` alias. Time runs left to right on the atlas's own scale, each person is the span of their life with the years they campaigned picked out solid inside it, Rome is packed into lanes above the axis and every other power below it, and lanes are assigned by greedy first-fit — where "occupied" includes the name written above the bar, because Spartacus is two years long and nine characters wide.
 
 A relation is drawn at the year it belongs to, and where that year comes from is visible in the mark:
 
@@ -124,9 +124,13 @@ A relation is drawn at the year it belongs to, and where that year comes from is
 - failing that, for a battlefield meeting, the **latest** battle both fought that the atlas holds. Latest, not earliest, because Caesar and Labienus share three: the first makes them commander and legate, the last makes them enemies;
 - failing that, the middle of the years both were campaigning, or of the years both were alive. These are the only inferred anchors, and they draw as an **open** ring rather than a filled dot so a reader can tell.
 
+The line across the middle separates Rome from every other power, **not** Rome from her enemies. Masinissa, Eumenes II and Eudamus of Rhodes are all below it and all three fought on Rome's side, which is also why `alliance` exists as a kind of link: filed as `service` an ally looks like a subordinate, and as `battlefield` it looks like an enemy.
+
 Everything positional is computed on the server, so the whole graph is in the HTML and the page works without JavaScript; the client component only adds the dimming, the filters and the panel. Four tests cover it: that everyone inside the mapped period is on it and nobody outside is, that no two entries in a lane collide and nothing leaves the frame, that every line starts and ends on the two bars it joins, and that no relation is anchored to a year one of the two was not alive for.
 
-The five emperors are deliberately off the chart, for the same reason they carry no battles: stretching the axis to Constantine would flatten four centuries of Republic into its first inch.
+Who is on it is decided by one rule: anyone with a battle the atlas holds. That draws the line in the right place on its own — the five emperors have no battles and drop out, so the axis is not stretched to Constantine for men it cannot show a campaign for. A death-year cutoff was the obvious alternative and it was wrong, because Antony outlived the Ides by fourteen years and fought three of the battles here.
+
+The roster is built from the battle records rather than curated by hand: `data/battles.ts` names a commander for every side of every action, and a person belongs here when the atlas can put them somewhere. That is fifty-six figures, fifty-one of them on the chart, joined by fifty-nine connections. Where the same name covers different men it is left alone — there are three Publii Decii Mus and at least three Carthaginians called Hasdrubal in these battles, and conflating them to make the graph denser would be the one thing this atlas is against.
 
 ## Adding a war or era
 

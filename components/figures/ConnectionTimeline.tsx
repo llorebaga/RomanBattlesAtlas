@@ -126,8 +126,11 @@ export function ConnectionTimeline({ chart, kinds }: { chart: ConnectionChart; k
 
           {/* The line the wars are fought across. */}
           <line x1={0} y1={chart.axisY} x2={chart.width} y2={chart.axisY} className="ct-divider" />
+          {/* "The other powers", not "her enemies": Masinissa, Eumenes and
+              Eudamus of Rhodes are all down there, and all three fought on
+              Rome's side. The band is by power, not by side in any one war. */}
           <text x={6} y={chart.axisY - 4} className="ct-side-label">ROME</text>
-          <text x={6} y={chart.axisY + 11} className="ct-side-label">AND THOSE SHE FOUGHT</text>
+          <text x={6} y={chart.axisY + 11} className="ct-side-label">THE OTHER POWERS</text>
 
           {/* Lines under the names, markers over them. An edge arriving at a bar
               has to cross that bar's own name to get there — there is nowhere

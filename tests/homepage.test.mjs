@@ -293,7 +293,7 @@ test("every connection joins two figures the atlas holds", () => {
 // ── The connections chart ──────────────────────────────────────────────────
 // Bound exactly as app/figures/connections/page.tsx binds it, so the test and
 // the page are looking at the same picture.
-const onChart = figures.filter((figure) => figure.diedYear <= TIMELINE_END_YEAR);
+const onChart = figures.filter(isMapped);
 const connectionChart = () => buildConnectionChart({
   figures: onChart.map((figure) => ({
     slug: figure.slug, name: figure.name, title: figure.title, faction: figure.faction,
@@ -309,12 +309,13 @@ const labelWidth = (name) => name.length * CHART.labelSize * CHART.charAdvance;
 
 test("the connections chart holds everyone the mapped period does", () => {
   const chart = connectionChart();
-  assert.equal(chart.entries.length, onChart.length, "every figure inside the timeline is on the chart");
-  // The emperors are deliberately off it: the atlas stops at the Ides of March,
-  // and stretching the axis to Constantine would flatten the Republic.
+  assert.equal(chart.entries.length, onChart.length, "every figure the map can place is on the chart");
+  // Anyone with a battle is on it; the five emperors have none and are off it,
+  // which keeps the axis from being stretched to Constantine for men the atlas
+  // cannot draw a campaign for.
   const charted = new Set(chart.entries.map((entry) => entry.slug));
   for (const figure of figures) {
-    assert.equal(charted.has(figure.slug), figure.diedYear <= TIMELINE_END_YEAR, `${figure.slug}: on the chart when it should not be, or missing`);
+    assert.equal(charted.has(figure.slug), isMapped(figure), `${figure.slug}: on the chart when it should not be, or missing`);
   }
   assert.equal(chart.edges.length, relations.length, "every relation is drawn");
   for (const entry of chart.entries) {

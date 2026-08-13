@@ -11,7 +11,7 @@ import type { Certainty } from "@/types/history";
  *
  * The `label` reads as a sentence: "<from> <label> <to>".
  */
-export type RelationKind = "family" | "service" | "rivalry" | "battlefield";
+export type RelationKind = "family" | "service" | "rivalry" | "battlefield" | "alliance";
 
 export interface FigureRelation {
   from: string;
@@ -37,6 +37,12 @@ export const RELATION_KINDS: { kind: RelationKind; title: string; blurb: string;
   { kind: "service", title: "Served under, or brought on", blurb: "Who learned the trade from whom — usually before falling out with them.", color: "#3f6b52" },
   { kind: "rivalry", title: "Rivals and partners", blurb: "The same pairs, in both roles, often in the same decade.", color: "#a33d33" },
   { kind: "battlefield", title: "Met in the field", blurb: "Where two people in this atlas faced each other across a battle it holds.", color: "#7b7466" },
+  // Added when the roster grew past Rome's own commanders. Masinissa, Eumenes II
+  // and Eudamus of Rhodes all fought on Rome's side, and there was no way to say
+  // so: filed as `service` they looked like subordinates, and as `battlefield`
+  // they looked like enemies. Rome's wars were won by allies often enough that
+  // the chart has to be able to draw one.
+  { kind: "alliance", title: "Fought on the same side", blurb: "Allies — including the ones who had been on the other side until it stopped paying.", color: "#3d6a8f" },
 ];
 
 export const relationColor = (kind: string): string =>
@@ -179,6 +185,183 @@ export const relations: FigureRelation[] = [
     from: "caesar", to: "labienus", kind: "battlefield", certainty: "attested",
     label: "finally killed",
     note: "Labienus died at Munda in 45, fighting against the man he had served for eight years in Gaul, and was buried on the field.",
+  },
+
+  // ── Added with the wider roster ───────────────────────────────────────────
+  // Family first, and the two pairs of brothers the atlas had been drawing as
+  // strangers: Hannibal and Hasdrubal, and the two Scipios who took Asia.
+  {
+    from: "hannibal", to: "hasdrubal-barca", kind: "family", certainty: "attested", year: -218, // the year the brothers split the war between them
+    label: "was the brother of",
+    note: "Hamilcar's sons divided the war: Hannibal took the army to Italy, Hasdrubal held Iberia and was supposed to follow with the reinforcements. It took him eleven years to get there, and he was intercepted and killed on the Metaurus before the two ever made contact. His head was thrown into Hannibal's camp.",
+  },
+  {
+    from: "scipio-africanus", to: "scipio-asiaticus", kind: "family", certainty: "attested", year: -190, // the consulship that took the family to Asia
+    label: "was the brother of",
+    note: "Lucius held the consulship of 190 and the command against Antiochus; Africanus went with him as his legate, which everyone understood to be the actual arrangement. Both were prosecuted over the indemnity within a few years, and both left public life over it.",
+  },
+  {
+    from: "pompeius-strabo", to: "pompey", kind: "family", certainty: "attested", year: -89, // the son learning the trade in his father's camp at Asculum
+    label: "was the father of",
+    note: "Pompey was seventeen and in the camp at Asculum while his father reduced it. He inherited his father's clients, his father's veterans and his father's reputation for greed, and raised three private legions on the strength of the first two at twenty-three.",
+  },
+
+  // Service.
+  {
+    from: "antiochus-iii", to: "polyxenidas", kind: "service", certainty: "attested", year: -192, // the Rhodian exile given the Seleucid fleet
+    label: "gave the fleet to",
+    note: "A Rhodian exile commanding the navy of the empire his own city was fighting. He lost at Corycus, bought a season with the ambush at Panormus, and lost the sea for good at Myonessus.",
+  },
+  {
+    from: "mithridates", to: "archelaus", kind: "service", certainty: "attested", year: -88, // the invasion of Greece
+    label: "sent to take Greece",
+    note: "Archelaus took Athens and most of the mainland in a season, which turned a provincial revolt into a war Rome had to send Sulla to fight. He lost two armies to him in one summer, made the peace, and later defected to Rome for having made it.",
+  },
+  {
+    from: "caesar", to: "mark-antony", kind: "service", certainty: "attested", year: -52, // the lines at Alesia
+    label: "was the commander of",
+    note: "Antony held a sector of the double lines at Alesia, brought the reinforcements across the Adriatic to Dyrrhachium through a blockade, and had the left wing at Pharsalus. He was competent, and he was never afterwards judged on it.",
+  },
+
+  // Rivalry.
+  {
+    from: "manlius-torquatus", to: "decius-mus", kind: "rivalry", certainty: "traditional", year: -340, // the consulship they held together
+    label: "was the colleague of",
+    note: "The two consuls of 340, who between them broke the Latin revolt in a season. The tradition gives them the two most famous acts of Roman severity in the same campaign: Torquatus executing his own son for winning a fight against orders, and Decius riding into the enemy line to make good a vow.",
+  },
+  {
+    from: "cato-the-elder", to: "scipio-africanus", kind: "rivalry", certainty: "attested", year: -187, // the prosecutions over the Antiochene indemnity
+    label: "prosecuted",
+    note: "Cato had served under him and disliked what he saw — Greek dress, Greek habits, and an army he thought indulged. He drove the attacks on the brothers' accounting for the Antiochene indemnity, and Africanus left Rome for good rather than answer them. Both men died in 183.",
+  },
+
+  // Met in the field.
+  {
+    from: "camillus", to: "brennus", kind: "battlefield", certainty: "traditional",
+    label: "is said to have driven out",
+    note: "The tradition brings Camillus back from exile to catch the Gauls as they leave with the ransom, and has him say that Rome is ransomed with iron and not gold. Polybius, who is closer to a record here, knows nothing of it. The atlas holds the Allia, which Camillus was not at — this link is what Rome remembered, drawn where the two men overlap.",
+  },
+  {
+    from: "papirius-cursor", to: "pontius", kind: "battlefield", certainty: "disputed", year: -292, // the execution after the triumph
+    label: "captured and executed",
+    note: "Twenty-nine years after the Caudine Forks, a Gaius Pontius was taken, paraded in a Roman triumph and beheaded. Whether it was the same man is not certain, and the symmetry is a reason for doubt.",
+  },
+  {
+    from: "curius-dentatus", to: "pyrrhus", kind: "battlefield", certainty: "probable",
+    label: "finally beat",
+    note: "At Beneventum in 275, where the elephants were driven back into his own line. Pyrrhus withdrew in good order and left Italy within months, because the one thing he could not do was replace the men he had brought from Greece.",
+  },
+  {
+    from: "xanthippus", to: "regulus", kind: "battlefield", certainty: "attested",
+    label: "destroyed",
+    note: "On the Bagradas plain in 255, with the phalanx on flat ground and the elephants and cavalry on the wings — the arms Carthage was better at, used properly for the first time in the war. A few hundred Romans got away. Regulus was taken alive.",
+  },
+  {
+    from: "hannibal", to: "flaminius", kind: "battlefield", certainty: "attested",
+    label: "killed",
+    note: "At Trasimene in 217, in morning mist, with the Roman column strung out along the lake road and the Carthaginian army on the slope above it. Flaminius died with about fifteen thousand of his men inside an hour.",
+  },
+  {
+    from: "hannibal", to: "varro", kind: "battlefield", certainty: "attested",
+    label: "beat",
+    note: "Cannae. Varro held command on the day by the daily rotation, survived, and was met outside Rome by the senate in a body and thanked for not despairing of the Republic.",
+  },
+  {
+    from: "scipio-africanus", to: "hasdrubal-barca", kind: "battlefield", certainty: "attested",
+    label: "beat",
+    note: "At Baecula in 208 — and did not stop him. Hasdrubal disengaged with his army intact and took it to Italy, which is the strongest argument that Baecula was less of a victory than the Roman tradition wanted.",
+  },
+  {
+    from: "scipio-africanus", to: "hasdrubal-gisco", kind: "battlefield", certainty: "attested",
+    label: "beat",
+    note: "Twice: at Ilipa in 206, which ended Carthaginian Iberia, and at the Great Plains in 203, which ended the attempt to defend Africa away from Carthage.",
+  },
+  {
+    from: "hannibal", to: "masinissa", kind: "battlefield", certainty: "attested",
+    label: "was outflanked by",
+    note: "Masinissa's cavalry drove the Carthaginian horse off the field at Zama and then came back into the rear of Hannibal's third line. It is the manoeuvre that decided the battle, and Hannibal had used it himself at Cannae fourteen years earlier.",
+  },
+  {
+    from: "antiochus-iii", to: "eumenes-ii", kind: "battlefield", certainty: "attested",
+    label: "was broken by",
+    note: "At Magnesia, where Eumenes commanded the Roman right, scattered the scythed chariots with light troops before they reached the line, and charged into the confusion they made of the Seleucid left.",
+  },
+  {
+    from: "polyxenidas", to: "eumenes-ii", kind: "battlefield", certainty: "attested",
+    label: "was beaten by",
+    note: "At Corycus in 191, the first fleet action of the war, where the Pergamene squadron joined the Roman line and the Seleucid fleet withdrew to Ephesus.",
+  },
+  {
+    from: "polyxenidas", to: "eudamus", kind: "battlefield", certainty: "attested",
+    label: "was beaten by",
+    note: "At Myonessus in 190. The Rhodians held the flank while the Romans broke the centre, and the Seleucid fleet stopped existing as a force that could contest the crossing into Asia.",
+  },
+  {
+    from: "hannibal", to: "eudamus", kind: "battlefield", certainty: "probable", year: -190, // the Eurymedon
+    label: "was stopped at sea by",
+    note: "The only naval command Hannibal was given, and the only time in this atlas he is beaten by someone who is not a Scipio. Eudamus caught the Phoenician fleet off the Eurymedon with a smaller Rhodian squadron and turned it back.",
+  },
+  {
+    from: "scipio-aemilianus", to: "hasdrubal-boetharch", kind: "battlefield", certainty: "attested",
+    label: "took the surrender of",
+    note: "After three years and a street-by-street storming, the commander who had held Carthage came out alone to beg for his life while his wife cursed him from the temple roof and went into the fire with their children.",
+  },
+  {
+    from: "hasdrubal-boetharch", to: "masinissa", kind: "battlefield", certainty: "probable",
+    label: "took the field against",
+    note: "In 150, which was the point of the whole thing: the treaty of 201 forbade Carthage to make war without Rome's leave, so fighting back against fifty years of Numidian encroachment was itself the breach Rome needed. He was condemned to death for it by his own government, and recalled to command when Rome demanded the city be abandoned.",
+  },
+  {
+    from: "boiorix", to: "caepio", kind: "battlefield", certainty: "probable",
+    label: "destroyed the army of",
+    note: "At Arausio in 105, where two Roman armies camped separately because a proconsul of the Servilii would not put his lines beside a new man's, and were destroyed one after the other.",
+  },
+  {
+    from: "marius", to: "boiorix", kind: "battlefield", certainty: "attested",
+    label: "annihilated",
+    note: "At Vercellae in 101, on open ground in high summer, with an army rebuilt around long service rather than property. Boiorix was killed on the field and the migration ended there.",
+  },
+  {
+    from: "sulla", to: "archelaus", kind: "battlefield", certainty: "attested",
+    label: "beat",
+    note: "At Chaeronea in 86, on broken ground that made the Pontic numbers and the scythed chariots useless, and again at Orchomenus in the marshes the same year.",
+  },
+  {
+    from: "surena", to: "crassus", kind: "battlefield", certainty: "attested",
+    label: "destroyed",
+    note: "At Carrhae in 53, with a tenth of the men — armoured lancers to stop the legions moving, horse archers to shoot into them while they stood, and a camel train of spare arrows so that they never ran out. Orodes had Surena executed within the year.",
+  },
+  {
+    from: "pompey", to: "mark-antony", kind: "battlefield", certainty: "attested",
+    label: "faced",
+    note: "At Dyrrhachium, where Pompey had the better of it, and at Pharsalus a few weeks later, where Antony held Caesar's left against him and the battle was won on the other wing.",
+  },
+  {
+    from: "caesar", to: "juba", kind: "battlefield", certainty: "attested",
+    label: "destroyed",
+    note: "At Thapsus in 46, where the elephants were turned by slingers and stampeded back through their own line. Juba fled, found the towns shut against him, and died in a suicide pact with Petreius. His kingdom became the province of Africa Nova.",
+  },
+
+  // Fought on the same side.
+  {
+    from: "scipio-africanus", to: "masinissa", kind: "alliance", certainty: "attested", year: -202, // Zama
+    label: "won Africa with",
+    note: "Masinissa had fought for Carthage in Iberia and changed sides when it became clear which way the war was going. He brought the cavalry Rome had never had, and was paid in the whole of Numidia — which he then spent fifty years using against Carthage with Rome's arbitration behind him.",
+  },
+  {
+    from: "eumenes-ii", to: "scipio-asiaticus", kind: "alliance", certainty: "attested", year: -190, // Magnesia
+    label: "fought beside",
+    note: "Rome annexed nothing after Magnesia and gave nearly all of it to Pergamum and Rhodes. It is the clearest case in this atlas of Rome winning a war and handing the territory to somebody else — and of an ally understanding earlier than anyone that Rome could be used.",
+  },
+  {
+    from: "eumenes-ii", to: "eudamus", kind: "alliance", certainty: "attested", year: -190, // the Aegean campaign
+    label: "shared the sea with",
+    note: "Pergamum and Rhodes supplied the seamanship Rome did not have, and were paid for it at Apamea — Eumenes with most of Asia Minor, Rhodes with Lycia and Caria. Within twenty years the senate had cut Rhodes' harbour revenues to a fraction and begun cooling on Pergamum too.",
+  },
+  {
+    from: "cato-the-elder", to: "scipio-asiaticus", kind: "alliance", certainty: "attested", year: -191, // Thermopylae
+    label: "served in the same army as",
+    note: "Cato was a consular serving as a legate at Thermopylae and took the mountain path that turned Antiochus out of Greece. Within five years he was prosecuting the brothers he had campaigned with.",
   },
 ];
 

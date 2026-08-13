@@ -10,7 +10,7 @@ import { battles } from "@/data/battles";
 import { periods } from "@/data/periods";
 import { factionColor } from "@/data/factions";
 import { buildConnectionChart } from "@/lib/connectionLayout";
-import { lifespan, TIMELINE_END_YEAR } from "@/lib/historicalDates";
+import { lifespan } from "@/lib/historicalDates";
 
 export const metadata: Metadata = {
   title: "Connections",
@@ -28,12 +28,14 @@ function FigureName({ slug }: { slug: string }) {
 }
 
 export default function ConnectionsPage() {
-  // Everyone whose life ends inside the mapped period. The five emperors are
-  // left off for the same reason they carry no battles: the atlas stops at the
-  // Ides of March, and a timeline running to Constantine would squeeze four
-  // centuries of Republic into its first inch to make room for men it cannot
-  // draw a single campaign for.
-  const onChart = figures.filter((figure) => figure.diedYear <= TIMELINE_END_YEAR);
+  // Everyone the map can actually place — anyone with a battle the atlas holds.
+  // That is the same rule the figure pages follow, and it draws the line in the
+  // right place on its own: the five emperors have no battles and drop out, so
+  // the axis is not stretched to Constantine to make room for men it cannot show
+  // a single campaign for. A death-year cutoff was the obvious alternative and it
+  // was wrong — Antony outlived the Ides by fourteen years and fought three of
+  // the battles here.
+  const onChart = figures.filter(isMapped);
 
   const chart = buildConnectionChart({
     figures: onChart.map((figure) => ({
@@ -72,7 +74,7 @@ export default function ConnectionsPage() {
             The Republic was run by a few dozen families for four centuries, and it shows. Marius married Caesar&rsquo;s
             aunt. The man who burned Carthage was the son of the victor of Pydna and the adopted grandson of the man who
             beat Hannibal. Sulla learned his trade as Marius&rsquo; quaestor. Below, all of them on the timeline they
-            actually lived on — Rome above the line, the powers she fought below it, and every connection drawn at the
+            actually lived on — Rome above the line and every other power below it, with each connection drawn at the
             year it belongs to.
           </p>
         </header>
@@ -83,6 +85,7 @@ export default function ConnectionsPage() {
           <h2 id="reading">Reading it</h2>
           <ul className="hp-doc-list">
             <li>Each bar is one life, left to right. The solid part is the years that person mattered militarily; the pale part is the rest of it.</li>
+            <li>The line across the middle separates Rome from every other power on the map — not Rome from her enemies. Masinissa, Eumenes II of Pergamum and Eudamus of Rhodes are all below it, and all three fought on Rome&rsquo;s side.</li>
             <li>Colour is the side they fought for, the same colour the atlas paints their territory. Sulla, Pompey and Labienus are indigo and Caesar is dark red because from 88 the map has to draw Romans fighting Romans.</li>
             <li>A line is a connection, coloured by kind and dashed where the evidence is weaker than attested. The dot on it marks the year: filled where a source gives one, open where the chart has placed it in the years the two of them overlapped.</li>
             <li>Where two people met in a battle this atlas holds, the line is anchored to that battle and the panel links to it.</li>

@@ -293,7 +293,11 @@ export function buildConnectionChart(input: {
         activeX1: x(figure.activeTo),
         y: top + CHART.labelSize + 4,
         height: CHART.barHeight,
-        labelX: x0,
+        // Names sit at the start of the bar, except where that would push them
+        // off the right-hand edge — someone who enters the story in the last
+        // years of it, like Juba, has a name longer than the timeline he has
+        // left. Then the name slides back over its own bar instead.
+        labelX: Math.max(0, Math.min(x0, CHART.width - CHART.padX - labelWidth(figure.name))),
         labelY: top + CHART.labelSize,
         degree: degree.get(figure.slug) ?? 0,
       };
@@ -339,7 +343,15 @@ export function buildConnectionChart(input: {
     // Each end leaves from the face of the bar that looks at the other person.
     const ay = a.y < b.y ? a.y + a.height : a.y;
     const by = a.y < b.y ? b.y : b.y + b.height;
-    const bow = (0.22 + repeat * 0.16) * Math.abs(by - ay);
+    // Curves bow to the right by default, which keeps the whole picture reading
+    // one way. Near the end of the timeline that would push the line — and the
+    // marker on it — off the edge, so there they bow inward instead. The last
+    // fifteen years of the Republic are the busiest part of this chart, so this
+    // is not an edge case.
+    const magnitude = (0.22 + repeat * 0.16) * Math.abs(by - ay);
+    let bow = magnitude;
+    if (Math.max(ax, bx) + bow > CHART.width - CHART.padX) bow = -magnitude;
+    if (Math.min(ax, bx) + bow < CHART.padX) bow = magnitude;
     const c1x = ax + bow;
     const c1y = ay + (by - ay) * 0.35;
     const c2x = bx + bow;
