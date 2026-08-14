@@ -141,14 +141,84 @@ const OWNERSHIP = [
   // while Macedonia is a province: the two must not have merged.
   { year: -45, places: { Corinth: [22.9, 37.94] }, polity: "greek" },
   { year: -45, places: { Pella: [22.52, 40.76] }, polity: "rome" },
+
+  // ── Spain, which the map had wrong for four centuries of its own timeline ──
+  // The country between the Ebro and the Pyrenees is where every Roman army in
+  // Spain came ashore, and Tarraco is the base the province was run from. Gnaeus
+  // Scipio took it in 218, the year Hannibal left; Rome never lost it.
+  { year: -218, places: { Tarraco: [1.25, 41.12], Emporiae: [3.1, 42.13] }, polity: "rome" },
+  { year: -178, places: { Tarraco: [1.25, 41.12], Osca: [-0.41, 42.13] }, polity: "rome" },
+  { year: -49, places: { Ilerda: [0.63, 41.62] }, polity: "rome" },
+  // The interior belongs to the peoples who held it until the two wars that broke
+  // them end, six years apart: Viriathus murdered in 139, Numantia starved in 133.
+  { year: -218, places: { "Celtiberia (Numantia)": [-2.44, 41.81], "Lusitania": [-7.0, 39.2], "the northern Meseta": [-5.66, 40.97] }, polity: "iberian" },
+  { year: -150, places: { "Celtiberia (Numantia)": [-2.44, 41.81], "Lusitania": [-7.0, 39.2] }, polity: "iberian" },
+  { year: -120, places: { "Celtiberia (Numantia)": [-2.44, 41.81], "Lusitania": [-7.0, 39.2], Toletum: [-4.02, 39.86] }, polity: "rome" },
+  { year: -45, places: { "Lusitania": [-7.0, 39.2], Toletum: [-4.02, 39.86] }, polity: "rome" },
+  // And the north-west never becomes Roman on this map, because it did not become
+  // Roman until Augustus finished it in 19 — a decade after the atlas closes.
+  { year: -45, places: { "Cantabrian coast": [-4.0, 43.2], "Gallaecia (Bracara)": [-8.42, 41.55], Asturica: [-6.06, 42.46] }, polity: "iberian" },
+
+  // The eastern Adriatic. Three wars were fought on this shore and none of them
+  // had any ground to be fought on.
+  { year: -170, places: { "Istria": [13.95, 45.15], "the head of the gulf": [13.85, 45.75] }, polity: "rome" },
+  { year: -45, places: { "Salona, in Dalmatia": [16.48, 43.54] }, polity: "rome" },
+  { year: -31, places: { "Siscia, on the Sava": [16.37, 45.48] }, polity: "rome" },
+  // Noricum: Rome's ally and iron supplier, never annexed inside this atlas, and
+  // the ground the Cimbri destroyed a consular army on in 113.
+  { year: -113, places: { "Noreia, in Noricum": [14.9, 46.9] }, polity: "gaul" },
+  // The Senones held the Adriatic coast they came through to sack Rome, until it
+  // was annexed outright after Vadimon.
+  { year: -391, places: { "the ager Gallicus": [13.18, 43.62] }, polity: "gaul" },
+
+  // The islands. Three of these were provinces and the fourth was Ptolemaic for
+  // two centuries; an atlas that draws Macedonia and Asia cannot leave them white.
+  { year: -264, places: { "Melita": [14.44, 35.9] }, polity: "carthage" },
+  { year: -45, places: { "Melita": [14.44, 35.9] }, polity: "rome" },
+  { year: -100, places: { "the Balearics": [2.65, 39.57] }, polity: "rome" },
+  { year: -45, places: { "Crete (Cnossus)": [25.16, 35.3] }, polity: "rome" },
+  { year: -100, places: { "Cyprus (Salamis)": [33.9, 35.18] }, polity: "ptolemaic" },
+  { year: -45, places: { "Cyprus (Salamis)": [33.9, 35.18] }, polity: "rome" },
+
+  // Frontier corners that used to fall a fraction short of the thing they exist to
+  // contain. Each of these had a battle or a colony standing just outside it.
+  { year: -320, places: { Capua: [14.25, 41.08] }, polity: "rome" },
+  { year: -295, places: { Sentinum: [12.86, 43.42] }, polity: "rome" },
+  { year: -280, places: { Tarentum: [16.95, 40.48], Neapolis: [14.27, 40.85] }, polity: "greek" },
+  { year: -300, places: { "Poseidonia": [15.01, 40.42], "Velia": [15.15, 40.16] }, polity: "greek" },
 ];
 
 // Ground that is blank on purpose. These peoples were independent, so colouring
 // them would be the error; the test records the intent so a later "fill the gap"
 // change has to argue with history first.
 const UNCLAIMED_BY_DESIGN = [
-  { year: -218, places: { "north of the Ebro": [0.9, 41.7], "Celtiberian interior": [-3.5, 41.2], "Cantabrian coast": [-4.0, 43.2] } },
-  { year: -264, places: { Liguria: [8.4, 44.3], "free Iberia": [-4.0, 40.0] } },
+  { year: -264, places: { Liguria: [8.4, 44.3] } },
+  // Iberia used to be listed here — the interior, the Cantabrian coast and the
+  // country north of the Ebro were all recorded as blank on purpose. That was
+  // wrong, and this atlas contained the argument against itself: it besieges
+  // Numantia, sends Viriathus' hunters into Lusitania, bases army after army at
+  // Tarraco and fights Afranius at Ilerda, all on ground it coloured for nobody.
+  // Blank here did not read as "independent", it read as "outside the story", the
+  // way Germania and the Sahara are outside it. The peoples of the interior now
+  // hold their own ground and the provinces are drawn where they reached; what
+  // stays blank is only what nobody in this atlas ever claimed.
+  //
+  // Campania in the Latin War is the one Italian blank kept deliberately. It was
+  // Campanian — Oscan city-states, Capua the chief of them — and it is not
+  // coloured because the palette has no room: nine hues are already in play in
+  // 340, and the only unused one is a dark red that would sit directly against
+  // Rome's own. Two battles of 340 therefore stand on unclaimed ground, which is
+  // at least the honest kind of gap.
+  { year: -340, places: { "Campania (Capua)": [14.25, 41.08], "the Volturnus plain": [14.1, 41.2] } },
+  // West of the Mulucha is Mauretania, a client kingdom whose kings decided the
+  // Jugurthine war and fought for Caesar at Munda, and which Rome did not annex
+  // for another eighty years. Numidia's zones stop at the river because that is
+  // where Numidia stopped.
+  { year: -105, places: { "Mauretania (Tingis)": [-5.8, 35.78], Volubilis: [-5.55, 34.07] } },
+  // Ground Roman armies marched over without anyone holding it. The atlas draws
+  // the marches and leaves the country blank, which is the correct pair of claims.
+  { year: -190, places: { Thrace: [25.4, 41.2] } },
+  { year: -55, places: { "Germania beyond the Rhine": [7.4, 50.1] } },
   // Apamea gave the Seleucid west to Rome's allies. The northern Anatolian kingdoms
   // were never Antiochus' to lose or Rome's to give, so the grant must stop short of
   // them rather than sweeping across the peninsula.

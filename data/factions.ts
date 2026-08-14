@@ -84,6 +84,14 @@ export const factionList: FactionInfo[] = [
   // fact. Iberian peoples who fought as somebody's mercenaries or allies keep
   // their employer's colour and are named in the label; this hue is for the
   // occasions when they were a belligerent in their own right.
+  //
+  // It also holds ground now, which it did not for a long time. Most of Spain
+  // belonged to neither Rome nor Carthage for most of the two centuries they
+  // fought over it, and the map used to say so by leaving it white — which read
+  // as ground outside the story rather than ground that was somebody else's,
+  // while the same atlas besieged Numantia and hunted Viriathus across it. The
+  // brown is far from every principal hue and is drawn at a minor power's
+  // strength, so a province painted over it always wins the seam.
   { id: "iberian", name: "Iberian peoples", adjective: "Iberian", color: "#a05a3c", role: "minor" },
   // The Cimbri and Teutones take Carthage's blue, free from 146 and first needed in
   // 113. They are the one belligerent in the atlas that never holds a territory

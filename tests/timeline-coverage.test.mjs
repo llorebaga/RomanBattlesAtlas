@@ -135,7 +135,8 @@ const TRANSITIONS = [
   { year: -338, gained: ["rome-latium-campania"], lost: ["latin-league", "rome-ager-veii"], why: "the Latin League is dissolved and replaced by Rome's alliance system" },
   { year: -299, gained: ["rome-central-italy"], lost: ["rome-latium-campania"], why: "Umbria and Picenum bring Rome to the Adriatic" },
   { year: -290, gained: ["rome-peninsular"], lost: ["rome-central-italy", "etruscan-inner", "samnite-league"], why: "Samnium submits and Etruria is bound in, leaving only the Greek south and the Gallic north" },
-  { year: -272, gained: ["rome-italy"], lost: ["rome-peninsular", "magna-graecia"], why: "Tarentum surrenders and Rome holds the whole peninsula" },
+  { year: -283, gained: [], lost: ["gaul-senones"], why: "Vadimon breaks the Senones and the ager Gallicus — the Adriatic coast they came through to sack Rome — is annexed outright" },
+  { year: -272, gained: ["rome-italy"], lost: ["rome-peninsular", "magna-graecia", "magna-graecia-tyrrhenian"], why: "Tarentum surrenders and Rome holds the whole peninsula, both Greek coasts with it" },
   // The Hellenistic powers and Numidia enter the map with the Punic wars: before
   // 264 they are outside the atlas's story and colouring them would be decoration.
   { year: -264, gained: ["macedon-greece", "numidia-early", "seleucid", "ptolemaic", "syracuse"], lost: ["syracuse-hegemony"], why: "the eastern kingdoms and Numidia enter the frame, and Syracuse narrows to the kingdom Hiero brought into the Roman alliance" },
@@ -145,11 +146,12 @@ const TRANSITIONS = [
   { year: -238, gained: ["rome-sardinia"], lost: ["carthage-sardinia"], why: "Rome takes Sardinia during the Mercenary War" },
   { year: -237, gained: ["carthage-iberia-south"], lost: [], why: "Hamilcar crosses to Iberia" },
   { year: -228, gained: ["carthage-iberia"], lost: ["carthage-iberia-south"], why: "Hasdrubal extends Barcid Iberia to the Ebro" },
+  { year: -218, gained: ["rome-iberia-north", "rome-melita"], lost: ["carthage-melita"], why: "the war opens at both ends of the western sea: Gnaeus Scipio lands at Emporiae and takes the country between the Pyrenees and the Ebro, and Sempronius takes Punic Malta" },
   { year: -216, gained: ["carthage-italy"], lost: [], why: "southern Italy defects after Cannae" },
   { year: -212, gained: ["rome-sicily-whole"], lost: ["syracuse", "rome-sicily"], why: "Syracuse falls and Rome holds the whole island" },
   { year: -211, gained: ["carthage-italy-reduced"], lost: ["carthage-italy"], why: "Capua is retaken and the defection shrinks" },
   { year: -207, gained: ["carthage-bruttium"], lost: ["carthage-italy-reduced"], why: "Hannibal is confined to Bruttium" },
-  { year: -206, gained: ["rome-iberia"], lost: ["carthage-iberia"], why: "Ilipa ends Carthaginian Iberia" },
+  { year: -206, gained: ["rome-iberia"], lost: ["carthage-iberia", "rome-iberia-north"], why: "Ilipa ends Carthaginian Iberia, and what Rome held north of the Ebro joins what it has just taken south of it: the two Spains" },
   { year: -202, gained: [], lost: ["carthage-bruttium"], why: "Hannibal is recalled to Africa" },
   { year: -201, gained: ["numidia-masinissa"], lost: ["numidia-early"], why: "the peace settles Numidia on Masinissa" },
   { year: -197, gained: ["macedon-reduced", "greek-states"], lost: ["macedon-greece"], why: "Cynoscephalae strips Macedon of Greece" },
@@ -163,19 +165,25 @@ const TRANSITIONS = [
   { year: -188, gained: ["seleucid-apamea", "pergamon-apamea"], lost: ["seleucid-west", "pergamon"], why: "Apamea pushes the Seleucids behind the Taurus and hands Asia Minor to Pergamum and Rhodes" },
 
   // ── The last two wars of the middle Republic ────────────────────────────────
+  { year: -181, gained: ["rome-istria"], lost: [], why: "Aquileia is planted at the head of the Adriatic, and the Istrian war two years later leaves Rome holding the peninsula behind it" },
   { year: -167, gained: ["macedon-republics"], lost: ["macedon-reduced"], why: "Pydna abolishes the Antigonid kingdom and Macedon is cut into four republics" },
   { year: -161, gained: ["carthage-reduced", "numidia-emporia"], lost: ["carthage-africa"], why: "Masinissa takes the Tripolitanian emporia, and Carthage may not answer without Rome's leave" },
   { year: -148, gained: ["rome-macedonia", "numidia-kingdom"], lost: ["macedon-republics", "numidia-masinissa"], why: "Andriscus shows the four republics can still be assembled, so Macedonia is annexed; and Masinissa dies after sixty years, so the Numidian zone stops carrying his name" },
   { year: -146, gained: ["rome-africa"], lost: ["carthage-reduced"], why: "Carthage is destroyed and its territory becomes the province of Africa" },
 
   // ── Spain, Jugurtha and the Cimbri ──────────────────────────────────────────
+  { year: -133, gained: ["rome-iberia-interior", "iberia-northwest"], lost: ["rome-iberia", "iberia-free"], why: "Numantia is starved out six years after Viriathus is murdered, and the two Spains stop being coastal strips with a war behind them; what the provinces still do not hold is the north-west, which Augustus takes a decade after this atlas ends" },
   { year: -129, gained: ["rome-asia"], lost: ["pergamon-apamea"], why: "the Attalid bequest is finally taken possession of and organised as the province of Asia" },
+  { year: -122, gained: ["rome-balearics"], lost: [], why: "Metellus takes the Balearics to clear the pirates off the sea road to Spain — the same motive as the province taken in Gaul the year before" },
   { year: -121, gained: ["rome-narbonensis", "gaul-transalpine-reduced"], lost: ["gaul-transalpine"], why: "southern Gaul is conquered to secure the land route to Spain — the ground Arausio will be fought on" },
 
   // ── The Social War to the Ides of March ─────────────────────────────────────
   { year: -88, gained: ["pontus-kingdom", "pontus-asia"], lost: ["rome-asia"], why: "Mithridates overruns the province of Asia and has every Roman and Italian in it killed on one coordinated day" },
   { year: -84, gained: ["rome-asia-restored"], lost: ["pontus-asia"], why: "Sulla's peace restores the province, and fines it twenty thousand talents for the four years it was not Roman" },
   { year: -63, gained: ["rome-pontus", "rome-syria", "rome-cilicia", "parthia"], lost: ["pontus-kingdom", "seleucid-apamea"], why: "Pompey annexes Pontus, Syria and Cilicia, ends the Seleucid dynasty by administrative decision, and leaves Rome facing Parthia across the Euphrates" },
+  { year: -67, gained: ["rome-crete"], lost: [], why: "three years of war against the cities that harboured the pirates ends with Crete a province" },
+  { year: -59, gained: ["rome-illyricum"], lost: [], why: "Caesar's five-year command is Gaul and Illyricum together — the Illyrian half is a real province, and the shore every army bound for Greece lands on" },
+  { year: -58, gained: ["rome-cyprus"], lost: ["ptolemaic-cyprus"], why: "Cyprus is annexed by a law of Clodius because the treasury wanted the money and Cato could be got out of Rome by being sent to fetch it" },
   { year: -50, gained: ["rome-gaul"], lost: ["gaul-transalpine-reduced"], why: "eight years of campaigning end with Gaul Roman and Caesar holding eleven legions" },
   { year: -46, gained: ["rome-africa-nova", "rome-emporia"], lost: ["numidia-kingdom", "numidia-emporia"], why: "Juba backed the losing side at Thapsus and Numidia is annexed for it, the detached Tripolitanian Emporia with it" },
 
@@ -187,6 +195,7 @@ const TRANSITIONS = [
   { year: -40, gained: ["parthia-syria"], lost: [], why: "a Parthian army with a Roman renegade at its head overruns Syria and Judaea — the deepest penetration of Roman territory Parthia ever made" },
   { year: -38, gained: [], lost: ["parthia-syria"], why: "Gindarus kills the king's son and ends the occupation; the zone runs through 39 because clearing Syria took that whole campaigning season" },
   { year: -36, gained: [], lost: ["sextus-sicily"], why: "Naulochus destroys Sextus' fleet and Sicily is Roman again" },
+  { year: -33, gained: ["rome-illyricum-dalmatia"], lost: ["rome-illyricum"], why: "three campaigning seasons against the Iapodes, Pannonii and Delmatae take Siscia and carry Illyricum off the coast and into the interior for the first time" },
   { year: -30, gained: ["rome-egypt"], lost: ["ptolemaic-egypt"], why: "Alexandria falls and Egypt is annexed as the personal possession of the victor — the last of Alexander's successor kingdoms" },
 ];
 

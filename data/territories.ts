@@ -18,6 +18,14 @@ import type { TerritoryPeriod } from "@/types/history";
 //
 // Zones may overlap: opacity is applied once per layer, and within a layer a
 // later zone wins, so a principal takes ground contested with a minor power.
+//
+// 3. A MINOR POWER MAY BE DRAWN AS AN ENVELOPE RATHER THAN A FRONTIER. Because a
+//    principal always takes the overlap, a zone for peoples rather than a state —
+//    the Iberians, the Noricans — can be carried right across the ground the
+//    provinces later hold. What a reader sees is then exactly the country no
+//    province claimed, with no seam and no pale thread between the two, and the
+//    map never has to guess at a border nobody recorded. Zones drawn this way say
+//    so in a `note`, because an outline that is not a claim has to admit it.
 export const territories: TerritoryPeriod[] = [
   // ── Rome ──────────────────────────────────────────────────────────────────
   {
@@ -53,17 +61,69 @@ export const territories: TerritoryPeriod[] = [
     ring: [[8.3, 43.3], [9.0, 43.4], [9.7, 43.2], [9.9, 42.5], [9.6, 41.6], [10.0, 41.0], [10.0, 40.2], [9.8, 39.4], [9.4, 38.7], [8.6, 38.6], [8.1, 39.2], [8.0, 40.2], [8.2, 41.0], [8.1, 42.0], [8.2, 42.8]],
   },
   {
-    // 206 onwards Rome inherits the Barcid province: the same Ebro frontier.
-    id: "rome-iberia", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -206, toYear: -30, certainty: "probable", labelAt: [-3.4, 38.4],
+    // 218: the other end of the war Hannibal started. While he marched for Italy,
+    // Gnaeus Scipio landed at Emporiae and took the country between the Pyrenees
+    // and the Ebro — ground the Ebro treaty had expressly left outside the Barcid
+    // province, which is why Rome could take it and call the war defensive.
+    //
+    // It was blank on this map for the whole atlas, and it is the one stretch of
+    // Spain that cannot be: every Roman army in the peninsula came ashore here.
+    // The campaign data walks armies through Tarraco in 209 and 178 and Caesar
+    // fights Afranius at Ilerda in 49, all of it on ground coloured for nobody.
+    //
+    // The southern edge is carried a little past the Ebro, so Barcid Iberia — drawn
+    // later — takes the overlap and the river itself stays the visible frontier.
+    id: "rome-iberia-north", polity: "rome", name: "Roman Iberia north of the Ebro", mapLabel: "IBERIA", fromYear: -218, toYear: -207, certainty: "probable", labelAt: [1.3, 41.8],
     ring: [
-      // Up the Mediterranean coast, offshore, to the Ebro delta.
-      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.1, 40.9],
-      // The Ebro, traced upstream from the delta: the agreed limit.
-      [0.52, 40.81], [0.3, 41.2], [-0.03, 41.25], [-0.88, 41.65], [-1.6, 42.06], [-2.45, 42.47],
-      // Then southwest along the Iberian System. Celtiberia, the northern Meseta
-      // and Lusitania stayed independent, so the frontier turns away here rather
-      // than sweeping over them.
+      // The coast from the Ebro mouth to Cap de Creus, held offshore.
+      [0.9, 40.6], [1.6, 41.0], [2.4, 41.4], [3.4, 42.45],
+      // The Pyrenean frontier, carried just north of the crest so the Gallic zone
+      // takes the overlap instead of a pale thread being left along the range.
+      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0],
+      // Back to the Ebro and down it, held a little south of the river.
+      [-1.3, 42.3], [-1.7, 41.95], [-0.95, 41.5], [-0.05, 41.1], [0.45, 40.7],
+    ],
+  },
+  {
+    // 206: Rome inherits the Barcid province and keeps what it took north of the
+    // Ebro. Together they are the two Spains — Citerior along the east coast and up
+    // the Ebro, Ulterior in the Guadalquivir. The interior belongs to neither:
+    // Celtiberia, the northern Meseta and Lusitania stayed independent, and the
+    // atlas fights there for seventy years before that changes.
+    id: "rome-iberia", polity: "rome", name: "The two Spains", mapLabel: "IBERIA", fromYear: -206, toYear: -134, certainty: "probable", labelAt: [-3.4, 38.4],
+    ring: [
+      // Up the Mediterranean coast, offshore, past the Ebro delta to Cap de Creus.
+      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.6, 41.0], [2.4, 41.4], [3.4, 42.45],
+      // The Pyrenean frontier west to the head of the Ebro, north of the crest.
+      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0], [-1.7, 43.25], [-2.45, 42.47],
+      // Then southwest along the Iberian System. This is the line the Celtiberian
+      // wars were fought on: it turns away here rather than sweeping over the
+      // plateau behind it, which nobody in Rome governed until Numantia fell.
       [-2.4, 41.5], [-2.9, 40.7], [-3.6, 40.0], [-4.8, 39.4], [-6.0, 38.6], [-7.0, 38.0], [-7.6, 37.4],
+    ],
+  },
+  {
+    // 133: Numantia. The two Spanish wars end within six years of each other —
+    // Viriathus murdered in 139, Numantia starved out in 133 — and the provinces
+    // stop being coastal strips with a war behind them. Holding the same Ebro
+    // envelope to the end of the atlas was the largest error left on this map: it
+    // showed Sertorius holding a Roman army for eight years in country the map
+    // said was not Roman, and Caesar campaigning to the Atlantic across a blank.
+    //
+    // The north-west is deliberately not included. Brutus reached Gallaecia in 137
+    // and Caesar the Atlantic coast in 60, but the Cantabri and Astures were not
+    // held: Augustus needed ten years and eight legions to finish that, and he
+    // finished it in 19, a decade after this atlas closes.
+    id: "rome-iberia-interior", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -133, toYear: -30, certainty: "probable", labelAt: [-3.6, 39.6],
+    ring: [
+      // The southern and eastern coasts, offshore, round to Cap de Creus.
+      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.6, 41.0], [2.4, 41.4], [3.4, 42.45],
+      // The Pyrenean frontier west, carried just north of the crest.
+      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0], [-1.7, 43.25],
+      // The Cantabrian frontier: the southern limit of the unconquered north-west.
+      [-2.6, 43.1], [-3.8, 42.9], [-5.0, 42.5], [-6.2, 42.0], [-7.4, 41.4], [-8.4, 41.0],
+      // Down the Atlantic coast of Lusitania and round Cape St Vincent, offshore.
+      [-9.4, 40.4], [-9.7, 39.2], [-9.6, 38.0], [-9.2, 37.0], [-8.4, 36.7],
     ],
   },
 
@@ -80,6 +140,39 @@ export const territories: TerritoryPeriod[] = [
       // Adriatic head, then the Apennine watershed back west — this line is the
       // visible Roman frontier, so it carries the detail.
       [13.2, 45.4], [12.6, 44.2], [11.9, 44.15], [11.2, 44.3], [10.5, 44.5], [9.9, 44.6], [9.3, 44.65], [8.7, 44.55], [7.9, 44.35],
+    ],
+  },
+  {
+    // The Celtic peoples of the eastern Alps — the Taurisci, and the kingdom Roman
+    // writers call Noricum. Drawn for the whole atlas because nothing in the atlas
+    // changes who held it: Noricum was Rome's ally and its iron supplier throughout,
+    // and was not annexed until 16 BCE, after this map closes. It is here because
+    // the Cimbri came through it in 113 and destroyed a consular army at Noreia,
+    // which the map was showing happening in no country at all.
+    id: "gaul-noricum", polity: "gaul", name: "Noricans and Taurisci", mapLabel: "NORICUM", fromYear: -509, toYear: -30, certainty: "speculative", labelAt: [14.4, 46.9],
+    note: "A people and a trading partner, not a mapped state. What is known of the Norican kingdom's extent comes from where its iron and coinage turn up and from where Roman armies met it; this outline is the eastern Alps and their northern valleys — the ground Noreia was fought on — and no edge of it was ever surveyed or agreed.",
+    ring: [
+      // Carried west into the Cisalpine zone so the two cannot leave a crack, then
+      // along the northern limit of the Alpine valleys.
+      [12.6, 46.3], [13.0, 46.9], [13.8, 47.3], [14.8, 47.6], [15.8, 47.5],
+      // The eastern and southern limits, back to the Carnic Alps.
+      [16.0, 46.9], [15.4, 46.4], [14.4, 46.2], [13.4, 46.1],
+    ],
+  },
+  {
+    // The Senones, who held the Adriatic coast from the Rubicon down to the Aesis
+    // and came through it to sack Rome in 390 — the atlas draws that invasion, and
+    // drew its first leg on nobody's ground. Their country was annexed outright in
+    // 283 after Rome beat them at Lake Vadimon, which is why this zone ends where
+    // the peninsular Roman one begins rather than running on like the other Gallic
+    // zones.
+    id: "gaul-senones", polity: "gaul", name: "The Senones", mapLabel: "SENONES", fromYear: -509, toYear: -284, certainty: "probable", labelAt: [12.9, 43.8],
+    ring: [
+      // North into the Cisalpine zone so the two share an edge, then down the coast
+      // to the Aesis, held offshore.
+      [12.2, 44.4], [12.9, 44.3], [13.4, 43.9], [13.8, 43.5],
+      // Back inland along the Apennine flank.
+      [13.3, 43.3], [12.7, 43.6], [12.3, 44.0],
     ],
   },
   {
@@ -146,6 +239,167 @@ export const territories: TerritoryPeriod[] = [
     ],
   },
 
+  // ── The head of the Adriatic and Illyricum ────────────────────────────────
+  //
+  // The eastern shore of the Adriatic was blank for the whole atlas, and the atlas
+  // fights three separate wars on it: the Istrian war of 178–177, Caesar's command
+  // in Illyricum from 59, and Octavian's Dalmatian campaigns. Every one of them had
+  // route waypoints standing on ground the map coloured for nobody.
+  {
+    // 181: Aquileia, a Latin colony planted at the head of the gulf to hold the
+    // pass the Gauls and the Histri came through, and the base the Istrian war was
+    // fought from two years later. Rome kept Istria after 177 and attached it to
+    // Italy, so this runs to the end of the atlas.
+    id: "rome-istria", polity: "rome", name: "Aquileia and Istria", mapLabel: "ISTRIA", fromYear: -181, toYear: -30, certainty: "probable", labelAt: [13.9, 45.3],
+    ring: [
+      // The head of the gulf, carried west into the Cisalpine zone so the seam
+      // between them is not left pale, then east past Tergeste.
+      [12.7, 45.5], [12.9, 46.0], [13.8, 46.1], [14.6, 45.8],
+      // The eastern side of the peninsula and back up its coast, held offshore.
+      [14.8, 45.2], [14.4, 44.6], [13.7, 44.5], [13.2, 44.9], [13.0, 45.3],
+    ],
+  },
+  {
+    // 59: Illyricum. Caesar's five-year command was Gaul and Illyricum together,
+    // and the Illyrian half is the part nobody remembers, because he never went
+    // there. It was a province all the same, and it is the shore every army bound
+    // for Macedonia and Greece came ashore on — Apollonia in 200, 191 and 171,
+    // Dyrrhachium in 48.
+    id: "rome-illyricum", polity: "rome", name: "Illyricum", mapLabel: "ILLYRICUM", fromYear: -59, toYear: -34, certainty: "probable", labelAt: [17.6, 43.4],
+    note: "A coast rather than a country. Rome had held the Illyrian seaboard through allied and tributary communities since the Illyrian wars, and Caesar was given it as a province in 59, but the interior behind the Dinaric wall was neither garrisoned nor governed — the peoples there were still raiding Italy a generation later. The inland edge is the limit of Roman reach, not a line anyone drew at the time.",
+    ring: [
+      // The seaboard north from the Macedonian frontier, held offshore. The southern
+      // end overlaps the province of Macedonia, which is Roman too, so the two
+      // cannot leave a gap between them.
+      [19.4, 41.5], [19.0, 42.1], [18.2, 42.5], [17.0, 42.9], [15.8, 43.7], [14.6, 44.5], [14.3, 45.1],
+      // The inland limit along the Dinaric range, back south.
+      [15.4, 45.3], [16.4, 44.4], [17.6, 43.6], [18.8, 42.9], [19.8, 42.3], [20.2, 41.7],
+    ],
+  },
+  {
+    // 33: after Octavian. Three campaigning seasons up the coast and into the
+    // interior against the Iapodes, the Pannonii and the Delmatae — the war that
+    // took Siscia and reached the Sava. It secured a frontier that needed securing,
+    // and it also kept an army in the field within reach of Italy under a commander
+    // who needed to be seen to have fought, which was probably the point.
+    id: "rome-illyricum-dalmatia", polity: "rome", name: "Illyricum after the Dalmatian campaigns", mapLabel: "ILLYRICUM", fromYear: -33, toYear: -30, certainty: "probable", labelAt: [17.6, 44.1],
+    ring: [
+      [19.4, 41.5], [19.0, 42.1], [18.2, 42.5], [17.0, 42.9], [15.8, 43.7], [14.6, 44.5], [14.3, 45.1],
+      // The interior, out to the Sava country the campaigns of 35–33 reached.
+      [15.4, 45.8], [16.8, 45.7], [18.0, 45.1], [19.0, 44.3], [19.6, 43.2], [20.0, 42.4], [20.2, 41.7],
+    ],
+  },
+
+  // ── The islands ───────────────────────────────────────────────────────────
+  //
+  // Sicily, Sardinia and Corsica were always drawn. These four were not, and three
+  // of them were provinces: an atlas that colours Macedonia and Asia and leaves
+  // Crete and Cyprus white is not making a claim about evidence, it is simply
+  // missing them.
+  {
+    // Punic Malta, taken by the consul Sempronius in the first weeks of the Second
+    // Punic War and held by Rome from then on.
+    id: "carthage-melita", polity: "carthage", name: "Carthaginian Melita", mapLabel: "MELITA", fromYear: -509, toYear: -219, certainty: "probable", labelAt: [14.44, 35.9],
+    // Malta and Gozo, held close: the pair lies on a diagonal, and a rounder ring
+    // round both would enclose far more sea than island.
+    ring: [[14.13, 36.04], [14.20, 36.12], [14.34, 36.11], [14.41, 36.02], [14.52, 36.00], [14.63, 35.92], [14.59, 35.79], [14.45, 35.75], [14.33, 35.82], [14.29, 35.96]],
+  },
+  {
+    id: "rome-melita", polity: "rome", name: "Melita", mapLabel: "MELITA", fromYear: -218, toYear: -30, certainty: "attested", labelAt: [14.44, 35.9],
+    // Malta and Gozo, held close: the pair lies on a diagonal, and a rounder ring
+    // round both would enclose far more sea than island.
+    ring: [[14.13, 36.04], [14.20, 36.12], [14.34, 36.11], [14.41, 36.02], [14.52, 36.00], [14.63, 35.92], [14.59, 35.79], [14.45, 35.75], [14.33, 35.82], [14.29, 35.96]],
+  },
+  {
+    // 122: the Balearics, taken by Metellus for suppressing piracy that was
+    // interfering with the sea road to Spain — the same reason Rome took southern
+    // Gaul the year before. The islanders' slingers had served Carthage at Cannae.
+    id: "rome-balearics", polity: "rome", name: "The Balearic islands", mapLabel: "BALEARES", fromYear: -122, toYear: -30, certainty: "attested", labelAt: [2.9, 39.6],
+    ring: [
+      [2.2, 39.4], [2.6, 40.0], [3.4, 40.0], [3.9, 40.2], [4.4, 40.2], [4.4, 39.8], [3.5, 39.2], [2.6, 39.2],
+    ],
+  },
+  {
+    // 67: Crete, after a three-year war against the island's cities for harbouring
+    // the pirates Pompey was clearing out of the eastern sea. Before that it was a
+    // country of independent cities, which is left uncoloured on the same rule the
+    // Anatolian kingdoms are: Rome fought it, and did not hold it.
+    id: "rome-crete", polity: "rome", name: "Crete", mapLabel: "CRETE", fromYear: -67, toYear: -30, certainty: "attested", labelAt: [24.9, 35.2],
+    ring: [
+      [23.3, 35.3], [23.4, 35.8], [24.6, 36.0], [25.8, 35.9], [26.6, 35.6], [26.4, 35.0], [25.2, 34.7], [24.0, 34.7], [23.3, 34.9],
+    ],
+  },
+  {
+    // Ptolemaic Cyprus: the one part of the empire outside Egypt and Cyrenaica that
+    // the dynasty never lost, and often the appanage of a second king. Drawn with
+    // Egypt because it is the same state, and leaving it out made the Ptolemaic zone
+    // contradict itself.
+    id: "ptolemaic-cyprus", polity: "ptolemaic", name: "Ptolemaic Cyprus", mapLabel: "CYPRUS", fromYear: -264, toYear: -59, certainty: "probable", labelAt: [33.2, 35.0],
+    ring: [
+      [32.0, 34.9], [32.2, 35.5], [33.2, 35.9], [34.2, 35.9], [34.9, 35.8], [34.5, 35.0], [33.4, 34.4], [32.4, 34.4],
+    ],
+  },
+  {
+    // 58: annexed by a law of Clodius, for no better reason than that the treasury
+    // wanted the money and Cato could be got out of Rome by being sent to fetch it.
+    // No war, no campaign, and the only province in the atlas acquired as an errand.
+    id: "rome-cyprus", polity: "rome", name: "Cyprus", mapLabel: "CYPRUS", fromYear: -58, toYear: -30, certainty: "attested", labelAt: [33.2, 35.0],
+    ring: [
+      [32.0, 34.9], [32.2, 35.5], [33.2, 35.9], [34.2, 35.9], [34.9, 35.8], [34.5, 35.0], [33.4, 34.4], [32.4, 34.4],
+    ],
+  },
+
+  // ── The peoples of Iberia ─────────────────────────────────────────────────
+  //
+  // Rome and Carthage fought in Spain for two hundred years, and for most of that
+  // time most of Spain belonged to neither. The atlas used to say so by leaving it
+  // white, and white is a different claim: here it read as ground outside the
+  // story, the way Germania and the Sahara are outside it. But this is where
+  // Numantia was starved out, where Viriathus beat or evaded eight commanders in
+  // a row, and where Sertorius held a Roman army for eight years — all of it in
+  // this atlas already, drawn on land it coloured for nobody.
+  //
+  // Both zones are envelopes, not frontiers, and they are drawn as one colour for
+  // dozens of peoples because no source lets anyone draw the lines between them.
+  // The principals are painted after a minor power, so they take every acre they
+  // hold: what a reader sees in this colour is exactly the ground no province
+  // claimed, and there is no seam between the two.
+  {
+    id: "iberia-free", polity: "iberian", name: "Iberian, Celtiberian and Lusitanian peoples", mapLabel: "IBERIANS", fromYear: -509, toYear: -134, certainty: "speculative", labelAt: [-5.2, 41.1],
+    note: "Not a polity, and no line on it is a border. Dozens of independent peoples held this ground — Celtiberians, Lusitanians, Vaccaei, Vettones, Cantabri, Turdetani and more — warring with each other as often as with anyone else, and nothing survives that would let the map divide them. The outline covers the whole peninsula so that the Barcid and Roman provinces drawn over it show where those authorities actually reached; what is left in this colour is simply the ground that was nobody's but its own.",
+    ring: [
+      // The Cantabrian coast west from the Basque country, offshore.
+      [-1.4, 43.5], [-3.0, 43.7], [-4.8, 43.8], [-6.6, 43.9], [-8.2, 43.9], [-9.4, 43.2],
+      // The Atlantic seaboard south to Cape St Vincent, offshore throughout.
+      [-9.4, 42.0], [-9.6, 40.6], [-9.8, 39.2], [-9.6, 37.8], [-9.0, 36.9],
+      // The southern and eastern coasts, offshore. Everything from here round to
+      // the Pyrenees is ground a principal takes as soon as it holds any of it, so
+      // carrying the envelope over all of it costs nothing and guarantees that no
+      // pale strip is ever left on a coast of the peninsula.
+      [-7.4, 36.4], [-6.0, 35.8], [-4.4, 36.2], [-2.6, 36.3], [-1.2, 37.1], [-0.3, 38.1], [0.4, 39.6], [1.2, 40.8], [2.6, 41.5], [3.4, 42.45],
+      // The Pyrenean frontier west, carried just north of the crest so the Gallic
+      // zone takes the overlap rather than a thread being left between them.
+      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0],
+    ],
+  },
+  {
+    // 133 onwards: what is left when the provinces reach the plateau. The Cantabri,
+    // Astures and Callaeci were raided, beaten and triumphed over repeatedly and
+    // still not held, and the atlas ends before the war that finally held them. So
+    // the north-west stays theirs to the last frame.
+    //
+    // The inland edge runs well south of the frontier the province draws, so Rome
+    // takes the overlap and the visible line is the Roman one.
+    id: "iberia-northwest", polity: "iberian", name: "Cantabri, Astures and Callaeci", mapLabel: "CANTABRI & CALLAECI", fromYear: -133, toYear: -30, certainty: "probable", labelAt: [-6.4, 42.9],
+    ring: [
+      // The Atlantic and Cantabrian coasts, offshore, from the Minho round to the
+      // Basque country.
+      [-9.2, 41.8], [-9.4, 43.2], [-8.2, 43.9], [-6.6, 43.9], [-4.8, 43.8], [-3.0, 43.7], [-1.4, 43.5],
+      // The inland limit, carried south into the province's ground.
+      [-2.0, 42.8], [-3.2, 42.5], [-4.4, 42.0], [-5.6, 41.6], [-6.8, 41.0], [-8.0, 40.6],
+    ],
+  },
+
   // ── Numidia ──────────────────────────────────────────────────────────────
   {
     id: "numidia-early", polity: "numidia", name: "Numidian kingdoms", mapLabel: "NUMIDIA", fromYear: -264, toYear: -202, certainty: "probable", labelAt: [4.4, 35.6],
@@ -177,7 +431,10 @@ export const territories: TerritoryPeriod[] = [
     id: "numidia-kingdom", polity: "numidia", name: "Numidia", mapLabel: "NUMIDIA", fromYear: -148, toYear: -47, certainty: "probable", labelAt: [4.4, 35.6],
     ring: [
       [-1.8, 35.4], [-1.0, 36.2], [0.2, 36.9], [1.6, 37.1], [3.0, 37.2], [4.6, 37.3], [6.0, 37.4], [7.2, 37.4],
-      [7.8, 36.6], [7.9, 35.6], [8.4, 34.6], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
+      // The south-eastern corner reaches the pre-desert. Jugurtha's war was fought
+      // by never being where a Roman army could reach water, and the corner as cut
+      // left the campaign's deepest march outside the kingdom it was fought in.
+      [7.8, 36.6], [7.9, 35.6], [8.7, 34.1], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
     ],
   },
   {
@@ -606,6 +863,13 @@ export const territories: TerritoryPeriod[] = [
     // across the Euphrates; ten years later Crassus crosses it and loses seven
     // legions in a week. Only the western edge of the empire is drawn — the rest of
     // it lies beyond this map, which is itself worth knowing.
+    //
+    // Armenia is the one power the atlas fights and does not colour. Tigranes held
+    // Syria from 83 to 69 and was beaten at Tigranocerta by Lucullus, who is drawn
+    // marching there over blank ground — so this is a real omission, not a
+    // judgement. Fixing it costs a tenth categorical hue in a year that already
+    // draws seven, and the palette note in `data/factions.ts` says what that
+    // requires: re-validating the whole set, not tinting one more entry.
     id: "parthia", polity: "parthia", name: "Parthia", mapLabel: "PARTHIA", fromYear: -63, toYear: -30, certainty: "probable", labelAt: [42.0, 34.6],
     ring: [
       [40.4, 37.4], [42.0, 37.6], [43.8, 37.2], [44.0, 30.0],
@@ -633,9 +897,12 @@ export const territories: TerritoryPeriod[] = [
     // century after Carthage and by the same mechanism: choosing wrongly in a Roman
     // quarrel. The Emporia go with it.
     id: "rome-africa-nova", polity: "rome", name: "Africa Nova", mapLabel: "AFRICA NOVA", fromYear: -46, toYear: -30, certainty: "attested", labelAt: [4.4, 35.6],
+    // The same outline as the kingdom, corner for corner — including the
+    // south-eastern reach into the pre-desert, or annexing Juba's kingdom would
+    // hand that strip to nobody in the year Rome took the whole of it.
     ring: [
       [-1.8, 35.4], [-1.0, 36.2], [0.2, 36.9], [1.6, 37.1], [3.0, 37.2], [4.6, 37.3], [6.0, 37.4], [7.2, 37.4],
-      [7.8, 36.6], [7.9, 35.6], [8.4, 34.6], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
+      [7.8, 36.6], [7.9, 35.6], [8.7, 34.1], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
     ],
   },
   {
@@ -758,9 +1025,30 @@ export const territories: TerritoryPeriod[] = [
   {
     id: "magna-graecia", polity: "greek", name: "Greek cities of Italy", mapLabel: "GREEK CITIES", fromYear: -509, toYear: -273, certainty: "probable", labelAt: [16.55, 39.9],
     ring: [
-      [17.60, 40.60], [17.30, 40.25], [16.90, 39.95], [16.60, 39.55], [17.20, 39.00],
+      [17.60, 40.70], [17.30, 40.25], [16.90, 39.95], [16.60, 39.55], [17.20, 39.00],
       [16.60, 38.65], [16.20, 38.05], [15.55, 38.02],
-      [15.80, 38.55], [16.15, 39.15], [16.35, 39.85], [16.85, 40.35], [17.25, 40.55],
+      [15.80, 38.55], [16.15, 39.15], [16.35, 39.85],
+      // The inland edge is carried up over the Tarentine isthmus. Drawn tighter, as
+      // it was, the arc's own neck excluded Tarentum — the largest Greek city in
+      // Italy, the one that called Pyrrhus in, and the place the atlas puts him
+      // ashore. He was landing on nobody's ground.
+      [16.80, 40.45], [17.15, 40.65],
+    ],
+  },
+  {
+    // And the other coast. Magna Graecia ringed both seas — Cumae was the oldest
+    // Greek city in Italy, Neapolis gave the region its name for the rest of
+    // antiquity, and Poseidonia and Velia stood between them and the toe. Drawn as
+    // the gulf arc alone, the atlas left half of Greek Italy uncoloured, including
+    // the two cities a reader is most likely to look for.
+    id: "magna-graecia-tyrrhenian", polity: "greek", name: "Greek cities of the Tyrrhenian coast", mapLabel: "GREEK CITIES", fromYear: -509, toYear: -273, certainty: "probable", labelAt: [14.30, 40.83],
+    ring: [
+      // The seaward edge, offshore, from the bay of Naples south past Palinuro to
+      // the Gulf of Policastro.
+      [13.95, 40.98], [14.30, 40.55], [14.90, 40.35], [15.10, 40.00], [15.55, 39.80],
+      // Back north along the inland edge, kept to the coastal plains — the country
+      // behind them was Campanian and Lucanian, and is not claimed here.
+      [15.90, 40.02], [15.55, 40.28], [15.20, 40.42], [14.90, 40.72], [14.50, 40.90], [14.10, 40.98],
     ],
   },
 
@@ -789,7 +1077,12 @@ export const territories: TerritoryPeriod[] = [
     id: "rome-latium-campania", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -338, toYear: -300, certainty: "probable", labelAt: [13.3, 41.5],
     ring: [
       [12.10, 41.70], [12.70, 41.35], [13.20, 41.15], [13.90, 41.15], [14.35, 40.95], [14.55, 40.72],
-      [14.15, 40.72], [13.95, 41.05], [13.60, 41.55], [13.20, 41.90],
+      // The inland edge of Campania, carried round the north of Capua. Drawn on the
+      // coast instead, as it was, the lobe excluded the largest city in it: Capua
+      // came over in 338 and is the whole reason Rome held Campania at all, and the
+      // Samnite wars are fought from it. The line stays just west of the Samnite
+      // zone's own edge, so the frontier the two wars were about is still visible.
+      [14.50, 40.95], [14.30, 41.12], [14.00, 41.30], [13.70, 41.50], [13.20, 41.90],
       [12.90, 42.15], [12.40, 42.30], [12.05, 42.10], [12.00, 41.88],
     ],
   },
@@ -799,8 +1092,13 @@ export const territories: TerritoryPeriod[] = [
     id: "rome-central-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -299, toYear: -291, certainty: "probable", labelAt: [12.9, 42.35],
     ring: [
       [12.10, 41.70], [12.70, 41.35], [13.20, 41.15], [13.90, 41.15], [14.35, 40.95], [14.55, 40.72],
-      [14.15, 40.72], [13.95, 41.05], [13.75, 41.60], [14.10, 41.95], [13.90, 42.40],
-      [13.85, 42.90], [13.55, 43.35], [13.20, 43.45], [12.75, 43.20], [12.35, 42.85], [12.15, 42.40],
+      // Campania round the north of Capua, as in the previous phase.
+      [14.50, 40.95], [14.30, 41.12], [14.00, 41.30], [13.75, 41.60], [14.10, 41.95], [13.90, 42.40],
+      // Up through Picenum. The Umbrian corner is carried north to the Sentine
+      // valley: Sentinum was fought in 295 on ground annexed four years earlier,
+      // and the corner as drawn stopped just short of it, so the largest battle of
+      // the Samnite wars took place outside every zone on the map.
+      [13.85, 42.90], [13.55, 43.35], [13.10, 43.50], [12.70, 43.45], [12.35, 42.85], [12.15, 42.40],
       [12.05, 42.10], [12.00, 41.88],
     ],
   },
