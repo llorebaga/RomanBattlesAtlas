@@ -235,15 +235,15 @@ Coordinates describe representative event areas, not exact unit positions. The i
 
 ### Public site
 
-The atlas is published at <https://llorebaga.github.io/RomanBattlesAtlas/>. This private `RomanBattles` repository holds the editable source; the public `RomanBattlesAtlas` repository holds only the generated static website that GitHub Pages serves.
+The atlas is published at <https://llorebaga.github.io/RomanBattlesAtlas/>. Source and published site are the same repository: `llorebaga/RomanBattlesAtlas` holds the editable source on `main`, and GitHub Pages serves the build that Actions produces from it. There is no separate source repository — the atlas was split across a private source repo and a public deployment repo until August 2026, and the two were merged into this one.
 
-**Automated deploy.** Pushing to `main` triggers `.github/workflows/deploy-atlas.yml`, which runs the tests, builds the static export, and pushes `out/` to the public Atlas repository. This requires one repository secret in this repo (Settings → Secrets and variables → Actions):
+**Automated deploy.** Pushing to `main` triggers `.github/workflows/deploy-atlas.yml`, which runs the tests, builds the static export, and publishes `out/` to Pages as an artifact. Pages must be set to **GitHub Actions** as its source under Settings → Pages; the workflow's `configure-pages` step also asserts it. No repository secret is involved — the build deploys its own repository, so the built-in `GITHUB_TOKEN` suffices.
 
-- `ATLAS_DEPLOY_TOKEN` — a GitHub token (classic with `repo` scope, or a fine-grained token with contents read/write on `llorebaga/RomanBattlesAtlas`).
+The generated site is not committed. `main` is source only, and the published files exist as a Pages artifact rather than on a branch.
 
 `build:pages` runs `build/fix-worker-imports.mjs` after the export. The bundler content-hashes MapLibre's shared worker chunk but leaves the import inside the worker pointing at the unhashed name, which 404s; the worker then fails to start and every vector source on the map silently draws nothing. The script rewrites those specifiers and exits non-zero if any import is still unresolved, so a broken map fails the build rather than shipping.
 
-**Manual deploy** (fallback): build with `GITHUB_PAGES=true` and `GITHUB_PAGES_REPOSITORY=RomanBattlesAtlas`, add an empty `out/.nojekyll`, then publish the generated `out` directory to the deployment repository.
+**Manual deploy** (fallback): build with `GITHUB_PAGES=true` and `GITHUB_PAGES_REPOSITORY=RomanBattlesAtlas`, add an empty `out/.nojekyll`, then upload the generated `out` directory as the Pages artifact — or run the workflow by hand from the Actions tab, which is the same thing with fewer steps.
 
 ### Vercel
 

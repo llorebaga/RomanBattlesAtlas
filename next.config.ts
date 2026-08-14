@@ -2,7 +2,7 @@ import type { NextConfig } from "next";
 
 const githubPages = process.env.GITHUB_PAGES === "true";
 const githubPagesRepository =
-  process.env.GITHUB_PAGES_REPOSITORY ?? "RomanBattles";
+  process.env.GITHUB_PAGES_REPOSITORY ?? "RomanBattlesAtlas";
 const githubPagesBasePath = `/${githubPagesRepository}`;
 
 const nextConfig: NextConfig = {

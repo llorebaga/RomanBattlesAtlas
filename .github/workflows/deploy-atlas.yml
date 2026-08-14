@@ -1,22 +1,37 @@
-name: Build and deploy to RomanBattlesAtlas
+name: Build and deploy the Atlas
 
-# Builds the static site from this private source repo and publishes the
-# generated `out/` folder to the public llorebaga/RomanBattlesAtlas repo,
-# which GitHub Pages serves at https://llorebaga.github.io/RomanBattlesAtlas/.
+# Builds the static site from the source in this repository and publishes it to
+# GitHub Pages, which serves it at https://llorebaga.github.io/RomanBattlesAtlas/.
 #
-# Requires one repository secret in this repo (Settings → Secrets and
-# variables → Actions):
-#   ATLAS_DEPLOY_TOKEN — a GitHub token with write (contents) access to the
-#   llorebaga/RomanBattlesAtlas repository.
+# Source and published site live in this one public repository. Nothing has to be
+# copied to a second repository, so no deploy token or repository secret is
+# needed: the built-in GITHUB_TOKEN below is enough.
+#
+# Pages must be set to "GitHub Actions" as its source (Settings → Pages). The
+# configure-pages step below asserts that and will switch it if it drifts.
 
 on:
   push:
     branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Let a newer push supersede an in-flight deploy, but never cancel one halfway:
+# a cancelled deployment can leave Pages serving a partial build.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -38,17 +53,25 @@ jobs:
       - name: Run logic tests
         run: pnpm test
 
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
       - name: Build static site
         run: pnpm run build:pages
         env:
           GITHUB_PAGES: "true"
-          GITHUB_PAGES_REPOSITORY: RomanBattlesAtlas
+          # The site is served from /<repository>, so the base path follows the
+          # repository name rather than being written out here twice.
+          GITHUB_PAGES_REPOSITORY: ${{ github.event.repository.name }}
 
-      - name: Publish to the public Atlas repository
-        uses: peaceiris/actions-gh-pages@v4
+      - name: Keep Pages from treating _next as Jekyll input
+        run: touch out/.nojekyll
+
+      - name: Upload the built site
+        uses: actions/upload-pages-artifact@v3
         with:
-          personal_token: ${{ secrets.ATLAS_DEPLOY_TOKEN }}
-          external_repository: llorebaga/RomanBattlesAtlas
-          publish_branch: main
-          publish_dir: ./out
-          commit_message: "Deploy from RomanBattles@${{ github.sha }}"
+          path: ./out
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
