@@ -218,7 +218,11 @@ const UNCLAIMED_BY_DESIGN = [
   // Ground Roman armies marched over without anyone holding it. The atlas draws
   // the marches and leaves the country blank, which is the correct pair of claims.
   { year: -190, places: { Thrace: [25.4, 41.2] } },
-  { year: -55, places: { "Germania beyond the Rhine": [7.4, 50.1] } },
+  // East of the river, in Chattan country. The point used to be the west end of
+  // Caesar's bridge, which the map called Germania only because the Rhine was
+  // drawn as a straight chord from Bonn to Karlsruhe; traced along the actual
+  // river, that bank is Treveran and therefore Gallic, as it should be.
+  { year: -55, places: { "Germania beyond the Rhine": [9.2, 50.4] } },
   // Apamea gave the Seleucid west to Rome's allies. The northern Anatolian kingdoms
   // were never Antiochus' to lose or Rome's to give, so the grant must stop short of
   // them rather than sweeping across the peninsula.

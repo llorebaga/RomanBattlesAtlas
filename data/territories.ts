@@ -1,4 +1,4 @@
-import type { TerritoryPeriod } from "@/types/history";
+import type { Coordinates, TerritoryPeriod } from "@/types/history";
 
 // Zones of control for the Mediterranean powers, 509–44 BCE.
 //
@@ -26,17 +26,235 @@ import type { TerritoryPeriod } from "@/types/history";
 //    province claimed, with no seam and no pale thread between the two, and the
 //    map never has to guess at a border nobody recorded. Zones drawn this way say
 //    so in a `note`, because an outline that is not a claim has to admit it.
+// ── Frontiers, authored once ──────────────────────────────────────────────────
+//
+// A zone used to carry its own copy of every edge, at five or six points for a
+// thousand kilometres of country. Two things went wrong with that. The lines read
+// as ruled — a frontier crossing Spain in four straight chords looks surveyed and
+// looks wrong, and no river or mountain range on this map is straight. And an edge
+// two powers share had to be authored twice, so the Ebro existed three times and
+// the Taurus twice, each copy free to drift from the others and each needing its
+// own overshoot hack to stop a hairline of nobody's colour opening along the seam.
+//
+// So the features are authored here instead, once each, densely enough to follow
+// the thing they are named after — roughly a point every twenty to thirty
+// kilometres — and zones are composed out of stretches of them. Two powers that
+// meet on the Ebro are now drawn on the same points, so the seam cannot open at
+// all, and correcting a river corrects every zone that claims it.
+//
+// Only edges that cross land need this. Fills are clipped to the coastline, so a
+// ring's offshore stretches draw nothing: they stay coarse on purpose, and are
+// pushed well out to sea so no pale strip is ever left along a shore.
+type Line = Coordinates[];
+const rev = (line: Line): Line => [...line].reverse();
+function nearestIndex(line: Line, at: Coordinates): number {
+  let best = 0;
+  let bestDistance = Infinity;
+  for (let i = 0; i < line.length; i += 1) {
+    const distance = (line[i][0] - at[0]) ** 2 + (line[i][1] - at[1]) ** 2;
+    if (distance < bestDistance) { bestDistance = distance; best = i; }
+  }
+  return best;
+}
+/**
+ * The stretch of a feature between two places, so a ring names geography rather
+ * than array indices and stays correct when the feature gains detail. Endpoints
+ * are matched to the nearest authored point, and the stretch comes back running
+ * in the direction asked for.
+ */
+function stretch(line: Line, from: Coordinates, to: Coordinates): Line {
+  const a = nearestIndex(line, from);
+  const b = nearestIndex(line, to);
+  return a <= b ? line.slice(a, b + 1) : rev(line.slice(b, a + 1));
+}
+
+// ── Iberia ────────────────────────────────────────────────────────────────────
+// Anchors, so the compositions below read as places.
+const CREUS: Coordinates = [3.40, 42.30];          // Cap de Creus, where the Pyrenees meet the sea
+const GIBRALTAR: Coordinates = [-5.60, 35.95];     // the strait
+const GUADIANA: Coordinates = [-7.60, 36.90];      // the Atlantic mouth of the Guadiana
+const DOURO_MOUTH: Coordinates = [-8.95, 41.10];
+const BISCAY: Coordinates = [-1.95, 43.55];        // the Basque shore
+const RONCESVALLES: Coordinates = [-1.35, 43.05];  // the western Pyrenean pass
+const LOGRONO: Coordinates = [-2.48, 42.46];       // the Ebro at the Rioja
+const EBRO_MOUTH: Coordinates = [0.87, 40.72];
+const EBRO_SEA: Coordinates = [1.00, 40.75];       // offshore of the delta
+const ALICANTE_SEA: Coordinates = [-0.45, 38.25];
+
+// The Pyrenean crest, east to west. The frontier of Iberia with Gaul for the whole
+// atlas, and shared by every zone on both sides of it.
+const PYRENEES: Line = [
+  [3.40, 42.30], [3.21, 42.43], [2.86, 42.42], [2.52, 42.40], [2.18, 42.48], [1.86, 42.57],
+  [1.58, 42.62], [1.29, 42.68], [1.00, 42.72], [0.72, 42.72], [0.44, 42.74], [0.15, 42.78],
+  [-0.15, 42.83], [-0.45, 42.88], [-0.75, 42.92], [-1.05, 42.98], [-1.35, 43.05], [-1.62, 43.19],
+  [-1.95, 43.55],
+];
+
+// The Ebro, traced from the delta upstream past Zaragoza to the Rioja and on to
+// its head in the Cantabrian mountains. The Barcid limit of 226 and the line
+// Roman Spain was divided on.
+const EBRO: Line = [
+  [0.87, 40.72], [0.66, 40.78], [0.44, 40.85], [0.28, 41.00], [0.10, 41.10], [-0.10, 41.20],
+  [-0.32, 41.32], [-0.55, 41.45], [-0.78, 41.58], [-0.98, 41.68], [-1.22, 41.80], [-1.48, 41.92],
+  [-1.75, 42.06], [-2.02, 42.20], [-2.25, 42.35], [-2.48, 42.46], [-2.75, 42.55], [-3.05, 42.65],
+  [-3.35, 42.75], [-3.65, 42.85], [-3.95, 42.95], [-4.13, 43.00],
+];
+
+// The inland limit of the two Spains, and of the Barcid province Rome inherited:
+// from the western Pyrenees down to the Ebro at the Rioja, south-east along the
+// Iberian System, then south-west along the Sierra Morena to the Atlantic. Behind
+// it lie Celtiberia, the Meseta and Lusitania, which stayed their own until the
+// two wars that ended in 139 and 133.
+const SPAIN_INLAND_LIMIT: Line = [
+  [-1.35, 43.05], [-1.60, 42.85], [-1.85, 42.68], [-2.15, 42.55], [-2.48, 42.46],
+  [-2.30, 42.10], [-2.15, 41.75], [-2.05, 41.40], [-1.95, 41.05], [-1.85, 40.75], [-1.85, 40.45],
+  [-2.05, 40.20], [-2.35, 40.00], [-2.70, 39.85], [-3.05, 39.72], [-3.45, 39.60], [-3.85, 39.45],
+  [-4.25, 39.30], [-4.65, 39.12], [-5.05, 38.95], [-5.45, 38.78], [-5.85, 38.62], [-6.25, 38.45],
+  [-6.60, 38.25], [-6.95, 38.02], [-7.25, 37.75], [-7.50, 37.45], [-7.60, 36.90],
+];
+
+// Hamilcar's narrower base, 237–229: the Guadalquivir and the south-eastern coast,
+// before Hasdrubal carried the province up to the Ebro.
+const BARCID_SOUTH_LIMIT: Line = [
+  [-7.60, 36.90], [-7.45, 37.35], [-7.20, 37.75], [-6.85, 38.00], [-6.45, 38.20], [-6.05, 38.35],
+  [-5.65, 38.50], [-5.25, 38.60], [-4.85, 38.68], [-4.45, 38.72], [-4.05, 38.75], [-3.65, 38.75],
+  [-3.25, 38.70], [-2.85, 38.60], [-2.45, 38.48], [-2.05, 38.35], [-1.65, 38.22], [-1.25, 38.12],
+  [-0.45, 38.25],
+];
+
+// The southern limit of the unconquered north-west, from the mouth of the Douro
+// north-east along the Cantabrian front to the Basque shore. Everything beyond it
+// is Cantabrian, Asturian and Callaecian to the end of the atlas: Augustus does
+// not finish that war until 19, a decade after this map closes.
+const SPAIN_NORTHWEST_LIMIT: Line = [
+  [-8.95, 41.10], [-8.60, 41.08], [-8.25, 41.06], [-7.90, 41.08], [-7.55, 41.14], [-7.20, 41.24],
+  [-6.90, 41.36], [-6.60, 41.50], [-6.32, 41.66], [-6.05, 41.84], [-5.78, 42.02], [-5.48, 42.20],
+  [-5.15, 42.34], [-4.80, 42.46], [-4.45, 42.56], [-4.10, 42.66], [-3.75, 42.76], [-3.40, 42.86],
+  [-3.05, 42.96], [-2.70, 43.08], [-2.35, 43.24], [-1.95, 43.55],
+];
+
+// The coasts. Held offshore throughout and therefore never drawn — the clip stops
+// every fill at the real coastline — but carried round each headland so that no
+// chord cuts a peninsula off from the country it belongs to.
+const IBERIA_COAST_MED: Line = [
+  [3.40, 42.30], [3.15, 41.95], [2.70, 41.65], [2.20, 41.35], [1.75, 41.15], [1.30, 41.00],
+  [1.00, 40.75], [0.75, 40.45], [0.45, 40.15], [0.30, 39.75], [0.35, 39.30], [0.15, 38.90],
+  [-0.15, 38.60], [-0.45, 38.25], [-0.65, 37.85], [-0.95, 37.45], [-1.35, 37.25], [-1.80, 36.95],
+  [-2.20, 36.65], [-2.80, 36.55], [-3.50, 36.55], [-4.20, 36.45], [-4.90, 36.30], [-5.60, 35.95],
+];
+const IBERIA_COAST_ATLANTIC: Line = [
+  [-5.60, 35.95], [-6.05, 35.90], [-6.60, 36.35], [-7.10, 36.75], [-7.60, 36.90], [-8.20, 36.90],
+  [-8.80, 36.90], [-9.15, 37.15], [-9.20, 37.60], [-9.20, 38.10], [-9.45, 38.60], [-9.60, 39.10],
+  [-9.55, 39.60], [-9.35, 40.10], [-9.10, 40.60], [-8.95, 41.10], [-8.95, 41.60], [-9.05, 42.10],
+  [-9.40, 42.60], [-9.35, 43.10], [-8.80, 43.60], [-8.10, 43.85], [-7.40, 43.90], [-6.70, 43.85],
+  [-6.00, 43.80], [-5.30, 43.75], [-4.60, 43.70], [-3.90, 43.65], [-3.20, 43.60], [-2.50, 43.55],
+  [-1.95, 43.55],
+];
+
+// ── Gaul, the Alps and the Apennines ──────────────────────────────────────────
+const ALPS_VAR: Coordinates = [7.40, 43.90];       // where the Alps meet the sea
+const ALPS_GENEVA: Coordinates = [6.60, 46.10];    // the western flank turns east
+const ALPS_CARNIC: Coordinates = [13.40, 46.48];   // the eastern end of the arc
+const RHINE_MOUTHS: Coordinates = [4.40, 51.95];
+const BASEL: Coordinates = [7.59, 47.56];
+const APENNINE_WEST: Coordinates = [7.90, 44.35];  // the Ligurian junction with the Alps
+const RUBICON: Coordinates = [12.50, 44.14];       // the Adriatic end of the watershed
+const APENNINE_MAGRA: Coordinates = [9.70, 44.45]; // where Rome's Italy leaves off and Liguria begins
+const ARNO_MOUTH: Coordinates = [10.05, 43.70];
+const PYRENEES_ARIEGE: Coordinates = [0.44, 42.74];
+
+// The Alpine arc: north up the western flank from the sea at the Var to the Léman,
+// then east along the crest to the Carnic Alps at the head of the Adriatic. The
+// Gallic zones part on it, Italy stops at it, and the province of Narbonensis ends
+// on it — all of them now on the same points.
+const ALPS: Line = [
+  [7.40, 43.90], [7.20, 44.15], [7.00, 44.40], [6.85, 44.65], [6.75, 44.90], [6.65, 45.15],
+  [6.70, 45.40], [6.75, 45.65], [6.80, 45.90], [6.60, 46.10],
+  [7.00, 46.20], [7.40, 46.25], [7.80, 46.30], [8.20, 46.35], [8.60, 46.40], [9.00, 46.45],
+  [9.40, 46.50], [9.80, 46.55], [10.20, 46.60], [10.60, 46.68], [11.00, 46.76], [11.40, 46.84],
+  [11.80, 46.80], [12.20, 46.72], [12.60, 46.64], [13.00, 46.56], [13.40, 46.48],
+];
+
+// The Rhine, from the mouths upstream past Koblenz, Mainz and Strasbourg to Basel.
+// Caesar bridged it twice and did not stay, which is exactly why Gaul stops here.
+const RHINE: Line = [
+  [4.40, 51.95], [4.90, 51.90], [5.40, 51.85], [5.90, 51.80], [6.15, 51.70], [6.45, 51.66],
+  [6.70, 51.45], [6.78, 51.23], [6.90, 51.05], [6.98, 50.92], [7.08, 50.72], [7.25, 50.55],
+  [7.60, 50.36], [7.90, 50.20],
+  [8.15, 50.05], [8.30, 49.85], [8.36, 49.63], [8.43, 49.32], [8.42, 49.00], [8.20, 48.80],
+  [7.95, 48.65], [7.75, 48.58], [7.65, 48.30], [7.58, 48.03], [7.55, 47.80], [7.59, 47.56],
+];
+
+// The Jura, closing Gaul's eastern side between the Rhine at Basel and the Alps
+// at the Léman.
+const JURA: Line = [
+  [7.59, 47.56], [7.30, 47.45], [7.00, 47.34], [6.72, 47.20], [6.46, 47.02], [6.22, 46.82],
+  [6.02, 46.62], [5.94, 46.42], [6.12, 46.24], [6.60, 46.10],
+];
+
+// The Apennine watershed, from the Ligurian junction with the Alps east to the
+// Adriatic at the Rubicon. Rome's northern limit and the Cisalpine zone's southern
+// one: one line, so the frontier of Italy is a single edge rather than two.
+const APENNINES: Line = [
+  [7.90, 44.35], [8.20, 44.30], [8.50, 44.35], [8.80, 44.45], [9.10, 44.50], [9.40, 44.50],
+  [9.70, 44.45], [10.00, 44.40], [10.30, 44.30], [10.60, 44.25], [10.90, 44.20], [11.20, 44.15],
+  [11.50, 44.10], [11.80, 44.05], [12.10, 44.05], [12.30, 44.08], [12.50, 44.14],
+];
+
+// Gaul's seaward edges, all held well offshore and therefore never drawn — but
+// carried round Armorica, the Gironde and the Rhône delta, so no chord cuts a
+// headland off from the country behind it.
+const GAUL_COAST_MED: Line = [
+  [3.40, 42.30], [3.10, 42.60], [3.20, 42.95], [3.55, 43.15], [4.00, 43.25], [4.50, 43.20],
+  [4.90, 43.10], [5.30, 43.05], [5.70, 42.95], [6.20, 42.95], [6.70, 43.00], [7.10, 43.30],
+  [7.40, 43.90],
+];
+const GAUL_COAST_ATLANTIC: Line = [
+  [-1.95, 43.55], [-1.80, 44.80], [-2.40, 46.20], [-3.40, 47.40], [-5.20, 48.30], [-3.40, 49.00],
+  [-1.60, 49.60], [0.40, 50.00], [2.00, 50.60], [3.40, 51.40], [4.40, 51.95],
+];
+
+// The northern limit of the province of 121, from the Pyrenees round the Cévennes
+// to the Alps. Not a feature anybody could walk to — it is where Roman
+// administration stopped, not where Gaul did — but it is the line the two zones
+// part on, so it is drawn as carefully as if it were.
+const NARBO_ALPS: Coordinates = [6.25, 45.10];     // where the province limit meets the Alps
+const NARBONENSIS_LIMIT: Line = [
+  [0.44, 42.74], [0.55, 43.05], [0.70, 43.35], [0.95, 43.65], [1.25, 43.90], [1.60, 44.10],
+  [2.00, 44.25], [2.40, 44.40], [2.80, 44.50], [3.20, 44.60], [3.60, 44.70], [4.00, 44.85],
+  [4.35, 45.05], [4.70, 45.25], [5.10, 45.35], [5.50, 45.35], [5.90, 45.25], [6.25, 45.10],
+  [6.60, 44.85], [6.90, 44.55], [7.15, 44.20], [7.40, 43.90],
+];
+
+// Free Gaul once the province exists: the same Atlantic, Channel, Rhine and Alpine
+// edges as before, with the province's limit for a southern one. Authored once and
+// used twice, because the ground Caesar takes in 50 is exactly the ground that was
+// Gallic in 51 — if the two rings ever drifted apart, the conquest would show as a
+// strip of country changing shape rather than changing hands.
+const GAUL_OUTSIDE_THE_PROVINCE: Line = [
+  ...GAUL_COAST_ATLANTIC,
+  ...RHINE,
+  ...JURA,
+  ...stretch(ALPS, ALPS_GENEVA, [6.65, 45.15]),
+  ...stretch(NARBONENSIS_LIMIT, NARBO_ALPS, PYRENEES_ARIEGE),
+  ...stretch(PYRENEES, PYRENEES_ARIEGE, BISCAY),
+];
+
 export const territories: TerritoryPeriod[] = [
   // ── Rome ──────────────────────────────────────────────────────────────────
   {
     id: "rome-italy", polity: "rome", name: "Rome", mapLabel: "ROME", fromYear: -272, toYear: -30, certainty: "attested", labelAt: [13.0, 42.3],
     ring: [
-      // Northern limit, carried a little past the watershed: the Cisalpine zone
-      // is drawn after Rome and takes the overlap, so the visible frontier is the
-      // watershed itself and no unclaimed strip is left between them.
-      [8.6, 44.75], [9.2, 44.85], [9.9, 44.8], [10.6, 44.7], [11.3, 44.5], [12.0, 44.35], [12.6, 44.4],
-      // Adriatic coast, held just offshore.
-      [13.2, 43.8], [13.9, 43.0], [14.6, 42.4], [15.4, 42.1], [16.2, 41.8], [17.0, 41.4], [17.9, 41.0], [18.7, 40.4],
+      // The northern limit is the Apennine watershed itself, on the same points the
+      // Cisalpine zone is drawn on. Rome used to overshoot past it and let the
+      // Gallic zone take the overlap; sharing the line means the frontier of Italy
+      // is one edge, and it follows the range instead of crossing it in six chords.
+      // It begins at the Magra rather than at the Ligurian end of the range:
+      // Liguria was not Roman in 272 and is left to itself.
+      ...stretch(APENNINES, APENNINE_MAGRA, RUBICON),
+      // Adriatic coast, held just offshore — and passing north of Ariminum, the
+      // colony that was planted in 268 to hold this end of the frontier.
+      [12.85, 44.00], [13.20, 43.60], [13.60, 43.20], [13.90, 43.00], [14.30, 42.60], [14.60, 42.40], [15.00, 42.20], [15.40, 42.10], [16.20, 41.80], [16.70, 41.60], [17.00, 41.40], [17.50, 41.20], [17.90, 41.00], [18.35, 40.70], [18.70, 40.40],
       // Around the heel and the Gulf of Taranto, then the Ionian coast. The bite
       // the gulf takes out of the ring is kept shallow: cut deeper, it reached
       // past the shore into the Sila, and Hannibal's recall in 202 handed that
@@ -75,13 +293,14 @@ export const territories: TerritoryPeriod[] = [
     // later — takes the overlap and the river itself stays the visible frontier.
     id: "rome-iberia-north", polity: "rome", name: "Roman Iberia north of the Ebro", mapLabel: "IBERIA", fromYear: -218, toYear: -207, certainty: "probable", labelAt: [1.3, 41.8],
     ring: [
-      // The coast from the Ebro mouth to Cap de Creus, held offshore.
-      [0.9, 40.6], [1.6, 41.0], [2.4, 41.4], [3.4, 42.45],
-      // The Pyrenean frontier, carried just north of the crest so the Gallic zone
-      // takes the overlap instead of a pale thread being left along the range.
-      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0],
-      // Back to the Ebro and down it, held a little south of the river.
-      [-1.3, 42.3], [-1.7, 41.95], [-0.95, 41.5], [-0.05, 41.1], [0.45, 40.7],
+      // Up the Ebro from the delta to the Rioja — the same points Barcid Iberia is
+      // drawn on, so the two meet on the river with nothing between them.
+      ...stretch(EBRO, EBRO_MOUTH, LOGRONO),
+      // North to the Pyrenean pass, then east along the crest to the sea.
+      ...stretch(SPAIN_INLAND_LIMIT, LOGRONO, RONCESVALLES),
+      ...stretch(PYRENEES, RONCESVALLES, CREUS),
+      // And back down the coast, offshore, to the delta.
+      ...stretch(IBERIA_COAST_MED, CREUS, EBRO_SEA),
     ],
   },
   {
@@ -92,14 +311,17 @@ export const territories: TerritoryPeriod[] = [
     // atlas fights there for seventy years before that changes.
     id: "rome-iberia", polity: "rome", name: "The two Spains", mapLabel: "IBERIA", fromYear: -206, toYear: -134, certainty: "probable", labelAt: [-3.4, 38.4],
     ring: [
-      // Up the Mediterranean coast, offshore, past the Ebro delta to Cap de Creus.
-      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.6, 41.0], [2.4, 41.4], [3.4, 42.45],
-      // The Pyrenean frontier west to the head of the Ebro, north of the crest.
-      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0], [-1.7, 43.25], [-2.45, 42.47],
-      // Then southwest along the Iberian System. This is the line the Celtiberian
-      // wars were fought on: it turns away here rather than sweeping over the
-      // plateau behind it, which nobody in Rome governed until Numantia fell.
-      [-2.4, 41.5], [-2.9, 40.7], [-3.6, 40.0], [-4.8, 39.4], [-6.0, 38.6], [-7.0, 38.0], [-7.6, 37.4],
+      // The Atlantic shore of the Algarve, then the whole Mediterranean coast to
+      // Cap de Creus — all of it offshore, so the coastline does the drawing.
+      ...stretch(IBERIA_COAST_ATLANTIC, GUADIANA, GIBRALTAR),
+      ...rev(IBERIA_COAST_MED),
+      // The Pyrenean crest west to the pass at Roncesvalles.
+      ...stretch(PYRENEES, CREUS, RONCESVALLES),
+      // Then the inland limit: down to the Ebro at the Rioja, south-east along the
+      // Iberian System and south-west along the Sierra Morena. This is the line the
+      // Celtiberian and Lusitanian wars were fought across, and it follows the
+      // ranges rather than cutting the peninsula in four straight chords.
+      ...stretch(SPAIN_INLAND_LIMIT, RONCESVALLES, GUADIANA),
     ],
   },
   {
@@ -116,14 +338,14 @@ export const territories: TerritoryPeriod[] = [
     // finished it in 19, a decade after this atlas closes.
     id: "rome-iberia-interior", polity: "rome", name: "Roman Iberia", mapLabel: "IBERIA", fromYear: -133, toYear: -30, certainty: "probable", labelAt: [-3.6, 39.6],
     ring: [
-      // The southern and eastern coasts, offshore, round to Cap de Creus.
-      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.6, 41.0], [2.4, 41.4], [3.4, 42.45],
-      // The Pyrenean frontier west, carried just north of the crest.
-      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0], [-1.7, 43.25],
-      // The Cantabrian frontier: the southern limit of the unconquered north-west.
-      [-2.6, 43.1], [-3.8, 42.9], [-5.0, 42.5], [-6.2, 42.0], [-7.4, 41.4], [-8.4, 41.0],
-      // Down the Atlantic coast of Lusitania and round Cape St Vincent, offshore.
-      [-9.4, 40.4], [-9.7, 39.2], [-9.6, 38.0], [-9.2, 37.0], [-8.4, 36.7],
+      // Round the Atlantic from the strait to the mouth of the Douro, offshore.
+      ...stretch(IBERIA_COAST_ATLANTIC, GIBRALTAR, DOURO_MOUTH),
+      // The Cantabrian front north-east to the Basque shore: the southern limit of
+      // the north-west, which stays its own to the last frame of the atlas.
+      ...SPAIN_NORTHWEST_LIMIT,
+      // The Pyrenean crest east to the sea, and the Mediterranean coast back down.
+      ...rev(PYRENEES),
+      ...IBERIA_COAST_MED,
     ],
   },
 
@@ -131,15 +353,17 @@ export const territories: TerritoryPeriod[] = [
   {
     id: "gaul-cisalpine", polity: "gaul", name: "Cisalpine Gauls", mapLabel: "CISALPINE GAULS", fromYear: -395, toYear: -30, certainty: "probable", labelAt: [10.0, 45.2],
     ring: [
-      // The Alpine crest from the Maritime Alps round to the Carnic Alps, carried
-      // a little west of the crest so it overlaps the Transalpine zone rather than
-      // abutting it. Authored separately, the two lines left a pale crack running
-      // the length of the Alps — between two zones of the same colour, which made
-      // it read as a rendering fault rather than a frontier.
-      [7.2, 44.2], [6.3, 44.9], [6.3, 45.5], [6.2, 46.05], [8.4, 46.2], [9.5, 46.4], [10.6, 46.5], [11.6, 46.6], [12.6, 46.4], [13.4, 45.9],
-      // Adriatic head, then the Apennine watershed back west — this line is the
-      // visible Roman frontier, so it carries the detail.
-      [13.2, 45.4], [12.6, 44.2], [11.9, 44.15], [11.2, 44.3], [10.5, 44.5], [9.9, 44.6], [9.3, 44.65], [8.7, 44.55], [7.9, 44.35],
+      // The Alpine arc, from the sea at the Var north up the western flank and east
+      // along the crest to the Carnic Alps. Both Gallic zones are drawn on these
+      // points now: authored separately, the two lines left a pale crack running
+      // the length of the Alps — between two zones of the same colour, which read
+      // as a rendering fault rather than a frontier.
+      ...ALPS,
+      // Down to the head of the Adriatic, then the Apennine watershed back west.
+      // That watershed is the visible frontier with Rome, and Rome is drawn on the
+      // same line, so the two meet exactly.
+      [13.30, 45.90], [13.15, 45.45], [12.70, 44.80],
+      ...rev(APENNINES),
     ],
   },
   {
@@ -179,24 +403,28 @@ export const territories: TerritoryPeriod[] = [
     id: "gaul-transalpine", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -509, toYear: -122, certainty: "speculative", labelAt: [2.0, 44.6],
     note: "The Pyrenees, the Alps, the Rhine and the sea are real limits. Gaul is drawn to them because that is as far as the atlas has evidence of Roman warfare — Caesar fought the Belgae on the Sambre and bridged the Rhine twice — and no further, because where Celtic settlement ended beyond the river is not something this map has any business claiming.",
     ring: [
-      // Pyrenean frontier, from the Mediterranean to the Bay of Biscay.
-      [3.4, 42.3], [2.4, 42.35], [1.4, 42.5], [0.4, 42.6], [-0.6, 42.8], [-1.6, 43.1], [-2.0, 43.6],
+      // The Pyrenean crest, from the Mediterranean to the Bay of Biscay — the same
+      // points the Spanish zones are drawn on.
+      ...PYRENEES,
       // Atlantic seaboard, held offshore, round Armorica to the Channel. The
       // northern limit used to stop at about 46.8° — a line drawn when the atlas
       // ended in 100 BCE and had no business north of it. Caesar's campaigns are
       // fought over the ground above it: Bibracte, Alesia and the Sabis all sat
       // outside the zone, so the map showed a Roman siege on nobody's country in
       // a year it also said Gaul was Roman.
-      [-1.8, 44.8], [-2.4, 46.2], [-3.4, 47.4], [-5.2, 48.3], [-3.4, 49.0], [-1.6, 49.6], [0.4, 50.0], [2.0, 50.6],
-      // The Channel and the Rhine mouths, then the river upstream. Held offshore
-      // and kept south of the Straits, so no part of Britain is coloured.
-      [3.4, 51.4], [5.0, 51.9], [6.4, 51.7], [6.6, 50.6], [7.4, 50.0], [8.2, 49.0], [7.8, 48.2], [7.6, 47.5],
-      // Down the western flank of the Alps to the Mediterranean, stopping on the
-      // Var — the limit the province of 121 inherits. Carried further east, the
-      // conquest of southern Gaul showed as the Ligurian coast going blank.
-      [6.9, 46.4], [6.6, 45.6], [6.8, 45.0], [7.0, 44.5], [7.4, 43.9],
+      //
+      // Held offshore and kept south of the Straits, so no part of Britain is
+      // coloured.
+      ...GAUL_COAST_ATLANTIC,
+      // The Rhine upstream from the mouths to Basel, the Jura to the Léman, and the
+      // western flank of the Alps down to the sea at the Var — the limit the
+      // province of 121 inherits. Carried further east, the conquest of southern
+      // Gaul showed as the Ligurian coast going blank.
+      ...RHINE,
+      ...JURA,
+      ...stretch(ALPS, ALPS_GENEVA, ALPS_VAR),
       // Gulf of Lion, held offshore so no coastal strip is left pale.
-      [6.4, 43.2], [5.2, 43.0], [4.2, 43.1], [3.2, 42.8],
+      ...rev(GAUL_COAST_MED),
     ],
   },
   {
@@ -206,19 +434,12 @@ export const territories: TerritoryPeriod[] = [
     // where Roman administration stopped rather than where Gaul did.
     id: "gaul-transalpine-reduced", polity: "gaul", name: "Transalpine Gauls", mapLabel: "GAULS", fromYear: -121, toYear: -51, certainty: "speculative", labelAt: [1.6, 45.4],
     note: "The northern, western and eastern limits are the same edges as before — the Atlantic, the Channel, the Rhine and the Alps. What is new is the southern one, and it is an administrative line drawn from the province's known extent, not a frontier anybody in Gaul would have recognised.",
-    ring: [
-      [-2.0, 43.6],
-      [-1.8, 44.8], [-2.4, 46.2], [-3.4, 47.4], [-5.2, 48.3], [-3.4, 49.0], [-1.6, 49.6], [0.4, 50.0], [2.0, 50.6],
-      [3.4, 51.4], [5.0, 51.9], [6.4, 51.7], [6.6, 50.6], [7.4, 50.0], [8.2, 49.0], [7.8, 48.2], [7.6, 47.5],
-      [6.9, 46.4], [6.6, 45.6], [6.8, 45.0],
-      // The limit of the new province, west to where it meets the Pyrenean
-      // frontier, and then that frontier itself. Aquitania was not in the
-      // province and did not stop being Gallic: running the administrative line
-      // all the way to the Atlantic left the ground between it and the Pyrenees
-      // uncoloured, which claimed a hole where free Gaul was.
-      [5.4, 45.0], [4.2, 44.7], [2.8, 44.3], [1.4, 43.9], [0.9, 43.4],
-      [0.4, 42.6], [-0.6, 42.8], [-1.6, 43.1],
-    ],
+    // The limit of the new province runs west only as far as the Pyrenean frontier,
+    // and then that frontier takes over. Carried all the way to the Atlantic
+    // instead, it left the ground between it and the Pyrenees uncoloured, which
+    // claimed a hole where Aquitania was — in the province, it was not, and it did
+    // not stop being Gallic.
+    ring: GAUL_OUTSIDE_THE_PROVINCE,
   },
   {
     // Gallia Transalpina, the province that will be called Narbonensis. Rome took
@@ -231,11 +452,14 @@ export const territories: TerritoryPeriod[] = [
     // principal and this is the seam a reader actually sees.
     id: "rome-narbonensis", polity: "rome", name: "Gallia Transalpina", mapLabel: "NARBONENSIS", fromYear: -121, toYear: -30, certainty: "probable", labelAt: [4.2, 43.8],
     ring: [
-      // The Pyrenean frontier with Spain, then north up the western edge.
-      [3.4, 42.3], [2.4, 42.35], [1.4, 42.5], [0.4, 42.6],
-      [0.6, 43.4], [1.2, 44.0], [2.6, 44.5], [4.0, 44.9], [4.8, 45.4],
-      // The eastern limit at the Alps, then back to the sea, held offshore.
-      [6.0, 45.2], [6.8, 44.6], [7.4, 43.9], [6.4, 43.2], [5.2, 43.0], [4.2, 43.1], [3.2, 42.8],
+      // The Pyrenean crest west from the sea, as far as the province reaches.
+      ...stretch(PYRENEES, CREUS, PYRENEES_ARIEGE),
+      // The province's own limit, north round the Cévennes and down the Alps to the
+      // sea at the Var. Free Gaul is drawn on the same line, so the two part on one
+      // edge instead of two.
+      ...NARBONENSIS_LIMIT,
+      // And back along the Gulf of Lion, held offshore.
+      ...rev(GAUL_COAST_MED),
     ],
   },
 
@@ -367,20 +591,10 @@ export const territories: TerritoryPeriod[] = [
   {
     id: "iberia-free", polity: "iberian", name: "Iberian, Celtiberian and Lusitanian peoples", mapLabel: "IBERIANS", fromYear: -509, toYear: -134, certainty: "speculative", labelAt: [-5.2, 41.1],
     note: "Not a polity, and no line on it is a border. Dozens of independent peoples held this ground — Celtiberians, Lusitanians, Vaccaei, Vettones, Cantabri, Turdetani and more — warring with each other as often as with anyone else, and nothing survives that would let the map divide them. The outline covers the whole peninsula so that the Barcid and Roman provinces drawn over it show where those authorities actually reached; what is left in this colour is simply the ground that was nobody's but its own.",
-    ring: [
-      // The Cantabrian coast west from the Basque country, offshore.
-      [-1.4, 43.5], [-3.0, 43.7], [-4.8, 43.8], [-6.6, 43.9], [-8.2, 43.9], [-9.4, 43.2],
-      // The Atlantic seaboard south to Cape St Vincent, offshore throughout.
-      [-9.4, 42.0], [-9.6, 40.6], [-9.8, 39.2], [-9.6, 37.8], [-9.0, 36.9],
-      // The southern and eastern coasts, offshore. Everything from here round to
-      // the Pyrenees is ground a principal takes as soon as it holds any of it, so
-      // carrying the envelope over all of it costs nothing and guarantees that no
-      // pale strip is ever left on a coast of the peninsula.
-      [-7.4, 36.4], [-6.0, 35.8], [-4.4, 36.2], [-2.6, 36.3], [-1.2, 37.1], [-0.3, 38.1], [0.4, 39.6], [1.2, 40.8], [2.6, 41.5], [3.4, 42.45],
-      // The Pyrenean frontier west, carried just north of the crest so the Gallic
-      // zone takes the overlap rather than a thread being left between them.
-      [2.4, 42.6], [1.4, 42.7], [0.4, 42.8], [-0.6, 43.0],
-    ],
+    // The whole peninsula, coast and crest: the Mediterranean shore, the Atlantic
+    // and Cantabrian shores, and the Pyrenees. Everything a principal holds is
+    // painted over the top of it, so what stays this colour is what was nobody's.
+    ring: [...IBERIA_COAST_MED, ...IBERIA_COAST_ATLANTIC, ...rev(PYRENEES)],
   },
   {
     // 133 onwards: what is left when the provinces reach the plateau. The Cantabri,
@@ -391,13 +605,10 @@ export const territories: TerritoryPeriod[] = [
     // The inland edge runs well south of the frontier the province draws, so Rome
     // takes the overlap and the visible line is the Roman one.
     id: "iberia-northwest", polity: "iberian", name: "Cantabri, Astures and Callaeci", mapLabel: "CANTABRI & CALLAECI", fromYear: -133, toYear: -30, certainty: "probable", labelAt: [-6.4, 42.9],
-    ring: [
-      // The Atlantic and Cantabrian coasts, offshore, from the Minho round to the
-      // Basque country.
-      [-9.2, 41.8], [-9.4, 43.2], [-8.2, 43.9], [-6.6, 43.9], [-4.8, 43.8], [-3.0, 43.7], [-1.4, 43.5],
-      // The inland limit, carried south into the province's ground.
-      [-2.0, 42.8], [-3.2, 42.5], [-4.4, 42.0], [-5.6, 41.6], [-6.8, 41.0], [-8.0, 40.6],
-    ],
+    // The Atlantic and Cantabrian coasts from the Douro round to the Basque shore,
+    // and the same Cantabrian front the province is drawn on, so the two meet on
+    // one line and no thread of nobody's colour can open along it.
+    ring: [...stretch(IBERIA_COAST_ATLANTIC, DOURO_MOUTH, BISCAY), ...rev(SPAIN_NORTHWEST_LIMIT)],
   },
 
   // ── Numidia ──────────────────────────────────────────────────────────────
@@ -514,11 +725,14 @@ export const territories: TerritoryPeriod[] = [
     // silver. Carthaginian authority does not yet reach the Ebro.
     id: "carthage-iberia-south", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -237, toYear: -229, certainty: "probable", labelAt: [-4.6, 37.6],
     ring: [
-      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.6, 37.4], [-1.0, 38.2],
-      // The western edge is the one the province keeps in 228 and Rome inherits in
-      // 206. Drawn wider here, Hasdrubal's expansion to the Ebro showed on the map
-      // as Barcid Iberia losing the Algarve in the same year.
-      [-2.0, 38.8], [-3.4, 39.0], [-4.8, 38.8], [-6.2, 38.4], [-7.0, 38.0], [-7.6, 37.4],
+      // The Atlantic shore of the Algarve and the coast round to Alicante, offshore.
+      ...stretch(IBERIA_COAST_ATLANTIC, GUADIANA, GIBRALTAR),
+      ...stretch(IBERIA_COAST_MED, GIBRALTAR, ALICANTE_SEA),
+      // The inland limit back west along the Sierra Morena. Its western end is the
+      // one the province keeps in 228 and Rome inherits in 206: drawn wider here,
+      // Hasdrubal's expansion to the Ebro would show as Barcid Iberia losing the
+      // Algarve in the same year.
+      ...rev(BARCID_SOUTH_LIMIT),
     ],
   },
   {
@@ -526,11 +740,15 @@ export const territories: TerritoryPeriod[] = [
     // treaty of 226 names the Ebro as the limit of that expansion.
     id: "carthage-iberia", polity: "carthage", name: "Barcid Iberia", mapLabel: "IBERIA", fromYear: -228, toYear: -207, certainty: "probable", labelAt: [-3.4, 38.4],
     ring: [
-      [-7.6, 36.6], [-6.2, 36.0], [-4.6, 36.4], [-2.8, 36.5], [-1.4, 37.2], [-0.5, 38.1], [0.1, 38.9], [0.3, 39.8], [0.9, 40.5], [1.1, 40.9],
-      // The Ebro itself, upstream from the delta: the agreed limit.
-      [0.52, 40.81], [0.3, 41.2], [-0.03, 41.25], [-0.88, 41.65], [-1.6, 42.06], [-2.45, 42.47],
-      // Southwest along the Iberian System, leaving Celtiberia and Lusitania free.
-      [-2.4, 41.5], [-2.9, 40.7], [-3.6, 40.0], [-4.8, 39.4], [-6.0, 38.6], [-7.0, 38.0], [-7.6, 37.4],
+      // The Algarve and the whole Mediterranean coast to the Ebro delta, offshore.
+      ...stretch(IBERIA_COAST_ATLANTIC, GUADIANA, GIBRALTAR),
+      ...stretch(IBERIA_COAST_MED, GIBRALTAR, EBRO_SEA),
+      // The Ebro itself, upstream from the delta to the Rioja: the agreed limit,
+      // and the same points Rome is drawn on north of the river.
+      ...stretch(EBRO, EBRO_MOUTH, LOGRONO),
+      // Then south-west along the Iberian System and the Sierra Morena, leaving
+      // Celtiberia, the Meseta and Lusitania free.
+      ...stretch(SPAIN_INLAND_LIMIT, LOGRONO, GUADIANA),
     ],
   },
   {
@@ -882,14 +1100,9 @@ export const territories: TerritoryPeriod[] = [
     // to show. The northern and western limits are the same schematic edges the
     // Gallic zones have always carried; what has changed is who holds the ground.
     id: "rome-gaul", polity: "rome", name: "Gaul", mapLabel: "GAUL", fromYear: -50, toYear: -30, certainty: "attested", labelAt: [1.6, 45.4],
-    ring: [
-      [-2.0, 43.6],
-      [-1.8, 44.8], [-2.4, 46.2], [-3.4, 47.4], [-5.2, 48.3], [-3.4, 49.0], [-1.6, 49.6], [0.4, 50.0], [2.0, 50.6],
-      [3.4, 51.4], [5.0, 51.9], [6.4, 51.7], [6.6, 50.6], [7.4, 50.0], [8.2, 49.0], [7.8, 48.2], [7.6, 47.5],
-      [6.9, 46.4], [6.6, 45.6], [6.8, 45.0],
-      [5.4, 45.0], [4.2, 44.7], [2.8, 44.3], [1.4, 43.9], [0.9, 43.4],
-      [0.4, 42.6], [-0.6, 42.8], [-1.6, 43.1],
-    ],
+    // Exactly the ground that was Gallic the year before, so the conquest reads as
+    // ground changing hands rather than a country changing shape.
+    ring: GAUL_OUTSIDE_THE_PROVINCE,
   },
   {
     // 46: Africa Nova. Juba backed the losing side at Thapsus and his kingdom was
