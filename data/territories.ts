@@ -154,13 +154,8 @@ const IBERIA_COAST_ATLANTIC: Line = [
 // ── Gaul, the Alps and the Apennines ──────────────────────────────────────────
 const ALPS_VAR: Coordinates = [7.40, 43.90];       // where the Alps meet the sea
 const ALPS_GENEVA: Coordinates = [6.60, 46.10];    // the western flank turns east
-const ALPS_CARNIC: Coordinates = [13.40, 46.48];   // the eastern end of the arc
-const RHINE_MOUTHS: Coordinates = [4.40, 51.95];
-const BASEL: Coordinates = [7.59, 47.56];
-const APENNINE_WEST: Coordinates = [7.90, 44.35];  // the Ligurian junction with the Alps
 const RUBICON: Coordinates = [12.50, 44.14];       // the Adriatic end of the watershed
 const APENNINE_MAGRA: Coordinates = [9.70, 44.45]; // where Rome's Italy leaves off and Liguria begins
-const ARNO_MOUTH: Coordinates = [10.05, 43.70];
 const PYRENEES_ARIEGE: Coordinates = [0.44, 42.74];
 
 // The Alpine arc: north up the western flank from the sea at the Var to the Léman,
@@ -238,6 +233,283 @@ const GAUL_OUTSIDE_THE_PROVINCE: Line = [
   ...stretch(ALPS, ALPS_GENEVA, [6.65, 45.15]),
   ...stretch(NARBONENSIS_LIMIT, NARBO_ALPS, PYRENEES_ARIEGE),
   ...stretch(PYRENEES, PYRENEES_ARIEGE, BISCAY),
+];
+
+// ── Africa ────────────────────────────────────────────────────────────────────
+const MULUCHA_SEA: Coordinates = [-2.10, 35.40];   // the Mauretanian frontier at the coast
+const THABRACA_SEA: Coordinates = [8.60, 37.30];   // where the Carthaginian frontier meets the sea
+const GABES_SEA: Coordinates = [10.85, 33.65];     // the Lesser Syrtis
+const SIRTE_SEA: Coordinates = [16.30, 31.55];     // the far end of the Emporia
+const FOSSA_CHOTTS: Coordinates = [9.58, 35.42];   // where the frontier meets the Numidian landward limit
+
+// The African shore, from the Mulucha round to the Syrtes. Offshore throughout —
+// but carried into the Gulf of Gabès and round Cap Bon, so no chord swallows
+// Djerba or cuts the Cape off from its own hinterland.
+const AFRICA_COAST: Line = [
+  [-2.10, 35.40], [-1.40, 35.85], [-0.70, 36.10], [0.10, 36.60], [0.90, 36.95], [1.70, 37.05],
+  [2.50, 37.10], [3.10, 37.05], [3.90, 37.05], [4.70, 37.05], [5.30, 37.10], [5.90, 37.15],
+  [6.50, 37.20], [7.20, 37.20], [7.90, 37.25], [8.60, 37.30], [9.20, 37.45], [9.90, 37.60],
+  [10.40, 37.40], [10.90, 37.05], [11.25, 36.60], [11.35, 36.10], [11.25, 35.60], [11.25, 35.10],
+  [11.20, 34.60], [11.10, 34.10], [10.85, 33.65], [11.15, 33.35], [11.70, 33.20], [12.30, 33.05],
+  [12.90, 33.05], [13.50, 32.98], [14.10, 32.88], [14.70, 32.68], [15.30, 32.48], [15.90, 32.00],
+  [16.30, 31.55],
+];
+
+// The Fossa Regia: the ditch Rome dug in 146 to mark the province off from
+// Numidia, running from Thabraca on the north coast to Thaenae on the Lesser
+// Syrtis. It is used for the Punic frontier before 146 as well, because the ditch
+// was dug along what Carthage still held — which is also why Hippo Regius sits
+// on the Numidian side of it, as its name says it should.
+const FOSSA_REGIA: Line = [
+  [8.72, 37.15], [8.78, 36.85], [8.85, 36.55], [8.98, 36.25], [9.15, 35.95], [9.35, 35.68],
+  [9.58, 35.42], [9.82, 35.18], [10.08, 34.98], [10.35, 34.80], [10.62, 34.65], [10.45, 34.30],
+  [10.30, 34.10], [10.20, 33.95],
+];
+
+// Numidia's landward limit: the Moulouya up from the sea, then the Saharan Atlas
+// east along the edge of the desert to the chotts, where it meets the Carthaginian
+// frontier. Jugurtha's war was fought by never being where a Roman army could
+// reach water, which is what this line is the edge of.
+const NUMIDIA_LANDWARD: Line = [
+  [-2.10, 35.40], [-1.85, 35.10], [-1.60, 34.85], [-1.40, 34.65], [-1.30, 34.55], [-0.85, 34.35],
+  [-0.40, 34.20], [0.05, 34.05], [0.50, 33.90], [0.95, 33.80], [1.40, 33.72], [1.85, 33.66],
+  [2.30, 33.62], [2.75, 33.60], [3.20, 33.60], [3.65, 33.62], [4.10, 33.66], [4.55, 33.72],
+  [5.00, 33.80], [5.45, 33.90], [5.90, 34.00], [6.35, 34.10], [6.80, 34.20], [7.25, 34.28],
+  [7.70, 34.30], [8.15, 34.25], [8.60, 34.15], [8.95, 34.45], [9.25, 34.80], [9.45, 35.10],
+  [9.58, 35.42],
+];
+
+// The pre-desert behind the Tripolitanian emporia, from the Lesser Syrtis east to
+// the Syrtes. Lepcis, Oea and Sabratha were rich because the desert came up
+// behind them, not in spite of it.
+const TRIPOLITANIAN_LIMIT: Line = [
+  [10.20, 33.95], [10.45, 33.60], [10.85, 33.25], [11.35, 32.95], [11.85, 32.70], [12.35, 32.50],
+  [12.85, 32.35], [13.35, 32.20], [13.85, 32.05], [14.35, 31.90], [14.85, 31.78], [15.35, 31.68],
+  [15.90, 31.60], [16.30, 31.55],
+];
+
+// The Numidian kingdom, coast and landward limit: one outline, used by every phase
+// of it and by the province that annexed it. What changes between the phases is
+// who is in it and what they have taken from Carthage in the east — the Emporia,
+// which are drawn separately because that is how Masinissa held them.
+const NUMIDIA_RING: Line = [
+  ...stretch(AFRICA_COAST, MULUCHA_SEA, THABRACA_SEA),
+  ...stretch(FOSSA_REGIA, [8.72, 37.15], FOSSA_CHOTTS),
+  ...rev(NUMIDIA_LANDWARD),
+];
+// The Emporia: a detached strip, drawn from the Lesser Syrtis to the Syrtes.
+const EMPORIA_RING: Line = [
+  ...stretch(AFRICA_COAST, GABES_SEA, SIRTE_SEA),
+  ...rev(TRIPOLITANIAN_LIMIT),
+];
+// Carthage without them: the chora inside the ditch, from Thabraca to the Lesser
+// Syrtis. This is the province of Africa's outline too, and the shape of the state
+// Rome destroyed — which had been shrinking for fifty years by then.
+const CARTHAGE_CHORA: Line = [
+  ...stretch(AFRICA_COAST, THABRACA_SEA, GABES_SEA),
+  ...rev(FOSSA_REGIA),
+];
+
+// ── The East ──────────────────────────────────────────────────────────────────
+const TAURUS_SEA: Coordinates = [32.90, 36.05];      // the range comes down to the rough coast
+const EUPHRATES_TAURUS: Coordinates = [38.60, 37.55]; // where the range meets the river
+const AMANUS: Coordinates = [36.15, 37.90];          // the Syrian gates, Cilicia's eastern corner
+const ISSUS_SEA: Coordinates = [35.80, 36.60];
+const GAZA_SEA: Coordinates = [34.30, 31.70];
+const ELEUTHERUS: Coordinates = [35.55, 34.60];      // the Ptolemaic–Seleucid frontier in Syria
+const EUPHRATES_SOUTH: Coordinates = [41.40, 34.55];
+const RAPHIA: Coordinates = [34.40, 31.30];
+
+// The Taurus. Apamea moved the Seleucid frontier back to it in 188 and Pompey's
+// province of Cilicia was drawn against it in 64, so it is the most consequential
+// mountain line in the eastern half of the atlas.
+const TAURUS: Line = [
+  [32.90, 36.05], [33.20, 36.55], [33.55, 36.90], [33.95, 37.15], [34.35, 37.35], [34.80, 37.55],
+  [35.25, 37.70], [35.70, 37.85], [36.15, 37.90], [36.60, 37.88], [37.05, 37.82], [37.50, 37.75],
+  [37.95, 37.68], [38.30, 37.62], [38.60, 37.55],
+];
+
+// The Euphrates, from the Taurus down past Zeugma and Dura to the edge of the
+// frame. From 63 it is the frontier of two empires, and in 53 Crassus crosses it
+// and loses seven legions in a week.
+const EUPHRATES: Line = [
+  [38.60, 37.55], [38.30, 37.20], [38.00, 36.90], [38.20, 36.60], [38.60, 36.30], [39.00, 36.00],
+  [39.40, 35.75], [39.80, 35.50], [40.20, 35.30], [40.60, 35.05], [41.00, 34.80], [41.40, 34.55],
+  [41.80, 34.30], [42.20, 34.00], [42.60, 33.70], [43.00, 33.40], [43.40, 33.00], [43.70, 32.50],
+  [43.90, 32.00], [44.00, 31.40], [44.00, 30.60], [44.00, 30.00],
+];
+
+// The desert edge of Syria, from the Euphrates south-west to the Negev: the
+// landward limit of everything the Seleucids and then Rome governed from Antioch.
+const SYRIA_DESERT_LIMIT: Line = [
+  [41.40, 34.55], [41.00, 34.30], [40.60, 34.05], [40.20, 33.78], [39.80, 33.50], [39.40, 33.25],
+  [39.00, 33.00], [38.60, 32.80], [38.20, 32.60], [37.80, 32.40], [37.40, 32.20], [37.00, 32.02],
+  [36.60, 31.85], [36.25, 31.68], [35.90, 31.50], [35.60, 31.30], [35.30, 31.10], [34.85, 31.18],
+  [34.40, 31.30],
+];
+
+// The Levantine and Cilician shores, offshore throughout.
+const LEVANT_COAST: Line = [
+  [34.30, 31.70], [34.60, 32.20], [34.70, 32.80], [34.90, 33.40], [35.20, 33.90], [35.40, 34.30],
+  [35.55, 34.60], [35.60, 35.10], [35.70, 35.70], [35.75, 36.20], [35.80, 36.60],
+];
+// Offshore of the real shore, which here runs well south of the cities: Tarsus is
+// twenty kilometres inland, so a line drawn through it would leave the capital of
+// Cilicia in the sea.
+const CILICIA_COAST: Line = [
+  [35.80, 36.60], [35.40, 36.55], [34.80, 36.50], [34.20, 36.45], [33.70, 36.20], [33.20, 36.05],
+  [32.90, 36.00], [32.30, 36.20], [31.70, 36.30], [31.10, 36.20], [30.50, 36.10], [29.90, 35.95],
+];
+
+// ── Egypt ─────────────────────────────────────────────────────────────────────
+
+// The southern edge of what the Ptolemies actually held: the Cyrenaican jebel and
+// its desert, then the line of the western oases — Siwa, Bahariya, Farafra, Dakhla
+// and Kharga — down to the First Cataract. Drawn as a single sweep across the
+// Libyan Desert instead, it claimed a thousand kilometres of open sand as a
+// province, which is the one thing everybody agrees it was not.
+const EGYPT_DESERT_LIMIT: Line = [
+  [18.90, 30.60], [19.30, 30.30], [19.70, 30.05], [20.10, 29.90], [20.50, 29.75], [20.90, 29.65],
+  [21.30, 29.55], [21.70, 29.50], [22.10, 29.48], [22.50, 29.48], [22.90, 29.52], [23.30, 29.60],
+  [23.70, 29.72], [24.10, 29.82], [24.50, 29.90], [24.90, 29.92], [25.15, 29.60], [25.35, 29.20],
+  [25.45, 28.80], [25.60, 28.40], [25.85, 28.00], [26.15, 27.60], [26.50, 27.20], [26.85, 26.80],
+  [27.20, 26.40], [27.55, 26.00], [27.90, 25.60], [28.25, 25.20], [28.65, 24.85], [29.10, 24.55],
+  [29.60, 24.30], [30.10, 24.10], [30.70, 23.95], [31.30, 23.87], [31.95, 23.85], [32.60, 23.85],
+];
+
+// The Red Sea flank, from the cataract north to the head of the gulf and Sinai.
+const EGYPT_RED_SEA: Line = [
+  [32.60, 23.85], [32.90, 24.20], [33.10, 24.70], [33.30, 25.20], [33.50, 25.70], [33.70, 26.20],
+  [33.90, 26.70], [34.05, 27.20], [34.20, 27.70], [34.30, 28.20], [34.40, 28.70], [34.50, 29.20],
+  [34.60, 29.70], [34.68, 30.20], [34.72, 30.60], [34.62, 31.00], [34.40, 31.30],
+];
+
+// The African and Egyptian shore from the Syrtes round Cyrenaica and the delta to
+// the Sinai, offshore throughout so the delta is never left pale.
+const EGYPT_COAST: Line = [
+  [18.90, 30.60], [19.20, 31.00], [19.50, 31.50], [19.80, 32.00], [20.00, 32.45], [20.50, 32.90],
+  [21.00, 33.10], [21.60, 33.20], [22.20, 33.20], [22.80, 33.10], [23.40, 32.80], [24.00, 32.45],
+  [24.60, 32.20], [25.20, 32.00], [25.80, 31.80], [26.40, 31.70], [27.00, 31.65], [27.60, 31.62],
+  [28.20, 31.62], [28.80, 31.65], [29.40, 31.70], [30.00, 31.75], [30.60, 31.80], [31.20, 31.85],
+  [31.80, 31.80], [32.40, 31.65], [33.00, 31.55], [33.60, 31.50], [34.30, 31.70],
+];
+
+// ── The eastern Adriatic ──────────────────────────────────────────────────────
+
+// The Dalmatian and Liburnian shore, offshore, and the Dinaric wall behind it.
+// Caesar's province was the first of these and Octavian's campaigns took the
+// second: the coast Rome had held since the Illyrian wars, and the interior it had
+// not, whose peoples were still raiding Italy a century later.
+const DALMATIAN_COAST: Line = [
+  [19.40, 41.50], [19.20, 41.80], [19.00, 42.10], [18.60, 42.30], [18.20, 42.50], [17.60, 42.70],
+  [17.00, 42.90], [16.40, 43.30], [15.80, 43.70], [15.20, 44.10], [14.60, 44.50], [14.30, 45.10],
+];
+const DINARIC_LIMIT: Line = [
+  [15.40, 45.30], [15.80, 44.95], [16.20, 44.65], [16.60, 44.35], [17.00, 44.05], [17.40, 43.78],
+  [17.80, 43.50], [18.20, 43.25], [18.60, 43.00], [19.00, 42.75], [19.40, 42.50], [19.80, 42.25],
+  [20.05, 41.95], [20.20, 41.70],
+];
+const SAVA_LIMIT: Line = [
+  [15.40, 45.80], [15.90, 45.82], [16.40, 45.78], [16.90, 45.70], [17.40, 45.50], [17.90, 45.25],
+  [18.35, 44.95], [18.75, 44.60], [19.05, 44.20], [19.30, 43.75], [19.55, 43.25], [19.75, 42.80],
+  [19.95, 42.35], [20.20, 41.70],
+];
+
+// ── Anatolia ──────────────────────────────────────────────────────────────────
+//
+// These limits are not rivers or ranges. They are the edges of kingdoms and
+// provinces in a peninsula full of client states, and nobody surveyed them. They
+// are drawn at the same density as the physical frontiers all the same: a line
+// nobody could walk to still should not look like one somebody ruled with a
+// straight-edge, and following the plateau's own edges is the closest thing to
+// honest that is available.
+
+// The inland limit of Pontus, along the southern flank of the Pontic ranges, and
+// its western frontier with Paphlagonia.
+const PONTIC_LIMIT: Line = [
+  [40.40, 40.60], [40.05, 40.35], [39.70, 40.10], [39.35, 39.92], [39.00, 39.80], [38.60, 39.70],
+  [38.20, 39.62], [37.80, 39.60], [37.40, 39.62], [37.00, 39.68], [36.60, 39.74], [36.20, 39.80],
+  [35.80, 39.90], [35.40, 40.00], [35.00, 40.12], [34.60, 40.28], [34.20, 40.48], [33.90, 40.72],
+  [33.80, 41.00], [33.70, 41.35], [33.65, 41.70], [33.62, 42.05], [33.60, 42.40],
+];
+const PONTUS_COAST: Line = [
+  [33.60, 42.40], [34.20, 42.50], [34.80, 42.58], [35.40, 42.60], [36.00, 42.55], [36.60, 42.45],
+  [37.20, 42.25], [37.80, 42.00], [38.40, 41.80], [39.00, 41.68], [39.60, 41.60], [40.10, 41.60],
+  [40.40, 40.60],
+];
+
+// The eastern limit of the Attalid and Rhodian inheritance of 188, against
+// Bithynia, Galatia and Cappadocia, and south to the Taurus.
+const PERGAMON_EAST: Line = [
+  [29.60, 40.60], [30.05, 40.30], [30.45, 40.02], [30.85, 39.80], [31.25, 39.62], [31.65, 39.50],
+  [32.05, 39.45], [32.45, 39.42], [32.75, 39.20], [32.95, 38.90], [33.10, 38.60], [33.10, 38.25],
+  [33.00, 37.90], [32.80, 37.55], [32.50, 37.25], [32.15, 37.05], [31.75, 36.90], [31.35, 36.85],
+  [30.90, 36.85],
+];
+
+// The province of Asia is smaller: the eastern districts went to client kings and
+// Rhodes' old share had been detached long before.
+const ASIA_EAST: Line = [
+  [29.60, 40.60], [30.05, 40.28], [30.40, 39.98], [30.70, 39.68], [30.95, 39.35], [31.10, 39.00],
+  [31.20, 38.65], [31.15, 38.30], [31.00, 37.95], [30.75, 37.65], [30.45, 37.35], [30.10, 37.05],
+  [29.70, 36.80], [29.20, 36.60],
+];
+
+// The Aegean and Anatolian shores those three are bounded by, offshore.
+const AEGEAN_COAST: Line = [
+  [25.80, 40.40], [26.40, 40.55], [27.00, 40.70], [27.70, 40.70], [28.40, 40.62], [29.00, 40.60],
+  [29.60, 40.60],
+];
+const CARIAN_COAST: Line = [
+  [25.80, 39.80], [26.00, 38.90], [26.30, 38.20], [26.60, 37.60], [26.90, 37.05], [27.30, 36.65],
+  [27.90, 36.35], [28.50, 36.10], [29.20, 36.00], [29.90, 35.95],
+];
+
+// The Seleucid limits before Apamea: the northern edge across Anatolia to the
+// Black Sea shore, then south-east down the Armenian flank to the Euphrates
+// country, and the Eleutherus frontier with Ptolemaic Coele-Syria.
+const SELEUCID_NORTH: Line = [
+  [30.20, 41.20], [30.90, 41.50], [31.60, 41.80], [32.30, 42.05], [33.00, 42.18], [33.70, 42.22],
+  [34.40, 42.22], [35.10, 42.15], [35.80, 41.95], [36.50, 41.70], [37.20, 41.35], [37.90, 40.95],
+  [38.60, 40.50], [39.30, 40.00], [39.90, 39.45], [40.35, 38.85], [40.70, 38.20], [40.95, 37.55],
+  [41.00, 37.00], [40.75, 36.40], [40.45, 35.80], [40.10, 35.20], [39.70, 34.80],
+];
+const ELEUTHERUS_FRONTIER: Line = [
+  [39.70, 34.80], [39.20, 34.75], [38.70, 34.70], [38.20, 34.65], [37.70, 34.62], [37.20, 34.60],
+  [36.70, 34.55], [36.20, 34.55], [35.75, 34.58], [35.55, 34.60],
+];
+
+// ── Macedon and Greece ────────────────────────────────────────────────────────
+
+// The northern frontier of Macedon, along the Illyrian and Thracian highlands from
+// the Adriatic to the Nestos. Held by the kingdom, by the four republics that
+// replaced it and by the province that replaced them: one line for all three, so
+// two settlements that changed who governed Macedonia do not also make it a
+// slightly different shape each time.
+const MACEDON_NORTH: Line = [
+  [19.30, 41.40], [19.60, 41.70], [19.95, 42.00], [20.35, 42.20], [20.80, 42.32], [21.25, 42.35],
+  [21.70, 42.35], [22.15, 42.28], [22.60, 42.15], [23.05, 42.00], [23.50, 41.85], [23.95, 41.68],
+  [24.40, 41.52], [24.90, 41.40],
+];
+
+// The southern frontier after Cynoscephalae: Olympus, the Cambunian range and the
+// Pindus, from the Aegean west to the Adriatic. Macedon and the freed Greek states
+// are drawn on it from both sides, so the line Flamininus declared at the Isthmian
+// games is a single edge on the map.
+const MACEDON_SOUTH: Line = [
+  [24.90, 40.70], [24.55, 40.55], [24.20, 40.42], [23.80, 40.32], [23.40, 40.25], [23.00, 40.20],
+  [22.60, 40.15], [22.20, 40.12], [21.80, 40.10], [21.40, 40.10], [21.00, 40.12], [20.60, 40.15],
+  [20.20, 40.20], [19.80, 40.25], [19.40, 40.28], [19.20, 40.30],
+];
+
+// The Greek seaboard, offshore, from Epirus round the Peloponnese to the Aegean —
+// carried round Acarnania, the two gulfs and the three fingers of Chalcidice, so
+// no chord cuts a promontory off from the mainland behind it.
+const GREECE_COAST: Line = [
+  [19.20, 40.30], [19.10, 39.80], [19.30, 39.30], [20.00, 38.60], [20.40, 38.10], [20.70, 37.60],
+  [21.10, 37.10], [21.30, 36.60], [21.90, 36.25], [22.60, 36.20], [23.20, 36.20], [23.80, 36.35],
+  [24.10, 36.90], [24.00, 37.40], [23.90, 37.90], [24.10, 38.40], [24.40, 38.90], [24.60, 39.40],
+  [24.70, 39.90], [24.80, 40.30], [24.90, 40.70],
 ];
 
 export const territories: TerritoryPeriod[] = [
@@ -491,14 +763,10 @@ export const territories: TerritoryPeriod[] = [
     // Dyrrhachium in 48.
     id: "rome-illyricum", polity: "rome", name: "Illyricum", mapLabel: "ILLYRICUM", fromYear: -59, toYear: -34, certainty: "probable", labelAt: [17.6, 43.4],
     note: "A coast rather than a country. Rome had held the Illyrian seaboard through allied and tributary communities since the Illyrian wars, and Caesar was given it as a province in 59, but the interior behind the Dinaric wall was neither garrisoned nor governed — the peoples there were still raiding Italy a generation later. The inland edge is the limit of Roman reach, not a line anyone drew at the time.",
-    ring: [
-      // The seaboard north from the Macedonian frontier, held offshore. The southern
-      // end overlaps the province of Macedonia, which is Roman too, so the two
-      // cannot leave a gap between them.
-      [19.4, 41.5], [19.0, 42.1], [18.2, 42.5], [17.0, 42.9], [15.8, 43.7], [14.6, 44.5], [14.3, 45.1],
-      // The inland limit along the Dinaric range, back south.
-      [15.4, 45.3], [16.4, 44.4], [17.6, 43.6], [18.8, 42.9], [19.8, 42.3], [20.2, 41.7],
-    ],
+    // The seaboard north from the Macedonian frontier, held offshore, and the
+    // Dinaric wall back south. The southern end runs into the province of
+    // Macedonia, which is Roman too, so the two cannot leave a gap between them.
+    ring: [...DALMATIAN_COAST, ...DINARIC_LIMIT],
   },
   {
     // 33: after Octavian. Three campaigning seasons up the coast and into the
@@ -507,11 +775,9 @@ export const territories: TerritoryPeriod[] = [
     // and it also kept an army in the field within reach of Italy under a commander
     // who needed to be seen to have fought, which was probably the point.
     id: "rome-illyricum-dalmatia", polity: "rome", name: "Illyricum after the Dalmatian campaigns", mapLabel: "ILLYRICUM", fromYear: -33, toYear: -30, certainty: "probable", labelAt: [17.6, 44.1],
-    ring: [
-      [19.4, 41.5], [19.0, 42.1], [18.2, 42.5], [17.0, 42.9], [15.8, 43.7], [14.6, 44.5], [14.3, 45.1],
-      // The interior, out to the Sava country the campaigns of 35–33 reached.
-      [15.4, 45.8], [16.8, 45.7], [18.0, 45.1], [19.0, 44.3], [19.6, 43.2], [20.0, 42.4], [20.2, 41.7],
-    ],
+    // The same coast, and the interior out to the Sava country the campaigns of
+    // 35–33 reached.
+    ring: [...DALMATIAN_COAST, ...SAVA_LIMIT],
   },
 
   // ── The islands ───────────────────────────────────────────────────────────
@@ -614,24 +880,19 @@ export const territories: TerritoryPeriod[] = [
   // ── Numidia ──────────────────────────────────────────────────────────────
   {
     id: "numidia-early", polity: "numidia", name: "Numidian kingdoms", mapLabel: "NUMIDIA", fromYear: -264, toYear: -202, certainty: "probable", labelAt: [4.4, 35.6],
-    ring: [
-      // Mediterranean coast, offshore, from the Mulucha to the Carthaginian line.
-      [-1.2, 35.6], [-0.4, 36.2], [0.6, 36.9], [1.8, 37.1], [3.0, 37.2], [4.4, 37.3], [5.6, 37.3], [6.6, 37.4],
-      // Thabraca frontier with Carthage, then the Saharan limit westward. The
-      // frontier is carried east of the line Carthage authors, so the two zones
-      // overlap: Carthage is drawn later and takes the contested ground, which
-      // makes its line the visible one instead of leaving a pale strip between
-      // two powers that were nowhere near this far apart.
-      [7.6, 36.7], [7.7, 35.8], [7.9, 34.9], [5.4, 34.0], [3.8, 33.6], [2.2, 33.6], [0.6, 34.2], [-0.8, 34.8],
-    ],
+    // Coast, the Thabraca frontier with Carthage, and the desert edge west to the
+    // Moulouya. Carthage is drawn on the same frontier, so the two now abut on one
+    // line rather than overlapping and trusting the later zone to hide the seam.
+    ring: NUMIDIA_RING,
   },
   {
     // Enlarged by Rome after Zama at Carthage's expense.
     id: "numidia-masinissa", polity: "numidia", name: "Numidia (Masinissa)", mapLabel: "NUMIDIA", fromYear: -201, toYear: -149, certainty: "probable", labelAt: [4.4, 35.6],
-    ring: [
-      [-1.8, 35.4], [-1.0, 36.2], [0.2, 36.9], [1.6, 37.1], [3.0, 37.2], [4.6, 37.3], [6.0, 37.4], [7.2, 37.4],
-      [7.8, 36.6], [7.9, 35.6], [8.4, 34.6], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
-    ],
+    // What Masinissa took can be drawn where it can be dated: the Emporia, seized
+    // outright around 162 and held detached, have a zone of their own. His fifty
+    // years of encroachment on the Carthaginian hinterland are not year-datable, so
+    // the frontier here stays the ditch rather than guessing at a line per decade.
+    ring: NUMIDIA_RING,
   },
   {
     // Masinissa died in 148 after sixty years on the throne, and the zone stops
@@ -640,13 +901,7 @@ export const territories: TerritoryPeriod[] = [
     // adopted nephew Jugurtha, who had learned the Roman army from inside it at
     // Numantia and spent the next seven years proving Rome could not catch him.
     id: "numidia-kingdom", polity: "numidia", name: "Numidia", mapLabel: "NUMIDIA", fromYear: -148, toYear: -47, certainty: "probable", labelAt: [4.4, 35.6],
-    ring: [
-      [-1.8, 35.4], [-1.0, 36.2], [0.2, 36.9], [1.6, 37.1], [3.0, 37.2], [4.6, 37.3], [6.0, 37.4], [7.2, 37.4],
-      // The south-eastern corner reaches the pre-desert. Jugurtha's war was fought
-      // by never being where a Roman army could reach water, and the corner as cut
-      // left the campaign's deepest march outside the kingdom it was fought in.
-      [7.8, 36.6], [7.9, 35.6], [8.7, 34.1], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
-    ],
+    ring: NUMIDIA_RING,
   },
   {
     // The Emporia, taken from Carthage around 162 and held detached from Numidia
@@ -659,24 +914,19 @@ export const territories: TerritoryPeriod[] = [
     // neither. Carthage — and after 146 the province of Africa — is drawn later
     // and takes the overlap, so the visible line is the one authored there.
     id: "numidia-emporia", polity: "numidia", name: "The Emporia under Masinissa", mapLabel: "EMPORIA", fromYear: -161, toYear: -47, certainty: "probable", labelAt: [13.2, 32.6],
-    ring: [
-      [9.8, 33.7], [10.4, 32.95], [11.6, 32.4], [13.0, 31.8], [14.6, 31.8], [15.6, 31.7],
-      [15.8, 32.5], [14.6, 32.9], [13.2, 33.2], [10.8, 34.1],
-    ],
+    ring: EMPORIA_RING,
   },
 
   // ── Carthage ─────────────────────────────────────────────────────────────
   {
     id: "carthage-africa", polity: "carthage", name: "Carthage", mapLabel: "CARTHAGE", fromYear: -509, toYear: -162, certainty: "attested", labelAt: [9.9, 36.2],
+    // The chora inside the ditch, and the Tripolitanian emporia with it: Lepcis,
+    // Oea and Sabratha were Carthaginian, and leaving that shore blank was an
+    // omission rather than a judgement.
     ring: [
-      // Thabraca frontier with Numidia.
-      [7.2, 37.2], [7.1, 36.4], [7.4, 35.6], [7.8, 34.8],
-      // Inland limit of Byzacena, then east along the pre-desert to the
-      // Tripolitanian emporia — Lepcis, Oea and Sabratha were Carthaginian, and
-      // leaving that shore blank was simply an omission.
-      [8.8, 34.2], [9.6, 33.8], [10.4, 33.0], [11.6, 32.4], [13.0, 31.8], [14.6, 31.8], [15.6, 31.7],
-      // Back west along the Syrtic and Tunisian coast, held offshore throughout.
-      [15.8, 32.5], [14.6, 32.9], [13.2, 33.2], [11.9, 33.7], [11.4, 34.4], [11.2, 35.2], [11.4, 36.0], [11.6, 36.9], [11.0, 37.5], [10.2, 37.6], [9.2, 37.5], [8.2, 37.4],
+      ...stretch(AFRICA_COAST, THABRACA_SEA, SIRTE_SEA),
+      ...rev(TRIPOLITANIAN_LIMIT),
+      ...rev(FOSSA_REGIA),
     ],
   },
   {
@@ -691,24 +941,16 @@ export const territories: TerritoryPeriod[] = [
     // was not: the state Rome destroyed in 146 had been shrinking for fifty years
     // and was legally barred from stopping it.
     id: "carthage-reduced", polity: "carthage", name: "Carthage after the loss of the Emporia", mapLabel: "CARTHAGE", fromYear: -161, toYear: -147, certainty: "probable", labelAt: [9.9, 36.2],
-    ring: [
-      [7.2, 37.2], [7.1, 36.4], [7.4, 35.6], [7.8, 34.8],
-      // The inland limit of Byzacena, now the south-eastern corner of the state.
-      [8.8, 34.2], [9.6, 33.8], [10.4, 33.2],
-      // North again along the Tunisian coast, offshore throughout.
-      [11.2, 33.6], [11.4, 34.4], [11.2, 35.2], [11.4, 36.0], [11.6, 36.9], [11.0, 37.5], [10.2, 37.6], [9.2, 37.5], [8.2, 37.4],
-    ],
+    ring: CARTHAGE_CHORA,
   },
   {
     // 146: the province of Africa, on the ground Carthage held at the end and
     // inside the ditch Rome dug to mark it off from Numidia. The city itself was
     // destroyed and its site left out of the settlement entirely.
     id: "rome-africa", polity: "rome", name: "Province of Africa", mapLabel: "AFRICA", fromYear: -146, toYear: -30, certainty: "attested", labelAt: [9.9, 36.2],
-    ring: [
-      [7.2, 37.2], [7.1, 36.4], [7.4, 35.6], [7.8, 34.8],
-      [8.8, 34.2], [9.6, 33.8], [10.4, 33.2],
-      [11.2, 33.6], [11.4, 34.4], [11.2, 35.2], [11.4, 36.0], [11.6, 36.9], [11.0, 37.5], [10.2, 37.6], [9.2, 37.5], [8.2, 37.4],
-    ],
+    // The ditch is the province's western frontier because that is what Rome dug
+    // it to be, so the province and the kingdom beside it are drawn on one line.
+    ring: CARTHAGE_CHORA,
   },
   {
     id: "carthage-sicily", polity: "carthage", name: "Carthaginian Sicily", mapLabel: "SICILY", fromYear: -509, toYear: -242, certainty: "attested", labelAt: [13.0, 37.8],
@@ -809,8 +1051,8 @@ export const territories: TerritoryPeriod[] = [
       // freed states a minor power, so the principal takes the overlap and its
       // line is what a reader sees; authored to stop short instead, the two left
       // an unclaimed thread the width of the frontier running across Greece.
-      [19.2, 40.5], [20.2, 40.3], [21.2, 40.3], [22.2, 40.3], [23.2, 40.4], [24.2, 40.6],
-      [24.8, 39.4], [24.4, 38.4], [23.9, 37.4], [23.6, 36.3], [22.6, 36.2], [21.4, 36.4], [20.6, 37.4], [20.0, 38.4], [19.2, 39.2],
+      ...MACEDON_SOUTH,
+      ...GREECE_COAST,
     ],
   },
   {
@@ -837,18 +1079,21 @@ export const territories: TerritoryPeriod[] = [
     id: "macedon-greece", polity: "macedon", name: "Macedon & allies", mapLabel: "MACEDON", fromYear: -264, toYear: -198, certainty: "probable", labelAt: [22.2, 40.6],
     ring: [
       // Northern frontier along the Illyrian and Thracian highlands.
-      [19.3, 41.4], [20.0, 42.0], [21.0, 42.3], [22.0, 42.3], [23.0, 42.0], [24.0, 41.6], [24.9, 41.4],
-      // Aegean coast, offshore, then south past Olympus into Greece.
-      [24.9, 40.6], [24.4, 40.2], [24.4, 39.2], [24.2, 38.3], [23.8, 37.3], [23.6, 36.3],
-      [22.6, 36.2], [21.4, 36.4], [20.6, 37.4], [20.0, 38.4], [19.4, 39.4], [19.1, 40.4],
+      ...MACEDON_NORTH,
+      // Aegean coast and the whole Greek seaboard, offshore, round the Peloponnese
+      // and back up to the Adriatic: before Cynoscephalae the kingdom and its allies
+      // hold Greece as well, so the southern frontier of 197 is not drawn yet.
+      [24.90, 41.05],
+      ...rev(GREECE_COAST),
     ],
   },
   {
     // Reduced to Macedonia proper after 197: Greece is free, the coast retained.
     id: "macedon-reduced", polity: "macedon", name: "Macedon", mapLabel: "MACEDON", fromYear: -197, toYear: -168, certainty: "probable", labelAt: [22.2, 41.2],
     ring: [
-      [19.3, 41.4], [20.0, 42.0], [21.0, 42.3], [22.0, 42.3], [23.0, 42.0], [24.0, 41.6], [24.9, 41.4],
-      [24.9, 40.7], [24.2, 40.4], [23.2, 40.2], [22.2, 40.1], [21.2, 40.1], [20.2, 40.1], [19.2, 40.3],
+      ...MACEDON_NORTH,
+      [24.90, 41.05],
+      ...MACEDON_SOUTH,
     ],
   },
   {
@@ -859,8 +1104,9 @@ export const territories: TerritoryPeriod[] = [
     // internal lines are known only as a list of districts; the label carries it.
     id: "macedon-republics", polity: "macedon", name: "The four Macedonian republics", mapLabel: "FOUR REPUBLICS", fromYear: -167, toYear: -149, certainty: "attested", labelAt: [22.2, 41.2],
     ring: [
-      [19.3, 41.4], [20.0, 42.0], [21.0, 42.3], [22.0, 42.3], [23.0, 42.0], [24.0, 41.6], [24.9, 41.4],
-      [24.9, 40.7], [24.2, 40.4], [23.2, 40.2], [22.2, 40.1], [21.2, 40.1], [20.2, 40.1], [19.2, 40.3],
+      ...MACEDON_NORTH,
+      [24.90, 41.05],
+      ...MACEDON_SOUTH,
     ],
   },
   {
@@ -870,8 +1116,9 @@ export const territories: TerritoryPeriod[] = [
     // Greece as well — which is why Corinth is a Roman matter two years later.
     id: "rome-macedonia", polity: "rome", name: "Province of Macedonia", mapLabel: "MACEDONIA", fromYear: -148, toYear: -30, certainty: "attested", labelAt: [22.2, 41.2],
     ring: [
-      [19.3, 41.4], [20.0, 42.0], [21.0, 42.3], [22.0, 42.3], [23.0, 42.0], [24.0, 41.6], [24.9, 41.4],
-      [24.9, 40.7], [24.2, 40.4], [23.2, 40.2], [22.2, 40.1], [21.2, 40.1], [20.2, 40.1], [19.2, 40.3],
+      ...MACEDON_NORTH,
+      [24.90, 41.05],
+      ...MACEDON_SOUTH,
     ],
   },
   // ── The Seleucids, in three phases ────────────────────────────────────────
@@ -889,14 +1136,17 @@ export const territories: TerritoryPeriod[] = [
       // Bithynia, which was an independent kingdom throughout and is not Seleucid
       // to lose: drawn over it, the alliance with Attalus in 200 showed as the
       // shore of the Propontis going blank rather than changing hands.
-      [26.0, 40.4], [28.0, 40.5], [29.5, 40.3], [30.2, 41.2], [32.0, 42.2], [34.0, 42.2], [36.0, 41.6], [38.0, 40.4], [40.0, 39.0],
-      [41.0, 37.0], [40.0, 35.0], [38.4, 34.5], [36.8, 34.4],
+      [26.0, 40.4], [28.0, 40.5], [29.5, 40.3],
+      // North across Anatolia to the Black Sea, then down the Armenian flank.
+      ...SELEUCID_NORTH,
       // The southern frontier is the Eleutherus, not the Egyptian border: Coele-Syria
       // was Ptolemaic for the whole third century, and four Syrian wars were fought
       // over it before Antiochus finally took it at Panium in 200.
-      [35.4, 34.7], [34.6, 35.6],
+      ...ELEUTHERUS_FRONTIER,
       // Then the Levantine and southern Anatolian coasts north and west, offshore.
-      [34.0, 36.0], [32.0, 36.4], [30.0, 36.2], [28.0, 36.4], [26.4, 38.4],
+      ...stretch(LEVANT_COAST, ELEUTHERUS, ISSUS_SEA),
+      ...CILICIA_COAST,
+      [28.0, 36.4], [26.4, 38.4],
     ],
   },
   {
@@ -911,9 +1161,21 @@ export const territories: TerritoryPeriod[] = [
     // make nonsense of Corycus and Myonessus.
     id: "seleucid-west", polity: "seleucid", name: "Seleucid Empire", mapLabel: "SELEUCIDS", fromYear: -200, toYear: -189, certainty: "probable", labelAt: [37.4, 36.4],
     ring: [
-      [29.2, 40.3], [30.0, 41.4], [32.0, 42.2], [34.0, 42.2], [36.0, 41.6], [38.0, 40.4], [40.0, 39.0],
-      [41.0, 37.0], [40.0, 35.0], [38.0, 33.4], [36.4, 32.6], [35.0, 31.4], [34.2, 31.6],
-      [34.6, 33.0], [35.4, 34.6], [34.0, 36.0], [32.0, 36.4], [30.0, 36.2], [28.4, 36.4],
+      // The same northern and eastern limits the empire had before Panium, so the
+      // year 200 moves Coele-Syria and the Attalid corner and nothing else.
+      [29.2, 40.3],
+      ...stretch(SELEUCID_NORTH, [30.20, 41.20], [41.00, 37.00]),
+      [41.30, 36.20], [41.40, 35.40],
+      // The desert edge of Syria down to the Negev — the same line the province of
+      // Syria is drawn on later, and it reaches Coele-Syria because Panium gave it
+      // to him. The Ptolemaic zone it takes over from ends on these points too, so
+      // the handover in 200 leaves nothing behind.
+      ...stretch(SYRIA_DESERT_LIMIT, EUPHRATES_SOUTH, RAPHIA),
+      // Back up the Levantine coast, offshore, then west along the southern shore
+      // of Anatolia.
+      ...stretch(LEVANT_COAST, GAZA_SEA, ISSUS_SEA),
+      ...CILICIA_COAST,
+      [28.4, 36.4],
       // Up the Carian and Ionian coast, offshore, keeping Miletus and Ephesus.
       [27.0, 37.0], [26.8, 37.8],
       // The Attalid frontier, inland to the Propontis.
@@ -926,12 +1188,15 @@ export const territories: TerritoryPeriod[] = [
     // and all but ten warships. Rome takes none of the ground itself.
     id: "seleucid-apamea", polity: "seleucid", name: "Seleucid Empire after Apamea", mapLabel: "SELEUCIDS", fromYear: -188, toYear: -64, certainty: "attested", labelAt: [37.4, 36.2],
     ring: [
-      // The Taurus frontier, from the Cilician coast east along the range.
-      [33.0, 36.4], [33.6, 37.0], [34.6, 37.6], [35.8, 37.9], [37.2, 37.7], [38.6, 37.5], [40.0, 37.2],
-      // Eastern limit, then south-west down the Syrian flank to the Egyptian border.
-      [41.0, 36.4], [40.4, 35.0], [38.6, 33.6], [36.6, 32.8], [35.2, 31.6], [34.2, 31.6],
-      // Levantine coast north, offshore throughout, back to Cilicia.
-      [34.6, 33.0], [35.4, 34.6], [34.6, 36.0], [33.6, 36.1],
+      // The Taurus, from the rough Cilician coast east along the range to the
+      // Euphrates — the frontier the treaty put them behind.
+      ...TAURUS,
+      // Down the Euphrates, then south-west along the desert edge to the Negev.
+      ...stretch(EUPHRATES, EUPHRATES_TAURUS, EUPHRATES_SOUTH),
+      ...SYRIA_DESERT_LIMIT,
+      // And back up the Levantine and Cilician coasts, offshore throughout.
+      ...LEVANT_COAST,
+      ...stretch(CILICIA_COAST, ISSUS_SEA, TAURUS_SEA),
     ],
   },
 
@@ -961,14 +1226,12 @@ export const territories: TerritoryPeriod[] = [
     // part of the settlement would be the larger error.
     id: "pergamon-apamea", polity: "pergamon", name: "Attalid and Rhodian gains at Apamea", mapLabel: "PERGAMUM & RHODES", fromYear: -188, toYear: -130, certainty: "attested", labelAt: [29.5, 38.8],
     ring: [
-      // Aegean and Propontis shore, offshore.
-      [25.8, 40.4], [27.0, 40.7], [28.4, 40.6], [29.6, 40.6],
-      // Northern limit against Bithynia and Paphlagonia, east to the Galatian edge.
-      [30.4, 40.0], [31.4, 39.6], [32.6, 39.4],
-      // Eastern limit against Galatia and Cappadocia, then south-west to the Taurus.
-      [33.2, 38.6], [33.0, 37.6], [32.0, 37.0], [30.8, 36.8],
+      // Aegean and Propontis shore, offshore, then the eastern limit south against
+      // Bithynia, Galatia and Cappadocia to the Taurus.
+      ...AEGEAN_COAST,
+      ...PERGAMON_EAST,
       // Round the Lycian and Carian coast, offshore, and back up the Ionian shore.
-      [29.6, 36.0], [28.4, 36.0], [27.2, 36.6], [26.6, 37.4], [26.6, 38.2], [26.0, 38.9], [25.8, 39.8],
+      ...rev(CARIAN_COAST),
     ],
   },
   {
@@ -983,10 +1246,9 @@ export const territories: TerritoryPeriod[] = [
     // client kings and Rhodes' old share had been detached long before.
     id: "rome-asia", polity: "rome", name: "Province of Asia", mapLabel: "ASIA", fromYear: -129, toYear: -89, certainty: "attested", labelAt: [28.5, 38.6],
     ring: [
-      [25.8, 40.4], [27.0, 40.7], [28.4, 40.6], [29.6, 40.6],
-      [30.4, 40.0], [31.0, 39.4], [31.2, 38.6],
-      [30.6, 37.6], [29.8, 37.0], [29.0, 36.6],
-      [28.4, 36.0], [27.2, 36.6], [26.6, 37.4], [26.6, 38.2], [26.0, 38.9], [25.8, 39.8],
+      ...AEGEAN_COAST,
+      ...ASIA_EAST,
+      ...rev(stretch(CARIAN_COAST, [25.80, 39.80], [29.20, 36.00])),
     ],
   },
   {
@@ -997,10 +1259,9 @@ export const territories: TerritoryPeriod[] = [
     // peace terms in 85 were thought scandalously lenient.
     id: "pontus-asia", polity: "pontus", name: "Asia under Mithridates", mapLabel: "MITHRIDATES", fromYear: -88, toYear: -85, certainty: "attested", labelAt: [28.5, 38.6],
     ring: [
-      [25.8, 40.4], [27.0, 40.7], [28.4, 40.6], [29.6, 40.6],
-      [30.4, 40.0], [31.0, 39.4], [31.2, 38.6],
-      [30.6, 37.6], [29.8, 37.0], [29.0, 36.6],
-      [28.4, 36.0], [27.2, 36.6], [26.6, 37.4], [26.6, 38.2], [26.0, 38.9], [25.8, 39.8],
+      ...AEGEAN_COAST,
+      ...ASIA_EAST,
+      ...rev(stretch(CARIAN_COAST, [25.80, 39.80], [29.20, 36.00])),
     ],
   },
   {
@@ -1009,10 +1270,9 @@ export const territories: TerritoryPeriod[] = [
     // from Roman financiers at rates that had them still paying in Caesar's day.
     id: "rome-asia-restored", polity: "rome", name: "Province of Asia", mapLabel: "ASIA", fromYear: -84, toYear: -30, certainty: "attested", labelAt: [28.5, 38.6],
     ring: [
-      [25.8, 40.4], [27.0, 40.7], [28.4, 40.6], [29.6, 40.6],
-      [30.4, 40.0], [31.0, 39.4], [31.2, 38.6],
-      [30.6, 37.6], [29.8, 37.0], [29.0, 36.6],
-      [28.4, 36.0], [27.2, 36.6], [26.6, 37.4], [26.6, 38.2], [26.0, 38.9], [25.8, 39.8],
+      ...AEGEAN_COAST,
+      ...ASIA_EAST,
+      ...rev(stretch(CARIAN_COAST, [25.80, 39.80], [29.20, 36.00])),
     ],
   },
   {
@@ -1020,22 +1280,14 @@ export const territories: TerritoryPeriod[] = [
     // and fought Rome from for nearly thirty. Drawn from 88, when he becomes Rome's
     // problem, on the same rule every eastern power on this map follows.
     id: "pontus-kingdom", polity: "pontus", name: "Pontus under Mithridates", mapLabel: "PONTUS", fromYear: -88, toYear: -64, certainty: "probable", labelAt: [36.5, 40.6],
-    ring: [
-      // The Black Sea coast, held offshore, from Paphlagonia east to Colchis.
-      [33.6, 42.4], [35.2, 42.6], [36.8, 42.4], [38.4, 41.8], [39.8, 41.6],
-      // The inland limit along the Anatolian plateau, back west.
-      [40.4, 40.6], [39.4, 39.8], [37.8, 39.6], [36.2, 39.8], [34.8, 40.2], [33.8, 41.0],
-    ],
+    ring: [...PONTUS_COAST, ...rev(PONTIC_LIMIT)],
   },
   {
     // 63: Pompey annexes the kingdom he did not conquer — Lucullus had beaten
     // Mithridates and been recalled — and joins it to Bithynia, which Rome had also
     // been left in a will. The Black Sea coast is Roman from here to the Empire.
     id: "rome-pontus", polity: "rome", name: "Bithynia and Pontus", mapLabel: "PONTUS", fromYear: -63, toYear: -30, certainty: "attested", labelAt: [36.5, 40.6],
-    ring: [
-      [33.6, 42.4], [35.2, 42.6], [36.8, 42.4], [38.4, 41.8], [39.8, 41.6],
-      [40.4, 40.6], [39.4, 39.8], [37.8, 39.6], [36.2, 39.8], [34.8, 40.2], [33.8, 41.0],
-    ],
+    ring: [...PONTUS_COAST, ...rev(PONTIC_LIMIT)],
   },
   {
     // 63: Syria. Pompey ended the Seleucid dynasty by deciding it was not worth
@@ -1050,10 +1302,17 @@ export const territories: TerritoryPeriod[] = [
     // territory in the year Rome gained it. Parthia is drawn after this and
     // takes the overlap beyond the Euphrates, which is where the frontier
     // actually was.
+    // The Seleucid frontier, because that is what Pompey took: a kingdom
+    // reorganised as a province, not a conquest with limits of its own. It runs
+    // from the Amanus along the Taurus to the Euphrates, down the river, and back
+    // along the desert edge — Parthia is drawn after this and takes the ground
+    // beyond the water, which is where the frontier actually was.
     ring: [
-      [35.8, 37.9], [37.2, 37.7], [38.6, 37.5], [40.0, 37.2],
-      [41.0, 36.4], [40.4, 35.0], [39.8, 33.4], [36.6, 32.8], [35.2, 31.6], [34.2, 31.6],
-      [34.6, 33.0], [35.4, 34.6], [35.6, 36.2],
+      ...stretch(TAURUS, AMANUS, EUPHRATES_TAURUS),
+      ...stretch(EUPHRATES, EUPHRATES_TAURUS, EUPHRATES_SOUTH),
+      ...SYRIA_DESERT_LIMIT,
+      ...stretch(LEVANT_COAST, GAZA_SEA, ISSUS_SEA),
+      [36.00, 36.90],
     ],
   },
   {
@@ -1068,11 +1327,12 @@ export const territories: TerritoryPeriod[] = [
     // shape the map had before: Antiochus' Cilicia in 64 and nobody's in 63.
     id: "rome-cilicia", polity: "rome", name: "Province of Cilicia", mapLabel: "CILICIA", fromYear: -63, toYear: -30, certainty: "attested", labelAt: [34.4, 36.9],
     ring: [
-      // The Taurus, from the rough coast east to the Amanus and the Syrian gates.
-      [33.0, 36.4], [33.6, 37.0], [34.6, 37.6], [35.8, 37.9],
-      [36.4, 37.0], [36.2, 36.2],
+      // The Taurus, from the rough coast east to the Amanus and the Syrian gates —
+      // the same range Syria is drawn against, so the two provinces meet on it.
+      ...stretch(TAURUS, TAURUS_SEA, AMANUS),
+      [36.35, 37.30], [36.20, 36.85],
       // Back west along the coast, held offshore throughout.
-      [35.4, 35.9], [34.6, 36.0], [33.6, 36.1],
+      ...stretch(CILICIA_COAST, ISSUS_SEA, TAURUS_SEA),
     ],
   },
   {
@@ -1089,9 +1349,17 @@ export const territories: TerritoryPeriod[] = [
     // draws seven, and the palette note in `data/factions.ts` says what that
     // requires: re-validating the whole set, not tinting one more entry.
     id: "parthia", polity: "parthia", name: "Parthia", mapLabel: "PARTHIA", fromYear: -63, toYear: -30, certainty: "probable", labelAt: [42.0, 34.6],
+    // The western edge only: the Euphrates, on the same points Syria is drawn on,
+    // so the two empires face each other across the river with nothing between
+    // them. Everything east of the line is drawn to the edge of the frame and no
+    // further, because the rest of the empire lies off this map — which is itself
+    // worth a reader knowing.
     ring: [
-      [40.4, 37.4], [42.0, 37.6], [43.8, 37.2], [44.0, 30.0],
-      [42.4, 30.4], [40.6, 32.0], [39.6, 33.6], [39.8, 35.4],
+      [39.60, 37.90], [40.20, 38.05], [40.80, 38.10], [41.40, 38.05], [42.00, 37.95],
+      [42.60, 37.80], [43.20, 37.60], [43.90, 37.40],
+      [44.00, 36.60], [44.00, 35.60], [44.00, 34.60], [44.00, 33.60], [44.00, 32.60],
+      [44.00, 31.60], [44.00, 30.60], [44.00, 30.00],
+      ...rev(EUPHRATES),
     ],
   },
   {
@@ -1110,13 +1378,10 @@ export const territories: TerritoryPeriod[] = [
     // century after Carthage and by the same mechanism: choosing wrongly in a Roman
     // quarrel. The Emporia go with it.
     id: "rome-africa-nova", polity: "rome", name: "Africa Nova", mapLabel: "AFRICA NOVA", fromYear: -46, toYear: -30, certainty: "attested", labelAt: [4.4, 35.6],
-    // The same outline as the kingdom, corner for corner — including the
-    // south-eastern reach into the pre-desert, or annexing Juba's kingdom would
-    // hand that strip to nobody in the year Rome took the whole of it.
-    ring: [
-      [-1.8, 35.4], [-1.0, 36.2], [0.2, 36.9], [1.6, 37.1], [3.0, 37.2], [4.6, 37.3], [6.0, 37.4], [7.2, 37.4],
-      [7.8, 36.6], [7.9, 35.6], [8.7, 34.1], [6.0, 33.8], [4.2, 33.4], [2.4, 33.4], [0.6, 33.8], [-1.2, 34.6],
-    ],
+    // Literally the kingdom's own outline: annexation should move a colour, not a
+    // frontier, and a province drawn even slightly smaller than the kingdom it
+    // replaced would hand the difference to nobody in the year Rome took all of it.
+    ring: NUMIDIA_RING,
   },
   {
     // The Emporia go with the kingdom, and have to be drawn doing it. Africa Nova
@@ -1125,10 +1390,7 @@ export const territories: TerritoryPeriod[] = [
     // same settlement — blank from 46. It is the same detached strip Masinissa
     // took in 162, changing hands again by the same mechanism.
     id: "rome-emporia", polity: "rome", name: "The Emporia", mapLabel: "EMPORIA", fromYear: -46, toYear: -30, certainty: "probable", labelAt: [13.2, 32.6],
-    ring: [
-      [9.8, 33.7], [10.4, 32.95], [11.6, 32.4], [13.0, 31.8], [14.6, 31.8], [15.6, 31.7],
-      [15.8, 32.5], [14.6, 32.9], [13.2, 33.2], [10.8, 34.1],
-    ],
+    ring: EMPORIA_RING,
   },
   {
     // 264–201: Egypt with Coele-Syria, which is the shape that explains the third
@@ -1137,19 +1399,21 @@ export const territories: TerritoryPeriod[] = [
     // both of those disappear.
     id: "ptolemaic", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -264, toYear: -201, certainty: "probable", labelAt: [29.5, 28.0],
     ring: [
-      // Cyrenaica and the Egyptian coast, every stretch pushed offshore so the
-      // Nile delta shore is never left pale.
-      [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.4, 31.5],
-      // Up the Levantine coast, offshore, to the Eleutherus frontier, then east.
-      [34.8, 32.6], [35.3, 33.6], [35.8, 35.0], [36.6, 35.0],
-      // Back south along the desert edge of Coele-Syria, then into Sinai. This
-      // line is authored identically on the Seleucid zone that takes the ground
-      // at Panium, so the handover in 200 moves it from one power to the other
-      // and leaves nothing behind: drawn further out, Egypt was claiming Edom and
-      // the Negev, and 200 opened a blank wedge there that never closed again.
-      [36.4, 32.6], [35.0, 31.4], [34.6, 31.6],
-      // Sinai and the Red Sea flank, then the Nubian limit and the desert west.
-      [34.6, 30.0], [34.0, 28.4], [33.4, 27.0], [33.0, 25.4], [32.6, 23.8], [31.0, 23.8], [29.0, 24.0], [26.6, 24.6], [24.2, 25.6], [22.0, 27.0], [20.4, 29.0],
+      // Cyrenaica and the Egyptian coast, every stretch pushed offshore so the Nile
+      // delta shore is never left pale.
+      ...EGYPT_COAST,
+      // Up the Levantine coast, offshore, to the Eleutherus — the frontier four
+      // Syrian wars were fought over before Antiochus finally took it at Panium.
+      ...stretch(LEVANT_COAST, GAZA_SEA, ELEUTHERUS),
+      // Back south along the desert edge of Coele-Syria, on the same points the
+      // Seleucid zone that takes the ground in 200 is drawn on: the handover moves
+      // the province from one power to the other and leaves nothing behind.
+      [36.70, 34.30], [36.75, 33.95], [36.75, 33.60], [36.65, 33.25], [36.50, 32.90],
+      [36.30, 32.55], [36.10, 32.20], [35.85, 31.90], [35.60, 31.60],
+      // Sinai and the Red Sea flank, the Nubian limit at the cataract, and the line
+      // of the western oases back to Cyrenaica.
+      ...rev(EGYPT_RED_SEA),
+      ...rev(EGYPT_DESERT_LIMIT),
     ],
   },
   {
@@ -1157,12 +1421,10 @@ export const territories: TerritoryPeriod[] = [
     // Cyrenaica again — the victory that freed him to turn west, and so the other
     // half of why the year 200 is a hinge on this map.
     id: "ptolemaic-egypt", polity: "ptolemaic", name: "Ptolemaic Egypt", mapLabel: "EGYPT", fromYear: -200, toYear: -31, certainty: "probable", labelAt: [29.5, 28.0],
-    ring: [
-      [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.6, 31.6],
-      // The Sinai edge is the one the earlier zone also uses, so losing Coele-Syria
-      // in 200 moves exactly that province and nothing else.
-      [34.6, 30.0], [34.0, 28.4], [33.4, 27.0], [33.0, 25.4], [32.6, 23.8], [31.0, 23.8], [29.0, 24.0], [26.6, 24.6], [24.2, 25.6], [22.0, 27.0], [20.4, 29.0],
-    ],
+    // Cyrenaica, the coast, the Sinai flank and the oases — the same edges the
+    // earlier zone carries, so losing Coele-Syria in 200 moves exactly that
+    // province and nothing else.
+    ring: [...EGYPT_COAST, ...rev(EGYPT_RED_SEA), ...rev(EGYPT_DESERT_LIMIT)],
   },
 
   // ── Italy before Rome held it, 509–265 BCE ─────────────────────────────────
@@ -1381,10 +1643,9 @@ export const territories: TerritoryPeriod[] = [
     // It is the last change on this map, and the end of the atlas: the last of
     // Alexander's successor kingdoms, gone three centuries after his death.
     id: "rome-egypt", polity: "rome", name: "Egypt", mapLabel: "EGYPT", fromYear: -30, toYear: -30, certainty: "attested", labelAt: [29.5, 28.0],
-    ring: [
-      [19.6, 31.4], [20.4, 33.2], [21.8, 33.4], [23.2, 33.0], [24.6, 32.2], [26.0, 32.0], [27.4, 31.9], [28.8, 32.0], [30.2, 32.1], [31.6, 32.1], [32.8, 31.8], [34.6, 31.6],
-      [34.6, 30.0], [34.0, 28.4], [33.4, 27.0], [33.0, 25.4], [32.6, 23.8], [31.0, 23.8], [29.0, 24.0], [26.6, 24.6], [24.2, 25.6], [22.0, 27.0], [20.4, 29.0],
-    ],
+    // The kingdom's own outline, unchanged: annexation moves a colour, not a
+    // frontier.
+    ring: [...EGYPT_COAST, ...rev(EGYPT_RED_SEA), ...rev(EGYPT_DESERT_LIMIT)],
   },
 ];
 

@@ -218,6 +218,14 @@ Both tests watch what *changes*, and neither could see ground that had been whit
 
 The fix that came out of it also introduced a convention worth knowing about. A zone for peoples rather than a state can be drawn as an envelope over everything they might have held, because a principal always takes the overlap: the Iberians are painted across the whole peninsula and the provinces over the top of them, so what a reader sees is exactly the country no province claimed, and the map never has to invent a border between Celtiberia and Lusitania that no source records. Zones drawn that way carry a `note` saying the outline is not a claim.
 
+### Frontiers are authored once, along the thing they are named after
+
+A zone used to carry its own copy of every edge, at five or six points for a thousand kilometres of country. That failed twice over. The lines read as ruled — 548 stretches of straight line crossed land, 62,000 km of it, and no river or mountain range on this map is straight. And an edge two powers shared had to be authored twice, so the Ebro existed three times and the Taurus twice, each copy free to drift and each needing an overshoot hack to stop a hairline of nobody's colour opening along the seam.
+
+So `data/territories.ts` opens with a library of features — the Pyrenees, the Ebro, the Alps, the Rhine, the Jura, the Apennine watershed, the Fossa Regia, the Saharan Atlas, the Taurus, the Euphrates, the Dinaric wall, the line of the Egyptian oases — each authored once at roughly a point every twenty to thirty kilometres, and zones are composed out of stretches of them with `stretch(FEATURE, from, to)`, which names places rather than array indices. Two powers meeting on the Ebro are drawn on the same points, so the seam cannot open; correcting a river corrects every zone that claims it. The ruled line is down from 62,000 km to 28,000, and most of what is left is Parthia against the eastern edge of the frame, which is a clip boundary rather than a frontier and is straight because the frame is.
+
+Only edges that cross land get the detail. Fills are clipped to the coastline, so a ring's offshore stretches draw nothing and stay coarse on purpose — but they are carried round Armorica, the Gironde, the Rhône delta, Cap Bon, the Gulf of Gabès and the Gargano, because a chord across a convex coast cuts a headland off from the country behind it. `stretch()` resolves its endpoints to the nearest authored point, so adding detail to a feature never breaks a zone that was composed from it.
+
 If you add an era outside 509–30 BCE, update `TIMELINE_START_YEAR`/`TIMELINE_END_YEAR` in `lib/historicalDates.ts` too — the bounds are literals there so the module stays free of runtime imports for the type-stripping test runner, and a test asserts the two stay in sync.
 
 ## Historical method and uncertainty
